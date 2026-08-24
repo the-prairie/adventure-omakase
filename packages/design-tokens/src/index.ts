@@ -1,0 +1,107 @@
+export const tokens = {
+  color: {
+    background: '#F7F2E8',
+    surfaceElevated: '#FFFCF6',
+    surfaceSunken: '#F0E8DA',
+    textPrimary: '#1D1C19',
+    textSecondary: '#6F685C',
+    textTertiary: '#958C7C',
+    border: '#E5DCCB',
+    actionPrimary: '#171717',
+    actionPrimaryContrast: '#FFFCF6',
+    accent: '#B58C4A',
+    accentContrast: '#1D1C19',
+    accentSoft: '#DCC89D',
+    success: '#68755F',
+    warning: '#B58C4A',
+    danger: '#C65D47',
+  },
+  space: {
+    1: 4,
+    2: 8,
+    3: 12,
+    4: 16,
+    5: 20,
+    6: 24,
+    7: 32,
+    8: 48,
+  },
+  radius: {
+    small: 12,
+    medium: 18,
+    large: 30,
+    round: 999,
+  },
+  type: {
+    size: {
+      small: 14,
+      body: 16,
+      title: 32,
+    },
+    lineHeight: {
+      small: 20,
+      body: 24,
+      title: 38,
+    },
+    weight: {
+      regular: '400',
+      medium: '600',
+      bold: '700',
+    },
+  },
+  size: {
+    minimumTouchTarget: 44,
+    primaryButtonHeight: 52,
+    contentMaxWidth: 720,
+  },
+  shadow: {
+    elevated: {
+      color: '#171717',
+      opacity: 0.1,
+      radius: 16,
+      offsetY: 6,
+    },
+  },
+  motion: {
+    fast: 180,
+    standard: 220,
+    ritual: 360,
+  },
+} as const;
+
+export type DesignTokens = typeof tokens;
+
+export function tokensToCssVariables(): Record<string, string> {
+  return {
+    '--ao-color-background': tokens.color.background,
+    '--ao-color-surface-elevated': tokens.color.surfaceElevated,
+    '--ao-color-surface-sunken': tokens.color.surfaceSunken,
+    '--ao-color-text-primary': tokens.color.textPrimary,
+    '--ao-color-text-secondary': tokens.color.textSecondary,
+    '--ao-color-text-tertiary': tokens.color.textTertiary,
+    '--ao-color-border': tokens.color.border,
+    '--ao-color-action-primary': tokens.color.actionPrimary,
+    '--ao-color-action-primary-contrast': tokens.color.actionPrimaryContrast,
+    '--ao-color-accent': tokens.color.accent,
+    '--ao-color-accent-contrast': tokens.color.accentContrast,
+    '--ao-color-accent-soft': tokens.color.accentSoft,
+    '--ao-color-success': tokens.color.success,
+    '--ao-color-warning': tokens.color.warning,
+    '--ao-color-danger': tokens.color.danger,
+    '--ao-space-1': `${tokens.space[1]}px`,
+    '--ao-space-2': `${tokens.space[2]}px`,
+    '--ao-space-3': `${tokens.space[3]}px`,
+    '--ao-space-4': `${tokens.space[4]}px`,
+    '--ao-space-5': `${tokens.space[5]}px`,
+    '--ao-space-6': `${tokens.space[6]}px`,
+    '--ao-space-7': `${tokens.space[7]}px`,
+    '--ao-space-8': `${tokens.space[8]}px`,
+    '--ao-radius-small': `${tokens.radius.small}px`,
+    '--ao-radius-medium': `${tokens.radius.medium}px`,
+    '--ao-radius-large': `${tokens.radius.large}px`,
+    '--ao-content-max-width': `${tokens.size.contentMaxWidth}px`,
+    '--ao-motion-fast': `${tokens.motion.fast}ms`,
+    '--ao-motion-standard': `${tokens.motion.standard}ms`,
+    '--ao-motion-ritual': `${tokens.motion.ritual}ms`,
+  };
+}

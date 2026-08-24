@@ -1,0 +1,78 @@
+name: adventure-omakase-production-smoke
+
+services:
+  db:
+    image: postgis/postgis:18-3.6
+    platform: linux/amd64
+    environment:
+      POSTGRES_DB: adventure_omakase
+      POSTGRES_PASSWORD: local_development_only
+      POSTGRES_USER: adventure_omakase
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}
+      interval: 2s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    ports:
+      - 55432:5432
+    volumes:
+      - smoke-postgis-data:/var/lib/postgresql
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      API_CORS_ORIGINS: http://127.0.0.1:3300
+      API_HOST: 0.0.0.0
+      API_PORT: 4000
+      APP_VERSION: smoke
+      DATABASE_URL: postgresql://adventure_omakase:local_development_only@db:5432/adventure_omakase
+      GIT_SHA: smoke
+      LOG_LEVEL: info
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:4000/ready').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 5s
+    ports:
+      - 4400:4000
+
+  studio:
+    build:
+      context: .
+      dockerfile: apps/studio/Dockerfile
+    environment:
+      API_BASE_URL: http://api:4000
+      API_REQUEST_TIMEOUT_MS: 5000
+      NODE_ENV: production
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/api/health').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 5s
+    ports:
+      - 3300:3000
+
+volumes:
+  smoke-postgis-data:

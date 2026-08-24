@@ -1,0 +1,23 @@
+packages:
+  - apps/*
+  - packages/*
+
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
+
+engineStrict: true
+injectWorkspacePackages: true
+linkWorkspacePackages: true
+saveExact: true
+strictPeerDependencies: true
+
+catalog:
+  '@types/node': 24.3.0
+  '@types/react': 19.2.18
+  '@types/react-dom': 19.1.9
+  react: 19.2.3
+  react-dom: 19.2.3
+  typescript: 6.0.3
+  vitest: 4.1.11
+  zod: 4.1.5
