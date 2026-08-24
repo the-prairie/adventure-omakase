@@ -5,8 +5,8 @@ on:
     branches:
       - feat/adventure-route-engine-osaka
     paths:
-      - "adventure-route-engine/**"
-      - ".github/workflows/adventure-route-engine-diagnostics.yml"
+      - 'adventure-route-engine/**'
+      - '.github/workflows/adventure-route-engine-diagnostics.yml'
 
 permissions:
   contents: read
@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.12'
       - run: python -m pip install --disable-pip-version-check uv==0.10.0
       - run: uv sync --all-extras
       - name: Run all Python checks
@@ -72,7 +72,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: '22'
       - run: npm install
       - name: Run web checks
         id: checks
