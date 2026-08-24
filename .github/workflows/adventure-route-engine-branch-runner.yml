@@ -5,8 +5,8 @@ on:
     branches:
       - feat/adventure-route-engine-osaka
     paths:
-      - "adventure-route-engine/**"
-      - ".github/workflows/adventure-route-engine-branch-runner.yml"
+      - 'adventure-route-engine/**'
+      - '.github/workflows/adventure-route-engine-branch-runner.yml'
   workflow_dispatch:
 
 permissions:
@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.12'
       - run: python -m pip install --disable-pip-version-check uv==0.10.0
       - run: uv sync --all-extras
       - run: uv run ruff format --check .
@@ -39,7 +39,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: '22'
       - run: npm install
       - run: npm run typecheck
       - run: npm run build
@@ -55,7 +55,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.12'
       - run: python -m pip install --disable-pip-version-check uv==0.10.0
       - run: uv sync --all-extras
       - run: sudo apt-get update && sudo apt-get install -y osmium-tool
