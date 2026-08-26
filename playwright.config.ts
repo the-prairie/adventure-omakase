@@ -1,23 +1,15 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
+
+import { sharedPlaywrightConfig } from './playwright.shared.js';
 
 const databaseUrl =
   process.env.DATABASE_URL ??
   'postgresql://adventure_omakase:local_development_only@127.0.0.1:54320/adventure_omakase';
 
-export default defineConfig({
-  testDir: './tests/e2e',
-  timeout: 30_000,
-  expect: { timeout: 10_000 },
-  fullyParallel: false,
-  forbidOnly: Boolean(process.env.CI),
-  retries: process.env.CI ? 2 : 0,
-  reporter: process.env.CI ? [['html', { open: 'never' }], ['github']] : 'list',
+export default defineConfig(sharedPlaywrightConfig, {
   use: {
     baseURL: 'http://127.0.0.1:3000',
-    trace: 'retain-on-failure',
-    screenshot: 'only-on-failure',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: [
     {
       command: './node_modules/.bin/tsx apps/api/src/server.ts',
