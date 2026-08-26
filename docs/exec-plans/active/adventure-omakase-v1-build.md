@@ -40,7 +40,9 @@ A product requirement is not complete because a package, route, schema, mock or 
 
 ## Immediate next slice
 
-After the repository-hardening pull request is green, begin `S1 Native visual foundation` and `S2 Identity + Party` only through an integrated tracer that advances toward `AO-086`. Keep `S4` as the first complete product milestone.
+Begin `S1 Native visual foundation` and `S2 Identity + Party` through one integrated tracer that advances toward `AO-086`.
+Start with installable native visual primitives and a guest trip/join boundary that can be exercised on iOS and Android without introducing the later compiler or provider stack.
+Keep `S4` as the first complete product milestone.
 
 ## Completion audit
 
