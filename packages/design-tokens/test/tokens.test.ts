@@ -18,6 +18,14 @@ describe('semantic design tokens', () => {
       '--ao-color-action-primary': tokens.color.actionPrimary,
       '--ao-color-accent': tokens.color.accent,
       '--ao-space-4': `${tokens.space[4]}px`,
+      '--ao-radius-round': `${tokens.radius.round}px`,
+      '--ao-type-size-display': `${tokens.type.size.display}px`,
+      '--ao-type-line-height-display': `${tokens.type.lineHeight.display}px`,
+      '--ao-type-weight-bold': tokens.type.weight.bold,
+      '--ao-size-minimum-touch-target': `${tokens.size.minimumTouchTarget}px`,
+      '--ao-size-primary-button-height': `${tokens.size.primaryButtonHeight}px`,
+      '--ao-shadow-elevated': `0 ${tokens.shadow.elevated.offsetY}px ${tokens.shadow.elevated.radius}px color-mix(in srgb, ${tokens.shadow.elevated.color} ${tokens.shadow.elevated.opacity * 100}%, transparent)`,
+      '--ao-motion-standard': `${tokens.motion.standard}ms`,
     });
   });
 });
