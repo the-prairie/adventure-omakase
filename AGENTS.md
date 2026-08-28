@@ -7,6 +7,23 @@ Read, in order:
 3. `ARCHITECTURE.md`
 4. Applicable ADRs and nested `AGENTS.md` files
 
+## Agent skills
+
+### Issue tracker
+
+Engineering issues live in GitHub Issues for `the-prairie/adventure-omakase`; external pull requests are not a triage surface.
+See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The repository uses the standard five-state triage vocabulary.
+See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+The repository uses a single-context domain layout with system decisions under `docs/decisions/`.
+See `docs/agents/domain.md`.
+
 The complete product plan is present and authoritative. Never reintroduce a “missing plan” blocker.
 
 Select the highest-priority unblocked requirement in the active ledger and work through an integrated vertical slice. Keep status, acceptance, implementation evidence, observed test evidence and commit SHA current. A scaffold, type, table, route or mock does not complete a product requirement.

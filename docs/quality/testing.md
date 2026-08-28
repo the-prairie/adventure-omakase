@@ -5,6 +5,7 @@
 Unit tests cover schemas, configuration, transport deadlines/cancellation, components and isolated runtime behavior.
 
 Integration tests prove the real PostgreSQL/PostGIS migration and API readiness path. They intentionally fail with an actionable error when `DATABASE_URL` is absent; infrastructure-backed suites never report success by silently skipping.
+Compose reports the database healthy only after the target database can execute `postgis_full_version()`, preventing migrations from racing the image's initialization restart.
 
 Provider contract tests will exercise deterministic success and failure fixtures behind the same interfaces used in production.
 
