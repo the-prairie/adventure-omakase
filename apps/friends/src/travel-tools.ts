@@ -4,6 +4,14 @@ import { geminiGenerate, shortUsage, paidCall } from './companion-provider.js';
 import type { Env, Row } from './platform.js';
 const asText = (v: unknown, max = 500) =>
   typeof v === 'string' ? v.slice(0, max) : '';
+function sourceWebsite(value: unknown): string {
+  if (typeof value !== 'string') return '';
+  try {
+    return publicURL(value.replace(/^http:/i, 'https:')).href;
+  } catch {
+    return '';
+  }
+}
 export const mapsLink = (query: string, placeId = '') =>
   'https://www.google.com/maps/search/?' +
   new URLSearchParams({
@@ -59,7 +67,7 @@ export async function findPlaces(
           name: asText(p.displayName?.text, 200),
           address: asText(p.formattedAddress),
           url: mapsLink(asText(p.displayName?.text, 200), asText(p.id, 200)),
-          website: p.websiteUri ? publicURL(p.websiteUri).href : '',
+          website: sourceWebsite(p.websiteUri),
           hours: (p.regularOpeningHours?.weekdayDescriptions || []).map(
             (v: unknown) => asText(v, 200),
           ),

@@ -165,7 +165,7 @@ test('places and routes use provider responses and never turn published hours in
             formattedAddress: 'Example street, Osaka',
             regularOpeningHours: { weekdayDescriptions: ['Monday: 12–14'] },
             businessStatus: 'OPERATIONAL',
-            websiteUri: 'https://example.com/',
+            websiteUri: 'http://example.com/',
           },
         ],
       });
