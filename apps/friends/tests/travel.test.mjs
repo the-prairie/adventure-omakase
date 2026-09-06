@@ -485,3 +485,29 @@ test('provider rejection exposes only safe diagnostics, never the key or raw pro
     },
   );
 });
+
+test('definite model rejection releases its reservation; transport failure retains it', async () => {
+  const { env } = await setup();
+  env.GEMINI_API_KEY = 'fixture';
+  const { geminiGenerate } = await import('../build/companion-provider.js');
+  await assert.rejects(
+    geminiGenerate(env, { contents: [] }, signal(), async () =>
+      Response.json({ error: { status: 'UNAVAILABLE' } }, { status: 503 }),
+    ),
+    /HTTP 503/,
+  );
+  assert.equal(
+    env.DB.db.prepare('SELECT used FROM service_budget').get().used,
+    0,
+  );
+  await assert.rejects(
+    geminiGenerate(env, { contents: [] }, signal(), async () => {
+      throw Error('Connection lost');
+    }),
+    /Connection lost/,
+  );
+  assert.equal(
+    env.DB.db.prepare('SELECT used FROM service_budget').get().used,
+    1050000,
+  );
+});

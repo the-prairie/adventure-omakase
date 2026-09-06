@@ -8,7 +8,7 @@ Keep the companion inside the same authenticated friends app. Gemini 3.8 Flash s
 
 Venue research issues one Places lookup, reads at most three returned public venue websites through the existing SSRF guards, then requests one source-only Gemini answer. Ask's explicit new-place search uses Places with independently read website evidence. Built-in Gemini Google Search is disabled: its variable number of billed searches has no documented enforceable per-request limit. The UI describes the narrower venue-research scope.
 
-Every paid call atomically reserves from one durable deployment-wide US$5 lifetime ceiling, matching the user's testing authorization. A token-only Gemini request reserves US$1.05 at the current rates, or US$2.10 from January 2027: its full published input/output capacity costs at most US$1.032192 or US$2.064384 respectively. It forces one candidate and rejects built-in paid tools. Success settles reported usage; failure consumes the full reservation because a failed response does not prove no charge. Places reserves US$0.05 and Routes US$0.02 per single request. Free allowances are not needed for the bound. Provider invoices remain the billing record. The conservative reservation can refuse requests before the apparent remaining balance is zero; resetting or increasing the allowance is not an automatic feature.
+Every paid call atomically reserves from one durable deployment-wide US$5 lifetime ceiling, matching the user's testing authorization. A token-only Gemini request reserves US$1.05 at the current rates, or US$2.10 from January 2027: its full published input/output capacity costs at most US$1.032192 or US$2.064384 respectively. It forces one candidate and rejects built-in paid tools. Success settles reported usage. A definite Gemini 4xx/5xx rejection releases the reservation under Google's documented no-token-charge policy; transport failures, timeouts and missing usage consume the full claim because the billing outcome is unknown. Places reserves US$0.05 and Routes US$0.02 per single request. Free allowances are not needed for the bound. Provider invoices remain the billing record. The conservative reservation can refuse requests before the apparent remaining balance is zero; resetting or increasing the allowance is not an automatic feature.
 
 Translation and memory media are submitted only by explicit action, resized in the browser where applicable, and never retained by the app. Private helper text results expire after seven days and can be recovered through Recent drafts. Saving a reviewed memory uses the ordinary memory form. Places, route and venue-research results are transient; the task record contains only a fresh-check notice. Google Maps attribution and public terms/privacy pages accompany the tools.
 
@@ -26,6 +26,7 @@ Deterministic protocol and native workerd/browser tests verify contracts, isolat
 
 - [Gemini model limits](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash)
 - [GenerateContent and tool configuration](https://ai.google.dev/api/generate-content)
+- [Gemini billing and failed requests](https://ai.google.dev/gemini-api/docs/billing)
 - [Google Search billing](https://ai.google.dev/gemini-api/docs/google-search)
 - [Places attribution and policies](https://developers.google.com/maps/documentation/places/web-service/policies)
 

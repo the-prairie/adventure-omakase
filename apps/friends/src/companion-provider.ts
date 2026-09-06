@@ -2,6 +2,9 @@ import { AskError, record, type Usage } from './ask-contract.js';
 import type { Model } from './ask-engine.js';
 import type { Env, Row } from './platform.js';
 
+// Google documents that rejected 4xx/5xx requests do not incur token charges.
+class RejectedModelRequest extends AskError {}
+
 export const GEMINI_MODEL = 'gemini-3.8-flash';
 export const providerName = (env: Env) =>
   env.GEMINI_API_KEY ? 'gemini' : 'cloudflare';
@@ -46,11 +49,11 @@ export async function paidCall<T>(
       .run();
     return result.value;
   } catch (e) {
-    // Failed/aborted network calls can still be billed. Keep the whole claim consumed.
+    // Only a definite provider rejection is unbilled. Lost responses/timeouts keep the claim.
     await env.DB.prepare(
       "UPDATE service_budget SET reserved=max(0,reserved-?),used=used+? WHERE id='companion'",
     )
-      .bind(reserve, reserve)
+      .bind(reserve, e instanceof RejectedModelRequest ? 0 : reserve)
       .run();
     throw e;
   }
@@ -136,7 +139,7 @@ export async function geminiGenerate(
               : /schema|generation.config/i.test(message)
                 ? 'The model rejected the response configuration.'
                 : 'The model service could not complete this request.';
-      throw new AskError(
+      throw new RejectedModelRequest(
         response.status === 429 ? 429 : 502,
         `${explanation} Provider HTTP ${response.status} (${code}). Nothing was published.`,
       );
