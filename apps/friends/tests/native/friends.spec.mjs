@@ -82,6 +82,7 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       const link = await a.locator('#invite-url').inputValue();
       expect(link).toContain('#join=');
       await close(a);
+      await b.setViewportSize({ width: 390, height: 844 });
       await b.goto(link);
       await expect(
         b.locator('#auth-form input:not([type=hidden])'),
@@ -93,6 +94,7 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
         path: testInfo.outputPath('join-mobile.png'),
         fullPage: true,
       });
+      await expect(b.locator('#auth-form [type=submit]')).toBeInViewport();
       await b.locator('#f-name').fill('Test B');
       await b.locator('#auth-form [type=submit]').click();
       await expect(
@@ -169,7 +171,9 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
         fullPage: true,
       });
       await nav(b, 'day');
-      await b.locator('[data-action=day][data-id="2026-10-04"]').click();
+      await expect(
+        b.locator('[data-action=day][data-id="2026-10-04"]'),
+      ).toHaveAttribute('aria-pressed', 'true');
       await expect(b.locator('.commitment')).toContainText('09:00–10:00 JST');
       await expect(b.locator('.commitment')).toContainText(
         'Synthetic coffee meeting',
@@ -491,4 +495,26 @@ test('unavailable research offers a working fieldbook fallback', async ({
   await expect(page.locator('#dialog')).not.toBeVisible();
   await expect(page.locator('#search')).toBeVisible();
   expect((await state(page)).plans).toEqual([]);
+});
+
+test('opening a new dialog starts at its title after a long form', async ({
+  page,
+  runtime,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(runtime.url + '/#setup=' + TEST_KEY);
+  await page.locator('#f-name').fill('Dialog tester');
+  await page.locator('#auth-form [type=submit]').click();
+  await action(page, 'plan-new').click();
+  await page.locator('#plan-form [type=submit]').scrollIntoViewIfNeeded();
+  expect(
+    await page.locator('#dialog').evaluate((d) => d.scrollTop),
+  ).toBeGreaterThan(0);
+  await close(page);
+  await action(page, 'discover-nav').click();
+  await page.locator('.discovery-grid [data-action=discovery]').first().click();
+  await expect
+    .poll(() => page.locator('#dialog').evaluate((d) => d.scrollTop))
+    .toBe(0);
+  await expect(page.locator('#dialog h2')).toBeInViewport();
 });
