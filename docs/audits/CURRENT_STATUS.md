@@ -52,3 +52,7 @@ For the companion, set explicit Osaka travel dates and preferences, choose Septe
 Runtime: Cloudflare Worker + D1 + private R2, Workers AI binding with `@cf/openai/gpt-oss-120b`, bounded public-page research and one external search. Per task: 75 seconds, four model turns, four tool calls, four sources, one repair and a 3,000-neuron reservation; per trip/day 8,000 reserved neurons and per member/hour four requests. See ADR 0007 for accounting and cancellation limits.
 
 Remaining gates: revised shortlist and full deployed live-model acceptance, physical iPhone/Android checks, and explicit merge/production approval. No production deployment or paid subscription was performed.
+
+## Google backend configuration — September 6
+
+Gemini authorization and Maps restricted keys are installed as encrypted preview Worker secrets. Direct text, Japanese translation, function-calling, Places and Routes tests passed; Gemini function calling required one retry after a timeout. See [setup evidence](google-backend-setup-2026-09-06.md) for project split, quotas, budget alerts, credential incident remediation and remaining release gates. The deployed preview remains at `42cbbf88aa052f7f92c295245aa0a94af6d09238`; the active companion implementation was not deployed by this setup.
