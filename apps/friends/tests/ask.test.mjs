@@ -479,3 +479,78 @@ test('trip window is owner editable and cannot exclude an existing plan', async 
     409,
   );
 });
+
+test('new discovery research can search and check before the final model turn', async () => {
+  const { runAsk } = await import('../build/ask-engine.js');
+  const lead = catalogue.find((p) => p.id === 'osaka-001');
+  const fresh = {
+    ...lead,
+    id: 'new-public-place',
+    title: 'Synthetic new place',
+  };
+  let calls = 0;
+  const checked = [];
+  const model = {
+    async run(_model, request) {
+      const turn = calls++;
+      if (turn > 0) assert.match(request.messages[0].content, /search_places/);
+      if (turn === 3) {
+        assert.ok(request.response_format);
+        const evidence = JSON.parse(
+          request.messages[1].content,
+        ).checkedEvidence;
+        assert.ok(evidence.some((s) => s.discoveryId === fresh.id));
+        return {
+          response: JSON.stringify({
+            question: 'Which of these areas would you prefer?',
+            options: [],
+          }),
+        };
+      }
+      assert.ok(request.tools, 'research turn must retain tools');
+      const name = turn === 1 ? 'search_places' : 'check_sources';
+      const args =
+        turn === 1
+          ? { query: 'new places in Namba' }
+          : { discoveryIds: [turn === 0 ? lead.id : fresh.id] };
+      return {
+        tool_calls: [
+          {
+            id: 'call-' + turn,
+            type: 'function',
+            function: { name, arguments: JSON.stringify(args) },
+          },
+        ],
+      };
+    },
+  };
+  await runAsk(
+    input({ prompt: 'Find new places beyond the book' }),
+    {},
+    [lead],
+    model,
+    {
+      progress: async () => {
+        /* No persistent task exists in this engine-only fixture. */
+      },
+      searchPlaces: async () => [fresh],
+      checkSource: async (p) => {
+        checked.push(p.id);
+        return {
+          id: 'src-' + p.id,
+          discoveryId: p.id,
+          url: p.source,
+          title: p.title,
+          checkedAt: new Date().toISOString(),
+          status: 'read',
+          text: QUOTE,
+          digest: 'fixture',
+          cached: false,
+        };
+      },
+    },
+    new AbortController().signal,
+  );
+  assert.equal(calls, 4);
+  assert.deepEqual(checked, [lead.id, fresh.id]);
+});
