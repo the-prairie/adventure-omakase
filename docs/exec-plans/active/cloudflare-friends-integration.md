@@ -23,9 +23,9 @@ The September 6 user assignment supersedes the native-first release scope for th
 | Native browser             | Passed                     | 10 Chromium/WebKit tests plus 2 hostile-name rendering checks with real navigation/cookies/fetch/storage. Clock and visibility signals are controlled in the lifecycle test only. |
 | Repository gates           | Passed                     | pnpm check; DB migration + integration; NODE_ENV=production pnpm build; both development and production-container E2E.                                                            |
 | Release tooling            | Locally verified           | Separate bindings, content hashes, stale-client guard, exact HTTPS release gate.                                                                                                  |
-| Preview / production       | Preview deployed           | Preview deployed at 76aa4af; production requires protected main-branch approval.                                                                                                  |
+| Preview / production       | Preview deployed           | Preview deployed at fddf2cb; production requires protected main-branch approval.                                                                                                  |
 | Backup / restore           | Passed cloud round-trip    | D1 snapshot and R2 photo restored into isolated resources; hashes and restored UI verified.                                                                                       |
-| Ask Omakase                | In progress                | 68 fast tests and fixture browser journey pass; real model/source preflight returned validated cards; live shared journey blocked by exhausted daily provider allowance.          |
+| Ask Omakase                | In progress                | 82 fast tests and fixture browser journeys pass; live Google text/sign/route pass; audio and AI invitation returned HTTP 503. Full live companion acceptance remains incomplete.  |
 | Physical phones            | Pending user participation | Actual iPhone/Android acceptance is distinct from browser emulation.                                                                                                              |
 
 Update `docs/audits/CURRENT_STATUS.md` with observed commands, tested commit, deployment identity and remaining gates before handoff.
@@ -40,15 +40,15 @@ September 6: Gemini and Maps credentials installed on the preview Worker; direct
 
 ## September 6 amendment: travel companion and actual walkthrough
 
-The user requested end-to-end implementation and a recorded walkthrough using the real app and services, and authorized up to US$5 in live testing. They will install Gemini and Google Maps secrets on the preview Worker. ADR 0008 records provider, cost, privacy and watch boundaries.
+The user requested end-to-end implementation and a recorded walkthrough using the real app and services, and authorized up to US$5 in live testing. Gemini and Google Maps secrets are installed on the preview Worker. ADR 0008 records provider, cost, privacy and watch boundaries.
 
-| Requirement                 | Implementation and observed evidence                                                                                                | Remaining acceptance                                     |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| Provider adapters and spend | Gemini protocol, one-candidate paid reservation, Places/Routes contract tests; unbounded paid tools rejected                        | Real configured-provider calls and usage                 |
-| Travel helpers              | Text/media interpretation, recoverable private drafts, transient places/routes, bounded venue research                              | Live text/photo/audio and venue/route results            |
-| Host replan                 | Existing contents and stable part identities, canonical revision update, idempotency and reconfirmation tests                       | Live model replan walkthrough                            |
-| Explicit website watches    | Private persisted jobs/events, deadlines, cancellation, cooldown, leases, failure pause; deterministic handler tests                | Actual preview handler/cron evidence                     |
-| Backup v5                   | Populated helper/budget/watch/event round-trip test; earlier versions remain supported                                              | Updated cloud backup after preview migration             |
-| Browser UX                  | 14 Chromium/WebKit tests passed, including reviewed memory flow and recent-result recovery; translation/route screenshots inspected | Real service walkthrough video and physical-device check |
+| Requirement                 | Implementation and observed evidence                                                                                                | Remaining acceptance                                                              |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Provider adapters and spend | Gemini protocol, one-candidate paid reservation, Places/Routes contract tests; unbounded paid tools rejected                        | Text/sign/route passed; Places quota and model 503 block remaining calls          |
+| Travel helpers              | Text/media interpretation, recoverable private drafts, transient places/routes, bounded venue research                              | Text/sign/route/reviewed save passed; audio/venue remain blocked                  |
+| Host replan                 | Existing contents and stable part identities, canonical revision update, idempotency and reconfirmation tests                       | Live model replan walkthrough                                                     |
+| Explicit website watches    | Private persisted jobs/events, deadlines, cancellation, cooldown, leases, failure pause; deterministic handler tests                | Actual public-page baseline, UI cancel and scheduled check passed                 |
+| Backup v5                   | Populated helper/budget/watch/event round-trip test; earlier versions remain supported                                              | New v5 cloud backup complete; new cloud v5 restore not run                        |
+| Browser UX                  | 14 Chromium/WebKit tests passed, including reviewed memory flow and recent-result recovery; translation/route screenshots inspected | Actual partial walkthrough recorded; failed provider steps visible; phone pending |
 
 Do not mark the walkthrough complete from fixture screenshots or a script that has not run. No merge or production deployment is authorized by this amendment.
