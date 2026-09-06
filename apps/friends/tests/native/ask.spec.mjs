@@ -61,7 +61,7 @@ test('fixture AI cards confirm an ordinary invitation with lunch-only participat
     await a.locator('#ask-form [type=submit]').click();
     await expect(a.locator('.ask-option')).toHaveCount(2);
     await expect(a.locator('#dialog')).toContainText(
-      'Monday, 28 September 2026',
+      /Monday,? 28 September 2026/,
     );
     await a.screenshot({
       path: info.outputPath('ask-fixture-options-desktop.png'),
