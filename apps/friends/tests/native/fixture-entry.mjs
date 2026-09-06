@@ -16,14 +16,16 @@ globalThis.fetch = async (input, init) => {
           content: {
             parts: [
               {
-                text: JSON.stringify({
-                  original: '今日は散歩しました。',
-                  translated: memory
-                    ? 'We tested the fieldbook together.'
-                    : 'I went for a walk today.',
-                  romanization: memory ? 'Fieldbook test' : '',
-                  notes: 'Synthetic provider fixture; not live acceptance.',
-                }),
+                text: prompt.startsWith('Answer this venue question')
+                  ? 'Synthetic venue research. The supplied page describes the test venue [1]. This fixture does not establish live availability.'
+                  : JSON.stringify({
+                      original: '今日は散歩しました。',
+                      translated: memory
+                        ? 'We tested the fieldbook together.'
+                        : 'I went for a walk today.',
+                      romanization: memory ? 'Fieldbook test' : '',
+                      notes: 'Synthetic provider fixture; not live acceptance.',
+                    }),
               },
             ],
           },

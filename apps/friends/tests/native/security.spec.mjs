@@ -13,9 +13,11 @@ test('shared names remain text after reload and profile rendering', async ({
   await page.goto(runtime.url + '/#setup=' + TEST_KEY);
   await page.locator('#f-name').fill(name);
   await page.locator('#auth-form [type=submit]').click();
-  await expect(page.locator('.meta-line')).toContainText(name);
+  await page.locator('[data-nav=people]:visible').first().click();
+  await expect(page.locator('.portrait-card h3')).toContainText(name);
   await page.reload();
-  await expect(page.locator('.meta-line')).toContainText(name);
+  await page.locator('[data-nav=people]:visible').first().click();
+  await expect(page.locator('.portrait-card h3')).toContainText(name);
   await page.locator('[data-action=profile]:visible').first().click();
   await expect(page.locator('#f-name')).toHaveValue(name);
   await expect(page.locator('img[onerror]')).toHaveCount(0);

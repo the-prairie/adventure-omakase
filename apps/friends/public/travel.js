@@ -72,12 +72,12 @@ window.OmakaseTravel = function ({
       return;
     }
     const heading = {
-      translate: 'A little help<br><em>with the words.</em>',
-      memory: 'Tell it<br><em>in your own words.</em>',
-      places: 'A little closer<br><em>to where you are.</em>',
-      route: 'From here<br><em>to there.</em>',
-      search: 'Follow<br><em>your curiosity.</em>',
-      watch: 'Keep an eye<br><em>on one page.</em>',
+      translate: 'Translate a sign or a few words.',
+      memory: 'Keep a memory in your words.',
+      places: 'Find nearby places.',
+      route: 'Find your way there.',
+      search: 'Research a place.',
+      watch: 'Watch a public page.',
     }[kind];
     let fields = '';
     if (['translate', 'memory'].includes(kind))
@@ -129,7 +129,7 @@ window.OmakaseTravel = function ({
         '<div class="field"><label for="travel-hours">Stop after</label><select id="travel-hours" name="hours"><option value="24">24 hours</option><option value="72">3 days</option><option value="168">7 days</option><option value="336">14 days</option></select></div><div class="notice">Checks run approximately hourly. You will see an in-app update only when the readable page changes or repeated checks fail. This watches published text; it cannot verify ticket inventory or bookings. Login-only and script-only pages may not work.</div><label class="travel-consent"><input name="confirm" type="checkbox" required> Schedule this watch until its deadline.</label>';
     show(
       'Travel companion',
-      `<div class="eyebrow">A useful little companion</div><h2>${heading || ''}</h2><form id="travel-form" data-kind="${E(kind)}">${fields}${errorMarkup}<div class="form-actions"><button class="btn primary" type="submit">${{ translate: 'Interpret this', memory: 'Draft my memory', places: 'Find nearby places', route: 'Get route estimate', search: 'Search public sources', watch: 'Confirm & start watch' }[kind]}</button>${button('Recent drafts', 'history')}${button('My checks', 'watches')}</div></form>`,
+      `<h2>${heading || ''}</h2><form id="travel-form" data-kind="${E(kind)}">${fields}${errorMarkup}<div class="form-actions"><button class="btn primary" type="submit">${{ translate: 'Interpret this', memory: 'Draft my memory', places: 'Find nearby places', route: 'Get route estimate', search: 'Search public sources', watch: 'Confirm & start watch' }[kind]}</button>${button('Recent drafts', 'history')}${button('My checks', 'watches')}</div></form>`,
     );
   }
   function progress(kind) {
@@ -205,13 +205,13 @@ window.OmakaseTravel = function ({
     }
     let html = '';
     if (['translate', 'memory'].includes(r.kind))
-      html = `<div class="eyebrow">${r.kind === 'memory' ? 'A draft for you to review' : 'Machine translation · keep the original'}</div><h2>${r.kind === 'memory' ? 'Your words.<br><em>Your memory.</em>' : 'A little clearer.'}</h2><div class="translation-pair"><section><h3>Original / transcription</h3><p class="preserve-text" lang="ja">${E(r.original)}</p></section><section><h3>${r.kind === 'memory' ? 'Editable draft next' : 'Translation'}</h3><p class="preserve-text">${E(r.translated)}</p>${r.romanization && r.kind !== 'memory' ? `<p>${E(r.romanization)}</p>` : ''}</section></div>${r.notes ? `<div class="notice">${E(r.notes)}</div>` : ''}<p class="small muted">${E(r.checkedAt)} · ${E(r.usage.model)} · estimated model usage $${E(r.usage.estimatedUSD.toFixed(4))} USD.</p><div class="form-actions">${button(r.kind === 'memory' ? 'Review & save a memory' : 'Use in a memory', 'memory-draft', '', 'primary')}${button('Translate something else', 'open', 'translate')}</div>`;
+      html = `<h2>${r.kind === 'memory' ? 'Your words.<br><em>Your memory.</em>' : 'A little clearer.'}</h2><p class="small muted">${r.kind === 'memory' ? 'A draft for you to review' : 'Machine translation · keep the original'}</p><div class="translation-pair"><section><h3>Original / transcription</h3><p class="preserve-text" lang="ja">${E(r.original)}</p></section><section><h3>${r.kind === 'memory' ? 'Editable draft next' : 'Translation'}</h3><p class="preserve-text">${E(r.translated)}</p>${r.romanization && r.kind !== 'memory' ? `<p>${E(r.romanization)}</p>` : ''}</section></div>${r.notes ? `<div class="notice">${E(r.notes)}</div>` : ''}<p class="small muted">${E(r.checkedAt)} · ${E(r.usage.model)} · estimated model usage $${E(r.usage.estimatedUSD.toFixed(4))} USD.</p><div class="form-actions">${button(r.kind === 'memory' ? 'Review & save a memory' : 'Use in a memory', 'memory-draft', '', 'primary')}${button('Translate something else', 'open', 'translate')}</div>`;
     if (r.kind === 'places')
-      html = `<div class="eyebrow">Google Maps · live lookup</div><h2>Some places<br><em>near your idea.</em></h2><p class="small">${E(r.notice)}</p>${!r.places.length ? '<p>No matching places were returned. Try another area.</p>' : ''}${r.places.map((p, i) => `<article class="ask-option"><h3>${E(p.name)}</h3><p>${E(p.address)}</p><p class="small">${E(p.businessStatus.replaceAll('_', ' '))}</p><details><summary>Published hours</summary>${p.hours.map((h) => `<p class="small">${E(h)}</p>`).join('') || '<p>Hours were not supplied.</p>'}</details><div class="form-actions">${external(p.url, 'Open in Google Maps')}${button('Directions', 'place-route', i)}${p.website ? button('Check the venue website', 'place-check', i) : ''}</div>${p.attributions.map((a) => `<p class="small">${a.uri ? external(a.uri, a.name) : E(a.name)}</p>`).join('')}</article>`).join('')}<p class="small muted">Google Maps · checked ${E(r.checkedAt)}. Results are not added to the shared book.</p>`;
+      html = `<h2>Some places<br><em>near your idea.</em></h2><p class="small muted">Google Maps · live lookup</p><p class="small">${E(r.notice)}</p>${!r.places.length ? '<p>No matching places were returned. Try another area.</p>' : ''}${r.places.map((p, i) => `<article class="ask-option"><h3>${E(p.name)}</h3><p>${E(p.address)}</p><p class="small">${E(p.businessStatus.replaceAll('_', ' '))}</p><details><summary>Published hours</summary>${p.hours.map((h) => `<p class="small">${E(h)}</p>`).join('') || '<p>Hours were not supplied.</p>'}</details><div class="form-actions">${external(p.url, 'Open in Google Maps')}${button('Directions', 'place-route', i)}${p.website ? button('Check the venue website', 'place-check', i) : ''}</div>${p.attributions.map((a) => `<p class="small">${a.uri ? external(a.uri, a.name) : E(a.name)}</p>`).join('')}</article>`).join('')}<p class="small muted">Google Maps · checked ${E(r.checkedAt)}. Results are not added to the shared book.</p>`;
     if (r.kind === 'route')
-      html = `<div class="eyebrow">Google Maps · route estimate</div><h2>${E(String(r.minutes))} minutes<br><em>from here.</em></h2><p>${E(r.origin)} → ${E(r.destination)}</p><p>${E((r.distanceMeters / 1000).toFixed(1))} km · ${r.mode === 'WALK' ? 'Walking' : 'Transit'}</p><div class="notice">${E(r.notice)}</div><p class="small">Checked ${E(r.checkedAt)}.</p>${external(r.url, 'Open route in Google Maps')}${button('Another route', 'open', 'route')}`;
+      html = `<h2>${E(String(r.minutes))} minutes<br><em>from here.</em></h2><p class="small muted">Google Maps · route estimate</p><p>${E(r.origin)} → ${E(r.destination)}</p><p>${E((r.distanceMeters / 1000).toFixed(1))} km · ${r.mode === 'WALK' ? 'Walking' : 'Transit'}</p><div class="notice">${E(r.notice)}</div><p class="small">Checked ${E(r.checkedAt)}.</p>${external(r.url, 'Open route in Google Maps')}${button('Another route', 'open', 'route')}`;
     if (r.kind === 'search')
-      html = `<div class="eyebrow">Public venue websites · research</div><h2>A few things<br><em>to follow.</em></h2><p class="preserve-text">${E(r.answer)}</p><div class="ask-source">${r.sources.map((s, i) => `<p>${external(s.url, s.title || 'Source ' + (i + 1))}</p>`).join('')}</div><p class="small">Checked ${E(r.checkedAt)}. This answer and its source links are shown together; it is not saved to the shared book.</p><div class="form-actions">${button('Check a source for my dates', 'search-check', '0', 'primary')}${button('Search again', 'open', 'search')}</div>`;
+      html = `<h2>A few things<br><em>to follow.</em></h2><p class="small muted">Public venue websites · research</p><p class="preserve-text">${E(r.answer)}</p><div class="ask-source">${r.sources.map((s, i) => `<p>${external(s.url, s.title || 'Source ' + (i + 1))}</p>`).join('')}</div><p class="small">Checked ${E(r.checkedAt)}. This answer and its source links are shown together; it is not saved to the shared book.</p><div class="form-actions">${button('Check a source for my dates', 'search-check', '0', 'primary')}${button('Search again', 'open', 'search')}</div>`;
     if (['places', 'route'].includes(r.kind))
       html +=
         '<img class="maps-attribution" src="/google-maps.svg" alt="Google Maps" translate="no">';
@@ -225,7 +225,7 @@ window.OmakaseTravel = function ({
     recent = d.tasks;
     show(
       'Your recent drafts',
-      '<h2>Pick up<br><em>your words.</em></h2><p>Private helper results are kept for seven days. Places and route results need a fresh lookup.</p>' +
+      '<h2>Your recent drafts.</h2><p>Private helper results are kept for seven days. Places and route results need a fresh lookup.</p>' +
         recent
           .map(
             (t, i) =>
@@ -243,7 +243,7 @@ window.OmakaseTravel = function ({
       if (gen !== generation) return;
       show(
         'Your website watches',
-        `<div class="eyebrow">Only what you asked to watch</div><h2>A quiet eye<br><em>on the details.</em></h2>${button('Watch a public page', 'open', 'watch', 'primary')}<p class="small muted">Approximately hourly checks, in-app updates only. Nothing is emailed or sent to friends.</p>${d.events
+        `<h2>Your website checks.</h2>${button('Watch a public page', 'open', 'watch', 'primary')}<p class="small muted">Approximately hourly checks, in-app updates only. Nothing is emailed or sent to friends.</p>${d.events
           .filter((e) => !e.seen)
           .map(
             (e) =>

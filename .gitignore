@@ -27,3 +27,7 @@ pnpm-debug.log*
 **/backups/
 apps/friends/build/
 apps/friends/evidence/
+
+# Local design review screenshots and packets
+.impeccable/
+apps/friends/.impeccable-menu-evidence/

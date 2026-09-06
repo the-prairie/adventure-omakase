@@ -55,6 +55,8 @@ export const test = base.extend({
           '127.0.0.1',
           '--port',
           String(port),
+          '--inspector-port',
+          '0',
           '--persist-to',
           dir,
           '--test-scheduled',

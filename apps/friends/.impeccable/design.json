@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-06T23:38:21.686002+00:00",
+  "title": "Design System: Adventure Omakase Friends",
+  "extensions": {
+    "shadows": [
+      {
+        "name": "overlay",
+        "value": "0 18px 48px #192b2324",
+        "purpose": "Floating selection menus and elevated overlays."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Shared control state transitions."
+      },
+      {
+        "name": "control-state",
+        "value": "180ms",
+        "purpose": "Button and selection-trigger changes."
+      },
+      {
+        "name": "menu-entry",
+        "value": "160ms",
+        "purpose": "Selection menu opening; reduced-motion users receive no animation."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "navigation",
+        "value": "850px"
+      },
+      {
+        "name": "compact",
+        "value": "700px"
+      }
+    ],
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "tonalRamp": [
+          "oklch(0.150 0.0082 91.48)",
+          "oklch(0.264 0.0082 91.48)",
+          "oklch(0.379 0.0082 91.48)",
+          "oklch(0.493 0.0082 91.48)",
+          "oklch(0.607 0.0082 91.48)",
+          "oklch(0.721 0.0082 91.48)",
+          "oklch(0.836 0.0082 91.48)",
+          "oklch(0.950 0.0082 91.48)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(0.150 0.0054 95.10)",
+          "oklch(0.264 0.0054 95.10)",
+          "oklch(0.379 0.0054 95.10)",
+          "oklch(0.493 0.0054 95.10)",
+          "oklch(0.607 0.0054 95.10)",
+          "oklch(0.721 0.0054 95.10)",
+          "oklch(0.836 0.0054 95.10)",
+          "oklch(0.950 0.0054 95.10)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(0.150 0.0235 164.67)",
+          "oklch(0.264 0.0235 164.67)",
+          "oklch(0.379 0.0235 164.67)",
+          "oklch(0.493 0.0235 164.67)",
+          "oklch(0.607 0.0235 164.67)",
+          "oklch(0.721 0.0235 164.67)",
+          "oklch(0.836 0.0235 164.67)",
+          "oklch(0.950 0.0235 164.67)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(0.150 0.0164 138.72)",
+          "oklch(0.264 0.0164 138.72)",
+          "oklch(0.379 0.0164 138.72)",
+          "oklch(0.493 0.0164 138.72)",
+          "oklch(0.607 0.0164 138.72)",
+          "oklch(0.721 0.0164 138.72)",
+          "oklch(0.836 0.0164 138.72)",
+          "oklch(0.950 0.0164 138.72)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(0.150 0.0152 119.14)",
+          "oklch(0.264 0.0152 119.14)",
+          "oklch(0.379 0.0152 119.14)",
+          "oklch(0.493 0.0152 119.14)",
+          "oklch(0.607 0.0152 119.14)",
+          "oklch(0.721 0.0152 119.14)",
+          "oklch(0.836 0.0152 119.14)",
+          "oklch(0.950 0.0152 119.14)"
+        ]
+      },
+      "green": {
+        "role": "primary",
+        "displayName": "Green",
+        "tonalRamp": [
+          "oklch(0.150 0.0528 165.02)",
+          "oklch(0.264 0.0528 165.02)",
+          "oklch(0.379 0.0528 165.02)",
+          "oklch(0.493 0.0528 165.02)",
+          "oklch(0.607 0.0528 165.02)",
+          "oklch(0.721 0.0528 165.02)",
+          "oklch(0.836 0.0528 165.02)",
+          "oklch(0.950 0.0528 165.02)"
+        ]
+      },
+      "lightgreen": {
+        "role": "neutral",
+        "displayName": "Lightgreen",
+        "tonalRamp": [
+          "oklch(0.150 0.0135 134.90)",
+          "oklch(0.264 0.0135 134.90)",
+          "oklch(0.379 0.0135 134.90)",
+          "oklch(0.493 0.0135 134.90)",
+          "oklch(0.607 0.0135 134.90)",
+          "oklch(0.721 0.0135 134.90)",
+          "oklch(0.836 0.0135 134.90)",
+          "oklch(0.950 0.0135 134.90)"
+        ]
+      },
+      "rust": {
+        "role": "secondary",
+        "displayName": "Rust",
+        "tonalRamp": [
+          "oklch(0.150 0.1091 38.14)",
+          "oklch(0.264 0.1091 38.14)",
+          "oklch(0.379 0.1091 38.14)",
+          "oklch(0.493 0.1091 38.14)",
+          "oklch(0.607 0.1091 38.14)",
+          "oklch(0.721 0.1091 38.14)",
+          "oklch(0.836 0.1091 38.14)",
+          "oklch(0.950 0.1091 38.14)"
+        ]
+      },
+      "pale": {
+        "role": "neutral",
+        "displayName": "Pale",
+        "tonalRamp": [
+          "oklch(0.150 0.0222 74.09)",
+          "oklch(0.264 0.0222 74.09)",
+          "oklch(0.379 0.0222 74.09)",
+          "oklch(0.493 0.0222 74.09)",
+          "oklch(0.607 0.0222 74.09)",
+          "oklch(0.721 0.0222 74.09)",
+          "oklch(0.836 0.0222 74.09)",
+          "oklch(0.950 0.0222 74.09)"
+        ]
+      },
+      "blue": {
+        "role": "secondary",
+        "displayName": "Blue",
+        "tonalRamp": [
+          "oklch(0.150 0.0443 221.40)",
+          "oklch(0.264 0.0443 221.40)",
+          "oklch(0.379 0.0443 221.40)",
+          "oklch(0.493 0.0443 221.40)",
+          "oklch(0.607 0.0443 221.40)",
+          "oklch(0.721 0.0443 221.40)",
+          "oklch(0.836 0.0443 221.40)",
+          "oklch(0.950 0.0443 221.40)"
+        ]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Gold",
+        "tonalRamp": [
+          "oklch(0.150 0.0872 82.14)",
+          "oklch(0.264 0.0872 82.14)",
+          "oklch(0.379 0.0872 82.14)",
+          "oklch(0.493 0.0872 82.14)",
+          "oklch(0.607 0.0872 82.14)",
+          "oklch(0.721 0.0872 82.14)",
+          "oklch(0.836 0.0872 82.14)",
+          "oklch(0.950 0.0872 82.14)"
+        ]
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "description": "Shared primary action treatment.",
+      "html": "<button class=\"ds-primary\">Open a plan</button>",
+      "css": ".ds-primary{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--green);color:white;}.ds-primary:hover{background:#375c45}.ds-primary:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "description": "Shared secondary action treatment.",
+      "html": "<button class=\"ds-secondary\">Open a plan</button>",
+      "css": ".ds-secondary{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--white);color:var(--ink);}.ds-secondary:hover{background:#eff0e7}.ds-secondary:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+    },
+    {
+      "name": "Subtle Button",
+      "kind": "button",
+      "description": "Shared subtle action treatment.",
+      "html": "<button class=\"ds-subtle\">Open a plan</button>",
+      "css": ".ds-subtle{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:transparent;color:var(--ink);}.ds-subtle:hover{background:#eff0e7}.ds-subtle:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+    },
+    {
+      "name": "Rust Button",
+      "kind": "button",
+      "description": "Shared rust action treatment.",
+      "html": "<button class=\"ds-rust\">Open a plan</button>",
+      "css": ".ds-rust{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--rust);color:white;}.ds-rust:hover{background:#eff0e7}.ds-rust:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "description": "Shared danger action treatment.",
+      "html": "<button class=\"ds-danger\">Open a plan</button>",
+      "css": ".ds-danger{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--white);color:#9c392d;border-color:#dfb4a7;}.ds-danger:hover{background:#eff0e7}.ds-danger:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Persistent label and readable native input.",
+      "html": "<label class=\"ds-label\" for=\"ds-title\">Plan title</label><input class=\"ds-field\" id=\"ds-title\" placeholder=\"An afternoon together\">",
+      "css": ".ds-label{display:block;font:600 13px/1.5 var(--sans);margin-bottom:6px}.ds-field{padding:10px 12px;min-height:46px;background:var(--white);color:var(--ink);border:1px solid #b9c2b7;border-radius:var(--control-radius);font:15px var(--sans)}.ds-field:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Active location uses an underline.",
+      "html": "<nav class=\"ds-nav\"><button aria-current=\"page\">My day</button><button>Discover</button></nav>",
+      "css": ".ds-nav{display:flex;gap:4px}.ds-nav button{padding:10px 14px;background:transparent;border:0;font:500 12px var(--sans);color:var(--muted)}.ds-nav button[aria-current]{color:var(--green);box-shadow:inset 0 -2px var(--green)}.ds-nav button:hover{background:var(--lightgreen)}.ds-nav button:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+    },
+    {
+      "name": "Selected Filter",
+      "kind": "chip",
+      "description": "Selected choices remain recognizably interactive.",
+      "html": "<button class=\"ds-filter\" aria-pressed=\"true\">Quiet</button>",
+      "css": ".ds-filter{padding:8px 13px;border:1px solid var(--green);border-radius:var(--control-radius);background:var(--green);color:var(--white);font:13px var(--sans)}.ds-filter:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+    },
+    {
+      "name": "Reading Entry",
+      "kind": "card",
+      "description": "Continuous editorial content with a divider.",
+      "html": "<article class=\"ds-entry\"><h3>An afternoon idea</h3><p>A research lead to explore together.</p></article>",
+      "css": ".ds-entry{padding:24px 0;border-bottom:1px solid var(--line);color:var(--ink)}.ds-entry h3{margin:0;font:400 28px/1.12 var(--serif);letter-spacing:-.025em}.ds-entry p{font:15px/1.65 var(--sans)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Contemporary journey notebook",
+    "overview": "Warm paper, forest ink, editorial titles, flat reading surfaces and compact controls make travel information readable and actions immediate. The interface is calm and trustworthy before a decision and recedes during travel.\n\nThis records the implemented friends app, scoped to this directory. The direction comes from the accepted product brief and the contract in `public/index.html`; values come from the final cascade in `public/app.css`. It does not prescribe the future native application. The bounded browser review is recorded in `docs/design-review-2026-09-06.md`.",
+    "keyCharacteristics": [
+      "Continuous reading surfaces with separated entries.",
+      "Editorial serif titles and practical sans-serif controls.",
+      "Restrained color with explicit interaction states."
+    ],
+    "rules": [
+      {
+        "name": "State Clarity",
+        "body": "Pair color with text, selection markers or underlines so the action or state remains explicit.",
+        "section": "colors"
+      },
+      {
+        "name": "Task Scale",
+        "body": "Keep forms compact: use sans-serif labels and readable controls beneath a restrained serif heading. Do not enlarge form labels into editorial headlines.",
+        "section": "typography"
+      },
+      {
+        "name": "Reading Surface",
+        "body": "Keep repeated entries on one continuous surface; reserve enclosing treatments for a meaningful control, overlay or emphasized supporting panel.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep labels visible and interaction states explicit.",
+      "Do preserve native form values and keyboard behavior when styling selection controls.",
+      "Do use supplied illustrations with truthful provenance and distinct treatment from shared memory photographs."
+    ],
+    "donts": [
+      "Don't turn repeated content into a wall of rounded cards.",
+      "Don't introduce casino mechanics, neon gaming or a kawaii mascot direction.",
+      "Don't inherit legacy decorative eyebrows or text-glyph icons as rules for new surfaces; those exceptions are not part of the recorded system."
+    ]
+  }
+}
