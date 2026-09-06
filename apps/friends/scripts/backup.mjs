@@ -3,11 +3,12 @@ import { resolve } from 'node:path';
 import { ROOT, operator, admin, hash, privateJSON } from './operator-lib.mjs';
 import { validateBackup, restoreSQL } from './backup-format.mjs';
 try {
+  const args = process.argv.slice(2).filter((arg) => arg !== '--');
+  if (args.length > 1) throw Error('Provide one backup destination path.');
   const op = await operator(),
     dest = resolve(
       ROOT,
-      process.argv[2] ||
-        'backups/' + new Date().toISOString().replace(/[:.]/g, '-'),
+      args[0] || 'backups/' + new Date().toISOString().replace(/[:.]/g, '-'),
     );
   await mkdir(dest, { recursive: true, mode: 0o700 });
   const snapshot = validateBackup(await (await admin(op, '/backup')).json());

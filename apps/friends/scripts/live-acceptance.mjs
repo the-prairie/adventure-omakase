@@ -221,6 +221,61 @@ try {
     await b.screenshot({ path: resolve(evidence, 'reconfirm-mobile.png') });
     report.checks.push('Host meeting edit requires B to reconfirm');
   }
+  if (ordinary) {
+    let plan = (await state(a)).plans.find(
+      (p) => p.title === 'Synthetic walk and lunch',
+    );
+    if (!plan) {
+      await action(a, 'plan-new').click();
+      await a.locator('#f-title').fill('Synthetic walk and lunch');
+      await a.locator('#f-region').selectOption('osaka');
+      await a.locator('#f-area').fill('Namba');
+      await a.locator('#f-date').fill('2026-09-29');
+      await a.locator('#f-start').fill('10:00');
+      await a.locator('#f-end').fill('13:00');
+      await a.locator('#f-meeting').fill('Synthetic activity entrance');
+      for (const [label, start, end, meeting] of [
+        ['Activity', '10:00', '11:30', 'Synthetic activity entrance'],
+        ['Lunch', '12:00', '13:00', 'Synthetic lunch entrance'],
+      ]) {
+        await action(a, 'add-segment').click();
+        const part = a.locator('[data-segment]').last();
+        await part.locator('[data-seg=label]').fill(label);
+        await part.locator('[data-seg=start]').fill(start);
+        await part.locator('[data-seg=end]').fill(end);
+        await part.locator('[data-seg=meeting]').fill(meeting);
+      }
+      await a.locator('#plan-form [type=submit]').click();
+      await expect(a.locator('#plan-form')).toHaveCount(0);
+      plan = (await state(a)).plans.find(
+        (p) => p.title === 'Synthetic walk and lunch',
+      );
+    }
+    if (!plan) throw Error('The ordinary invitation was not published.');
+    const lunch = plan.segments[1];
+    await b.goto(op.url + '/#plan=' + plan.id);
+    await b.locator(`[name=choice][value="${lunch.id}"]`).check();
+    await b.locator('#rsvp-form [value=joined]').click();
+    await expect(b.locator('#dialog')).toContainText('Update my part');
+    await b.keyboard.press('Escape');
+    await b.locator('[data-nav=day]:visible').first().click();
+    await b.locator('[data-action=day][data-id="2026-09-29"]').click();
+    await expect(b.locator('#main')).toContainText('12:00–13:00');
+    await expect(b.locator('#main')).toContainText('Synthetic lunch entrance');
+    await b.screenshot({
+      path: resolve(evidence, 'ordinary-lunch-mobile.png'),
+      fullPage: true,
+    });
+    const cs = await state(c);
+    expect(
+      cs.plans
+        .find((p) => p.id === plan.id)
+        .rsvps.some((r) => r.memberId === cs.me.id),
+    ).toBe(false);
+    report.checks.push(
+      'Ordinary UI publishes separate parts; B joins lunch only; C remains unassigned (no model evidence)',
+    );
+  }
   await b.keyboard.press('Escape');
   await b.locator('[data-nav=story]:visible').first().click();
   if (

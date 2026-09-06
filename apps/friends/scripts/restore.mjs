@@ -19,13 +19,14 @@ import {
 } from './backup-format.mjs';
 let maintenance = false;
 try {
-  if (!process.argv[2])
+  const args = process.argv.slice(2).filter((arg) => arg !== '--');
+  if (args.length !== 1)
     throw Error(
       'Usage: npm run restore -- /path/to/complete-backup (fresh destination deployment only).',
     );
   const environment = selectedEnvironment();
   process.env.OMAKASE_ENV = environment;
-  const dir = resolve(process.argv[2]),
+  const dir = resolve(args[0]),
     op = await operator(),
     manifest = JSON.parse(
       await readFile(resolve(dir, 'manifest.json'), 'utf8'),
