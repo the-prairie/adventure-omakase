@@ -12,7 +12,11 @@ import {
 } from './ask-contract.js';
 import { runAsk, type Model } from './ask-engine.js';
 import { readPage, searchPlaces, publicURL, hashText } from './ask-research.js';
-import { geminiModel, modelName } from './companion-provider.js';
+import {
+  geminiModel,
+  modelName,
+  isDefiniteModelRejection,
+} from './companion-provider.js';
 import type { Env, Row } from './platform.js';
 import { findPlaces } from './travel-tools.js';
 export interface AskActions {
@@ -497,18 +501,25 @@ export async function askRoutes(
       const model: Model = {
         run: async (model, input) => {
           providerPending = true;
-          const result = await Promise.race([
-            nativeModel.run(model, input),
-            new Promise<never>((_resolve, reject) =>
-              signal.addEventListener(
-                'abort',
-                () => reject(new Error('Task timed out')),
-                { once: true },
+          try {
+            const result = await Promise.race([
+              nativeModel.run(model, input),
+              new Promise<never>((_resolve, reject) =>
+                signal.addEventListener(
+                  'abort',
+                  () => reject(new Error('Task timed out')),
+                  { once: true },
+                ),
               ),
-            ),
-          ]);
-          providerPending = false;
-          return result;
+            ]);
+            providerPending = false;
+            return result;
+          } catch (error) {
+            // A definite rejection is unbilled; retain usage from earlier
+            // successful turns. Unknown transport/abort outcomes keep the claim.
+            if (isDefiniteModelRejection(error)) providerPending = false;
+            throw error;
+          }
         },
       };
       const result = await runAsk(

@@ -731,3 +731,112 @@ test('replanning unsupported manual part shapes rejects before provider usage', 
   assert.match(rejected.data.detail, /Edit invitation/);
   assert.equal(f.env.AI.calls.length, calls);
 });
+
+for (const scenario of [
+  'first rejection',
+  'second rejection',
+  'transport failure',
+  'backoff cancellation',
+]) {
+  test(`Gemini daily budget settlement distinguishes ${scenario}`, async (t) => {
+    const { env, call, owner } = await setup();
+    env.GEMINI_API_KEY = 'synthetic-fixture-key';
+    if (scenario === 'backoff cancellation')
+      t.mock.timers.enable({ apis: ['setTimeout'] });
+    const originalFetch = globalThis.fetch;
+    let requests = 0;
+    globalThis.fetch = async (url) => {
+      assert.equal(
+        new URL(String(url)).hostname,
+        'generativelanguage.googleapis.com',
+      );
+      requests++;
+      if (scenario === 'backoff cancellation')
+        setImmediate(() => t.mock.timers.tick(75001));
+      if (scenario === 'transport failure')
+        throw new Error('Synthetic unknown transport outcome');
+      if (scenario === 'second rejection' && requests === 1) {
+        return Response.json({
+          candidates: [
+            {
+              finishReason: 'STOP',
+              content: {
+                role: 'model',
+                parts: [
+                  {
+                    functionCall: {
+                      id: 'synthetic-call',
+                      name: 'check_sources',
+                      args: { discoveryIds: ['osaka-001'] },
+                    },
+                    thoughtSignature: 'synthetic-signature',
+                  },
+                ],
+              },
+            },
+          ],
+          usageMetadata: {
+            promptTokenCount: 100,
+            candidatesTokenCount: 40,
+            thoughtsTokenCount: 10,
+          },
+        });
+      }
+      return Response.json(
+        { error: { status: 'UNAVAILABLE' } },
+        { status: 503 },
+      );
+    };
+    try {
+      const result = await call(
+        '/ask/tasks',
+        'POST',
+        input({ mode: 'check', discoveryId: 'osaka-001' }),
+        owner.cookie,
+      );
+      assert.equal(result.status, 502);
+      assert.equal(result.data.status, 'failed');
+      const expected = ['transport failure', 'backoff cancellation'].includes(
+        scenario,
+      )
+        ? 200000
+        : scenario === 'second rejection'
+          ? 263
+          : 0;
+      assert.deepEqual(
+        {
+          ...env.DB.db
+            .prepare(
+              "SELECT used,reserved FROM ask_budget WHERE day LIKE 'gemini:%'",
+            )
+            .get(),
+        },
+        { used: expected, reserved: 0 },
+      );
+      assert.equal(
+        env.DB.db.prepare('SELECT settled FROM ask_tasks').get().settled,
+        1,
+      );
+      assert.equal(
+        requests,
+        ['transport failure', 'backoff cancellation'].includes(scenario)
+          ? 1
+          : scenario === 'second rejection'
+            ? 4
+            : 3,
+      );
+      if (scenario === 'second rejection')
+        assert.equal(result.data.usage.estimatedUSD, 0.0002625);
+      assert.equal(
+        env.DB.db.prepare('SELECT used FROM service_budget').get().used,
+        scenario === 'transport failure'
+          ? 1050000
+          : scenario === 'backoff cancellation'
+            ? 0
+            : expected,
+      );
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+}

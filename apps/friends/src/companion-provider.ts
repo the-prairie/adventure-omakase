@@ -13,6 +13,10 @@ class RejectedModelRequest extends AskError {
   }
 }
 
+/** Only a received provider rejection proves this model call was unbilled. */
+export const isDefiniteModelRejection = (error: unknown): boolean =>
+  error instanceof RejectedModelRequest;
+
 function retryDelay(response: Response): number | undefined {
   if (response.status !== 503) return undefined;
   const value = response.headers.get('Retry-After');
