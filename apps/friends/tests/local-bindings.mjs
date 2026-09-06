@@ -129,6 +129,14 @@ export function makeEnv(dir, { maintenance = false } = {}) {
   const db = new LocalD1(join(dir, 'trip.sqlite'));
   if (!db.db.prepare("SELECT name FROM sqlite_master WHERE name='trips'").get())
     db.db.exec(readFileSync(join(ROOT, 'migrations/0001_friends.sql'), 'utf8'));
+  if (
+    !db.db
+      .prepare("SELECT name FROM sqlite_master WHERE name='ask_tasks'")
+      .get()
+  )
+    db.db.exec(
+      readFileSync(join(ROOT, 'migrations/0002_ask_omakase.sql'), 'utf8'),
+    );
   return {
     DB: db,
     PHOTOS: new LocalR2(join(dir, 'r2')),

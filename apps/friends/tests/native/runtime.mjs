@@ -1,10 +1,15 @@
 import { test as base } from '@playwright/test';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
-import { ROOT, wrangler, sleep } from '../../scripts/operator-lib.mjs';
+import {
+  ROOT,
+  wrangler,
+  sleep,
+  loadJSON,
+} from '../../scripts/operator-lib.mjs';
 export const TEST_KEY = 'synthetic-local-browser-owner-key-only';
 async function freePort() {
   const server = createServer();
@@ -14,7 +19,8 @@ async function freePort() {
   return port;
 }
 export const test = base.extend({
-  runtime: async ({ browserName }, use) => {
+  companionFixture: [false, { option: true }],
+  runtime: async ({ browserName, companionFixture }, use) => {
     const dir = await mkdtemp(
       join(tmpdir(), `omakase-${browserName}-browser-`),
     );
@@ -26,11 +32,24 @@ export const test = base.extend({
         ['d1', 'migrations', 'apply', 'DB', '--local', '--persist-to', dir],
         { input: 'y\n', capture: true },
       );
+      let fixtureArgs = [];
+      if (companionFixture) {
+        const cfg = await loadJSON('wrangler.jsonc');
+        delete cfg.env;
+        delete cfg.$schema;
+        cfg.main = resolve(ROOT, 'tests/native/fixture-entry.mjs');
+        cfg.assets.directory = resolve(ROOT, 'public');
+        cfg.d1_databases[0].migrations_dir = resolve(ROOT, 'migrations');
+        const path = join(dir, 'fixture.json');
+        await writeFile(path, JSON.stringify(cfg));
+        fixtureArgs = ['--config', path];
+      }
       proc = spawn(
         process.execPath,
         [
           resolve(ROOT, 'node_modules/wrangler/bin/wrangler.js'),
           'dev',
+          ...fixtureArgs,
           '--local',
           '--ip',
           '127.0.0.1',

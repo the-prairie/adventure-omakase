@@ -22,7 +22,7 @@ export async function buildAssets(release) {
     ),
   );
   const names = {};
-  for (const name of ['app.js', 'app.css', 'data.js', 'demo.js']) {
+  for (const name of ['app.js', 'ask.js', 'app.css', 'data.js', 'demo.js']) {
     const bytes = await readFile(resolve(dest, name));
     const hash = createHash('sha256').update(bytes).digest('hex').slice(0, 16);
     names[name] = name.replace(/\.(js|css)$/, `.${hash}.$1`);

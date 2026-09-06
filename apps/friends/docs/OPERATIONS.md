@@ -71,3 +71,11 @@ Account quotas are shared. Inspect actual Workers CPU/errors/request counts, D1 
 ## Remaining phone acceptance
 
 On actual iPhone and Android browsers: join and reopen; join only coffee; edit/reconfirm its meeting point; upload an actual camera image and verify orientation/format; interrupt/reconnect the network; remove/undo; open from the installed shortcut. Desktop WebKit/Chromium emulation is not evidence for these physical-device gates. Record results in `docs/audits/CURRENT_STATUS.md`.
+
+## Ask Omakase
+
+Preview and production declare a server-side `AI` Workers AI binding. The local default and restore environment do not. No browser model credential is used. The ordinary app remains usable when inference is unavailable. Model/search behavior, limits and data boundaries are recorded in ADR 0007.
+
+For opt-in real-provider acceptance on the isolated synthetic preview, run `node scripts/live-acceptance.mjs` from this app with `OMAKASE_EXPECTED_SHA` set to the deployed commit. It uses the existing private preview operator record, refuses to edit a trip without the synthetic acceptance title, keeps browser sessions in `.deploy/preview/live-acceptance`, and writes sanitized evidence under `evidence/live`. `--ordinary` exercises shared profiles/photo storage without claiming AI evidence. Never run this in routine CI or against production. Fixture tests are in `tests/native/ask.spec.mjs` and use a test-only provider entry point.
+
+A provider quota error does not authorize a subscription change. Cloudflare's free AI allocation is account-wide and resets at 00:00 UTC. App budgets do not reserve account capacity against unrelated tools or development probes. Task usage reports distinguish measured tokens/neurons from unknown usage, and use conservative reservations for interrupted provider calls.

@@ -37,6 +37,7 @@ export interface Bucket {
   delete(key: string | string[]): Promise<void>;
 }
 export interface Env {
+  AI?: { run(model: string, input: Record<string, unknown>): Promise<unknown> };
   DB: Database;
   PHOTOS: Bucket;
   ASSETS: { fetch(request: Request): Promise<Response> };

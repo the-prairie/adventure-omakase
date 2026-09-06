@@ -71,6 +71,9 @@ test('full SQL restore round-trips more than a Worker request-sized batch', asyn
     });
   const db = new LocalD1();
   db.db.exec(await readFile(join(ROOT, 'migrations/0001_friends.sql'), 'utf8'));
+  db.db.exec(
+    await readFile(join(ROOT, 'migrations/0002_ask_omakase.sql'), 'utf8'),
+  );
   db.db.exec(restoreSQL(b));
   const restored = Object.fromEntries(
     Object.keys(COLUMNS).map((t) => [

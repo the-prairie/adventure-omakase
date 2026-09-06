@@ -10,6 +10,8 @@ Local bindings are simulated by actual workerd; named preview, production and re
 
 A manual protected deployment workflow promotes committed code; production requires main plus environment approval. Worker rollback does not undo D1 migrations. See [operations](apps/friends/docs/OPERATIONS.md) and [current status](docs/audits/CURRENT_STATUS.md) for observed gates.
 
+Ask Omakase uses the same Worker with bounded read-only research and an environment-specific Workers AI binding. D1 records task status and reusable source evidence; no conversation state can mutate participation. Exact source quotations and typed drafts are validated before an editable confirmation calls the ordinary plan action. See [ADR 0007](docs/decisions/0007-ask-omakase.md) for limits, privacy, cancellation and cache contracts.
+
 ## Preserved native architecture
 
 The sections below describe the earlier native foundation; their deployment targets are not used for the friends release.

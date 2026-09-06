@@ -35,6 +35,7 @@
   },
   "env": {
     "preview": {
+      "ai": { "binding": "AI" },
       "name": "adventure-omakase-friends-preview",
       "account_id": "f78623ddd332611244f13a0f5a5436e0",
       "d1_databases": [
@@ -62,6 +63,7 @@
       },
     },
     "production": {
+      "ai": { "binding": "AI" },
       "name": "adventure-omakase-friends-production",
       "account_id": "f78623ddd332611244f13a0f5a5436e0",
       "d1_databases": [

@@ -95,15 +95,42 @@ export const COLUMNS = {
     'created',
   ],
   imports: ['member_id', 'fingerprint', 'created'],
+  ask_tasks: [
+    'id',
+    'member_id',
+    'trip_id',
+    'status',
+    'stage',
+    'input',
+    'result',
+    'usage',
+    'context_seq',
+    'plan_id',
+    'budget_day',
+    'settled',
+    'created',
+    'updated',
+  ],
+  ask_budget: ['trip_id', 'day', 'reserved', 'used'],
+  place_research: [
+    'trip_id',
+    'discovery_id',
+    'source_url',
+    'evidence',
+    'checked_at',
+  ],
 };
 export function validateBackup(b) {
   if (
-    b.schemaVersion !== 3 ||
+    ![3, 4].includes(b.schemaVersion) ||
     !b.tables ||
     !Array.isArray(b.tables.trips) ||
     b.tables.trips.length !== 1
   )
-    throw Error('Use a version 3 full backup with one trip.');
+    throw Error('Use a version 3 or 4 full backup with one trip.');
+  if (b.schemaVersion === 3)
+    for (const t of ['ask_tasks', 'ask_budget', 'place_research'])
+      b.tables[t] ||= [];
   for (const [t, cols] of Object.entries(COLUMNS)) {
     const rows = b.tables[t];
     if (!Array.isArray(rows) || rows.length > 100000)

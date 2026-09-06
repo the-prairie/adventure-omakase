@@ -24,7 +24,7 @@ html = html
     '<link rel="stylesheet" href="app.css">',
     '<style>' + (await readFile(resolve(root, 'app.css'), 'utf8')) + '</style>',
   );
-for (const name of ['data.js', 'demo.js', 'app.js'])
+for (const name of ['data.js', 'demo.js', 'ask.js', 'app.js'])
   html = html.replace(`<script src="${name}" defer></script>`, '');
 const app = (await readFile(resolve(root, 'app.js'), 'utf8')).replace(
   "let mode=location.protocol==='file:'||location.hash.startsWith('#demo')?'demo':'shared';",
@@ -33,6 +33,7 @@ const app = (await readFile(resolve(root, 'app.js'), 'utf8')).replace(
 const blocks = [
   'window.OMAKASE=' + JSON.stringify(data) + ';',
   await readFile(resolve(root, 'demo.js'), 'utf8'),
+  await readFile(resolve(root, 'ask.js'), 'utf8'),
   app,
 ]
   .map((s) => '<script>' + s.replace(/<\/script/gi, '<\\/script') + '</script>')

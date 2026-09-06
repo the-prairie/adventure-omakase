@@ -10,21 +10,16 @@
     okinawa: 'Okinawa',
     elsewhere: 'Elsewhere',
   };
-  const DAYS = Array.from({ length: 19 }, (_, i) =>
+  let DAYS = Array.from({ length: 19 }, (_, i) =>
     new Date(Date.UTC(2026, 8, 26 + i)).toISOString().slice(0, 10),
   );
   const E = (s) =>
-    String(s ?? '').replace(
-      /[&<>"']/g,
-      (c) =>
-        ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;',
-        })[c],
-    );
+    String(s ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   const norm = (s) =>
     String(s)
       .normalize('NFD')
@@ -270,6 +265,20 @@
   function acceptState(next, renderPage = true) {
     const previous = S;
     S = next;
+    if (S.trip?.start && S.trip?.end) {
+      const count = Math.min(
+        366,
+        Math.floor(
+          (Date.parse(S.trip.end) - Date.parse(S.trip.start)) / 86400000,
+        ) + 1,
+      );
+      DAYS = Array.from({ length: count }, (_, i) =>
+        new Date(Date.parse(S.trip.start) + i * 86400000)
+          .toISOString()
+          .slice(0, 10),
+      );
+      if (!DAYS.includes(ui.day)) ui.day = S.trip.start;
+    }
     C = [
       ...window.OMAKASE.catalogue,
       ...(S.discoveries || []).map((d, i) => ({
@@ -449,11 +458,18 @@
       render();
     }
   });
-  window.addEventListener('hashchange', () => {
+  window.addEventListener('hashchange', async () => {
     const params = new URLSearchParams(location.hash.slice(1));
     if (S) {
       const planId = params.get('plan');
-      if (planId) showPlan(planId);
+      if (planId) {
+        try {
+          await refresh(false);
+          showPlan(planId);
+        } catch (e) {
+          toast(errText(e), true);
+        }
+      }
       return;
     }
     joinToken = params.get('join') || '';
@@ -465,7 +481,7 @@
   });
   function header() {
     const unread = countUpdates();
-    return `<div class="tagbar"><span>${mode === 'demo' ? 'EXAMPLE TRIP <span class="tag-demo-description">· FICTIONAL PEOPLE · LOCAL ONLY</span>' : 'DIFFERENT PLANS. SAME FRIENDS.'}</span>${mode === 'demo' ? `<div class="demo-controls"><label class="screenreader" for="demo-person">Example traveler</label><span>Try as</span><select id="demo-person">${S.members.map((m) => `<option value="${m.id}" ${m.id === S.me.id ? 'selected' : ''}>${E(m.name)}</option>`).join('')}</select><button data-action="live-info">Go live</button></div>` : '<span class="tag-second">26 SEP — 14 OCT 2026 · JAPAN TIME</span>'}</div><header class="header"><div class="header-inner"><button class="brand" data-nav="plans" aria-label="Adventure Omakase home"><span class="brand-name">omakase<span class="brand-star">✳</span><small>THE TOGETHER, APART EDITION</small></span></button><nav class="nav" aria-label="Main navigation">${navButtons(false)}</nav><div class="header-actions">${btn(I('plus') + '<span class="invite-label">Open a plan</span>', 'plan-new', '', 'primary')}<button class="icon-btn" data-action="updates" aria-label="Trip updates${unread ? `, ${unread} unread` : ''}">${I('bell')}${unread ? `<span class="dot-count">${Math.min(unread, 9)}</span>` : ''}</button><button data-action="profile" aria-label="Your profile and travel dates" style="padding:0">${avatar(S.me.id)}</button></div></div></header>${!online && mode === 'shared' ? '<div class="offline">Offline · last loaded view only. Joining and plan changes are disabled. <button class="text-btn" data-action="reconnect">Reconnect</button></div>' : ''}${mode === 'demo' && !S.storageOkay ? '<div class="offline">This browser cannot keep the example between visits. Export anything you wish to retain.</div>' : ''}`;
+    return `<div class="tagbar"><span>${mode === 'demo' ? 'EXAMPLE TRIP <span class="tag-demo-description">· FICTIONAL PEOPLE · LOCAL ONLY</span>' : 'DIFFERENT PLANS. SAME FRIENDS.'}</span>${mode === 'demo' ? `<div class="demo-controls"><label class="screenreader" for="demo-person">Example traveler</label><span>Try as</span><select id="demo-person">${S.members.map((m) => `<option value="${m.id}" ${m.id === S.me.id ? 'selected' : ''}>${E(m.name)}</option>`).join('')}</select><button data-action="live-info">Go live</button></div>` : '<span class="tag-second">JAPAN · OUR OWN DAYS</span>'}</div><header class="header"><div class="header-inner"><button class="brand" data-nav="plans" aria-label="Adventure Omakase home"><span class="brand-name">omakase<span class="brand-star">✳</span><small>THE TOGETHER, APART EDITION</small></span></button><nav class="nav" aria-label="Main navigation">${navButtons(false)}</nav><div class="header-actions">${btn(I('plus') + '<span class="invite-label">Open a plan</span>', 'plan-new', '', 'primary')}<button class="icon-btn" data-action="updates" aria-label="Trip updates${unread ? `, ${unread} unread` : ''}">${I('bell')}${unread ? `<span class="dot-count">${Math.min(unread, 9)}</span>` : ''}</button><button data-action="profile" aria-label="Your profile and travel dates" style="padding:0">${avatar(S.me.id)}</button></div></div></header>${!online && mode === 'shared' ? '<div class="offline">Offline · last loaded view only. Joining and plan changes are disabled. <button class="text-btn" data-action="reconnect">Reconnect</button></div>' : ''}${mode === 'demo' && !S.storageOkay ? '<div class="offline">This browser cannot keep the example between visits. Export anything you wish to retain.</div>' : ''}`;
   }
   function navButtons(mobile) {
     return [
@@ -491,7 +507,7 @@
     }
     app.innerHTML =
       header() +
-      `<div class="container"><div class="meta-line"><span>${E(S.trip.name)} <span class="muted">/ ${E(S.me.name)}’s view</span></span><span class="row"><span class="meta-date">26 September — 14 October 2026</span><span>${mode === 'demo' ? 'Local example' : `<i class="live-dot"></i>${online ? 'Shared trip' : 'Offline copy'}`} · JST</span></span></div><main id="main" tabindex="-1">${({ plans: board, day: myDay, discover: discover, people: peoplePage, story: storyPage }[ui.view] || board)()}</main>${footer()}</div><nav class="nav-dock" aria-label="Quick navigation">${navButtons(true)}</nav>`;
+      `<div class="container"><div class="meta-line"><span>${E(S.trip.name)} <span class="muted">/ ${E(S.me.name)}’s view</span></span><span class="row"><span class="meta-date">${dateText(S.trip.start)} — ${dateText(S.trip.end)}</span><span>${mode === 'demo' ? 'Local example' : `<i class="live-dot"></i>${online ? 'Shared trip' : 'Offline copy'}`} · JST</span></span></div><main id="main" tabindex="-1">${({ plans: board, day: myDay, discover: discover, people: peoplePage, story: storyPage }[ui.view] || board)()}</main>${footer()}</div><nav class="nav-dock" aria-label="Quick navigation">${navButtons(true)}</nav>`;
     if (ui.view === 'day')
       requestAnimationFrame(() => {
         const strip = document.querySelector('.calendar-strip'),
@@ -523,7 +539,7 @@
   function board() {
     const hasFriends = S.members.filter((m) => m.active).length > 1;
     const plans = matchingPlans().filter((p) => p.status === 'open');
-    return `<section class="hero"><div><div class="eyebrow">Make room for a little company.</div><h1>Your own trip.<br>Good company,<br><em>when you want it.</em></h1><p>Go where you’re curious. Put a plan out there.<br>Friends can join the whole thing, just a part, or catch you afterward. No explanations required.</p><div class="row wrap">${btn(I('plus') + 'I’m thinking of doing…', 'plan-new', '', 'primary')}${btn('Find a little adventure ' + I('arrow'), 'discover-nav', '', 'subtle')}</div></div><div class="hero-art" aria-label="Decorative Japan travel illustrations"><span class="art-disclosure">Imaginative illustrations · not venue photographs</span><div class="hero-photo one"><img src="${A.street}" alt="Illustrated narrow Japanese street"><small>One more little detour.</small></div><div class="hero-photo two"><img src="${A.bridge}" alt="Illustrated island bridge and blue water"><small>No need to take the same route.</small></div><div class="hero-note"><div class="eyebrow">The only standing invitation</div><strong>Tell us what you found.</strong><div class="small muted">A story is a perfectly good way to join in.</div></div></div></section><div class="chapter-rail">${[
+    return `<section class="hero"><div><div class="eyebrow">Make room for a little company.</div><h1>Your own trip.<br>Good company,<br><em>when you want it.</em></h1><p>Go where you’re curious. Put a plan out there.<br>Friends can join the whole thing, just a part, or catch you afterward. No explanations required.</p><div class="row wrap">${btn(I('plus') + 'I’m thinking of doing…', 'plan-new', '', 'primary')}${btn('Find a little adventure ' + I('arrow'), 'discover-nav', '', 'subtle')}${mode === 'shared' ? btn('Find something for me ✳', 'ask-find', '', 'subtle') : ''}</div></div><div class="hero-art" aria-label="Decorative Japan travel illustrations"><span class="art-disclosure">Imaginative illustrations · not venue photographs</span><div class="hero-photo one"><img src="${A.street}" alt="Illustrated narrow Japanese street"><small>One more little detour.</small></div><div class="hero-photo two"><img src="${A.bridge}" alt="Illustrated island bridge and blue water"><small>No need to take the same route.</small></div><div class="hero-note"><div class="eyebrow">The only standing invitation</div><strong>Tell us what you found.</strong><div class="small muted">A story is a perfectly good way to join in.</div></div></div></section><div class="chapter-rail">${[
       ['tokyo', '01', 'Small streets. Big curiosity.'],
       ['osaka', '02', 'Good food. Longer detours.'],
       ['okinawa', '03', 'Island time. Your own pace.'],
@@ -795,7 +811,7 @@
     const a = BY.get(p.catalogueId);
     openModal(
       'An open invitation',
-      `<div class="row wrap"><span class="pill ${p.kind === 'idea' ? 'rust' : 'green'}">${p.status !== 'open' ? E(p.status) : p.kind === 'idea' ? 'An idea · not yet decided' : 'I’m going · company welcome'}</span>${p.joinStyle === 'reunion' ? '<span class="pill blue">Solo first · meet afterward</span>' : ''}</div><h2 style="margin-top:17px">${E(p.title)}</h2><div class="detail-date">${I('calendar')}${dateText(p.date, { weekday: 'long', month: 'long', day: 'numeric' })} <span>·</span>${formatTime(p)} JST</div><div class="plan-share-row">${btn(I('arrow') + 'Send this invitation', 'share-plan', p.id, 'subtle')}</div><div class="detail-host">${avatar(p.hostId)}<div>${E(person(p.hostId).name)} is hosting<small>You’re welcome for the parts that suit you.</small></div></div><p class="lede" style="white-space:pre-wrap">${E(p.description)}</p>${mode === 'demo' ? '<div class="notice warn">Example plan with fictional people. Meeting points and availability are deliberately not verified. Nothing here is booked.</div>' : ''}${needs ? '<div class="notice warn"><strong>This changed since you joined.</strong><br>Review the current time, meeting point and selected part, then reconfirm. A changed plan does not silently change your commitment.</div>' : ''}<div class="meeting-box"><span class="eyebrow">Where to find us · supplied by the host</span><strong>${E(p.meeting)}</strong><a class="text-btn" href="${E(safeURL(p.mapLink) || mapSearch(p))}" target="_blank" rel="noopener noreferrer">${I('pin')}${safeURL(p.mapLink) ? 'Open host’s map link' : 'Search this meeting point in Maps'} ${I('external')}</a></div><div class="fact-grid"><div class="fact"><small>Effort</small><strong>${{ easy: 'Easy pace', active: 'Active outing', demanding: 'Demanding outing' }[p.effort]}</strong></div><div class="fact"><small>Expected cost</small><strong>${E(p.cost || 'Not supplied · ask the host')}</strong></div><div class="fact"><small>Booking</small><strong>${{ check: 'Still needs checking', 'not-needed': 'Host says no booking needed', 'host-booked': 'Host has booked for themselves' }[p.booking]}</strong></div></div>${p.booking === 'host-booked' ? '<div class="notice warn">The host’s booking does not include you automatically. Confirm your own place or ask the host before paying or traveling.</div>' : ''}${a ? `<div class="notice">From the fieldbook: <button class="text-btn" data-action="discovery" data-id="${a.id}">${E(a.title)} ${I('arrow')}</button><br>${a.flags.includes('w') ? 'Water activity: operator approval, conditions and safety must be confirmed separately. ' : ''}${a.flags.includes('o') ? 'A separate stay or island transfer may be needed. ' : ''}Catalogue durations exclude travel time. This invitation is not a checked route.</div>` : ''}${(mine || p.status !== 'open') && p.segments.length ? `<section class="meeting-parts"><div class="section-label">Smaller meet-up parts</div>${p.segments.map((s) => `<div class="choose-part"><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></div>`).join('')}</section>` : ''}${p.status === 'open' && !mine ? `<form id="rsvp-form" data-plan="${E(p.id)}" data-revision="${p.revision}"><div class="section-label">How would you like to join?</div>${p.joinStyle === 'open' ? `<label class="choose-part"><input type="radio" name="choice" value="all" ${!r || r.choice === 'all' ? 'checked' : ''}><span><strong>All of it</strong><small>${formatTime(p)} JST · main meeting point above</small></span></label>` : ''}${p.segments.map((s, i) => `<label class="choose-part"><input type="radio" name="choice" value="${E(s.id)}" ${r?.choice === s.id || (!r && p.joinStyle === 'reunion' && i === 0) ? 'checked' : ''}><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></label>`).join('')}<div class="form-error" role="alert"></div><div id="overlap-choice"></div><div class="row wrap" style="margin-top:20px"><button type="submit" name="status" value="${full ? 'waitlist' : 'joined'}" class="btn primary">${full ? 'Join the waitlist' : needs ? 'Reconfirm my part' : r?.status === 'joined' ? 'Update my part' : 'I’m coming'} ${I('arrow')}</button><button type="submit" name="status" value="interested" class="btn">Interested, not committed</button>${r ? `<button type="submit" name="status" value="leave" class="text-btn">Leave this plan</button>` : ''}</div><p class="time-note">${p.capacity ? `${1 + members.length} of ${p.capacity} places including the host. ` : ''}One group-wide capacity applies to all parts. Waitlists are not auto-promoted. Joining never purchases a ticket.</p></form>` : mine && p.status === 'open' ? `<div class="row wrap" style="margin-top:25px">${btn(I('edit') + 'Edit invitation', 'plan-edit', p.id, 'primary')}${btn(I('check') + 'Mark completed', 'plan-complete', p.id)}${btn('Cancel plan', 'plan-cancel', p.id, 'danger')}</div>` : ''}<div class="section-label">Who’s in the picture?</div><div class="person-rsvp">${avatar(p.hostId)}<span>${E(person(p.hostId).name)}<small>Hosting</small></span></div>${p.rsvps.map((r) => `<div class="person-rsvp">${avatar(r.memberId)}<span>${E(person(r.memberId).name)}<small>${E(r.status)}${r.choice !== 'all' ? ' · ' + E(p.segments.find((s) => s.id === r.choice)?.label || 'option changed') : ' · all of it'}${p.status === 'open' && r.status === 'joined' && r.acceptedRevision !== p.revision ? ' · needs to reconfirm' : ''}</small></span></div>`).join('') || '<p class="small muted" style="margin-top:14px">Nobody else has committed. That is absolutely fine.</p>'}<div class="row wrap" style="margin-top:16px">${btn(I('download') + 'Add my part to calendar', 'calendar-plan', p.id, 'subtle')}${btn(I('camera') + 'Keep a memory', 'moment-plan', p.id, 'subtle')}</div><section class="conversation"><h3>The useful little details.</h3><p class="small muted">Questions about meeting up, tickets or timing. Visible to this private trip.</p>${p.comments.map((c) => `<div class="comment">${avatar(c.memberId)}<div class="comment-body"><strong>${E(person(c.memberId).name)}</strong> <small>${when(c.created)} JST</small><p>${E(c.text)}</p>${c.memberId === S.me.id || S.me.role === 'owner' ? `<button class="text-btn" data-action="comment-delete" data-id="${E(c.id)}" data-plan="${E(p.id)}">Remove</button>` : ''}</div></div>`).join('')}<form id="comment-form" data-plan="${E(p.id)}" class="comment-form" style="margin-top:15px"><label for="comment-text" class="screenreader">Ask about this plan</label><textarea id="comment-text" name="text" maxlength="1200" placeholder="A question, a clearer exit, a tiny update…" required></textarea><button class="btn primary" type="submit">Send</button></form><div id="comment-error" class="form-error" role="alert"></div></section>`,
+      `<div class="row wrap"><span class="pill ${p.kind === 'idea' ? 'rust' : 'green'}">${p.status !== 'open' ? E(p.status) : p.kind === 'idea' ? 'An idea · not yet decided' : 'I’m going · company welcome'}</span>${p.joinStyle === 'reunion' ? '<span class="pill blue">Solo first · meet afterward</span>' : ''}</div><h2 style="margin-top:17px">${E(p.title)}</h2><div class="detail-date">${I('calendar')}${dateText(p.date, { weekday: 'long', month: 'long', day: 'numeric' })} <span>·</span>${formatTime(p)} JST</div><div class="plan-share-row">${btn(I('arrow') + 'Send this invitation', 'share-plan', p.id, 'subtle')}${mode === 'shared' ? btn('Check this idea ✳', 'ask-plan', p.id, 'subtle') : ''}</div><div class="detail-host">${avatar(p.hostId)}<div>${E(person(p.hostId).name)} is hosting<small>You’re welcome for the parts that suit you.</small></div></div><p class="lede" style="white-space:pre-wrap">${E(p.description)}</p>${mode === 'demo' ? '<div class="notice warn">Example plan with fictional people. Meeting points and availability are deliberately not verified. Nothing here is booked.</div>' : ''}${needs ? '<div class="notice warn"><strong>This changed since you joined.</strong><br>Review the current time, meeting point and selected part, then reconfirm. A changed plan does not silently change your commitment.</div>' : ''}<div class="meeting-box"><span class="eyebrow">Where to find us · supplied by the host</span><strong>${E(p.meeting)}</strong><a class="text-btn" href="${E(safeURL(p.mapLink) || mapSearch(p))}" target="_blank" rel="noopener noreferrer">${I('pin')}${safeURL(p.mapLink) ? 'Open host’s map link' : 'Search this meeting point in Maps'} ${I('external')}</a></div><div class="fact-grid"><div class="fact"><small>Effort</small><strong>${{ easy: 'Easy pace', active: 'Active outing', demanding: 'Demanding outing' }[p.effort]}</strong></div><div class="fact"><small>Expected cost</small><strong>${E(p.cost || 'Not supplied · ask the host')}</strong></div><div class="fact"><small>Booking</small><strong>${{ check: 'Still needs checking', 'not-needed': 'Host says no booking needed', 'host-booked': 'Host has booked for themselves' }[p.booking]}</strong></div></div>${p.booking === 'host-booked' ? '<div class="notice warn">The host’s booking does not include you automatically. Confirm your own place or ask the host before paying or traveling.</div>' : ''}${a ? `<div class="notice">From the fieldbook: <button class="text-btn" data-action="discovery" data-id="${a.id}">${E(a.title)} ${I('arrow')}</button><br>${a.flags.includes('w') ? 'Water activity: operator approval, conditions and safety must be confirmed separately. ' : ''}${a.flags.includes('o') ? 'A separate stay or island transfer may be needed. ' : ''}Catalogue durations exclude travel time. This invitation is not a checked route.</div>` : ''}${(mine || p.status !== 'open') && p.segments.length ? `<section class="meeting-parts"><div class="section-label">Smaller meet-up parts</div>${p.segments.map((s) => `<div class="choose-part"><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></div>`).join('')}</section>` : ''}${p.status === 'open' && !mine ? `<form id="rsvp-form" data-plan="${E(p.id)}" data-revision="${p.revision}"><div class="section-label">How would you like to join?</div>${p.joinStyle === 'open' ? `<label class="choose-part"><input type="radio" name="choice" value="all" ${!r || r.choice === 'all' ? 'checked' : ''}><span><strong>All of it</strong><small>${formatTime(p)} JST · main meeting point above</small></span></label>` : ''}${p.segments.map((s, i) => `<label class="choose-part"><input type="radio" name="choice" value="${E(s.id)}" ${r?.choice === s.id || (!r && p.joinStyle === 'reunion' && i === 0) ? 'checked' : ''}><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></label>`).join('')}<div class="form-error" role="alert"></div><div id="overlap-choice"></div><div class="row wrap" style="margin-top:20px"><button type="submit" name="status" value="${full ? 'waitlist' : 'joined'}" class="btn primary">${full ? 'Join the waitlist' : needs ? 'Reconfirm my part' : r?.status === 'joined' ? 'Update my part' : 'I’m coming'} ${I('arrow')}</button><button type="submit" name="status" value="interested" class="btn">Interested, not committed</button>${r ? `<button type="submit" name="status" value="leave" class="text-btn">Leave this plan</button>` : ''}</div><p class="time-note">${p.capacity ? `${1 + members.length} of ${p.capacity} places including the host. ` : ''}One group-wide capacity applies to all parts. Waitlists are not auto-promoted. Joining never purchases a ticket.</p></form>` : mine && p.status === 'open' ? `<div class="row wrap" style="margin-top:25px">${btn(I('edit') + 'Edit invitation', 'plan-edit', p.id, 'primary')}${btn(I('check') + 'Mark completed', 'plan-complete', p.id)}${btn('Cancel plan', 'plan-cancel', p.id, 'danger')}</div>` : ''}<div class="section-label">Who’s in the picture?</div><div class="person-rsvp">${avatar(p.hostId)}<span>${E(person(p.hostId).name)}<small>Hosting</small></span></div>${p.rsvps.map((r) => `<div class="person-rsvp">${avatar(r.memberId)}<span>${E(person(r.memberId).name)}<small>${E(r.status)}${r.choice !== 'all' ? ' · ' + E(p.segments.find((s) => s.id === r.choice)?.label || 'option changed') : ' · all of it'}${p.status === 'open' && r.status === 'joined' && r.acceptedRevision !== p.revision ? ' · needs to reconfirm' : ''}</small></span></div>`).join('') || '<p class="small muted" style="margin-top:14px">Nobody else has committed. That is absolutely fine.</p>'}<div class="row wrap" style="margin-top:16px">${btn(I('download') + 'Add my part to calendar', 'calendar-plan', p.id, 'subtle')}${btn(I('camera') + 'Keep a memory', 'moment-plan', p.id, 'subtle')}</div><section class="conversation"><h3>The useful little details.</h3><p class="small muted">Questions about meeting up, tickets or timing. Visible to this private trip.</p>${p.comments.map((c) => `<div class="comment">${avatar(c.memberId)}<div class="comment-body"><strong>${E(person(c.memberId).name)}</strong> <small>${when(c.created)} JST</small><p>${E(c.text)}</p>${c.memberId === S.me.id || S.me.role === 'owner' ? `<button class="text-btn" data-action="comment-delete" data-id="${E(c.id)}" data-plan="${E(p.id)}">Remove</button>` : ''}</div></div>`).join('')}<form id="comment-form" data-plan="${E(p.id)}" class="comment-form" style="margin-top:15px"><label for="comment-text" class="screenreader">Ask about this plan</label><textarea id="comment-text" name="text" maxlength="1200" placeholder="A question, a clearer exit, a tiny update…" required></textarea><button class="btn primary" type="submit">Send</button></form><div id="comment-error" class="form-error" role="alert"></div></section>`,
       'plan',
       id,
       true,
@@ -920,10 +936,29 @@
     );
     openModal(
       `${R[a.region]} / discovery ${String(a.n).padStart(3, '0')}`,
-      `<div class="mood-symbol">${I(MOODS[a.mood])}</div><span class="eyebrow">${E(a.area)} · ${E(a.mood)}</span><h2 style="margin-top:13px">${E(a.title)}</h2><p class="lede">${E(a.why)}</p><div class="fact-grid"><div class="fact"><small>On-site estimate</small><strong>~${a.minutes} minutes · travel excluded</strong></div><div class="fact"><small>Scale</small><strong>${a.flags.includes('o') ? 'Separate stay / island base' : a.flags.includes('d') ? 'Regional excursion' : 'Neighborhood / local area'}</strong></div><div class="fact"><small>Before going</small><strong>${a.flags.includes('b') ? 'Book or arrange ahead' : 'Check opening & access'}</strong></div></div>${a.start ? `<div class="notice warn">Listed event window: ${dateText(a.start)}–${dateText(a.end)} 2026. Recheck the organizer before committing.</div>` : ''}<p class="small" style="line-height:1.85">${E(a.practical)}</p>${a.flags.includes('w') ? '<div class="notice warn">Marine / river activity. A reputable operator must confirm access, weather, sea state and your suitability. The app cannot determine whether swimming is safe.</div>' : ''}${a.flags.includes('o') ? `<div class="notice">${a.region === 'okinawa' ? 'Island base: ' + E(a.cluster) + '. ' : 'Regional trip. '}Treat transport and accommodation as separate commitments, not a casual nearby stop.</div>` : ''}<div class="card-actions">${btn(I('plus') + 'Invite friends to this', 'plan-from', a.id, 'primary')}${btn(I(pick ? 'check' : 'save') + (pick ? 'Saved privately' : 'Save for myself'), 'save-detail', a.id)}${btn(I('people') + (pick?.shared ? 'Stop sharing this pick' : 'Recommend to the group'), 'recommend', a.id, 'subtle')}</div>${friends.length ? `<div class="detail-host">${friends.map((p) => avatar(p.memberId)).join('')}<span>${friends.map((p) => E(person(p.memberId).name)).join(', ')} recommended this</span></div>` : ''}${similar.length ? `<div class="section-label">There’s already an open invitation</div>${similar.map((p) => btn(E(p.title) + ' ' + I('arrow'), 'plan-detail', p.id, 'full')).join('')}` : ''}<div class="source-box"><strong>${a.custom ? 'A friend’s recommendation' : a.checked ? 'Narrow source check · ' + E(a.checked) : 'Research lead · not reverified for your visit'}</strong><p>${E(a.sourceScope || (a.custom ? 'Added by ' + person(a.memberId).name + '. Confirm details with the place before going.' : 'This catalogue preserves earlier research. A regional overview or third-party link is not confirmation of exact venue identity, operation, access or availability.'))}</p><div class="row wrap">${safeURL(a.source) ? `<a class="text-btn" href="${E(safeURL(a.source))}" target="_blank" rel="noopener noreferrer">${a.custom ? 'Open the shared link' : 'Read the research source'} ${I('external')}</a>` : ''}<a class="text-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.mapQuery)}" target="_blank" rel="noopener noreferrer">Search in Maps ${I('pin')}</a></div><p>A map search is not a verified pin or navigation route. Joining a friend does not remove any of these checks.</p></div>`,
+      `<div class="mood-symbol">${I(MOODS[a.mood])}</div><span class="eyebrow">${E(a.area)} · ${E(a.mood)}</span><h2 style="margin-top:13px">${E(a.title)}</h2><p class="lede">${E(a.why)}</p><div class="fact-grid"><div class="fact"><small>On-site estimate</small><strong>~${a.minutes} minutes · travel excluded</strong></div><div class="fact"><small>Scale</small><strong>${a.flags.includes('o') ? 'Separate stay / island base' : a.flags.includes('d') ? 'Regional excursion' : 'Neighborhood / local area'}</strong></div><div class="fact"><small>Before going</small><strong>${a.flags.includes('b') ? 'Book or arrange ahead' : 'Check opening & access'}</strong></div></div>${a.start ? `<div class="notice warn">Listed event window: ${dateText(a.start)}–${dateText(a.end)} 2026. Recheck the organizer before committing.</div>` : ''}<p class="small" style="line-height:1.85">${E(a.practical)}</p>${a.flags.includes('w') ? '<div class="notice warn">Marine / river activity. A reputable operator must confirm access, weather, sea state and your suitability. The app cannot determine whether swimming is safe.</div>' : ''}${a.flags.includes('o') ? `<div class="notice">${a.region === 'okinawa' ? 'Island base: ' + E(a.cluster) + '. ' : 'Regional trip. '}Treat transport and accommodation as separate commitments, not a casual nearby stop.</div>` : ''}<div class="card-actions">${mode === 'shared' ? btn('Check this for my dates ✳', 'ask-check', a.id, 'subtle') : ''}${btn(I('plus') + 'Invite friends to this', 'plan-from', a.id, 'primary')}${btn(I(pick ? 'check' : 'save') + (pick ? 'Saved privately' : 'Save for myself'), 'save-detail', a.id)}${btn(I('people') + (pick?.shared ? 'Stop sharing this pick' : 'Recommend to the group'), 'recommend', a.id, 'subtle')}</div>${friends.length ? `<div class="detail-host">${friends.map((p) => avatar(p.memberId)).join('')}<span>${friends.map((p) => E(person(p.memberId).name)).join(', ')} recommended this</span></div>` : ''}${similar.length ? `<div class="section-label">There’s already an open invitation</div>${similar.map((p) => btn(E(p.title) + ' ' + I('arrow'), 'plan-detail', p.id, 'full')).join('')}` : ''}<div class="source-box"><strong>${a.custom ? 'A friend’s recommendation' : a.checked ? 'Narrow source check · ' + E(a.checked) : 'Research lead · not reverified for your visit'}</strong><p>${E(a.sourceScope || (a.custom ? 'Added by ' + person(a.memberId).name + '. Confirm details with the place before going.' : 'This catalogue preserves earlier research. A regional overview or third-party link is not confirmation of exact venue identity, operation, access or availability.'))}</p><div class="row wrap">${safeURL(a.source) ? `<a class="text-btn" href="${E(safeURL(a.source))}" target="_blank" rel="noopener noreferrer">${a.custom ? 'Open the shared link' : 'Read the research source'} ${I('external')}</a>` : ''}<a class="text-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.mapQuery)}" target="_blank" rel="noopener noreferrer">Search in Maps ${I('pin')}</a></div><p>A map search is not a verified pin or navigation route. Joining a friend does not remove any of these checks.</p></div>`,
       'discovery',
       id,
     );
+    if (mode === 'shared')
+      void api('/research/' + id)
+        .then((r) => {
+          if (
+            modal?.type !== 'discovery' ||
+            modal.id !== id ||
+            !r.sources.length
+          )
+            return;
+          dialog
+            .querySelector('.dialog-body')
+            .insertAdjacentHTML(
+              'beforeend',
+              `<section class="source-box"><h3>Checked pages for this discovery</h3>${r.sources.map((s) => `<p><a href="${E(safeURL(s.url))}" target="_blank" rel="noopener noreferrer">${E(s.title)}</a> · ${E(s.checkedAt.slice(0, 10))} · ${s.status === 'read' ? 'page read' : 'unavailable'}</p>${(s.quotes || []).map((q) => `<blockquote>${E(q)}</blockquote>`).join('')}`).join('')}<p>Reusable place research, separate from anyone’s availability. Recheck operating details and bookings with the venue.</p></section>`,
+            );
+        })
+        .catch(() => {
+          /* Optional research failure never blocks the discovery. */
+        });
   }
   function windowMarkup(w, i) {
     return `<section class="segment-edit" data-window><div class="row between"><span class="eyebrow">Travel window ${i + 1}</span><button type="button" class="icon-btn" data-action="remove-window" data-index="${i}" aria-label="Remove travel window">${I('close')}</button></div><div class="field-row"><div class="field"><label for="window-${i}-region">Region</label><select id="window-${i}-region" data-w="region">${regionOptions(w.region)}</select></div><div class="field"><label for="window-${i}-area">Area / island (optional)</label><input id="window-${i}-area" data-w="area" maxlength="100" value="${E(w.area)}" placeholder="Aka / Naha / Kitahama"></div></div><div class="field-row"><div class="field"><label for="window-${i}-from">From</label><input id="window-${i}-from" data-w="from" type="date" value="${w.from}" min="${S.trip.start}" max="${S.trip.end}" required></div><div class="field"><label for="window-${i}-to">Through</label><input id="window-${i}-to" data-w="to" type="date" value="${w.to}" min="${S.trip.start}" max="${S.trip.end}" required></div></div></section>`;
@@ -1191,11 +1226,19 @@
     );
   }
 
+  function tripWindowForm() {
+    openModal(
+      'Our trip window',
+      `<h2>Leave room for<br><em>everyone’s dates.</em></h2><form id="trip-window-form">${field('name', 'Trip name', S.trip.name, 'text', 'maxlength="100" required')}<div class="field-row">${field('start', 'First day · Japan', S.trip.start, 'date', 'required')}${field('end', 'Last day · Japan', S.trip.end, 'date', 'required')}</div><p class="small muted">Up to a year. Existing plans and memories must remain inside the window. This does not change anyone’s personal travel dates.</p><div class="form-error" role="alert"></div><button type="submit" class="btn primary">Save trip window</button></form>`,
+      'trip-window',
+    );
+  }
+
   function settingsModal() {
     const removed = (S.trash || []).filter((m) => m.memberId === S.me.id);
     openModal(
       'A few useful things',
-      `<h2>Less setup.<br><em>More Japan.</em></h2><section class="settings-row"><h3>My name & travel dates</h3><p>Help friends know where your paths might cross.</p>${btn('Edit my details', 'profile', '', 'subtle')}</section><section class="settings-row"><h3>Bring someone along</h3><p>One reusable link for friends. No email or password.</p>${btn('Get the trip link', 'invite', '', 'primary')}</section>${mode === 'shared' ? `<section class="settings-row"><h3>Another device?</h3><p>Continue with the same name, saved ideas and plans.</p>${btn('Make my device link', 'device-link', '', 'subtle')}</section>` : ''}<section class="settings-row"><h3>Bring my original shortlist</h3><p>Import saved ideas from the old fieldbook. Old notes stay in that book; they will not suddenly appear here.</p><label class="btn" for="legacy-import">Import old shortlist</label><input id="legacy-import" type="file" accept="application/json,.json" hidden><p id="import-status" role="status"></p></section><section class="settings-row"><h3>A copy of our plans</h3><p>A readable JSON snapshot of your current view. Photo files are separate; the operator backup saves both.</p>${btn('Download snapshot', 'export', '', 'subtle')}</section>${removed.length ? `<section class="settings-row"><h3>Changed your mind?</h3><p>Restore a memory you removed in the last seven days.</p>${removed.map((m) => `<div class="row between"><span>${E(m.title || 'A memory')}</span>${btn('Restore', 'moment-restore', m.id, 'subtle')}</div>`).join('')}</section>` : ''}${
+      `<h2>Less setup.<br><em>More Japan.</em></h2><section class="settings-row"><h3>My name & travel dates</h3><p>Help friends know where your paths might cross.</p>${btn('Edit my details', 'profile', '', 'subtle')}</section>${S.me.role === 'owner' && mode === 'shared' ? `<section class="settings-row"><h3>Our trip window</h3><p>${dateText(S.trip.start)} — ${dateText(S.trip.end)}. Everyone still chooses their own travel dates.</p>${btn('Edit trip window', 'trip-window', '', 'subtle')}</section>` : ''}<section class="settings-row"><h3>Bring someone along</h3><p>One reusable link for friends. No email or password.</p>${btn('Get the trip link', 'invite', '', 'primary')}</section>${mode === 'shared' ? `<section class="settings-row"><h3>Another device?</h3><p>Continue with the same name, saved ideas and plans.</p>${btn('Make my device link', 'device-link', '', 'subtle')}</section>` : ''}<section class="settings-row"><h3>Bring my original shortlist</h3><p>Import saved ideas from the old fieldbook. Old notes stay in that book; they will not suddenly appear here.</p><label class="btn" for="legacy-import">Import old shortlist</label><input id="legacy-import" type="file" accept="application/json,.json" hidden><p id="import-status" role="status"></p></section><section class="settings-row"><h3>A copy of our plans</h3><p>A readable JSON snapshot of your current view. Photo files are separate; the operator backup saves both.</p>${btn('Download snapshot', 'export', '', 'subtle')}</section>${removed.length ? `<section class="settings-row"><h3>Changed your mind?</h3><p>Restore a memory you removed in the last seven days.</p>${removed.map((m) => `<div class="row between"><span>${E(m.title || 'A memory')}</span>${btn('Restore', 'moment-restore', m.id, 'subtle')}</div>`).join('')}</section>` : ''}${
         S.me.role === 'owner' && mode === 'shared'
           ? `<details class="settings-row"><summary>Occasional owner controls</summary><p>You manage access, not everyone’s day.</p>${S.members
               .filter((m) => m.active && m.id !== S.me.id)
@@ -1348,7 +1391,7 @@
       return;
     }
     const node = document.getElementById('print-edition');
-    node.innerHTML = `<div class="print-cover"><div class="eyebrow">Adventure Omakase / the return edition</div><h1>Different days.<br><em>Our stories.</em></h1><p>${E(S.trip.name)}</p><p>26 September — 14 October 2026</p><p>${scope === 'group' ? 'Shared contributions · private group edition' : 'Personal notebook · includes private memories'}</p></div>${moments.map((m) => `<article class="print-memory"><div class="eyebrow">${dateText(m.date)} · ${R[m.region]}</div><h3>${E(m.title || 'One thing worth keeping')}</h3><p>${E(m.text)}</p><div class="print-photo-row">${m.photos.map((id) => `<img src="${E(photo(id))}" alt="Contributed memory photo">`).join('')}</div><small>${E(person(m.memberId).name)} · ${m.visibility === 'group' ? 'shared with the trip' : 'private'}</small></article>`).join('')}`;
+    node.innerHTML = `<div class="print-cover"><div class="eyebrow">Adventure Omakase / the return edition</div><h1>Different days.<br><em>Our stories.</em></h1><p>${E(S.trip.name)}</p><p>${dateText(S.trip.start)} — ${dateText(S.trip.end)}</p><p>${scope === 'group' ? 'Shared contributions · private group edition' : 'Personal notebook · includes private memories'}</p></div>${moments.map((m) => `<article class="print-memory"><div class="eyebrow">${dateText(m.date)} · ${R[m.region]}</div><h3>${E(m.title || 'One thing worth keeping')}</h3><p>${E(m.text)}</p><div class="print-photo-row">${m.photos.map((id) => `<img src="${E(photo(id))}" alt="Contributed memory photo">`).join('')}</div><small>${E(person(m.memberId).name)} · ${m.visibility === 'group' ? 'shared with the trip' : 'private'}</small></article>`).join('')}`;
     await Promise.all(
       [...node.querySelectorAll('img')].map((i) =>
         i.decode().catch(() => {
@@ -1788,6 +1831,18 @@
           await mutate('/comments/' + id, 'DELETE', {}, () => showPlan(pid));
           break;
         }
+        case 'ask-find':
+          companion.open();
+          break;
+        case 'ask-check':
+          companion.open({ mode: 'check', discoveryId: id });
+          break;
+        case 'ask-plan':
+          companion.open({ mode: 'check', referencePlanId: id });
+          break;
+        case 'trip-window':
+          tripWindowForm();
+          break;
         case 'updates':
           showUpdates();
           break;
@@ -2093,6 +2148,16 @@
           () => showPlan(form.dataset.plan),
         );
         toast('Message shared on this invitation.');
+      } else if (form.id === 'trip-window-form') {
+        await mutate(
+          '/trip',
+          'PUT',
+          { ...d, expectedStart: S.trip.start, expectedEnd: S.trip.end },
+          () => {
+            closeModal();
+            toast('Trip window saved. Personal travel dates are unchanged.');
+          },
+        );
       } else if (form.id === 'profile-form') {
         await mutate(
           '/profile',
@@ -2257,5 +2322,16 @@
     }
   });
   window.addEventListener('beforeunload', () => stream?.close());
+  const companion = window.OmakaseAsk({
+    getState: () => S,
+    getMode: () => mode,
+    getDay: () => ui.day,
+    escape: E,
+    openModal,
+    refresh,
+    showPlan,
+    release: CLIENT_RELEASE,
+    toast,
+  });
   init();
 })();

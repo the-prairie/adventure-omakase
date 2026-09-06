@@ -2935,3 +2935,102 @@ select {
     font-size: 17px;
   }
 }
+/* Ask Omakase continues the fieldbook rather than replacing it with a chat page. */
+.ask-options {
+  display: grid;
+  gap: 22px;
+  margin: 24px 0;
+}
+.ask-option {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px;
+  background: var(--white);
+  min-width: 0;
+}
+.ask-option h3 {
+  margin: 10px 0 14px;
+  font-size: 31px;
+  line-height: 1.15;
+}
+.ask-option > p {
+  margin: 14px 0;
+}
+.ask-parts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+  padding: 18px 0;
+  border-block: 1px solid var(--line);
+}
+.ask-parts div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ask-parts strong {
+  color: var(--rust);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+.ask-parts small,
+.ask-source small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.ask-caveat {
+  font-size: 13px;
+  line-height: 1.7;
+}
+.ask-source {
+  margin: 16px 0;
+  overflow-wrap: anywhere;
+}
+.ask-source a,
+.ask-source small {
+  display: block;
+}
+.ask-source blockquote,
+.source-box blockquote {
+  border-left: 2px solid var(--line);
+  padding-left: 14px;
+  margin: 10px 0;
+  font-size: 13px;
+}
+.ask-progress {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 22px 0;
+  margin: 20px 0;
+  border-block: 1px solid var(--line);
+}
+.ask-usage {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 22px 0;
+}
+#ask-form,
+#ask-confirm-form {
+  margin-top: 24px;
+}
+#ask-form textarea,
+#ask-confirm-form textarea {
+  width: 100%;
+}
+@media (max-width: 580px) {
+  .ask-option {
+    padding: 18px;
+  }
+  .ask-option h3 {
+    font-size: 28px;
+  }
+  .ask-parts {
+    grid-template-columns: 1fr;
+  }
+  .ask-option .form-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

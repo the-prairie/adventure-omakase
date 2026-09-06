@@ -1,3 +1,6 @@
+import researchCatalogue from './ask-catalogue.json' with { type: 'json' };
+import type { Place } from './ask-contract.js';
+import { askRoutes } from './ask-service.js';
 import { catalogue } from './catalogue.js';
 import type { Env, Context, Database, Statement, Row } from './platform.js';
 
@@ -566,6 +569,109 @@ export function sanitizeJpeg(input: Uint8Array): Uint8Array {
   return result;
 }
 
+async function createPlan(
+  env: Env,
+  m: Row,
+  d: Row,
+  expectedSeq?: number,
+): Promise<Row> {
+  const db = env.DB;
+  const p = await cleanPlan(env, m, d),
+    pid = uid(),
+    rid = txt(d, 'requestId', 100) || uid();
+  if (
+    (await one(
+      db,
+      'SELECT count(*) AS n FROM plans WHERE trip_id=?',
+      m.trip_id,
+    ))!.n >= 1000
+  )
+    fail(409, 'This trip has 1,000 invitations.');
+  await write(
+    env,
+    m,
+    stmt(
+      db,
+      'INSERT INTO plans(id,trip_id,host_id,body,request_id,created,updated) SELECT ?,?,?,?,?,?,? WHERE (? IS NULL OR (SELECT coalesce(max(seq),0) FROM changes WHERE trip_id=?)=?) ON CONFLICT(host_id,request_id) DO NOTHING',
+      pid,
+      m.trip_id,
+      m.id,
+      JSON.stringify(p),
+      rid,
+      now(),
+      now(),
+      expectedSeq ?? null,
+      m.trip_id,
+      expectedSeq ?? null,
+    ),
+    'plan-created',
+    pid,
+    'opened an invitation: ' + p.title,
+  );
+  const saved = await one(
+    db,
+    'SELECT id FROM plans WHERE host_id=? AND request_id=?',
+    m.id,
+    rid,
+  );
+  if (!saved)
+    fail(
+      409,
+      'The trip changed while you were drafting. Refresh and review before publishing.',
+    );
+  return (await planValue(env, saved.id, m))!;
+}
+async function createDiscovery(env: Env, m: Row, d: Row): Promise<Row> {
+  const db = env.DB;
+  const id = 'find-' + uid(),
+    rid = txt(d, 'requestId', 100) || uid();
+  const value = {
+    title: txt(d, 'title', 150, true),
+    region: choice(d, 'region', REGIONS, 'tokyo'),
+    area: txt(d, 'area', 100, true),
+    why: txt(d, 'why', 2000, true),
+    description: txt(d, 'why', 2000, true),
+    source: link(txt(d, 'source', 2000)),
+    category: choice(
+      d,
+      'category',
+      ['food', 'culture', 'nature', 'water', 'design', 'odd', 'craft'],
+      'culture',
+    ),
+    tags: ['friends'],
+    minutes: integer(d, 'minutes', 5, 1440, 60),
+    researchStatus: 'Friend recommendation — details not independently checked',
+    booking: 'Check with the venue',
+    custom: true,
+  };
+  await write(
+    env,
+    m,
+    stmt(
+      db,
+      'INSERT INTO discoveries(id,trip_id,member_id,body,request_id,created,updated) VALUES(?,?,?,?,?,?,?) ON CONFLICT(member_id,request_id) DO NOTHING',
+      id,
+      m.trip_id,
+      m.id,
+      JSON.stringify(value),
+      rid,
+      now(),
+      now(),
+    ),
+    'discovery',
+    id,
+    'added a find: ' + value.title,
+  );
+  return {
+    id: (await one(
+      db,
+      'SELECT id FROM discoveries WHERE member_id=? AND request_id=?',
+      m.id,
+      rid,
+    ))!.id,
+  };
+}
+
 async function routes(
   request: Request,
   env: Env,
@@ -750,6 +856,19 @@ async function routes(
   }
   if (path.startsWith('/api/admin/')) return admin(request, env);
   const m = await auth(request, env);
+  if (path.startsWith('/api/ask/') || path.startsWith('/api/research/'))
+    return askRoutes(
+      request,
+      env,
+      m,
+      {
+        snapshot: () => snapshot(env, m),
+        createPlan: (d, seq) => createPlan(env, m, d, seq),
+        createDiscovery: (d) => createDiscovery(env, m, d),
+        catalogue: async () => researchCatalogue as Place[],
+      },
+      method === 'POST' ? await body(request, 24000) : undefined,
+    );
   if (method === 'GET' && path === '/api/state')
     return json(await snapshot(env, m));
   if (method === 'GET' && path === '/api/sync') {
@@ -832,6 +951,35 @@ async function routes(
     ).run();
     return json({ key, memberId: mid });
   }
+  if (path === '/api/trip' && method === 'PUT') {
+    if (m.role !== 'owner')
+      fail(403, 'Only the owner can change the shared trip window.');
+    const d = await body(request),
+      start = date(d.start),
+      end = date(d.end);
+    if (end < start || Date.parse(end) - Date.parse(start) > 365 * 86400000)
+      fail(422, 'Choose a trip window of up to one year.');
+    const changed = await write(
+      env,
+      m,
+      stmt(
+        db,
+        'UPDATE trips SET name=?,start=?,end=? WHERE id=? AND start=? AND end=? RETURNING id',
+        txt(d, 'name', 100, true),
+        start,
+        end,
+        m.trip_id,
+        date(d.expectedStart),
+        date(d.expectedEnd),
+      ),
+      'trip-window',
+      m.trip_id,
+      'updated the trip window',
+    );
+    if (!changed.results.length)
+      fail(409, 'The trip window changed. Refresh and try again.');
+    return json({ ok: true });
+  }
   if (path === '/api/profile' && method === 'PUT') {
     const d = await body(request),
       windows = d.windows ?? [];
@@ -907,45 +1055,8 @@ async function routes(
     ]);
     return json({ ok: true });
   }
-  if (path === '/api/plans' && method === 'POST') {
-    const d = await body(request),
-      p = await cleanPlan(env, m, d),
-      pid = uid(),
-      rid = txt(d, 'requestId', 100) || uid();
-    if (
-      (await one(
-        db,
-        'SELECT count(*) AS n FROM plans WHERE trip_id=?',
-        m.trip_id,
-      ))!.n >= 1000
-    )
-      fail(409, 'This trip has 1,000 invitations.');
-    await write(
-      env,
-      m,
-      stmt(
-        db,
-        'INSERT INTO plans(id,trip_id,host_id,body,request_id,created,updated) VALUES(?,?,?,?,?,?,?) ON CONFLICT(host_id,request_id) DO NOTHING',
-        pid,
-        m.trip_id,
-        m.id,
-        JSON.stringify(p),
-        rid,
-        now(),
-        now(),
-      ),
-      'plan-created',
-      pid,
-      'opened an invitation: ' + p.title,
-    );
-    const saved = await one(
-      db,
-      'SELECT id FROM plans WHERE host_id=? AND request_id=?',
-      m.id,
-      rid,
-    );
-    return json(await planValue(env, saved!.id, m), 201);
-  }
+  if (path === '/api/plans' && method === 'POST')
+    return json(await createPlan(env, m, await body(request)), 201);
   if ((match = path.match(/^\/api\/plans\/([-\w]+)$/)) && method === 'PUT') {
     const id = match[1],
       d = await body(request),
@@ -1149,60 +1260,8 @@ async function routes(
     );
     return json({ ok: true });
   }
-  if (path === '/api/discoveries' && method === 'POST') {
-    const d = await body(request),
-      id = 'find-' + uid(),
-      rid = txt(d, 'requestId', 100) || uid();
-    const value = {
-      title: txt(d, 'title', 150, true),
-      region: choice(d, 'region', REGIONS, 'tokyo'),
-      area: txt(d, 'area', 100, true),
-      why: txt(d, 'why', 2000, true),
-      description: txt(d, 'why', 2000, true),
-      source: link(txt(d, 'source', 2000)),
-      category: choice(
-        d,
-        'category',
-        ['food', 'culture', 'nature', 'water', 'design', 'odd', 'craft'],
-        'culture',
-      ),
-      tags: ['friends'],
-      minutes: integer(d, 'minutes', 5, 1440, 60),
-      researchStatus:
-        'Friend recommendation — details not independently checked',
-      booking: 'Check with the venue',
-      custom: true,
-    };
-    await write(
-      env,
-      m,
-      stmt(
-        db,
-        'INSERT INTO discoveries(id,trip_id,member_id,body,request_id,created,updated) VALUES(?,?,?,?,?,?,?) ON CONFLICT(member_id,request_id) DO NOTHING',
-        id,
-        m.trip_id,
-        m.id,
-        JSON.stringify(value),
-        rid,
-        now(),
-        now(),
-      ),
-      'discovery',
-      id,
-      'added a find: ' + value.title,
-    );
-    return json(
-      {
-        id: (await one(
-          db,
-          'SELECT id FROM discoveries WHERE member_id=? AND request_id=?',
-          m.id,
-          rid,
-        ))!.id,
-      },
-      201,
-    );
-  }
+  if (path === '/api/discoveries' && method === 'POST')
+    return json(await createDiscovery(env, m, await body(request)), 201);
   if (path === '/api/photos' && method === 'POST') {
     let data: Uint8Array;
     if ((request.headers.get('content-type') || '').startsWith('image/jpeg'))
@@ -1498,6 +1557,9 @@ const BACKUP_TABLES = [
   'moments',
   'changes',
   'imports',
+  'ask_tasks',
+  'ask_budget',
+  'place_research',
 ];
 async function admin(request: Request, env: Env): Promise<Response> {
   await ownerKey(request, env);
@@ -1513,7 +1575,7 @@ async function admin(request: Request, env: Env): Promise<Response> {
       BACKUP_TABLES.map((t) => db.prepare(`SELECT * FROM ${t}`)),
     );
     return json({
-      schemaVersion: 3,
+      schemaVersion: 4,
       created: now(),
       tables: Object.fromEntries(
         BACKUP_TABLES.map((t, i) => [t, values[i].results]),
@@ -1554,12 +1616,12 @@ async function admin(request: Request, env: Env): Promise<Response> {
       );
     const d = await body(request, 10_000_000);
     if (
-      d.schemaVersion !== 3 ||
+      ![3, 4].includes(d.schemaVersion) ||
       !d.tables ||
       !Array.isArray(d.tables.trips) ||
       d.tables.trips.length !== 1
     )
-      fail(422, 'Use a version 3 full backup.');
+      fail(422, 'Use a version 3 or 4 full backup.');
     // Column names come from the migration, never from untrusted JSON.
     const batch: Statement[] = [
       stmt(db, "INSERT OR REPLACE INTO app_meta VALUES('restoring','1')"),
@@ -1641,6 +1703,21 @@ export async function cleanup(env: Env): Promise<void> {
   }
   await db.batch([
     stmt(db, 'DELETE FROM sessions WHERE expires<?', epoch()),
+    stmt(
+      db,
+      'DELETE FROM ask_tasks WHERE created<?',
+      new Date(Date.now() - 7 * 86400000).toISOString(),
+    ),
+    stmt(
+      db,
+      'DELETE FROM ask_budget WHERE day<?',
+      new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10),
+    ),
+    stmt(
+      db,
+      'DELETE FROM place_research WHERE checked_at<?',
+      new Date(Date.now() - 90 * 86400000).toISOString(),
+    ),
     stmt(db, 'DELETE FROM limits WHERE expires<?', epoch()),
     stmt(
       db,
@@ -1702,6 +1779,11 @@ function mappedError(e: unknown): Response {
       ],
       ['invalid_member', 403, 'This member cannot join that outing.'],
       ['trips.singleton', 409, 'This deployment already has its trip.'],
+      [
+        'outside_trip_window',
+        409,
+        'Keep existing plans and memories inside the trip window. Refresh before changing dates.',
+      ],
       [
         'imports.member_id',
         409,
