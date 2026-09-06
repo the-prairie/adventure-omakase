@@ -620,3 +620,32 @@ test('host replanning edits once, preserves part responses and requests reconfir
     'Revised lunch entrance',
   );
 });
+
+test('replanning unsupported manual part shapes rejects before provider usage', async () => {
+  const f = await setup();
+  const initial = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  const made = await f.call(
+    '/ask/tasks/' + initial.data.id + '/confirm',
+    'POST',
+    { option: 0, draft: initial.data.result.options[0].draft },
+    f.owner.cookie,
+  );
+  const p = made.data.plan;
+  const edited = await f.call(
+    '/plans/' + p.id,
+    'PUT',
+    { ...p, segments: [] },
+    f.owner.cookie,
+  );
+  assert.equal(edited.status, 200);
+  const calls = f.env.AI.calls.length;
+  const rejected = await f.call(
+    '/ask/tasks',
+    'POST',
+    input({ reviseExisting: true, referencePlanId: p.id }),
+    f.owner.cookie,
+  );
+  assert.equal(rejected.status, 422);
+  assert.match(rejected.data.detail, /Edit invitation/);
+  assert.equal(f.env.AI.calls.length, calls);
+});

@@ -360,6 +360,20 @@ export async function askRoutes(
       )
     )
       throw new AskError(403, 'Choose your own open invitation to revise.');
+    if (input.reviseExisting) {
+      const reference = state.plans.find(
+        (p: Row) => p.id === input.referencePlanId,
+      );
+      if (
+        !reference.segments.length ||
+        new Set(reference.segments.map((s: Row) => s.label)).size !==
+          reference.segments.length
+      )
+        throw new AskError(
+          422,
+          'Use Edit invitation for a plan without separately named parts. No model request was made.',
+        );
+    }
     const existing = await get(input.requestId);
     if (existing)
       return json(
