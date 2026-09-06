@@ -388,7 +388,7 @@ test('unbounded built-in search is rejected before spend and full model capacity
   );
   assert.equal(calls, 0);
   env.DB.db
-    .prepare("INSERT INTO service_budget VALUES('companion',3000000,0)")
+    .prepare("INSERT INTO service_budget VALUES('companion',4000000,0)")
     .run();
   await assert.rejects(
     geminiGenerate(env, { contents: [] }, signal(), provider),
@@ -458,4 +458,30 @@ test('restarting the same watch cannot bypass the one-minute fetch cooldown', as
   assert.equal(reads, 1);
   await watchRoutes(request(), env, m, body, fetcher);
   assert.equal(reads, 1);
+});
+
+test('provider rejection exposes only safe diagnostics, never the key or raw prompt', async () => {
+  const { env } = await setup();
+  env.GEMINI_API_KEY = 'private-fixture-key';
+  const { geminiGenerate } = await import('../build/companion-provider.js');
+  await assert.rejects(
+    geminiGenerate(env, { contents: [] }, signal(), async () =>
+      Response.json(
+        {
+          error: {
+            status: 'INVALID_ARGUMENT',
+            message:
+              'User location is not supported for API use. private-fixture-key private prompt',
+          },
+        },
+        { status: 400 },
+      ),
+    ),
+    (e) => {
+      assert.match(e.message, /server location/);
+      assert.match(e.message, /HTTP 400/);
+      assert.doesNotMatch(e.message, /private-fixture-key|private prompt/);
+      return true;
+    },
+  );
 });

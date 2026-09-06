@@ -103,9 +103,11 @@ export async function geminiGenerate(
     ...payload,
     generationConfig: { ...payload.generationConfig, candidateCount: 1 },
   };
-  // Full published model capacity at the higher 2027 rates: 1,048,576 input
-  // and 65,536 output tokens cost at most $2.064384. No paid built-in tools.
-  return paidCall(env, 2.1, async () => {
+  // Full published capacity costs at most $1.032192 now, $2.064384 in 2027.
+  // No paid built-in tools and exactly one candidate.
+  const reserveUSD =
+    Date.now() >= Date.parse('2027-01-01T00:00:00Z') ? 2.1 : 1.05;
+  return paidCall(env, reserveUSD, async () => {
     const response = await fetcher(
       `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
       {
@@ -118,13 +120,27 @@ export async function geminiGenerate(
         body: JSON.stringify(payload),
       },
     );
-    if (!response.ok)
+    if (!response.ok) {
+      const error = (await response.json().catch(() => ({}))) as Row;
+      const message = String(error.error?.message || '');
+      const status = String(error.error?.status || '');
+      const code = /^[A-Z_]{1,60}$/.test(status) ? status : 'SERVICE_ERROR';
+      const explanation = /location.*not supported/i.test(message)
+        ? 'The model is unavailable from this server location.'
+        : /quota|resource.*exhausted/i.test(message)
+          ? 'The model service has reached its current quota.'
+          : /api.?key|permission|credential/i.test(message)
+            ? 'The model rejected its configured credential.'
+            : /thinking/i.test(message)
+              ? 'The model rejected the requested thinking configuration.'
+              : /schema|generation.config/i.test(message)
+                ? 'The model rejected the response configuration.'
+                : 'The model service could not complete this request.';
       throw new AskError(
         response.status === 429 ? 429 : 502,
-        response.status === 429
-          ? 'The model service has reached its current quota. Try later.'
-          : 'The model service could not complete this request. Nothing was published.',
+        `${explanation} Provider HTTP ${response.status} (${code}). Nothing was published.`,
       );
+    }
     const data = (await response.json()) as Row;
     const usage = geminiUsage(data);
     return { value: data, costUSD: usage.estimated_usd };

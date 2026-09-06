@@ -37,6 +37,7 @@
   },
   "env": {
     "preview": {
+      "placement": { "region": "gcp:us-central1" },
       "ai": { "binding": "AI" },
       "name": "adventure-omakase-friends-preview",
       "account_id": "f78623ddd332611244f13a0f5a5436e0",

@@ -53,7 +53,7 @@ export async function findPlaces(
     if (!r.ok)
       throw new AskError(
         r.status === 429 ? 429 : 502,
-        'Place lookup could not finish. No opening time or availability was confirmed.',
+        `Place lookup could not finish (provider HTTP ${r.status}). No opening time or availability was confirmed.`,
       );
     const d = (await r.json()) as Row;
     return {
