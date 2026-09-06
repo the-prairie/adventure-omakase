@@ -48,11 +48,12 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
 }, testInfo) => {
   const contexts = [];
   const errors = [];
-  async function friendPage(width = 1280) {
+  async function friendPage(width = 1280, serviceWorkers = 'allow') {
     const c = await browser.newContext({
       viewport: { width, height: 900 },
       timezoneId: 'America/Edmonton',
       reducedMotion: 'reduce',
+      serviceWorkers,
     });
     contexts.push(c);
     c.setDefaultTimeout(15000);
@@ -62,7 +63,8 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
     return p;
   }
   const a = await friendPage(),
-    b = await friendPage(390),
+    // Request interception must bypass service workers in this one session.
+    b = await friendPage(390, 'block'),
     c = await friendPage(),
     invalid = await friendPage();
   try {
@@ -157,6 +159,40 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       expect(await b.locator('[name=choice][value=all]').count()).toBe(0);
       await b.locator('#rsvp-form [value=joined]').click();
       await expect(b.locator('#dialog')).toContainText('Update my part');
+      await expect(b.locator('#toast')).not.toHaveClass(/visible/);
+      // Hold the outgoing request while the friend navigates away, then send it
+      // normally to the real backend without fabricating a response.
+      let releaseReply,
+        receivedReply = false;
+      const held = new Promise((resolve) => {
+        releaseReply = resolve;
+      });
+      await b.route('**/api/plans/*/rsvp', async (route) => {
+        receivedReply = true;
+        await held;
+        await route.continue();
+      });
+      try {
+        await b.locator('#rsvp-form [value=joined]').click();
+        await expect
+          .poll(() => receivedReply, {
+            message: 'RSVP reached the controlled transport delay',
+          })
+          .toBe(true);
+        await nav(b, 'day');
+        releaseReply();
+        await expect(b.locator('#toast')).toHaveClass(/visible/);
+        await expect(b.locator('#toast')).toContainText(
+          'Your chosen part is confirmed',
+        );
+        await expect(b.locator('#dialog')).not.toBeVisible();
+        await expect(
+          b.locator('[data-action=day][data-id="2026-10-04"]'),
+        ).toHaveAttribute('aria-pressed', 'true');
+      } finally {
+        releaseReply();
+        await b.unroute('**/api/plans/*/rsvp');
+      }
       await nav(b, 'plans');
       await expect(b.locator('.next-plan')).toContainText('09:00–10:00 JST');
       await expect(b.locator('.next-plan')).toContainText('Just coffee');

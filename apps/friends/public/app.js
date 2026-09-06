@@ -2157,7 +2157,9 @@
           () => {
             if (status === 'joined')
               ui.day = S.plans.find((p) => p.id === form.dataset.plan).date;
-            showPlan(form.dataset.plan);
+            if (modal?.type === 'plan' && modal.id === form.dataset.plan)
+              showPlan(form.dataset.plan);
+            else render();
           },
         );
         toast(
