@@ -52,3 +52,15 @@ The user requested end-to-end implementation and a recorded walkthrough using th
 | Browser UX                  | 14 Chromium/WebKit tests passed, including reviewed memory flow and recent-result recovery; translation/route screenshots inspected | Actual partial walkthrough recorded; failed provider steps visible; phone pending |
 
 Do not mark the walkthrough complete from fixture screenshots or a script that has not run. No merge or production deployment is authorized by this amendment.
+
+## September 6 amendment: traveler experience refinement
+
+The user authorized the design audit recommendations and requested a fresh agent to join as a friend and record the experience. The refinement preserves the existing cream, forest, rust and serif identity.
+
+- Home now shows the next hosted or joined commitment, ordered by the selected part’s Japan-local time, with its meeting point and reconfirmation state. Past and closed plans are excluded from this summary.
+- Discover gathers personalized research, the existing discovery draw, catalogue search and friends’ finds. A single travel companion entry exposes all existing helpers.
+- Invitation response comes before long prose and sharing tools. Cost, booking and material activity caveats remain visible before consent; joining and booking remain separate.
+- Research context can be edited in one disclosure; its summary follows edits. Unavailable research links directly back to usable catalogue discovery without publishing a plan.
+- Navigation and text actions have larger touch areas. No new venue photography, curation guarantees or fictional production activity are introduced.
+
+Observed locally: `pnpm check` passed (83 friends tests); 14 Chromium/WebKit scenarios passed, plus 2 new unavailable-research fallback scenarios. Browser assertions cover selected-part home time/meeting and updated collapsed request context. Desktop/mobile home screenshots inspected. Independent standards/specification reviews identified stale request summaries and hidden activity caveats; both corrected. Preview identity and the independent friend recording will be recorded in CURRENT_STATUS after deployment. Physical-phone and full live-provider gates remain separate.

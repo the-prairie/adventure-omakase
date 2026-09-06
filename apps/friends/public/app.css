@@ -3119,3 +3119,99 @@ select {
   text-align: center;
   font-size: 12px;
 }
+
+/* The shared trip starts with the traveler, then the invitations. */
+.trip-home {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 44px 0 48px;
+  border-bottom: 1px solid var(--line);
+}
+.trip-home h1 {
+  font-size: clamp(38px, 4.4vw, 64px);
+  margin: 12px 0;
+}
+.trip-home p {
+  margin: 12px 0 22px;
+}
+.next-plan {
+  border-left: 2px solid var(--green);
+  padding: 8px 0 8px 32px;
+}
+.next-plan h2 {
+  font-size: 28px;
+  margin: 14px 0 8px;
+}
+.next-plan p {
+  margin: 8px 0 14px;
+}
+.companion-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+.companion-bar button {
+  min-height: 44px;
+}
+.companion-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+}
+.companion-options button {
+  text-align: left;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  min-height: 64px;
+}
+.companion-options strong,
+.companion-options span {
+  display: block;
+}
+.companion-options span {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.nav button {
+  font-size: 14px;
+  min-height: 44px;
+}
+.filters button,
+.text-btn,
+.footer button {
+  min-height: 44px;
+}
+.ask-timing summary {
+  line-height: 1.7;
+}
+.ask-timing summary span {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .trip-home {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px 0 32px;
+  }
+  .next-plan {
+    padding-left: 20px;
+  }
+  .next-plan h2 {
+    font-size: 25px;
+  }
+  .companion-bar {
+    justify-content: space-between;
+  }
+  .companion-options {
+    grid-template-columns: 1fr;
+  }
+  .nav-dock button {
+    min-height: 48px;
+  }
+}

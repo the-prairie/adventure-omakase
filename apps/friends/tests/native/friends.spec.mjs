@@ -57,6 +57,7 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
     contexts.push(c);
     c.setDefaultTimeout(15000);
     const p = await c.newPage();
+    await p.clock.setFixedTime(new Date('2026-09-06T12:00:00Z'));
     p.on('pageerror', (e) => errors.push(e.message));
     return p;
   }
@@ -154,6 +155,19 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       expect(await b.locator('[name=choice][value=all]').count()).toBe(0);
       await b.locator('#rsvp-form [value=joined]').click();
       await expect(b.locator('#dialog')).toContainText('Update my part');
+      await nav(b, 'plans');
+      await expect(b.locator('.next-plan')).toContainText('09:00–10:00 JST');
+      await expect(b.locator('.next-plan')).toContainText('Just coffee');
+      await expect(b.locator('.next-plan')).toContainText(
+        'Synthetic coffee meeting',
+      );
+      await expect(b.locator('.next-plan')).not.toContainText(
+        'Synthetic running start',
+      );
+      await b.screenshot({
+        path: testInfo.outputPath('home-mobile.png'),
+        fullPage: true,
+      });
       await nav(b, 'day');
       await b.locator('[data-action=day][data-id="2026-10-04"]').click();
       await expect(b.locator('.commitment')).toContainText('09:00–10:00 JST');
@@ -457,4 +471,24 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
     // Preserve the failing action instead of masking it with teardown errors.
     await Promise.allSettled(contexts.map((c) => c.close()));
   }
+});
+
+test('unavailable research offers a working fieldbook fallback', async ({
+  page,
+  runtime,
+}) => {
+  await page.goto(runtime.url + '/#setup=' + TEST_KEY);
+  await page.locator('#f-name').fill('Fallback tester');
+  await page.locator('#auth-form [type=submit]').click();
+  await action(page, 'discover-nav').click();
+  await action(page, 'ask-find').click();
+  await page.locator('#ask-area').fill('Namba');
+  await page.locator('#ask-form [type=submit]').click();
+  await expect(page.locator('#dialog')).toContainText(
+    'A pause in the research',
+  );
+  await page.getByRole('button', { name: 'Browse ideas', exact: true }).click();
+  await expect(page.locator('#dialog')).not.toBeVisible();
+  await expect(page.locator('#search')).toBeVisible();
+  expect((await state(page)).plans).toEqual([]);
 });

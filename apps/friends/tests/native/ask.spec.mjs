@@ -50,6 +50,7 @@ test('fixture AI cards confirm an ordinary invitation with lunch-only participat
     await c.locator('[data-w=to]').fill('2026-10-14');
     await c.locator('#profile-form [type=submit]').click();
     await a.reload();
+    await action(a, 'discover-nav').click();
     await action(a, 'ask-find').click();
     await a
       .locator('#ask-prompt')
@@ -58,6 +59,10 @@ test('fixture AI cards confirm an ordinary invitation with lunch-only participat
       );
     await expect(a.locator('#ask-date')).toHaveValue('2026-09-28');
     await a.locator('#ask-area').fill('Namba');
+    await a.screenshot({
+      path: info.outputPath('ask-request-desktop.png'),
+      fullPage: true,
+    });
     await a.locator('#ask-form [type=submit]').click();
     await expect(a.locator('.ask-option')).toHaveCount(2);
     await expect(a.locator('#dialog')).toContainText(
@@ -78,6 +83,10 @@ test('fixture AI cards confirm an ordinary invitation with lunch-only participat
     const p = (await state(a)).plans[0];
     await b.goto(runtime.url + '/#plan=' + p.id);
     await expect(b.locator('[name=choice][value=part-2]')).toBeVisible();
+    await b.screenshot({
+      path: info.outputPath('join-part-mobile.png'),
+      fullPage: true,
+    });
     await b.locator('[name=choice][value=part-2]').check();
     await b.locator('#rsvp-form [value=joined]').click();
     await expect(b.locator('#dialog')).toContainText('Update my part');
@@ -116,8 +125,18 @@ test('fixture UI keeps cancellation and offline confirmation honest', async ({
   await page.goto(runtime.url + '/#setup=' + TEST_KEY);
   await page.locator('#f-name').fill('Cancel test');
   await page.locator('#auth-form [type=submit]').click();
+  await action(page, 'discover-nav').click();
   await action(page, 'ask-find').click();
-  await page.locator('#ask-area').fill('Namba');
+  await page.locator('#ask-area').fill('Umeda');
+  await page.locator('#ask-date').fill('2026-10-03');
+  await page.locator('#ask-start').fill('11:00');
+  await page.locator('.ask-timing summary').click();
+  await expect(page.locator('.ask-timing summary')).toContainText(
+    '3 October 2026',
+  );
+  await expect(page.locator('.ask-timing summary')).toContainText(
+    'Umeda · 11:00–14:00 JST',
+  );
   await page.locator('#ask-form [type=submit]').click();
   await page.locator('[data-ask=cancel]').click();
   await expect(page.locator('#dialog')).toContainText('Cancelled');
@@ -136,11 +155,13 @@ test('travel helpers show results, recover private drafts and require memory rev
   await page.goto(runtime.url + '/#setup=' + TEST_KEY);
   await page.locator('#f-name').fill('Synthetic helper tester');
   await page.locator('#auth-form [type=submit]').click();
-  const open = (kind) =>
-    page
+  const open = async (kind) => {
+    await close(page);
+    await action(page, 'companion').click();
+    await page
       .locator(`[data-travel=open][data-value=${kind}]:visible`)
-      .first()
       .click();
+  };
   await open('translate');
   await page.locator('#travel-text').fill('今日は散歩しました。');
   await page.locator('#travel-form [type=submit]').click();

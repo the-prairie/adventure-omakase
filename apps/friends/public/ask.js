@@ -113,7 +113,7 @@ window.OmakaseAsk = function ({
       v = formValues;
     openModal(
       'Ask Omakase',
-      `<div class="eyebrow">A little help, on your terms.</div><h2>${v.mode === 'check' ? 'Worth a closer look.' : 'Find your own<br><em>little detour.</em>'}</h2><p class="lede">A few ideas for ${E(s.me.name)}. Friends choose their own days.</p><form id="ask-form"><div class="field"><label for="ask-prompt">${v.mode === 'check' ? 'What should we check?' : 'What are you in the mood for?'}</label><textarea id="ask-prompt" name="prompt" rows="4" maxlength="1200" required>${E(v.prompt)}</textarea></div><div class="field-row">${input('date', 'For this date · Japan', v.date, 'date', `min="${s.trip.start}" max="${s.trip.end}" required`)}<div class="field"><label for="ask-region">Your region</label><select id="ask-region" name="region">${Object.entries(
+      `<h2>${v.mode === 'check' ? 'Worth a closer look.' : 'What sounds good?'}</h2><p class="lede">A few ideas for ${E(s.me.name)}. Friends choose their own days.</p><form id="ask-form"><div class="field"><label for="ask-prompt">${v.mode === 'check' ? 'What should we check?' : 'What are you in the mood for?'}</label><textarea id="ask-prompt" name="prompt" rows="4" maxlength="1200" required>${E(v.prompt)}</textarea></div><details class="form-detail ask-timing" ${!v.area ? 'open' : ''}><summary>${E(dateLabel(v.date))} · ${E(v.area || regions[v.region])} · ${E(v.start)}–${E(v.end)} JST <span> · Edit date & place</span></summary><div class="field-row">${input('date', 'For this date · Japan', v.date, 'date', `min="${s.trip.start}" max="${s.trip.end}" required`)}<div class="field"><label for="ask-region">Your region</label><select id="ask-region" name="region">${Object.entries(
         regions,
       )
         .map(
@@ -122,7 +122,7 @@ window.OmakaseAsk = function ({
         )
         .join(
           '',
-        )}</select></div></div>${input('area', 'Where would you like to start?', v.area, 'text', 'maxlength="100" placeholder="Namba, Umeda, a station or neighborhood" required')}<div class="field-row">${input('start', 'Time you choose · from JST', v.start, 'time', 'required')}${input('end', 'Until · JST', v.end, 'time', 'required')}</div><p class="small muted">These are proposed times you can edit. An empty calendar does not mean you are free. We also check your existing commitments.</p>${v.mode === 'check' ? input('url', 'A public link to check (optional)', v.url, 'url', 'placeholder="https://…" maxlength="2000"') : ''}<details class="form-detail"><summary>Your context for this request</summary><p>${E(s.me.profile.interests || 'No preferences saved yet. Describe what matters in your request.')}</p><p class="small">Uses your shared travel windows and only the parts you host or joined. It does not use friends’ preferences or old private notes.</p></details><div class="form-error" role="alert"></div><div class="form-actions"><button class="btn primary" type="submit">${v.mode === 'check' ? 'Check this idea' : 'Find something for me'}</button>${button('Recent research', 'recent')}</div><p class="small muted">Sources may be unavailable. Published hours are not proof of a booking or an open slot.</p></form>`,
+        )}</select></div></div>${input('area', 'Where would you like to start?', v.area, 'text', 'maxlength="100" placeholder="Namba, Umeda, a station or neighborhood" required')}<div class="field-row">${input('start', 'Time you choose · from JST', v.start, 'time', 'required')}${input('end', 'Until · JST', v.end, 'time', 'required')}</div><p class="small muted">These are proposed times you can edit. An empty calendar does not mean you are free. We also check your existing commitments.</p></details>${v.mode === 'check' ? input('url', 'A public link to check (optional)', v.url, 'url', 'placeholder="https://…" maxlength="2000"') : ''}<details class="form-detail"><summary>Your context for this request</summary><p>${E(s.me.profile.interests || 'No preferences saved yet. Describe what matters in your request.')}</p><p class="small">Uses your shared travel windows and only the parts you host or joined. It does not use friends’ preferences or old private notes.</p></details><div class="form-error" role="alert"></div><div class="form-actions"><button class="btn primary" type="submit">${v.mode === 'check' ? 'Check this idea' : 'Find something for me'}</button>${button('Recent research', 'recent')}</div><p class="small muted">Sources may be unavailable. Published hours are not proof of a booking or an open slot.</p></form>`,
       'ask',
       '',
       true,
@@ -191,7 +191,7 @@ window.OmakaseAsk = function ({
   function failure(message) {
     openModal(
       'Ask Omakase',
-      `<h2>A pause in the research.</h2><div class="notice warn" role="alert">${E(message)}</div><p>The ordinary fieldbook is still yours to use.</p><div class="form-actions">${button('Edit and retry', 'retry', '', 'primary')}${button('Recent research', 'recent')}</div>`,
+      `<h2>A pause in the research.</h2><div class="notice warn" role="alert">${E(message)}</div><p>You can still browse saved research leads and friends’ finds. Nothing was published.</p><div class="form-actions"><button type="button" class="btn primary" data-action="discover-nav">Browse ideas</button>${button('Edit and retry', 'retry')}${button('Recent research', 'recent')}</div>`,
       'ask',
     );
   }
@@ -305,6 +305,16 @@ window.OmakaseAsk = function ({
       true,
     );
   }
+  document.addEventListener('input', (event) => {
+    const form = event.target.closest('#ask-form');
+    if (!form) return;
+    const v = Object.fromEntries(new FormData(form));
+    const summary = form.querySelector('.ask-timing summary');
+    const date = /^\d{4}-\d{2}-\d{2}$/.test(v.date)
+      ? dateLabel(v.date)
+      : 'Choose a date';
+    summary.textContent = `${date} · ${v.area || regions[v.region]} · ${v.start || '—'}–${v.end || '—'} JST · Edit date & place`;
+  });
   document.addEventListener(
     'submit',
     async (event) => {
