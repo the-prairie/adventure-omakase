@@ -38,7 +38,11 @@ A product requirement is not complete because a package, route, schema, mock or 
 | S9 Operations + Flight Recorder | Explainability, alerts, feature flags and operator intervention            |
 | S10 Production hardening        | Accessibility, performance, field tests, EAS/Cloud Run and launch gates    |
 
-## Immediate next slice
+## Current friends assignment
+
+The September 6 friends edition supersedes the following immediate native slice for this release. Its requirement and evidence ledger is [Cloudflare friends integration](cloudflare-friends-integration.md). Existing AO IDs remain historical and are not relabeled complete by importing the new app.
+
+## Earlier immediate next slice
 
 Begin `S1 Native visual foundation` and `S2 Identity + Party` through one integrated tracer that advances toward `AO-086`.
 Start with installable native visual primitives and a guest trip/join boundary that can be exercised on iOS and Android without introducing the later compiler or provider stack.

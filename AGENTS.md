@@ -2,7 +2,7 @@
 
 Read, in order:
 
-1. `docs/product/adventure-omakase-v1.md`
+1. `docs/exec-plans/active/cloudflare-friends-integration.md` for the current friends release, then `docs/product/adventure-omakase-v1.md`
 2. `docs/exec-plans/active/adventure-omakase-v1-build.md`
 3. `ARCHITECTURE.md`
 4. Applicable ADRs and nested `AGENTS.md` files
@@ -35,7 +35,7 @@ Preserve these executable boundaries:
 - `packages/contracts` stays framework-neutral.
 - Domain code imports no React, Expo, Next.js, Fastify, database or provider SDK.
 - Browser code uses same-origin Studio routes; server-only service hosts and credentials never use public environment prefixes.
-- `packages/db/drizzle` is the only ordered schema migration sequence.
+- `packages/db/drizzle` owns PostgreSQL migrations; `apps/friends/migrations` owns the separate D1 database (ADR 0006).
 - Supabase RLS, functions, triggers and extensions are custom migrations in that sequence, not a competing migration tree.
 - Realtime notifications never replace canonical committed state.
 

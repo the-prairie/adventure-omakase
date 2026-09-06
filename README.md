@@ -1,5 +1,26 @@
 # Adventure Omakase
 
+The current release is a shared Japan fieldbook for friends traveling independently: **“I’m doing this. You’re welcome to join.”** Open the group link, choose a name, and join an outing or just its coffee reunion. Scheduling uses Japan time, September 26–October 14, 2026.
+
+`apps/friends` is the single traveler release: **Cloudflare Workers + Static Assets, D1 and private R2**. It includes the 300-source discovery catalogue, independent travel windows, invitations, My day, private saves, shared recommendations and a printable photo book. Production trips do not include fictional people or memories. `/example.html` is explicitly a local fictional example.
+
+```sh
+pnpm install --frozen-lockfile
+pnpm --filter @adventure-omakase/friends db:local
+pnpm dev:friends
+pnpm test:friends
+pnpm test:cloudflare
+pnpm test:friends:browser
+```
+
+Use Node 24.19.0 and pnpm 11.22.0. Install Chromium and WebKit with `pnpm exec playwright install chromium webkit` before the native browser suite. Local owner setup requires a private `.dev.vars` copied from `apps/friends/.dev.vars.example`; see [operations](apps/friends/docs/OPERATIONS.md).
+
+Release truth: [current status](docs/audits/CURRENT_STATUS.md), [integration plan](docs/exec-plans/active/cloudflare-friends-integration.md), [Cloudflare decision](docs/decisions/0006-cloudflare-friends-edition.md). An older local fieldbook's importer covers only saved discoveries; its private journals and calendars must be exported and preserved separately.
+
+## Preserved native foundation
+
+The following documents describe the earlier native-first foundation, which remains available for future development. It is not a second friends production app.
+
 Adventure Omakase is a warm, editorial native travel experience that lets a group hand the next hour to a carefully bounded game master. The repository is a pnpm/Turborepo monorepo containing an Expo mobile client, a Next.js web runtime for Curator Studio, Operations and lightweight public pages, a Fastify API/compiler, and a PostgreSQL/PostGIS data layer.
 
 The current branch establishes and hardens the technical foundation. Product behavior remains tracked requirement-by-requirement in the [active build ledger](docs/exec-plans/active/adventure-omakase-v1-build.md); scaffolding never counts as a completed product feature.

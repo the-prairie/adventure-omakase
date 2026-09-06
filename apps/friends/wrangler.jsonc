@@ -1,0 +1,110 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "adventure-omakase-local",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-09-06",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
+    "not_found_handling": "none",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "adventure-omakase-local",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PHOTOS",
+      "bucket_name": "adventure-omakase-local-photos",
+    },
+  ],
+  "vars": {
+    "TRIP_PHOTO_BUDGET_MB": "500",
+  },
+  "triggers": {
+    "crons": ["17 4 * * *"],
+  },
+  "version_metadata": {
+    "binding": "CF_VERSION",
+  },
+  "env": {
+    "preview": {
+      "name": "adventure-omakase-friends-preview",
+      "account_id": "f78623ddd332611244f13a0f5a5436e0",
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "adventure-omakase-friends-preview",
+          "database_id": "c96e36cf-f802-42b8-bdd8-8f7a2da09807",
+          "migrations_dir": "migrations",
+        },
+      ],
+      "r2_buckets": [
+        {
+          "binding": "PHOTOS",
+          "bucket_name": "adventure-omakase-friends-preview-photos",
+        },
+      ],
+      "vars": {
+        "TRIP_PHOTO_BUDGET_MB": "500",
+      },
+      "triggers": {
+        "crons": ["17 4 * * *"],
+      },
+    },
+    "production": {
+      "name": "adventure-omakase-friends-production",
+      "account_id": "f78623ddd332611244f13a0f5a5436e0",
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "adventure-omakase-friends-production",
+          "database_id": "00000000-0000-0000-0000-000000000000",
+          "migrations_dir": "migrations",
+        },
+      ],
+      "r2_buckets": [
+        {
+          "binding": "PHOTOS",
+          "bucket_name": "adventure-omakase-friends-production-photos",
+        },
+      ],
+      "vars": {
+        "TRIP_PHOTO_BUDGET_MB": "500",
+      },
+      "triggers": {
+        "crons": ["17 4 * * *"],
+      },
+    },
+    "restore": {
+      "name": "adventure-omakase-friends-restore",
+      "account_id": "f78623ddd332611244f13a0f5a5436e0",
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "adventure-omakase-friends-restore",
+          "database_id": "92bba250-5dcc-412e-a837-1424aefb6509",
+          "migrations_dir": "migrations",
+        },
+      ],
+      "r2_buckets": [
+        {
+          "binding": "PHOTOS",
+          "bucket_name": "adventure-omakase-friends-restore-photos",
+        },
+      ],
+      "vars": {
+        "TRIP_PHOTO_BUDGET_MB": "500",
+      },
+      "triggers": {
+        "crons": ["17 4 * * *"],
+      },
+    },
+  },
+}

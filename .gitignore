@@ -16,3 +16,14 @@ apps/mobile/web-build/
 .DS_Store
 *.log
 pnpm-debug.log*
+
+# Friends runtime and private operations
+**/.deploy/
+**/.dev.vars
+**/.dev.vars.*
+!**/.dev.vars.example
+**/.wrangler/
+**/.local/
+**/backups/
+apps/friends/build/
+apps/friends/evidence/

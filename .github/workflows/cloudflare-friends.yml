@@ -1,0 +1,40 @@
+name: Cloudflare friends
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: friends-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native:
+    name: Cloudflare native and browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: pnpm/action-setup@a8198c4bff370c8506180b035930dea56dbd5288 # v5
+        with:
+          version: 11.22.0
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium webkit
+      - run: pnpm test:friends
+      - run: pnpm test:cloudflare
+      - run: pnpm test:friends:browser
+      - run: pnpm --filter @adventure-omakase/friends build
+      - name: Store synthetic visual evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: friends-native-evidence
+          path: |
+            apps/friends/evidence/runtime-smoke.json
+            apps/friends/evidence/browser-artifacts/**/*.png
+          if-no-files-found: error
+          retention-days: 14

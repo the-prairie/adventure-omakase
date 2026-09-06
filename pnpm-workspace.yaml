@@ -4,6 +4,7 @@ packages:
 
 allowBuilds:
   esbuild: true
+  workerd: true
   unrs-resolver: true
 
 engineStrict: true

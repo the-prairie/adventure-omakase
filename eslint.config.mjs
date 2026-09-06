@@ -21,6 +21,10 @@ export default tseslint.config(
       '**/.expo/**',
       '**/.turbo/**',
       '**/dist/**',
+      'apps/friends/build/**',
+      'apps/friends/evidence/**',
+      '**/.wrangler/**',
+      '**/.deploy/**',
       '**/coverage/**',
       '**/web-build/**',
       'playwright-report/**',
@@ -276,6 +280,20 @@ export default tseslint.config(
     ...tseslint.configs.disableTypeChecked,
     files: ['**/*.{js,cjs,mjs}'],
     languageOptions: { globals: globals.node },
+  },
+  {
+    files: ['apps/friends/public/*.js'],
+    languageOptions: {
+      globals: { ...globals.browser, OmakaseDemo: 'readonly' },
+    },
+  },
+  {
+    files: ['apps/friends/public/sw.js'],
+    languageOptions: { globals: globals.serviceworker },
+  },
+  {
+    files: ['apps/friends/tests/native/*.mjs'],
+    languageOptions: { globals: { ...globals.node, ...globals.browser } },
   },
   eslintConfigPrettier,
 );

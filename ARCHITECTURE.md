@@ -1,5 +1,19 @@
 # Architecture
 
+## Current friends release
+
+The September 6 assignment and [ADR 0006](docs/decisions/0006-cloudflare-friends-edition.md) supersede the native-first deployment scope for this release. One browser app in `apps/friends` calls its same-origin Worker; D1 is canonical metadata and private R2 holds selected, resized photos. SQL triggers and D1 batches enforce revisions and capacity. Polling only refreshes committed state; it is never a second state authority.
+
+`apps/friends/migrations` exclusively owns the separate D1 schema. PostgreSQL history below is preserved without modification or implied migration. No production data is loaded by a build. The legacy importer only imports saved catalogue IDs privately; original journals and calendars remain outside its coverage.
+
+Local bindings are simulated by actual workerd; named preview, production and restore environments each bind different Workers, D1 databases and R2 buckets. Release assets have content hashes. The Worker identifies its Git SHA and Cloudflare version, rejects mutations from stale clients, and health verification requires the exact deployed SHA. The service worker never caches API data or mixed shells; it removes legacy caches on activation. Local offline snapshots are visibly unconfirmed.
+
+A manual protected deployment workflow promotes committed code; production requires main plus environment approval. Worker rollback does not undo D1 migrations. See [operations](apps/friends/docs/OPERATIONS.md) and [current status](docs/audits/CURRENT_STATUS.md) for observed gates.
+
+## Preserved native architecture
+
+The sections below describe the earlier native foundation; their deployment targets are not used for the friends release.
+
 ## Product context
 
 Adventure Omakase has five connected systems: Party Pulse, the Fate Contract, the Adventure Compiler, Decision Dice and the Adventure Runtime. The first complete product milestone is a four-person Osaka journey from private preferences through one canonical roll, real-world completion, recovery and a private memory.
