@@ -45,3 +45,15 @@ jobs:
           test -n "$CLOUDFLARE_API_TOKEN"
           test -n "$OMAKASE_URL"
           pnpm --filter @adventure-omakase/friends run deploy
+      - name: Store synthetic deployment test evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: friends-deployment-test-evidence
+          path: |
+            apps/friends/evidence/runtime-smoke.json
+            apps/friends/evidence/native-browser.json
+            apps/friends/evidence/browser-artifacts/**/error-context.md
+            apps/friends/evidence/browser-artifacts/**/*.png
+          if-no-files-found: warn
+          retention-days: 14

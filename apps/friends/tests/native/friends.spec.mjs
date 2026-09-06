@@ -31,9 +31,25 @@ async function call(page, path, method = 'GET', data) {
     { path, method, data },
   );
 }
+const diagnostics = new WeakMap();
 async function fresh(page) {
   await page.reload();
-  await expect(page.locator('.header')).toBeVisible();
+  try {
+    await expect(page.locator('.header')).toBeVisible();
+  } catch (cause) {
+    const body = await page
+      .locator('body')
+      .innerText({ timeout: 2000 })
+      .catch(() => 'Body unavailable');
+    throw new Error(
+      'Reload failed to render: ' +
+        JSON.stringify({
+          body: body.slice(0, 1200),
+          ...diagnostics.get(page),
+        }),
+      { cause },
+    );
+  }
 }
 async function join(page, url, name) {
   await page.goto(url);
@@ -59,7 +75,18 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
     c.setDefaultTimeout(15000);
     const p = await c.newPage();
     await p.clock.setFixedTime(new Date('2026-09-06T12:00:00Z'));
-    p.on('pageerror', (e) => errors.push(e.message));
+    const observed = { errors: [], failedRequests: [] };
+    diagnostics.set(p, observed);
+    p.on('pageerror', (e) => {
+      errors.push(e.message);
+      observed.errors.push(e.message);
+    });
+    p.on('requestfailed', (r) =>
+      observed.failedRequests.push({
+        path: new URL(r.url()).pathname,
+        error: r.failure()?.errorText,
+      }),
+    );
     return p;
   }
   const a = await friendPage(),
