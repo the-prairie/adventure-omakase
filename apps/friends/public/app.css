@@ -2910,3 +2910,28 @@ select {
 .footer button {
   padding: 10px 6px;
 }
+
+/* Linux WebKit's serif metrics are wider: keep the logo beside three 44px controls. */
+@media (max-width: 360px) {
+  .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .header-actions {
+    gap: 4px;
+  }
+  .brand-name,
+  .brand-star {
+    font-size: 23px;
+  }
+  .brand small {
+    font-size: 6px;
+    letter-spacing: 0.08em;
+  }
+  .chapter > span {
+    min-width: 0;
+  }
+  .chapter-title {
+    font-size: 17px;
+  }
+}
