@@ -125,8 +125,9 @@ export async function askRoutes(
         taskTimeoutSeconds: 75,
         dailyNeuronLimit: external ? undefined : DAILY_NEURONS,
         dailyUSDEstimateLimit: external ? dailyBudget / 1e6 : undefined,
-        search:
-          'Existing discoveries, Wikipedia discovery search and public source pages. No availability or booking service.',
+        search: external
+          ? 'Existing discoveries, Google Places leads and public venue pages. No availability or booking service.'
+          : 'Existing discoveries, Wikipedia discovery search and public source pages. No availability or booking service.',
       });
     const research = path.match(/^\/api\/research\/([-\w]+)$/);
     if (research && request.method === 'GET') {

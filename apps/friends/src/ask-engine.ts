@@ -39,7 +39,7 @@ export const TOOL_DEFINITIONS = [
     function: {
       name: 'search_places',
       description:
-        'Find up to three new Wikipedia place leads in the selected region. Discovery search, not live availability. Use when the existing book is insufficient.',
+        'Find up to three new public place leads in the selected region. Discovery search, not live availability. Use when the existing book is insufficient.',
       parameters: parameters({ query: { type: 'string' } }, ['query']),
     },
   },
@@ -251,8 +251,7 @@ export async function runAsk(
         'The research exceeded this task’s context limit. Narrow the question.',
       );
     if (round > 0) messages[0] = { role: 'system', content: SYSTEM };
-    const finalTurn =
-      round >= 3 || (!wantsNew && sources.length >= 3) || toolCount >= 4;
+    const finalTurn = round >= 3 || sources.length >= 4 || toolCount >= 4;
     const finalMessages = finalTurn
       ? [
           {

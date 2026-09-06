@@ -25,7 +25,7 @@ The September 6 user assignment supersedes the native-first release scope for th
 | Release tooling            | Locally verified           | Separate bindings, content hashes, stale-client guard, exact HTTPS release gate.                                                                                                  |
 | Preview / production       | Preview deployed           | Preview deployed at fddf2cb; production requires protected main-branch approval.                                                                                                  |
 | Backup / restore           | Passed cloud round-trip    | D1 snapshot and R2 photo restored into isolated resources; hashes and restored UI verified.                                                                                       |
-| Ask Omakase                | In progress                | 82 fast tests and fixture browser journeys pass; live Google text/sign/route pass; audio and AI invitation returned HTTP 503. Full live companion acceptance remains incomplete.  |
+| Ask Omakase                | In progress                | 83 fast tests and fixture browser journeys pass; live Google text/sign/route pass; audio and AI invitation returned HTTP 503. Full live companion acceptance remains incomplete.  |
 | Physical phones            | Pending user participation | Actual iPhone/Android acceptance is distinct from browser emulation.                                                                                                              |
 
 Update `docs/audits/CURRENT_STATUS.md` with observed commands, tested commit, deployment identity and remaining gates before handoff.

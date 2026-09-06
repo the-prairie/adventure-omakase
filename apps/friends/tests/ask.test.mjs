@@ -555,6 +555,88 @@ test('new discovery research can search and check before the final model turn', 
   assert.deepEqual(checked, [lead.id, fresh.id]);
 });
 
+test('an unsuitable initial source leaves room to check a catalogue alternative', async () => {
+  const { runAsk } = await import('../build/ask-engine.js');
+  const leads = catalogue.filter((p) => p.region === 'osaka').slice(0, 4);
+  assert.equal(leads.length, 4);
+  let calls = 0;
+  const checked = [];
+  await runAsk(
+    input(),
+    {},
+    leads,
+    {
+      async run(_model, request) {
+        const turn = calls++;
+        if (turn === 3) {
+          assert.ok(request.response_format);
+          const evidence = JSON.parse(
+            request.messages[1].content,
+          ).checkedEvidence;
+          assert.equal(evidence.length, 4);
+          assert.ok(evidence.some((s) => s.discoveryId === leads[3].id));
+          return {
+            response: JSON.stringify({
+              question: 'Would you prefer a longer walk?',
+              options: [],
+            }),
+          };
+        }
+        assert.ok(
+          request.tools,
+          'remaining source capacity must remain usable',
+        );
+        const name = turn === 1 ? 'search_discoveries' : 'check_sources';
+        const args =
+          turn === 1
+            ? { query: leads[3].title }
+            : {
+                discoveryIds: (turn === 0 ? leads.slice(0, 3) : [leads[3]]).map(
+                  (p) => p.id,
+                ),
+              };
+        return {
+          tool_calls: [
+            {
+              id: 'alternative-' + turn,
+              type: 'function',
+              function: { name, arguments: JSON.stringify(args) },
+            },
+          ],
+        };
+      },
+    },
+    {
+      progress: async () => {
+        // This engine-only fixture has no persisted progress display.
+      },
+      searchPlaces: async () => {
+        throw Error('No external lookup needed');
+      },
+      checkSource: async (p) => {
+        checked.push(p.id);
+        return {
+          id: 'src-' + p.id,
+          discoveryId: p.id,
+          url: p.source,
+          title: p.title,
+          checkedAt: new Date().toISOString(),
+          status: 'read',
+          text: p.id === leads[0].id ? 'This event is on another date.' : QUOTE,
+          digest: 'fixture',
+          cached: false,
+        };
+      },
+    },
+    new AbortController().signal,
+  );
+  assert.equal(calls, 4);
+  assert.deepEqual(
+    checked,
+    leads.map((p) => p.id),
+  );
+});
+
 test('host replanning edits once, preserves part responses and requests reconfirmation', async () => {
   const f = await setup();
   const first = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
