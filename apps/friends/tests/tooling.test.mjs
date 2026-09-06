@@ -69,10 +69,61 @@ test('full SQL restore round-trips more than a Worker request-sized batch', asyn
       created: '2026-09-06',
       updated: '2026-09-06',
     });
+  b.schemaVersion = 5;
+  b.tables.service_budget = [
+    { id: 'companion', used: 1234, reserved: 2100000 },
+  ];
+  b.tables.travel_tasks = [
+    {
+      id: 'helper',
+      member_id: 'm',
+      trip_id: 'trip',
+      kind: 'memory',
+      status: 'complete',
+      result: '{"translated":"A private draft"}',
+      created: '2026-09-06',
+      updated: '2026-09-06',
+    },
+  ];
+  b.tables.watches = [
+    {
+      id: 'watch',
+      member_id: 'm',
+      trip_id: 'trip',
+      url: 'https://example.com',
+      title: 'Public page',
+      phrase: '',
+      status: 'active',
+      expires: '2026-09-07',
+      next_check: '2026-09-06',
+      last_checked: null,
+      digest: 'baseline',
+      excerpt: 'Public text',
+      failures: 0,
+      created: '2026-09-06',
+      lease: null,
+      lease_until: null,
+    },
+  ];
+  b.tables.watch_events = [
+    {
+      id: 'event',
+      watch_id: 'watch',
+      member_id: 'm',
+      summary: 'Changed',
+      before_text: 'Before',
+      after_text: 'After',
+      created: '2026-09-06',
+      seen: 0,
+    },
+  ];
   const db = new LocalD1();
   db.db.exec(await readFile(join(ROOT, 'migrations/0001_friends.sql'), 'utf8'));
   db.db.exec(
     await readFile(join(ROOT, 'migrations/0002_ask_omakase.sql'), 'utf8'),
+  );
+  db.db.exec(
+    await readFile(join(ROOT, 'migrations/0003_travel_companion.sql'), 'utf8'),
   );
   db.db.exec(restoreSQL(b));
   const restored = Object.fromEntries(

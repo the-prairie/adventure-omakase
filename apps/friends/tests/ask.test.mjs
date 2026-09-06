@@ -554,3 +554,69 @@ test('new discovery research can search and check before the final model turn', 
   assert.equal(calls, 4);
   assert.deepEqual(checked, [lead.id, fresh.id]);
 });
+
+test('host replanning edits once, preserves part responses and requests reconfirmation', async () => {
+  const f = await setup();
+  const first = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  const made = await f.call(
+    '/ask/tasks/' + first.data.id + '/confirm',
+    'POST',
+    { option: 0, draft: first.data.result.options[0].draft },
+    f.owner.cookie,
+  );
+  const plan = made.data.plan;
+  await f.call(
+    '/plans/' + plan.id + '/rsvp',
+    'POST',
+    { choice: 'part-2', status: 'joined', revision: plan.revision },
+    f.b.cookie,
+  );
+  const denied = await f.call(
+    '/ask/tasks',
+    'POST',
+    input({ referencePlanId: plan.id, reviseExisting: true }),
+    f.b.cookie,
+  );
+  assert.equal(denied.status, 403);
+  const revised = await f.call(
+    '/ask/tasks',
+    'POST',
+    input({
+      referencePlanId: plan.id,
+      reviseExisting: true,
+      prompt: 'Rework my invitation; move the meeting entrance.',
+    }),
+    f.owner.cookie,
+  );
+  assert.equal(revised.status, 200, JSON.stringify(revised.data));
+  const draft = revised.data.result.options[0].draft;
+  assert.deepEqual(
+    draft.segments.map((s) => s.id),
+    plan.segments.map((s) => s.id),
+  );
+  draft.segments[1].meeting = 'Revised lunch entrance';
+  const payload = { option: 0, draft };
+  const changed = await f.call(
+    '/ask/tasks/' + revised.data.id + '/confirm',
+    'POST',
+    payload,
+    f.owner.cookie,
+  );
+  assert.ok([200, 201].includes(changed.status), JSON.stringify(changed.data));
+  assert.equal(changed.data.plan.id, plan.id);
+  assert.equal(changed.data.plan.revision, plan.revision + 1);
+  const again = await f.call(
+    '/ask/tasks/' + revised.data.id + '/confirm',
+    'POST',
+    payload,
+    f.owner.cookie,
+  );
+  assert.equal(again.data.plan.revision, changed.data.plan.revision);
+  const state = (await f.call('/state', 'GET', undefined, f.b.cookie)).data;
+  assert.equal(state.plans.length, 1);
+  assert.equal(memberContext(state).commitments[0].reconfirm, true);
+  assert.equal(
+    memberContext(state).commitments[0].meeting,
+    'Revised lunch entrance',
+  );
+});

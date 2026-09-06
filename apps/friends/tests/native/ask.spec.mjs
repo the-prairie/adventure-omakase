@@ -128,3 +128,69 @@ test('fixture UI keeps cancellation and offline confirmation honest', async ({
   await expect(page.locator('.form-error')).toContainText('offline');
   await page.context().setOffline(false);
 });
+
+test('travel helpers show results, recover private drafts and require memory review', async ({
+  page,
+  runtime,
+}, info) => {
+  await page.goto(runtime.url + '/#setup=' + TEST_KEY);
+  await page.locator('#f-name').fill('Synthetic helper tester');
+  await page.locator('#auth-form [type=submit]').click();
+  const open = (kind) =>
+    page
+      .locator(`[data-travel=open][data-value=${kind}]:visible`)
+      .first()
+      .click();
+  await open('translate');
+  await page.locator('#travel-text').fill('今日は散歩しました。');
+  await page.locator('#travel-form [type=submit]').click();
+  await expect(page.locator('.translation-pair')).toContainText(
+    'I went for a walk today.',
+  );
+  await expect(page.locator('.translation-pair')).toContainText(
+    '今日は散歩しました。',
+  );
+  await page.screenshot({
+    path: info.outputPath('translation-fixture.png'),
+    fullPage: true,
+  });
+  expect((await state(page)).moments).toHaveLength(0);
+  await close(page);
+  await open('translate');
+  await page.locator('[data-travel=history]').click();
+  await page.locator('[data-travel=history-open]').first().click();
+  await expect(page.locator('.translation-pair')).toContainText(
+    'I went for a walk today.',
+  );
+  await close(page);
+  await open('memory');
+  await page.locator('#travel-text').fill('We tested the fieldbook together.');
+  await page.locator('#travel-form [type=submit]').click();
+  await expect(page.locator('.translation-pair')).toContainText(
+    'We tested the fieldbook together.',
+  );
+  await page.locator('[data-travel=memory-draft]').click();
+  await expect(page.locator('#moment-form')).toBeVisible();
+  expect((await state(page)).moments).toHaveLength(0);
+  await close(page);
+  await open('places');
+  await page.locator('#travel-form [type=submit]').click();
+  await expect(page.locator('#dialog')).toContainText('Synthetic venue');
+  await expect(page.locator('.maps-attribution')).toBeVisible();
+  await page.locator('[data-travel=place-route]').click();
+  await page.locator('#travel-form [type=submit]').click();
+  await expect(page.locator('#dialog')).toContainText('10 minutes');
+  await expect(
+    page.locator('a', { hasText: 'Open route in Google Maps' }),
+  ).toHaveAttribute('href', /travelmode=walking/);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({
+    path: info.outputPath('route-fixture-mobile.png'),
+    fullPage: true,
+  });
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});

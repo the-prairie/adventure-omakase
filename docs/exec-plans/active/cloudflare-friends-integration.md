@@ -33,3 +33,22 @@ Update `docs/audits/CURRENT_STATUS.md` with observed commands, tested commit, de
 ## September 6 amendment: Ask Omakase
 
 Preserve the integrated shared release and publish the isolated preview as soon as its gates pass. Add one companion within this app: personalized discovery cards, dated reusable research, and editable invitations confirmed through the ordinary backend. D1 remains authoritative; derive identities from sessions, validate revisions and idempotency, and never interpret an empty calendar as availability. Add bounded provider tools, cancellation, limits, caching and measured usage. Validate with fixtures in CI and a separately labeled live-provider Japan-local acceptance. Keep app, AI, CI, restore and physical-device gates distinct in CURRENT_STATUS.
+
+## Google provider configuration checkpoint
+
+September 6: Gemini and Maps credentials installed on the preview Worker; direct provider smoke tests passed. [Configuration evidence](../../audits/google-backend-setup-2026-09-06.md) records billing-project isolation limits, effective quotas, alert-only budget and credential remediation. This does not complete the deployed companion or physical-device gates.
+
+## September 6 amendment: travel companion and actual walkthrough
+
+The user requested end-to-end implementation and a recorded walkthrough using the real app and services, and authorized up to US$5 in live testing. They will install Gemini and Google Maps secrets on the preview Worker. ADR 0008 records provider, cost, privacy and watch boundaries.
+
+| Requirement                 | Implementation and observed evidence                                                                                                | Remaining acceptance                                     |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| Provider adapters and spend | Gemini protocol, one-candidate paid reservation, Places/Routes contract tests; unbounded paid tools rejected                        | Real configured-provider calls and usage                 |
+| Travel helpers              | Text/media interpretation, recoverable private drafts, transient places/routes, bounded venue research                              | Live text/photo/audio and venue/route results            |
+| Host replan                 | Existing contents and stable part identities, canonical revision update, idempotency and reconfirmation tests                       | Live model replan walkthrough                            |
+| Explicit website watches    | Private persisted jobs/events, deadlines, cancellation, cooldown, leases, failure pause; deterministic handler tests                | Actual preview handler/cron evidence                     |
+| Backup v5                   | Populated helper/budget/watch/event round-trip test; earlier versions remain supported                                              | Updated cloud backup after preview migration             |
+| Browser UX                  | 14 Chromium/WebKit tests passed, including reviewed memory flow and recent-result recovery; translation/route screenshots inspected | Real service walkthrough video and physical-device check |
+
+Do not mark the walkthrough complete from fixture screenshots or a script that has not run. No merge or production deployment is authorized by this amendment.

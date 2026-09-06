@@ -3,7 +3,7 @@
   Referrer-Policy: no-referrer
   X-Robots-Tag: noindex, nofollow
   X-Frame-Options: SAMEORIGIN
-  Permissions-Policy: geolocation=(), microphone=()
+  Permissions-Policy: geolocation=(), microphone=(self)
 /app.js
   Cache-Control: public, max-age=0, must-revalidate
 /data.js

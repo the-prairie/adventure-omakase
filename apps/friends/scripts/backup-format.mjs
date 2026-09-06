@@ -22,6 +22,7 @@ export const COLUMNS = {
     'created',
   ],
   plans: [
+    'last_edit_request',
     'id',
     'trip_id',
     'host_id',
@@ -119,17 +120,64 @@ export const COLUMNS = {
     'evidence',
     'checked_at',
   ],
+  service_budget: ['id', 'used', 'reserved'],
+  travel_tasks: [
+    'id',
+    'member_id',
+    'trip_id',
+    'kind',
+    'status',
+    'result',
+    'created',
+    'updated',
+  ],
+  watches: [
+    'id',
+    'member_id',
+    'trip_id',
+    'url',
+    'title',
+    'phrase',
+    'status',
+    'expires',
+    'next_check',
+    'last_checked',
+    'digest',
+    'excerpt',
+    'failures',
+    'created',
+    'lease',
+    'lease_until',
+  ],
+  watch_events: [
+    'id',
+    'watch_id',
+    'member_id',
+    'summary',
+    'before_text',
+    'after_text',
+    'created',
+    'seen',
+  ],
 };
 export function validateBackup(b) {
   if (
-    ![3, 4].includes(b.schemaVersion) ||
+    ![3, 4, 5].includes(b.schemaVersion) ||
     !b.tables ||
     !Array.isArray(b.tables.trips) ||
     b.tables.trips.length !== 1
   )
-    throw Error('Use a version 3 or 4 full backup with one trip.');
+    throw Error('Use a version 3, 4 or 5 full backup with one trip.');
   if (b.schemaVersion === 3)
     for (const t of ['ask_tasks', 'ask_budget', 'place_research'])
+      b.tables[t] ||= [];
+  if (b.schemaVersion < 5)
+    for (const t of [
+      'service_budget',
+      'travel_tasks',
+      'watches',
+      'watch_events',
+    ])
       b.tables[t] ||= [];
   for (const [t, cols] of Object.entries(COLUMNS)) {
     const rows = b.tables[t];
@@ -183,7 +231,11 @@ export function comparableTables(tables) {
     Object.keys(COLUMNS).map((t) => [
       t,
       (tables[t] || [])
-        .map(canonical)
+        .map((row) =>
+          canonical(
+            Object.fromEntries(COLUMNS[t].map((k) => [k, row[k] ?? null])),
+          ),
+        )
         .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b))),
     ]),
   );

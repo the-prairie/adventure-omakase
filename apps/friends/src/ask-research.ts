@@ -152,7 +152,11 @@ export async function readPage(
       id,
       discoveryId: place.id,
       url: url.href,
-      title: place.title,
+      title: place.external
+        ? pageText(
+            html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || place.title,
+          ).slice(0, 200)
+        : place.title,
       checkedAt,
       status: 'read',
       text,

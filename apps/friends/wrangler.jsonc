@@ -26,9 +26,11 @@
   ],
   "vars": {
     "TRIP_PHOTO_BUDGET_MB": "500",
+    "WATCHES_ENABLED": "1",
+    "COMPANION_BUDGET_USD": "5",
   },
   "triggers": {
-    "crons": ["17 4 * * *"],
+    "crons": ["17 4 * * *", "*/15 * * * *"],
   },
   "version_metadata": {
     "binding": "CF_VERSION",
@@ -54,9 +56,11 @@
       ],
       "vars": {
         "TRIP_PHOTO_BUDGET_MB": "500",
+        "WATCHES_ENABLED": "1",
+        "COMPANION_BUDGET_USD": "5",
       },
       "triggers": {
-        "crons": ["17 4 * * *"],
+        "crons": ["17 4 * * *", "*/15 * * * *"],
       },
       "version_metadata": {
         "binding": "CF_VERSION",
@@ -82,9 +86,11 @@
       ],
       "vars": {
         "TRIP_PHOTO_BUDGET_MB": "500",
+        "WATCHES_ENABLED": "1",
+        "COMPANION_BUDGET_USD": "5",
       },
       "triggers": {
-        "crons": ["17 4 * * *"],
+        "crons": ["17 4 * * *", "*/15 * * * *"],
       },
       "version_metadata": {
         "binding": "CF_VERSION",
@@ -109,9 +115,11 @@
       ],
       "vars": {
         "TRIP_PHOTO_BUDGET_MB": "500",
+        "WATCHES_ENABLED": "0",
+        "COMPANION_BUDGET_USD": "5",
       },
       "triggers": {
-        "crons": ["17 4 * * *"],
+        "crons": ["17 4 * * *", "*/15 * * * *"],
       },
       "version_metadata": {
         "binding": "CF_VERSION",

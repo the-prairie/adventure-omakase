@@ -12,10 +12,13 @@ import {
 } from './ask-contract.js';
 import { runAsk, type Model } from './ask-engine.js';
 import { readPage, searchPlaces, publicURL, hashText } from './ask-research.js';
+import { geminiModel, modelName } from './companion-provider.js';
 import type { Env, Row } from './platform.js';
+import { findPlaces } from './travel-tools.js';
 export interface AskActions {
   snapshot(): Promise<Row>;
   createPlan(input: Row, expectedSeq?: number): Promise<Row>;
+  updatePlan(id: string, input: Row, expectedSeq?: number): Promise<Row>;
   createDiscovery(input: Row): Promise<Row>;
   catalogue(): Promise<Place[]>;
 }
@@ -32,13 +35,24 @@ const TASK_NEURONS = 3000,
   TIMEOUT_MS = 75000;
 const now = () => new Date().toISOString();
 const parse = (s: unknown) => JSON.parse(typeof s === 'string' ? s : '{}');
-export function memberContext(state: Row): MemberContext {
+export function memberContext(state: Row, excludedPlanId = ''): MemberContext {
   const id = state.me.id;
+  const reference = state.plans.find((p: Row) => p.id === excludedPlanId);
   return {
+    ...(reference
+      ? {
+          referencePlan: {
+            title: reference.title,
+            description: reference.description,
+            date: reference.date,
+            segments: reference.segments,
+          },
+        }
+      : {}),
     preferences: state.me.profile.interests || '',
     travelWindows: state.me.profile.windows || [],
     commitments: state.plans
-      .filter((p: Row) => p.status === 'open')
+      .filter((p: Row) => p.status === 'open' && p.id !== excludedPlanId)
       .flatMap((p: Row) => {
         const r = p.rsvps.find(
           (r: Row) => r.memberId === id && r.status === 'joined',
@@ -80,6 +94,9 @@ export async function askRoutes(
   actions: AskActions,
   providedBody?: Row,
 ): Promise<Response> {
+  const external = !!env.GEMINI_API_KEY;
+  const taskBudget = external ? 200000 : TASK_NEURONS;
+  const dailyBudget = external ? 1000000 : DAILY_NEURONS;
   const db = env.DB,
     base = '/api/ask/tasks',
     path = new URL(request.url).pathname;
@@ -103,10 +120,11 @@ export async function askRoutes(
   try {
     if (path === '/api/ask/status' && request.method === 'GET')
       return json({
-        available: !!env.AI,
-        model: '@cf/openai/gpt-oss-120b',
+        available: !!env.AI || external,
+        model: modelName(env),
         taskTimeoutSeconds: 75,
-        dailyNeuronLimit: DAILY_NEURONS,
+        dailyNeuronLimit: external ? undefined : DAILY_NEURONS,
+        dailyUSDEstimateLimit: external ? dailyBudget / 1e6 : undefined,
         search:
           'Existing discoveries, Wikipedia discovery search and public source pages. No availability or booking service.',
       });
@@ -185,9 +203,10 @@ export async function askRoutes(
       if (match[2] === 'confirm' && request.method === 'POST') {
         // Duplicate confirmations return the canonical original result before stale-context checks.
         const existing = await first(
-          'SELECT id FROM plans WHERE host_id=? AND request_id=?',
+          'SELECT id FROM plans WHERE host_id=? AND (request_id=? OR last_edit_request=?)',
           member.id,
           'ask-' + task.id,
+          'ask-edit-' + task.id,
         );
         if (existing)
           return json({
@@ -219,10 +238,64 @@ export async function askRoutes(
             409,
             'Changing date or region needs a fresh check.',
           );
-        const saved = await actions.createPlan(
-          { ...draft, booking: 'check', requestId: 'ask-' + task.id },
-          task.context_seq,
-        );
+        const draftStart = text(draft.start, 5),
+          draftEnd = text(draft.end, 5);
+        const draftSegments = Array.isArray(draft.segments)
+          ? draft.segments.map(record)
+          : [];
+        const finalCommitments = memberContext(
+          state,
+          input.reviseExisting ? input.referencePlanId : undefined,
+        ).commitments;
+        if (
+          finalCommitments.some(
+            (c) =>
+              c.date === draft.date && c.start < draftEnd && c.end > draftStart,
+          )
+        )
+          throw new AskError(
+            422,
+            'These edited times overlap your commitment. Choose another time; nothing was published.',
+          );
+        let saved: Row;
+        if (input.reviseExisting) {
+          const original = state.plans.find(
+            (p: Row) => p.id === input.referencePlanId,
+          );
+          if (!original || original.hostId !== member.id)
+            throw new AskError(
+              403,
+              'Only the host can confirm changes to this invitation.',
+            );
+          if (
+            draftSegments.length !== original.segments.length ||
+            original.segments.some(
+              (part: Row) =>
+                !draftSegments.some(
+                  (next: Row) =>
+                    next.id === part.id && next.label === part.label,
+                ),
+            )
+          )
+            throw new AskError(
+              422,
+              'Keep the same invitation parts when confirming a rework. Use the ordinary edit form to change parts.',
+            );
+          saved = await actions.updatePlan(
+            original.id,
+            {
+              ...draft,
+              revision: original.revision,
+              booking: 'check',
+              editRequestId: 'ask-edit-' + task.id,
+            },
+            task.context_seq,
+          );
+        } else
+          saved = await actions.createPlan(
+            { ...draft, booking: 'check', requestId: 'ask-' + task.id },
+            task.context_seq,
+          );
         await run(
           "UPDATE ask_tasks SET status='published',stage='Invitation published in the trip.',plan_id=?,updated=? WHERE id=? AND member_id=?",
           saved.id,
@@ -270,13 +343,23 @@ export async function askRoutes(
     }
     if (path !== base || request.method !== 'POST')
       throw new AskError(404, 'That companion action is not available.');
-    if (!env.AI)
+    if (!env.AI && !external)
       throw new AskError(
         503,
         'Ask Omakase is unavailable. The fieldbook and ordinary invitations still work.',
       );
     const state = await actions.snapshot(),
       input = parseAsk(providedBody, state.trip);
+    if (
+      input.reviseExisting &&
+      !state.plans.some(
+        (p: Row) =>
+          p.id === input.referencePlanId &&
+          p.hostId === member.id &&
+          p.status === 'open',
+      )
+    )
+      throw new AskError(403, 'Choose your own open invitation to revise.');
     const existing = await get(input.requestId);
     if (existing)
       return json(
@@ -302,12 +385,13 @@ export async function askRoutes(
         429,
         'You have reached four research tasks this hour. The ordinary app is still available.',
       );
-    const day = new Intl.DateTimeFormat('en-CA', {
+    const calendarDay = new Intl.DateTimeFormat('en-CA', {
       timeZone: 'Asia/Tokyo',
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
     }).format(new Date());
+    const day = external ? 'gemini:' + calendarDay : calendarDay;
     const made = await run(
       "INSERT INTO ask_tasks(id,member_id,trip_id,status,stage,input,context_seq,budget_day,created,updated) VALUES(?,?,?,'running','Starting your research',?,?,?,?,?) ON CONFLICT(member_id,id) DO NOTHING",
       input.requestId,
@@ -331,7 +415,7 @@ export async function askRoutes(
         .prepare(
           'UPDATE ask_budget SET reserved=reserved+? WHERE trip_id=? AND day=? AND used+reserved+?<=? RETURNING day',
         )
-        .bind(TASK_NEURONS, member.trip_id, day, TASK_NEURONS, DAILY_NEURONS),
+        .bind(taskBudget, member.trip_id, day, taskBudget, dailyBudget),
     ]);
     if (!budget[1].results.length) {
       await run(
@@ -394,11 +478,12 @@ export async function askRoutes(
       if (input.discoveryId && !places.some((p) => p.id === input.discoveryId))
         throw new AskError(422, 'Choose a discovery in the selected region.');
       // Inference has no authority and no background job is promised. A timeout ends this request.
+      const nativeModel = external ? geminiModel(env, signal) : env.AI!;
       const model: Model = {
         run: async (model, input) => {
           providerPending = true;
           const result = await Promise.race([
-            env.AI!.run(model, input),
+            nativeModel.run(model, input),
             new Promise<never>((_resolve, reject) =>
               signal.addEventListener(
                 'abort',
@@ -413,7 +498,10 @@ export async function askRoutes(
       };
       const result = await runAsk(
         input,
-        memberContext(state),
+        memberContext(
+          state,
+          input.reviseExisting ? input.referencePlanId : undefined,
+        ),
         places,
         model,
         {
@@ -441,6 +529,26 @@ export async function askRoutes(
               AbortSignal.timeout(7000),
             ]);
             try {
+              if (external) {
+                const found = await findPlaces(
+                  env,
+                  query + ' ' + input.region + ' Japan',
+                  timeout,
+                );
+                return found.places
+                  .filter((p: Row) => p.website)
+                  .slice(0, 3)
+                  .map((p: Row) => ({
+                    id: 'external-' + crypto.randomUUID().slice(0, 8),
+                    title: 'New public venue page',
+                    region: input.region,
+                    area: input.area,
+                    source: p.website,
+                    minutes: 90,
+                    why: 'Read the public website before assessing suitability.',
+                    external: true,
+                  }));
+              }
               return await searchPlaces(query, input.region, timeout);
             } catch {
               signal.throwIfAborted();
@@ -484,13 +592,56 @@ export async function askRoutes(
               JSON.stringify(source),
               source.checkedAt,
             );
+            if (place.external && source.status === 'read')
+              place.title = source.title;
             return source;
           },
         },
         signal,
+        modelName(env),
       );
       await checkpoint();
       usage = result.usage;
+      if (input.reviseExisting) {
+        const original = state.plans.find(
+          (p: Row) => p.id === input.referencePlanId,
+        );
+        for (const option of result.options) {
+          const labels = option.draft.segments.map((part) => part.label);
+          if (
+            labels.length !== original.segments.length ||
+            new Set(labels).size !== labels.length ||
+            original.segments.some((part: Row) => !labels.includes(part.label))
+          )
+            throw new AskError(
+              422,
+              'The rework changed the invitation parts. Retry keeping the same part labels, or edit the invitation manually. Nothing was changed.',
+            );
+          option.draft.segments = option.draft.segments.map((part) => ({
+            ...part,
+            id: original.segments.find((old: Row) => old.label === part.label)
+              .id,
+          }));
+        }
+      }
+      const commitments = memberContext(
+        state,
+        input.reviseExisting ? input.referencePlanId : undefined,
+      ).commitments;
+      if (
+        result.options.some((o) =>
+          commitments.some(
+            (c) =>
+              c.date === o.draft.date &&
+              c.start < o.draft.end &&
+              c.end > o.draft.start,
+          ),
+        )
+      )
+        throw new AskError(
+          422,
+          'The proposed times overlap a commitment. Choose another time window; nothing was published.',
+        );
       // Only source-backed quotations are shared at place level. Personal reasons stay in this member's task.
       for (const source of result.sources) {
         const quotes = result.options.flatMap((o) =>
@@ -543,15 +694,17 @@ export async function askRoutes(
       // Unknown/aborted provider usage retains its full reservation as conservative consumed budget.
       const cost =
         providerPending || usage?.measured === false
-          ? TASK_NEURONS
-          : usage?.neurons || 0;
+          ? taskBudget
+          : external
+            ? Math.ceil((usage?.estimatedUSD || 0) * 1e6)
+            : usage?.neurons || 0;
       await db.batch([
         db
           .prepare(
             'UPDATE ask_budget SET reserved=max(0,reserved-?),used=used+? WHERE trip_id=? AND day=? AND EXISTS(SELECT 1 FROM ask_tasks WHERE id=? AND member_id=? AND settled=0)',
           )
           .bind(
-            TASK_NEURONS,
+            taskBudget,
             cost,
             member.trip_id,
             day,

@@ -137,6 +137,14 @@ export function makeEnv(dir, { maintenance = false } = {}) {
     db.db.exec(
       readFileSync(join(ROOT, 'migrations/0002_ask_omakase.sql'), 'utf8'),
     );
+  if (
+    !db.db
+      .prepare("SELECT name FROM sqlite_master WHERE name='travel_tasks'")
+      .get()
+  )
+    db.db.exec(
+      readFileSync(join(ROOT, 'migrations/0003_travel_companion.sql'), 'utf8'),
+    );
   return {
     DB: db,
     PHOTOS: new LocalR2(join(dir, 'r2')),

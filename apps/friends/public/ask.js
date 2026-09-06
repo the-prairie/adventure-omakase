@@ -88,6 +88,7 @@ window.OmakaseAsk = function ({
     );
     formValues = {
       mode: options.mode || 'find',
+      reviseExisting: !!options.reviseExisting,
       prompt:
         options.prompt ||
         (discovery
@@ -103,7 +104,7 @@ window.OmakaseAsk = function ({
       end: plan?.end || '14:00',
       discoveryId: discovery?.id || plan?.catalogueId || '',
       referencePlanId: plan?.id || '',
-      url: '',
+      url: options.url || '',
     };
     form();
   }
@@ -195,7 +196,7 @@ window.OmakaseAsk = function ({
     );
   }
   const sourceMarkup = (source, quotes = []) =>
-    `<div class="ask-source"><a href="${E(source.url)}" target="_blank" rel="noopener noreferrer">${E(source.title)} ↗</a><small>${source.status === 'read' ? 'Page read' : 'Page unavailable'} · ${E(source.checkedAt.slice(0, 10))}${source.cached ? ' · cached' : ''}</small>${quotes.map((q) => `<blockquote>${E(q)}</blockquote>`).join('')}</div>`;
+    `<div class="ask-source"><a href="${E(source.url)}" target="_blank" rel="noopener noreferrer">${E(source.title)} ↗</a><small>${source.status === 'read' ? 'Page read' : 'Page unavailable'} · ${E(source.checkedAt.slice(0, 10))}${source.cached ? ' · cached' : ''}</small>${quotes.map((q) => `<blockquote>${E(q)}</blockquote><button type="button" class="btn subtle" data-travel="translate-text" data-value="${E(q)}">Translate these words</button>`).join('')}</div>`;
   function results() {
     if (!['complete', 'published'].includes(task.status)) {
       failure(task.stage || 'Research is not ready yet.');
@@ -227,11 +228,11 @@ window.OmakaseAsk = function ({
               )
               .join(
                 '',
-              )}<p class="small">Quotes are published page information. Proposed timings, costs and meeting points are estimates. Nothing is booked.</p></details><div class="form-actions">${button('Make an invitation', 'draft', i, 'primary')}${r.places.find((p) => p.id === o.discoveryId)?.external ? button('Keep this discovery', 'save', o.discoveryId) : ''}</div></article>`,
+              )}<p class="small">Quotes are published page information. Proposed timings, costs and meeting points are estimates. Nothing is booked.</p></details><div class="form-actions">${button('Make an invitation', 'draft', i, 'primary')}<button type="button" class="btn subtle" data-travel="route-to" data-value="${E(o.draft.meeting + ', ' + o.draft.area)}">Check directions</button>${r.places.find((p) => p.id === o.discoveryId)?.external ? button('Keep this discovery', 'save', o.discoveryId) : ''}</div></article>`,
         )
         .join(
           '',
-        )}</div><p class="small muted">${E(r.contextNotice)}</p><details class="ask-usage"><summary>Research usage</summary><p>${E(u.model)} · ${u.providerCalls} model calls · ${u.sourceCalls} sources (${u.cacheHits} cached) · ${(u.elapsedMs / 1000).toFixed(1)} seconds.</p><p>${u.measured ? `${u.inputTokens} input / ${u.outputTokens} output tokens · ${u.neurons.toFixed(1)} neurons · estimated $${u.estimatedUSD.toFixed(4)} USD at published model rates.` : 'The provider did not return complete usage. The task budget remains conservatively reserved.'} This estimate is not an invoice.</p></details><div class="form-actions">${button('Refine this request', 'retry')}${button('Recent research', 'recent')}</div><div class="form-error" role="alert"></div>`,
+        )}</div><p class="small muted">${E(r.contextNotice)}</p><details class="ask-usage"><summary>Research usage</summary><p>${E(u.model)} · ${u.providerCalls} model calls · ${u.sourceCalls} sources (${u.cacheHits} cached) · ${(u.elapsedMs / 1000).toFixed(1)} seconds.</p><p>${u.measured ? `${u.inputTokens} input / ${u.outputTokens} output tokens · ${u.model.startsWith('@cf/') ? u.neurons.toFixed(1) + ' neurons · ' : ''}estimated $${u.estimatedUSD.toFixed(4)} USD at published model rates.` : 'The provider did not return complete usage. The task budget remains conservatively reserved.'} This estimate is not an invoice.</p></details><div class="form-actions">${button('Refine this request', 'retry')}${button('Recent research', 'recent')}</div><div class="form-error" role="alert"></div>`,
       'ask',
       '',
       true,
@@ -240,9 +241,10 @@ window.OmakaseAsk = function ({
   function preview(index) {
     selected = Number(index);
     draft = structuredClone(task.result.options[selected].draft);
+    const revising = !!task.input.reviseExisting;
     openModal(
       'Review your invitation',
-      `<div class="eyebrow">A draft, until you say so.</div><h2>I’m going.<br><em>Come for your part?</em></h2><p>${E(dateLabel(draft.date))} · ${E(regions[draft.region])} · Asia/Tokyo</p><div class="notice">Publishing opens an invitation in the shared trip. Nobody is assigned, joined or sent a personal invitation. Friends choose any part. Tickets are separate.</div><form id="ask-confirm-form">${input('title', 'Invitation title', draft.title, 'text', 'maxlength="150" required')}<div class="field"><label for="ask-kind">How decided are you?</label><select id="ask-kind" name="kind"><option value="going" ${draft.kind === 'going' ? 'selected' : ''}>I’m going · company welcome</option><option value="idea" ${draft.kind === 'idea' ? 'selected' : ''}>An idea · not a commitment</option></select></div>${input('area', 'Area', draft.area, 'text', 'maxlength="100" required')}<div class="field-row">${input('start', 'Outing starts · JST', draft.start, 'time', 'required')}${input('end', 'Outing ends · JST', draft.end, 'time', 'required')}</div><div class="field"><label for="ask-description">In your words</label><textarea id="ask-description" name="description" rows="3" maxlength="2400">${E(draft.description)}</textarea></div><div class="ask-edit-parts">${draft.segments.map((s, i) => `<section class="segment-edit" data-ask-part="${i}"><span class="eyebrow">Separately joinable part ${i + 1}</span>${input('label-' + i, 'What can friends join?', s.label, 'text', 'maxlength="100" required')}<div class="field-row">${input('start-' + i, 'From · JST', s.start, 'time', 'required')}${input('end-' + i, 'Until · JST', s.end, 'time', 'required')}</div>${input('meeting-' + i, 'Meeting point for this part', s.meeting, 'text', 'maxlength="500" required')}</section>`).join('')}</div><p class="small muted">Times, meeting points and costs are planning estimates. Edit them before publishing and confirm details with the venue. If the trip changes, this draft must be checked again.</p><div class="form-error" role="alert"></div><div class="form-actions"><button type="submit" class="btn primary">Confirm & publish invitation</button>${button('Back to options', 'results')}</div></form>`,
+      `<div class="eyebrow">A draft, until you say so.</div><h2>I’m going.<br><em>Come for your part?</em></h2><p>${E(dateLabel(draft.date))} · ${E(regions[draft.region])} · Asia/Tokyo</p><div class="notice">${revising ? 'This changes your existing invitation. Joined friends keep their selected part and must reconfirm the changed details. Review every part before confirming.' : 'Publishing opens an invitation in the shared trip. Nobody is assigned, joined or sent a personal invitation. Friends choose any part. Tickets are separate.'}</div><form id="ask-confirm-form">${input('title', 'Invitation title', draft.title, 'text', 'maxlength="150" required')}<div class="field"><label for="ask-kind">How decided are you?</label><select id="ask-kind" name="kind"><option value="going" ${draft.kind === 'going' ? 'selected' : ''}>I’m going · company welcome</option><option value="idea" ${draft.kind === 'idea' ? 'selected' : ''}>An idea · not a commitment</option></select></div>${input('area', 'Area', draft.area, 'text', 'maxlength="100" required')}<div class="field-row">${input('start', 'Outing starts · JST', draft.start, 'time', 'required')}${input('end', 'Outing ends · JST', draft.end, 'time', 'required')}</div><div class="field"><label for="ask-description">In your words</label><textarea id="ask-description" name="description" rows="3" maxlength="2400">${E(draft.description)}</textarea></div><div class="ask-edit-parts">${draft.segments.map((s, i) => `<section class="segment-edit" data-ask-part="${i}"><span class="eyebrow">Separately joinable part ${i + 1}</span>${input('label-' + i, 'What can friends join?', s.label, 'text', 'maxlength="100" required')}<div class="field-row">${input('start-' + i, 'From · JST', s.start, 'time', 'required')}${input('end-' + i, 'Until · JST', s.end, 'time', 'required')}</div>${input('meeting-' + i, 'Meeting point for this part', s.meeting, 'text', 'maxlength="500" required')}</section>`).join('')}</div><p class="small muted">Times, meeting points and costs are planning estimates. Edit them before publishing and confirm details with the venue. If the trip changes, this draft must be checked again.</p><div class="form-error" role="alert"></div><div class="form-actions"><button type="submit" class="btn primary">${revising ? 'Confirm changes & request reconfirmation' : 'Confirm & publish invitation'}</button>${button('Back to options', 'results')}</div></form>`,
       'ask',
       '',
       true,
@@ -276,7 +278,11 @@ window.OmakaseAsk = function ({
       });
       await refresh(false);
       showPlan(r.plan.id);
-      toast('Invitation published. Friends choose whether to join.');
+      toast(
+        task.input.reviseExisting
+          ? 'Invitation updated. Joined friends must reconfirm.'
+          : 'Invitation published. Friends choose whether to join.',
+      );
     } catch (e) {
       form.querySelector('.form-error').textContent = e.message;
       if (e.status === 409)

@@ -139,3 +139,7 @@ Approved future boundaries are not “unknown”: Cloud Run, EAS, Supabase, the 
 - Browser-to-service configuration remains runtime and server-side.
 - Product behavior requires a mapped requirement and acceptance statement.
 - Consequential deviations from the blueprint require an ADR that records the trade-off.
+
+## Shared travel companion
+
+ADR 0008 adds Gemini, Places and Routes behind authenticated same-origin friends routes, private expiring helper results, and explicitly scheduled website watches. Canonical plan and memory writes remain ordinary domain actions. Durable cost reservations precede provider calls; no client receives provider credentials. See [the travel-tool decision](docs/decisions/0008-travel-companion-tools.md) for spend, retention, restoration and live-acceptance boundaries.

@@ -12,6 +12,7 @@ export interface AskInput {
   discoveryId?: string;
   url?: string;
   referencePlanId?: string;
+  reviseExisting?: boolean;
 }
 export interface Place {
   id: string;
@@ -96,6 +97,18 @@ export interface Usage {
   elapsedMs: number;
 }
 export interface MemberContext {
+  referencePlan?: {
+    title: string;
+    description: string;
+    date: string;
+    segments: {
+      id: string;
+      label: string;
+      start: string;
+      end: string;
+      meeting: string;
+    }[];
+  };
   preferences: string;
   travelWindows: {
     region: string;
@@ -168,6 +181,7 @@ export function parseAsk(
     throw new AskError(422, 'Start a fresh request.');
   return {
     requestId,
+    reviseExisting: d.reviseExisting === true,
     mode: mode as AskMode,
     prompt: text(d.prompt, 1200),
     date,

@@ -1,8 +1,10 @@
 import researchCatalogue from './ask-catalogue.json' with { type: 'json' };
-import type { Place } from './ask-contract.js';
+import { AskError, type Place } from './ask-contract.js';
 import { askRoutes } from './ask-service.js';
 import { catalogue } from './catalogue.js';
 import type { Env, Context, Database, Statement, Row } from './platform.js';
+import { travelRoutes } from './travel-service.js';
+import { checkWatches } from './watch-service.js';
 
 /** Cloudflare-native friends' trip. No local files, server timers or global state.
  * SQL guards and D1 batches enforce capacity, stale versions and idempotency.
@@ -621,6 +623,47 @@ async function createPlan(
     );
   return (await planValue(env, saved.id, m))!;
 }
+async function updatePlan(
+  env: Env,
+  m: Row,
+  id: string,
+  d: Row,
+  expectedSeq?: number,
+): Promise<Row> {
+  const db = env.DB,
+    old = await plan(env, id, m),
+    requestId = txt(d, 'editRequestId', 100);
+  if (old.host_id !== m.id)
+    fail(403, 'Only the host can edit this invitation.');
+  if (requestId && old.last_edit_request === requestId)
+    return (await planValue(env, id, m))!;
+  const p = await cleanPlan(env, m, d);
+  const result = await write(
+    env,
+    m,
+    stmt(
+      db,
+      "UPDATE plans SET body=?,revision=revision+1,updated=?,last_edit_request=? WHERE id=? AND revision=? AND status='open' AND (? IS NULL OR (SELECT coalesce(max(seq),0) FROM changes WHERE trip_id=?)=?) RETURNING id",
+      JSON.stringify(p),
+      now(),
+      requestId || null,
+      id,
+      integer(d, 'revision', 1, 100000),
+      expectedSeq ?? null,
+      m.trip_id,
+      expectedSeq ?? null,
+    ),
+    'plan-changed',
+    id,
+    'changed ' + p.title + ' — joined friends should reconfirm',
+  );
+  if (!result.results.length)
+    fail(
+      409,
+      'This invitation or trip changed. Reopen it; your draft has not overwritten anything.',
+    );
+  return (await planValue(env, id, m))!;
+}
 async function createDiscovery(env: Env, m: Row, d: Row): Promise<Row> {
   const db = env.DB;
   const id = 'find-' + uid(),
@@ -856,6 +899,15 @@ async function routes(
   }
   if (path.startsWith('/api/admin/')) return admin(request, env);
   const m = await auth(request, env);
+  if (path.startsWith('/api/travel/')) {
+    if (method !== 'GET') await limited(env, 'travel-write:' + m.id, 60, 3600);
+    return travelRoutes(
+      request,
+      env,
+      m,
+      method === 'POST' ? await body(request, 2200000) : undefined,
+    );
+  }
   if (path.startsWith('/api/ask/') || path.startsWith('/api/research/'))
     return askRoutes(
       request,
@@ -864,6 +916,7 @@ async function routes(
       {
         snapshot: () => snapshot(env, m),
         createPlan: (d, seq) => createPlan(env, m, d, seq),
+        updatePlan: (id, d, seq) => updatePlan(env, m, id, d, seq),
         createDiscovery: (d) => createDiscovery(env, m, d),
         catalogue: async () => researchCatalogue as Place[],
       },
@@ -1058,33 +1111,7 @@ async function routes(
   if (path === '/api/plans' && method === 'POST')
     return json(await createPlan(env, m, await body(request)), 201);
   if ((match = path.match(/^\/api\/plans\/([-\w]+)$/)) && method === 'PUT') {
-    const id = match[1],
-      d = await body(request),
-      old = await plan(env, id, m);
-    if (old.host_id !== m.id)
-      fail(403, 'Only the host can edit this invitation.');
-    const p = await cleanPlan(env, m, d);
-    const result = await write(
-      env,
-      m,
-      stmt(
-        db,
-        "UPDATE plans SET body=?,revision=revision+1,updated=? WHERE id=? AND revision=? AND status='open' RETURNING id",
-        JSON.stringify(p),
-        now(),
-        id,
-        integer(d, 'revision', 1, 100000),
-      ),
-      'plan-changed',
-      id,
-      'changed ' + p.title + ' — joined friends should reconfirm',
-    );
-    if (!result.results.length)
-      fail(
-        409,
-        'This invitation changed or closed. Reopen it; your draft has not overwritten anything.',
-      );
-    return json(await planValue(env, id, m));
+    return json(await updatePlan(env, m, match[1], await body(request)));
   }
   if (
     (match = path.match(/^\/api\/plans\/([-\w]+)\/status$/)) &&
@@ -1560,6 +1587,10 @@ const BACKUP_TABLES = [
   'ask_tasks',
   'ask_budget',
   'place_research',
+  'service_budget',
+  'travel_tasks',
+  'watches',
+  'watch_events',
 ];
 async function admin(request: Request, env: Env): Promise<Response> {
   await ownerKey(request, env);
@@ -1575,7 +1606,7 @@ async function admin(request: Request, env: Env): Promise<Response> {
       BACKUP_TABLES.map((t) => db.prepare(`SELECT * FROM ${t}`)),
     );
     return json({
-      schemaVersion: 4,
+      schemaVersion: 5,
       created: now(),
       tables: Object.fromEntries(
         BACKUP_TABLES.map((t, i) => [t, values[i].results]),
@@ -1616,12 +1647,12 @@ async function admin(request: Request, env: Env): Promise<Response> {
       );
     const d = await body(request, 10_000_000);
     if (
-      ![3, 4].includes(d.schemaVersion) ||
+      ![3, 4, 5].includes(d.schemaVersion) ||
       !d.tables ||
       !Array.isArray(d.tables.trips) ||
       d.tables.trips.length !== 1
     )
-      fail(422, 'Use a version 3 or 4 full backup.');
+      fail(422, 'Use a version 3, 4 or 5 full backup.');
     // Column names come from the migration, never from untrusted JSON.
     const batch: Statement[] = [
       stmt(db, "INSERT OR REPLACE INTO app_meta VALUES('restoring','1')"),
@@ -1721,6 +1752,16 @@ export async function cleanup(env: Env): Promise<void> {
     stmt(db, 'DELETE FROM limits WHERE expires<?', epoch()),
     stmt(
       db,
+      'DELETE FROM travel_tasks WHERE created<?',
+      new Date(Date.now() - 7 * 86400000).toISOString(),
+    ),
+    stmt(
+      db,
+      'DELETE FROM watch_events WHERE created<?',
+      new Date(Date.now() - 30 * 86400000).toISOString(),
+    ),
+    stmt(
+      db,
       "UPDATE moments SET body='{}' WHERE deleted=1 AND updated<?",
       cutoff,
     ),
@@ -1728,6 +1769,7 @@ export async function cleanup(env: Env): Promise<void> {
 }
 function mappedError(e: unknown): Response {
   if (e instanceof HttpError) return json({ detail: e.detail }, e.status);
+  if (e instanceof AskError) return json({ detail: e.message }, e.status);
   const msg = String((e as Error)?.message || e),
     rules: [string, number, string | Row][] = [
       [
@@ -1820,7 +1862,9 @@ export default {
       headers.set('Cache-Control', 'no-store');
     return new Response(response.body, { status: response.status, headers });
   },
-  async scheduled(_event: unknown, env: Env, ctx: Context) {
-    ctx.waitUntil(cleanup(env));
+  async scheduled(event: { cron?: string }, env: Env, ctx: Context) {
+    ctx.waitUntil(
+      event.cron === '*/15 * * * *' ? checkWatches(env) : cleanup(env),
+    );
   },
 };

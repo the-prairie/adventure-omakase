@@ -3034,3 +3034,88 @@ select {
     flex-direction: column;
   }
 }
+
+/* Companion utilities stay secondary to the shared fieldbook. */
+.travel-rail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line, #d9dbce);
+  padding: 0 0 16px;
+  margin-bottom: 20px;
+}
+.travel-rail .eyebrow {
+  margin-right: 12px;
+}
+.travel-rail button {
+  font: inherit;
+  font-size: 13px;
+  padding: 10px 12px;
+  min-height: 44px;
+  border: 1px solid #d9dbce;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+}
+.travel-rail button:hover {
+  background: #e7eddf;
+}
+.preserve-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.translation-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 24px 0;
+}
+.translation-pair section {
+  padding: 18px;
+  background: #fffdf7;
+  border: 1px solid #d9dbce;
+  border-radius: 12px;
+  min-width: 0;
+}
+.travel-tool .ask-option {
+  margin: 20px 0;
+}
+.travel-consent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  min-height: 44px;
+}
+.travel-consent input {
+  width: 22px;
+  height: 22px;
+}
+@media (max-width: 600px) {
+  .translation-pair {
+    grid-template-columns: 1fr;
+  }
+  .travel-rail {
+    gap: 6px;
+  }
+  .travel-rail .eyebrow {
+    width: 100%;
+  }
+  .travel-rail button {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}
+
+.maps-attribution {
+  height: 18px;
+  width: auto;
+  margin: 10px 10px 5px;
+}
+
+.legal-links {
+  padding: 16px;
+  text-align: center;
+  font-size: 12px;
+}
