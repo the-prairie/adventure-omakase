@@ -39,7 +39,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           OMAKASE_URL: ${{ vars.OMAKASE_URL }}
           OMAKASE_ENV: ${{ inputs.environment || 'preview' }}
-          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          OMAKASE_EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           OMAKASE_PRODUCTION_APPROVED: 'true'
         run: |
           test -n "$CLOUDFLARE_API_TOKEN"

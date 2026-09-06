@@ -407,13 +407,25 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       for (const width of [320, 390, 768, 1440]) {
         await a.setViewportSize({ width, height: 900 });
         await nav(a, 'plans');
-        await expect
-          .poll(() =>
-            a.evaluate(
-              () => document.documentElement.scrollWidth <= innerWidth,
-            ),
-          )
-          .toBe(true);
+        await a.screenshot({
+          path: testInfo.outputPath(`layout-${width}.png`),
+          fullPage: true,
+        });
+        const overflow = await a.evaluate(() => ({
+          width: innerWidth,
+          scroll: document.documentElement.scrollWidth,
+          elements: [...document.querySelectorAll('body *')]
+            .filter((e) => e.getBoundingClientRect().right > innerWidth + 1)
+            .map((e) => ({
+              tag: e.tagName,
+              class: e.className,
+              right: e.getBoundingClientRect().right,
+            }))
+            .slice(0, 15),
+        }));
+        expect(overflow.scroll, JSON.stringify(overflow)).toBeLessThanOrEqual(
+          width,
+        );
         await a.screenshot({
           path: testInfo.outputPath(`plans-${width}.png`),
           fullPage: true,

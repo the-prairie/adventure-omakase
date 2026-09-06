@@ -29,8 +29,11 @@ try {
     throw Error(
       'Commit changes before deployment so release identity is exact.',
     );
-  if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== release)
-    throw Error('CI checkout differs from requested release.');
+  const expected = process.env.OMAKASE_EXPECTED_SHA || process.env.GITHUB_SHA;
+  if (expected && expected !== release)
+    throw Error(
+      `CI checkout ${release} differs from requested release ${expected}.`,
+    );
   if (
     environment === 'production' &&
     (process.env.GITHUB_ACTIONS !== 'true' ||
