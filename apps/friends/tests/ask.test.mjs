@@ -402,6 +402,19 @@ test('different members and regions reach the provider with their own explicit c
   assert.deepEqual(sent.member.commitments, []);
   assert.ok(!JSON.stringify(sent).includes('recovery'));
 });
+test('the chosen neighborhood bounds initial leads when local alternatives exist', async () => {
+  const f = await setup();
+  const response = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  assert.equal(response.status, 200);
+  const sent = JSON.parse(f.env.AI.calls[0].messages[1].content);
+  assert.ok(sent.existingLeads.length >= 2);
+  assert.ok(
+    sent.existingLeads.every((p) => p.area.toLowerCase().includes('namba')),
+  );
+  assert.ok(
+    sent.mealLeads.every((p) => p.area.toLowerCase().includes('namba')),
+  );
+});
 test('public source fetch rejects private URLs, scripts and unavailable pages', async () => {
   for (const u of [
     'http://example.com',

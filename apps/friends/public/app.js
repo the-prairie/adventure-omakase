@@ -726,7 +726,7 @@
               const w = m.profile?.windows?.find(
                 (w) => w.from <= d && d <= w.to,
               );
-              return `<div class="day-cell ${w ? w.region : ''}" title="${E(m.name)} · ${dateText(d)} · ${E(w ? `${R[w.region]} / ${w.area || 'area not specified'}` : 'not shared')}" aria-label="${E(m.name + ' ' + dateText(d) + ' ' + (w ? R[w.region] : 'not shared'))}"></div>`;
+              return `<div class="day-cell ${E(w ? w.region : '')}" title="${E(m.name)} · ${dateText(d)} · ${E(w ? `${R[w.region]} / ${w.area || 'area not specified'}` : 'not shared')}" aria-label="${E(m.name + ' ' + dateText(d) + ' ' + (w ? R[w.region] : 'not shared'))}"></div>`;
             },
           ).join('')}`,
       )
