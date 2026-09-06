@@ -3,7 +3,42 @@ import type { Model } from './ask-engine.js';
 import type { Env, Row } from './platform.js';
 
 // Google documents that rejected 4xx/5xx requests do not incur token charges.
-class RejectedModelRequest extends AskError {}
+class RejectedModelRequest extends AskError {
+  constructor(
+    status: number,
+    message: string,
+    readonly retryAfterMs?: number,
+  ) {
+    super(status, message);
+  }
+}
+
+function retryDelay(response: Response): number | undefined {
+  if (response.status !== 503) return undefined;
+  const value = response.headers.get('Retry-After');
+  if (!value) return 0;
+  const seconds = Number(value);
+  const ms = Number.isFinite(seconds)
+    ? seconds * 1000
+    : Date.parse(value) - Date.now();
+  // Do not retry earlier than the provider asks or spend the whole task waiting.
+  return Number.isFinite(ms) && ms > 5000 ? undefined : Math.max(0, ms || 0);
+}
+
+async function waitForRetry(ms: number, signal: AbortSignal) {
+  signal.throwIfAborted();
+  await new Promise<void>((resolve, reject) => {
+    const abort = () => {
+      clearTimeout(timer);
+      reject(signal.reason);
+    };
+    const timer = setTimeout(() => {
+      signal.removeEventListener('abort', abort);
+      resolve();
+    }, ms);
+    signal.addEventListener('abort', abort, { once: true });
+  });
+}
 
 export const GEMINI_MODEL = 'gemini-3.8-flash';
 export const providerName = (env: Env) =>
@@ -82,6 +117,7 @@ export async function geminiGenerate(
   payload: Row,
   signal: AbortSignal,
   fetcher: typeof fetch = fetch,
+  retries = { remaining: 2 },
 ): Promise<Row> {
   if (!env.GEMINI_API_KEY)
     throw new AskError(
@@ -110,83 +146,118 @@ export async function geminiGenerate(
   // No paid built-in tools and exactly one candidate.
   const reserveUSD =
     Date.now() >= Date.parse('2027-01-01T00:00:00Z') ? 2.1 : 1.05;
-  return paidCall(env, reserveUSD, async () => {
-    const response = await fetcher(
-      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
-      {
-        method: 'POST',
+  for (let attempt = 0; ; attempt++) {
+    signal.throwIfAborted();
+    try {
+      const data = await paidCall(env, reserveUSD, async () => {
+        signal.throwIfAborted();
+        const response = await fetcher(
+          `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
+          {
+            method: 'POST',
+            signal,
+            headers: {
+              'Content-Type': 'application/json',
+              'x-goog-api-key': env.GEMINI_API_KEY!,
+            },
+            body: JSON.stringify(payload),
+          },
+        );
+        if (!response.ok) {
+          const error = (await response.json().catch(() => ({}))) as Row;
+          const message = String(error.error?.message || '');
+          const status = String(error.error?.status || '');
+          const code = /^[A-Z_]{1,60}$/.test(status) ? status : 'SERVICE_ERROR';
+          const explanation = /location.*not supported/i.test(message)
+            ? 'The model is unavailable from this server location.'
+            : /quota|resource.*exhausted/i.test(message)
+              ? 'The model service has reached its current quota.'
+              : /api.?key|permission|credential/i.test(message)
+                ? 'The model rejected its configured credential.'
+                : /thinking/i.test(message)
+                  ? 'The model rejected the requested thinking configuration.'
+                  : /schema|generation.config/i.test(message)
+                    ? 'The model rejected the response configuration.'
+                    : 'The model service could not complete this request.';
+          throw new RejectedModelRequest(
+            response.status === 429 ? 429 : 502,
+            `${explanation} Provider HTTP ${response.status} (${code}). Nothing was published.`,
+            retryDelay(response),
+          );
+        }
+        const data = (await response.json()) as Row;
+        const usage = geminiUsage(data);
+        return { value: data, costUSD: usage.estimated_usd };
+      });
+      return { ...data, providerAttempts: attempt + 1 };
+    } catch (error) {
+      if (
+        !(error instanceof RejectedModelRequest) ||
+        error.retryAfterMs === undefined ||
+        retries.remaining <= 0 ||
+        attempt >= 2
+      )
+        throw error;
+      // Definite 503 rejection has already released its reservation. Unknown
+      // outcomes are never retried: the original call could still be billed.
+      retries.remaining--;
+      await waitForRetry(
+        Math.max(error.retryAfterMs, 500 * 2 ** attempt + Math.random() * 250),
         signal,
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': env.GEMINI_API_KEY!,
-        },
-        body: JSON.stringify(payload),
-      },
-    );
-    if (!response.ok) {
-      const error = (await response.json().catch(() => ({}))) as Row;
-      const message = String(error.error?.message || '');
-      const status = String(error.error?.status || '');
-      const code = /^[A-Z_]{1,60}$/.test(status) ? status : 'SERVICE_ERROR';
-      const explanation = /location.*not supported/i.test(message)
-        ? 'The model is unavailable from this server location.'
-        : /quota|resource.*exhausted/i.test(message)
-          ? 'The model service has reached its current quota.'
-          : /api.?key|permission|credential/i.test(message)
-            ? 'The model rejected its configured credential.'
-            : /thinking/i.test(message)
-              ? 'The model rejected the requested thinking configuration.'
-              : /schema|generation.config/i.test(message)
-                ? 'The model rejected the response configuration.'
-                : 'The model service could not complete this request.';
-      throw new RejectedModelRequest(
-        response.status === 429 ? 429 : 502,
-        `${explanation} Provider HTTP ${response.status} (${code}). Nothing was published.`,
       );
     }
-    const data = (await response.json()) as Row;
-    const usage = geminiUsage(data);
-    return { value: data, costUSD: usage.estimated_usd };
-  });
+  }
 }
 export function geminiModel(
   env: Env,
   signal: AbortSignal,
   fetcher: typeof fetch = fetch,
 ): Model {
+  // One task gets at most two extra HTTP attempts across all model turns.
+  const retries = { remaining: 2 };
   return {
     async run(_model, input) {
       const messages = input.messages as Row[];
       const contents: Row[] = [];
-      const callNames = new Map<string, string>();
+      const calls = new Map<string, Row>();
       for (const m of messages) {
         if (m.role === 'system') continue;
         if (m.role === 'tool') {
-          contents.push({
-            role: 'user',
-            parts: [
-              {
-                functionResponse: {
-                  name: m.name || callNames.get(m.tool_call_id),
-                  response: { result: JSON.parse(m.content) },
-                },
-              },
-            ],
-          });
+          const call = calls.get(m.tool_call_id);
+          const part = {
+            functionResponse: {
+              ...(call?.id ? { id: call.id } : {}),
+              name: m.name || call?.name,
+              response: { result: JSON.parse(m.content) },
+            },
+          };
+          const previous = contents.at(-1);
+          if (
+            previous?.role === 'user' &&
+            previous.parts.every((p: Row) => p.functionResponse)
+          )
+            previous.parts.push(part);
+          else contents.push({ role: 'user', parts: [part] });
         } else if (m.role === 'assistant' && m.tool_calls?.length) {
-          for (const c of m.tool_calls) callNames.set(c.id, c.function.name);
-          contents.push({
-            role: 'model',
-            parts: m.tool_calls.map(
-              (c: Row) =>
-                c.geminiPart || {
-                  functionCall: {
-                    name: c.function.name,
-                    args: JSON.parse(c.function.arguments),
+          for (const c of m.tool_calls)
+            calls.set(
+              c.id,
+              c.geminiPart?.functionCall || { name: c.function.name },
+            );
+          contents.push(
+            m.geminiContent || {
+              role: 'model',
+              parts: m.tool_calls.map(
+                (c: Row) =>
+                  c.geminiPart || {
+                    functionCall: {
+                      name: c.function.name,
+                      args: JSON.parse(c.function.arguments),
+                    },
                   },
-                },
-            ),
-          });
+              ),
+            },
+          );
         } else
           contents.push({
             role: m.role === 'assistant' ? 'model' : 'user',
@@ -234,7 +305,7 @@ export function geminiModel(
             : { mode: 'AUTO' },
         };
       }
-      const data = await geminiGenerate(env, payload, signal, fetcher);
+      const data = await geminiGenerate(env, payload, signal, fetcher, retries);
       const candidate = data.candidates?.[0];
       if (!candidate || candidate.finishReason === 'MAX_TOKENS')
         throw new AskError(
@@ -246,6 +317,7 @@ export function geminiModel(
         choices: [
           {
             message: {
+              geminiContent: candidate.content,
               content: parts
                 .filter((p: Row) => p.text && !p.thought)
                 .map((p: Row) => p.text)
@@ -253,7 +325,7 @@ export function geminiModel(
               tool_calls: parts
                 .filter((p: Row) => p.functionCall)
                 .map((p: Row, i: number) => ({
-                  id: 'gemini-' + i,
+                  id: p.functionCall.id || 'gemini-' + i,
                   type: 'function',
                   geminiPart: p,
                   function: {
@@ -264,7 +336,10 @@ export function geminiModel(
             },
           },
         ],
-        usage: geminiUsage(data),
+        usage: {
+          ...geminiUsage(data),
+          provider_attempts: data.providerAttempts,
+        },
       };
     },
   };
@@ -273,7 +348,7 @@ export function shortUsage(data: Row, started: number): Usage {
   const u = geminiUsage(data);
   return {
     model: GEMINI_MODEL,
-    providerCalls: 1,
+    providerCalls: data.providerAttempts || 1,
     sourceCalls: 0,
     cacheHits: 0,
     inputTokens: u.prompt_tokens,

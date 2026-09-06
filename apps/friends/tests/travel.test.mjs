@@ -6,7 +6,11 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import worker from '../build/worker.js';
 import { makeEnv } from './local-bindings.mjs';
-import { geminiModel, paidCall } from '../build/companion-provider.js';
+import {
+  geminiGenerate,
+  geminiModel,
+  paidCall,
+} from '../build/companion-provider.js';
 import { findPlaces, getRoute, interpret } from '../build/travel-tools.js';
 import { watchRoutes, checkWatches } from '../build/watch-service.js';
 const fixtures = [];
@@ -510,4 +514,203 @@ test('definite model rejection releases its reservation; transport failure retai
     env.DB.db.prepare('SELECT used FROM service_budget').get().used,
     1050000,
   );
+});
+
+test('temporary Gemini unavailability retries and settles only reported successful usage', async () => {
+  const { env } = await setup();
+  env.GEMINI_API_KEY = 'fixture';
+  let attempts = 0;
+  const result = await geminiGenerate(
+    env,
+    { contents: [] },
+    signal(),
+    async () => {
+      attempts++;
+      assert.equal(
+        env.DB.db.prepare('SELECT reserved FROM service_budget').get().reserved,
+        1050000,
+      );
+      if (attempts === 1)
+        return Response.json(
+          { error: { status: 'UNAVAILABLE' } },
+          { status: 503 },
+        );
+      return Response.json(modelData([{ text: 'source-backed response' }]));
+    },
+  );
+  assert.equal(attempts, 2);
+  assert.equal(result.providerAttempts, 2);
+  assert.deepEqual(
+    { ...env.DB.db.prepare('SELECT used,reserved FROM service_budget').get() },
+    { used: 263, reserved: 0 },
+  );
+});
+
+test('Gemini retries are bounded and cancellation during backoff spends nothing', async () => {
+  const { env } = await setup();
+  env.GEMINI_API_KEY = 'fixture';
+  let attempts = 0;
+  await assert.rejects(
+    geminiGenerate(env, { contents: [] }, signal(), async () => {
+      attempts++;
+      return Response.json(
+        { error: { status: 'UNAVAILABLE' } },
+        { status: 503 },
+      );
+    }),
+    /HTTP 503/,
+  );
+  assert.equal(attempts, 3);
+  const controller = new AbortController();
+  attempts = 0;
+  await assert.rejects(
+    geminiGenerate(env, { contents: [] }, controller.signal, async () => {
+      attempts++;
+      setTimeout(() => controller.abort(), 20);
+      return Response.json(
+        { error: { status: 'UNAVAILABLE' } },
+        { status: 503 },
+      );
+    }),
+    /abort/i,
+  );
+  assert.equal(attempts, 1);
+  assert.deepEqual(
+    { ...env.DB.db.prepare('SELECT used,reserved FROM service_budget').get() },
+    { used: 0, reserved: 0 },
+  );
+});
+
+test('Gemini does not retry quota, credential, invalid configuration or unknown billing outcomes', async () => {
+  for (const status of [400, 403, 429, 504, 200]) {
+    const { env } = await setup();
+    env.GEMINI_API_KEY = 'fixture';
+    let attempts = 0;
+    await assert.rejects(
+      geminiGenerate(env, { contents: [] }, signal(), async () => {
+        attempts++;
+        if (status === 200) throw Error('Unknown transport outcome');
+        return Response.json(
+          { error: { status: 'SERVICE_ERROR' } },
+          { status },
+        );
+      }),
+    );
+    assert.equal(attempts, 1);
+    assert.equal(
+      env.DB.db.prepare('SELECT used FROM service_budget').get().used,
+      status === 200 ? 1050000 : 0,
+    );
+  }
+});
+
+test('a Gemini task shares at most two retries across all model turns', async () => {
+  const { env } = await setup();
+  env.GEMINI_API_KEY = 'fixture';
+  let attempts = 0;
+  const model = geminiModel(env, signal(), async () => {
+    attempts++;
+    return attempts % 2
+      ? Response.json({ error: { status: 'UNAVAILABLE' } }, { status: 503 })
+      : Response.json(modelData([{ text: 'checked evidence' }]));
+  });
+  const input = { messages: [{ role: 'user', content: 'Synthetic check' }] };
+  for (let turn = 0; turn < 2; turn++) {
+    const result = await model.run('ignored', input);
+    assert.equal(result.usage.provider_attempts, 2);
+  }
+  await assert.rejects(model.run('ignored', input), /HTTP 503/);
+  assert.equal(attempts, 5);
+});
+
+test('long Retry-After is not shortened to force another Gemini request', async () => {
+  const { env } = await setup();
+  env.GEMINI_API_KEY = 'fixture';
+  let attempts = 0;
+  await assert.rejects(
+    geminiGenerate(env, { contents: [] }, signal(), async () => {
+      attempts++;
+      return Response.json(
+        { error: { status: 'UNAVAILABLE' } },
+        { status: 503, headers: { 'Retry-After': '30' } },
+      );
+    }),
+    /HTTP 503/,
+  );
+  assert.equal(attempts, 1);
+  assert.equal(
+    env.DB.db.prepare('SELECT used FROM service_budget').get().used,
+    0,
+  );
+});
+
+test('Gemini tool responses preserve provider IDs, full model parts and parallel response grouping', async () => {
+  const { env } = await setup();
+  env.GEMINI_API_KEY = 'fixture';
+  const original = {
+    role: 'model',
+    parts: [
+      { text: 'Synthetic context', thoughtSignature: 'text-signature' },
+      {
+        functionCall: {
+          id: 'provider-call-a',
+          name: 'check_sources',
+          args: { discoveryIds: ['osaka-001'] },
+        },
+        thoughtSignature: 'call-signature',
+      },
+      {
+        functionCall: {
+          id: 'provider-call-b',
+          name: 'check_sources',
+          args: { discoveryIds: ['osaka-002'] },
+        },
+      },
+    ],
+  };
+  let sent;
+  const model = geminiModel(env, signal(), async (_url, init) => {
+    sent = JSON.parse(init.body);
+    return Response.json({
+      ...modelData([]),
+      candidates: [{ finishReason: 'STOP', content: original }],
+    });
+  });
+  const first = await model.run('ignored', {
+    messages: [{ role: 'user', content: 'Check these synthetic leads' }],
+  });
+  const message = first.choices[0].message;
+  await model.run('ignored', {
+    messages: [
+      { role: 'user', content: 'Check these synthetic leads' },
+      { role: 'assistant', ...message },
+      ...message.tool_calls.map((c) => ({
+        role: 'tool',
+        tool_call_id: c.id,
+        name: c.function.name,
+        content: '[]',
+      })),
+    ],
+  });
+  assert.deepEqual(sent.contents[1], original);
+  assert.equal(sent.contents.length, 3);
+  assert.deepEqual(sent.contents[2], {
+    role: 'user',
+    parts: [
+      {
+        functionResponse: {
+          id: 'provider-call-a',
+          name: 'check_sources',
+          response: { result: [] },
+        },
+      },
+      {
+        functionResponse: {
+          id: 'provider-call-b',
+          name: 'check_sources',
+          response: { result: [] },
+        },
+      },
+    ],
+  });
 });

@@ -320,7 +320,7 @@ export async function runAsk(
       temperature: 0.2,
     });
     const { message, usage: u } = modelMessage(response);
-    usage.providerCalls++;
+    usage.providerCalls += Number(u.provider_attempts || 1);
     const ins = Number(u.prompt_tokens ?? u.input_tokens),
       outs = Number(u.completion_tokens ?? u.output_tokens),
       neurons = Number(u.neurons);
@@ -352,6 +352,9 @@ export async function runAsk(
       messages.push({
         role: 'assistant',
         content: message.content || '',
+        ...(message.geminiContent
+          ? { geminiContent: message.geminiContent }
+          : {}),
         tool_calls: calls,
       });
       for (const call of calls) {
