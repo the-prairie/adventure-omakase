@@ -57,6 +57,9 @@
       "triggers": {
         "crons": ["17 4 * * *"],
       },
+      "version_metadata": {
+        "binding": "CF_VERSION",
+      },
     },
     "production": {
       "name": "adventure-omakase-friends-production",
@@ -81,6 +84,9 @@
       "triggers": {
         "crons": ["17 4 * * *"],
       },
+      "version_metadata": {
+        "binding": "CF_VERSION",
+      },
     },
     "restore": {
       "name": "adventure-omakase-friends-restore",
@@ -104,6 +110,9 @@
       },
       "triggers": {
         "crons": ["17 4 * * *"],
+      },
+      "version_metadata": {
+        "binding": "CF_VERSION",
       },
     },
   },

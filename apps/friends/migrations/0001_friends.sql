@@ -89,79 +89,65 @@ CREATE VIEW commitments AS
  WHERE p.status='open' AND r.status='joined' AND m.active=1;
 
 CREATE TRIGGER members_limit BEFORE INSERT ON members WHEN COALESCE((SELECT value FROM app_meta WHERE key='restoring'),'0')!='1' BEGIN
- SELECT CASE WHEN (SELECT count(*) FROM members WHERE trip_id=NEW.trip_id AND active=1)>=60
- THEN RAISE(ABORT,'trip_full') END;
+ SELECT RAISE(ABORT,'trip_full') WHERE (SELECT count(*) FROM members WHERE trip_id=NEW.trip_id AND active=1)>=60;
 END;
 CREATE TRIGGER plans_capacity BEFORE UPDATE OF body ON plans BEGIN
- SELECT CASE WHEN json_extract(NEW.body,'$.capacity') IS NOT NULL AND
- json_extract(NEW.body,'$.capacity') < 1+(SELECT count(*) FROM rsvps r JOIN members m ON m.id=r.member_id WHERE r.plan_id=NEW.id AND r.status='joined' AND m.active=1)
- THEN RAISE(ABORT,'capacity_below_members') END;
+ SELECT RAISE(ABORT,'capacity_below_members') WHERE json_extract(NEW.body,'$.capacity') IS NOT NULL AND
+ json_extract(NEW.body,'$.capacity') < 1+(SELECT count(*) FROM rsvps r JOIN members m ON m.id=r.member_id WHERE r.plan_id=NEW.id AND r.status='joined' AND m.active=1);
 END;
 
 -- Enforcement happens inside SQLite, not in a racy read-then-write check.
 CREATE TRIGGER rsvp_guard_insert BEFORE INSERT ON rsvps WHEN COALESCE((SELECT value FROM app_meta WHERE key='restoring'),'0')!='1' BEGIN
 
- SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM plans p JOIN members m ON m.id=NEW.member_id
- WHERE p.id=NEW.plan_id AND p.trip_id=m.trip_id AND m.active=1 AND p.host_id!=m.id)
- THEN RAISE(ABORT,'invalid_member') END;
- SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM plans WHERE id=NEW.plan_id AND status='open' AND revision=NEW.accepted_revision)
- THEN RAISE(ABORT,'stale_plan') END;
- SELECT CASE WHEN NEW.choice='all' AND (SELECT json_extract(body,'$.joinStyle') FROM plans WHERE id=NEW.plan_id)='reunion'
- THEN RAISE(ABORT,'choose_reunion') END;
- SELECT CASE WHEN NEW.choice!='all' AND NOT EXISTS (
- SELECT 1 FROM plans p,json_each(p.body,'$.segments') s WHERE p.id=NEW.plan_id AND json_extract(s.value,'$.id')=NEW.choice)
- THEN RAISE(ABORT,'missing_part') END;
- SELECT CASE WHEN NEW.status='joined' AND
+ SELECT RAISE(ABORT,'invalid_member') WHERE NOT EXISTS (SELECT 1 FROM plans p JOIN members m ON m.id=NEW.member_id
+ WHERE p.id=NEW.plan_id AND p.trip_id=m.trip_id AND m.active=1 AND p.host_id!=m.id);
+ SELECT RAISE(ABORT,'stale_plan') WHERE NOT EXISTS (SELECT 1 FROM plans WHERE id=NEW.plan_id AND status='open' AND revision=NEW.accepted_revision);
+ SELECT RAISE(ABORT,'choose_reunion') WHERE NEW.choice='all' AND (SELECT json_extract(body,'$.joinStyle') FROM plans WHERE id=NEW.plan_id)='reunion';
+ SELECT RAISE(ABORT,'missing_part') WHERE NEW.choice!='all' AND NOT EXISTS (
+ SELECT 1 FROM plans p,json_each(p.body,'$.segments') s WHERE p.id=NEW.plan_id AND json_extract(s.value,'$.id')=NEW.choice);
+ SELECT RAISE(ABORT,'plan_full') WHERE NEW.status='joined' AND
  (SELECT json_extract(body,'$.capacity') FROM plans WHERE id=NEW.plan_id) IS NOT NULL AND
  1+(SELECT count(*) FROM rsvps r JOIN members m ON m.id=r.member_id WHERE r.plan_id=NEW.plan_id AND r.member_id!=NEW.member_id AND r.status='joined' AND m.active=1)
- >=(SELECT json_extract(body,'$.capacity') FROM plans WHERE id=NEW.plan_id)
- THEN RAISE(ABORT,'plan_full') END;
- SELECT CASE WHEN NEW.status='joined' AND NEW.acknowledge_conflict=0 AND EXISTS (
+ >=(SELECT json_extract(body,'$.capacity') FROM plans WHERE id=NEW.plan_id);
+ SELECT RAISE(ABORT,'overlap') WHERE NEW.status='joined' AND NEW.acknowledge_conflict=0 AND EXISTS (
  SELECT 1 FROM commitments c,plans p WHERE p.id=NEW.plan_id AND c.member_id=NEW.member_id AND c.plan_id!=NEW.plan_id
  AND c.day=json_extract(p.body,'$.date')
  AND c.start < COALESCE((SELECT json_extract(s.value,'$.end') FROM json_each(p.body,'$.segments') s WHERE json_extract(s.value,'$.id')=NEW.choice),json_extract(p.body,'$.end'))
- AND c.end > COALESCE((SELECT json_extract(s.value,'$.start') FROM json_each(p.body,'$.segments') s WHERE json_extract(s.value,'$.id')=NEW.choice),json_extract(p.body,'$.start')))
- THEN RAISE(ABORT,'overlap') END;
+ AND c.end > COALESCE((SELECT json_extract(s.value,'$.start') FROM json_each(p.body,'$.segments') s WHERE json_extract(s.value,'$.id')=NEW.choice),json_extract(p.body,'$.start')));
 
 END;
 
 -- Enforcement happens inside SQLite, not in a racy read-then-write check.
 CREATE TRIGGER rsvp_guard_update BEFORE UPDATE ON rsvps WHEN COALESCE((SELECT value FROM app_meta WHERE key='restoring'),'0')!='1' BEGIN
 
- SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM plans p JOIN members m ON m.id=NEW.member_id
- WHERE p.id=NEW.plan_id AND p.trip_id=m.trip_id AND m.active=1 AND p.host_id!=m.id)
- THEN RAISE(ABORT,'invalid_member') END;
- SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM plans WHERE id=NEW.plan_id AND status='open' AND revision=NEW.accepted_revision)
- THEN RAISE(ABORT,'stale_plan') END;
- SELECT CASE WHEN NEW.choice='all' AND (SELECT json_extract(body,'$.joinStyle') FROM plans WHERE id=NEW.plan_id)='reunion'
- THEN RAISE(ABORT,'choose_reunion') END;
- SELECT CASE WHEN NEW.choice!='all' AND NOT EXISTS (
- SELECT 1 FROM plans p,json_each(p.body,'$.segments') s WHERE p.id=NEW.plan_id AND json_extract(s.value,'$.id')=NEW.choice)
- THEN RAISE(ABORT,'missing_part') END;
- SELECT CASE WHEN NEW.status='joined' AND
+ SELECT RAISE(ABORT,'invalid_member') WHERE NOT EXISTS (SELECT 1 FROM plans p JOIN members m ON m.id=NEW.member_id
+ WHERE p.id=NEW.plan_id AND p.trip_id=m.trip_id AND m.active=1 AND p.host_id!=m.id);
+ SELECT RAISE(ABORT,'stale_plan') WHERE NOT EXISTS (SELECT 1 FROM plans WHERE id=NEW.plan_id AND status='open' AND revision=NEW.accepted_revision);
+ SELECT RAISE(ABORT,'choose_reunion') WHERE NEW.choice='all' AND (SELECT json_extract(body,'$.joinStyle') FROM plans WHERE id=NEW.plan_id)='reunion';
+ SELECT RAISE(ABORT,'missing_part') WHERE NEW.choice!='all' AND NOT EXISTS (
+ SELECT 1 FROM plans p,json_each(p.body,'$.segments') s WHERE p.id=NEW.plan_id AND json_extract(s.value,'$.id')=NEW.choice);
+ SELECT RAISE(ABORT,'plan_full') WHERE NEW.status='joined' AND
  (SELECT json_extract(body,'$.capacity') FROM plans WHERE id=NEW.plan_id) IS NOT NULL AND
  1+(SELECT count(*) FROM rsvps r JOIN members m ON m.id=r.member_id WHERE r.plan_id=NEW.plan_id AND r.member_id!=NEW.member_id AND r.status='joined' AND m.active=1)
- >=(SELECT json_extract(body,'$.capacity') FROM plans WHERE id=NEW.plan_id)
- THEN RAISE(ABORT,'plan_full') END;
- SELECT CASE WHEN NEW.status='joined' AND NEW.acknowledge_conflict=0 AND EXISTS (
+ >=(SELECT json_extract(body,'$.capacity') FROM plans WHERE id=NEW.plan_id);
+ SELECT RAISE(ABORT,'overlap') WHERE NEW.status='joined' AND NEW.acknowledge_conflict=0 AND EXISTS (
  SELECT 1 FROM commitments c,plans p WHERE p.id=NEW.plan_id AND c.member_id=NEW.member_id AND c.plan_id!=NEW.plan_id
  AND c.day=json_extract(p.body,'$.date')
  AND c.start < COALESCE((SELECT json_extract(s.value,'$.end') FROM json_each(p.body,'$.segments') s WHERE json_extract(s.value,'$.id')=NEW.choice),json_extract(p.body,'$.end'))
- AND c.end > COALESCE((SELECT json_extract(s.value,'$.start') FROM json_each(p.body,'$.segments') s WHERE json_extract(s.value,'$.id')=NEW.choice),json_extract(p.body,'$.start')))
- THEN RAISE(ABORT,'overlap') END;
+ AND c.end > COALESCE((SELECT json_extract(s.value,'$.start') FROM json_each(p.body,'$.segments') s WHERE json_extract(s.value,'$.id')=NEW.choice),json_extract(p.body,'$.start')));
 
 END;
 
 -- Prevent attaching a photo concurrently claimed by abandoned-upload cleanup.
 CREATE TRIGGER memory_photos_insert BEFORE INSERT ON moments
 WHEN COALESCE((SELECT value FROM app_meta WHERE key='restoring'),'0')!='1' BEGIN
- SELECT CASE WHEN EXISTS(SELECT 1 FROM json_each(NEW.body,'$.photos') j
+ SELECT RAISE(ABORT,'photo_unavailable') WHERE EXISTS(SELECT 1 FROM json_each(NEW.body,'$.photos') j
  WHERE NOT EXISTS(SELECT 1 FROM photos p WHERE p.id=j.value AND p.status='ready'
- AND p.trip_id=NEW.trip_id AND p.member_id=NEW.member_id)) THEN RAISE(ABORT,'photo_unavailable') END;
+ AND p.trip_id=NEW.trip_id AND p.member_id=NEW.member_id));
 END;
 CREATE TRIGGER memory_photos_update BEFORE UPDATE OF body ON moments
 WHEN COALESCE((SELECT value FROM app_meta WHERE key='restoring'),'0')!='1' BEGIN
- SELECT CASE WHEN EXISTS(SELECT 1 FROM json_each(NEW.body,'$.photos') j
+ SELECT RAISE(ABORT,'photo_unavailable') WHERE EXISTS(SELECT 1 FROM json_each(NEW.body,'$.photos') j
  WHERE NOT EXISTS(SELECT 1 FROM photos p WHERE p.id=j.value AND p.status='ready'
- AND p.trip_id=NEW.trip_id AND p.member_id=NEW.member_id)) THEN RAISE(ABORT,'photo_unavailable') END;
+ AND p.trip_id=NEW.trip_id AND p.member_id=NEW.member_id));
 END;

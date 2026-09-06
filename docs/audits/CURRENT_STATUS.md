@@ -24,3 +24,7 @@ The user added `CLOUDFLARE_API_TOKEN` in GitHub Settings → Environments → cl
 Implement Find something for me, Check this idea and editable invitation confirmation using authenticated member context and canonical domain actions. Asia/Tokyo dates, default trip September 26–October 14, 2026. The bounded live acceptance must create Osaka activity + lunch, join lunch only from another context, leave the Tokyo friend unassigned, and require reconfirmation after a meeting-point edit. Record live provider evidence separately from deterministic fixtures. No simulated completion or background-work promise.
 
 The manual workflow is unavailable until its file exists on the default branch. Same-repository PRs therefore deploy only the isolated preview after its own required checks; production remains manual and main-only. Draft PR: https://github.com/the-prairie/adventure-omakase/pull/1.
+
+## Remote D1 compatibility finding
+
+On the isolated preview database the REST query endpoint rejected `SELECT CASE WHEN ... THEN RAISE(...) END` inside a trigger with `incomplete input`, while an equivalent `SELECT RAISE(...) WHERE ...` trigger succeeded. The probe trigger was removed. The failed initial migration left only Cloudflare metadata and the migration ledger, with no application tables. Initial migration guards now use the equivalent WHERE form; existing race/capacity/ownership tests remain the acceptance gates.
