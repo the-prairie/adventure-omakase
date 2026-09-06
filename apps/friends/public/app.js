@@ -1381,6 +1381,9 @@
   }
   async function doPrint() {
     const scope = dialog.querySelector('[name=print-scope]:checked').value;
+    // A restore may have committed before this tab received its refreshed snapshot.
+    if (mode === 'shared') await refresh(false);
+    if (!S) return;
     const moments = S.moments
       .filter((m) =>
         scope === 'group' ? m.visibility === 'group' : m.memberId === S.me.id,

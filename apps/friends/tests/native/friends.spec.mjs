@@ -371,6 +371,9 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       await action(b, 'settings').click();
       await action(b, 'moment-restore').click();
       await expect.poll(async () => (await state(b)).moments.length).toBe(1);
+      await expect(b.locator('#toast')).toHaveText(
+        'That memory is back in the book.',
+      );
       await close(b);
       await nav(b, 'story');
       await action(b, 'print-story').click();
