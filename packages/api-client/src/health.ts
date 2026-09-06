@@ -42,7 +42,9 @@ export interface HealthRequestOptions {
 }
 
 function healthUrl(apiBaseUrl: string): string {
-  const normalizedBaseUrl = apiBaseUrl.replace(/\/+$/, '');
+  let end = apiBaseUrl.length;
+  while (end > 0 && apiBaseUrl[end - 1] === '/') end--;
+  const normalizedBaseUrl = apiBaseUrl.slice(0, end);
   return `${normalizedBaseUrl}/health`;
 }
 

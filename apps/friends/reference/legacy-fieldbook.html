@@ -137,7 +137,7 @@ const byId = new Map(CATALOGUE.map(x => [x.id, x]));
 const REGIONS = {tokyo:'Tokyo', osaka:'Osaka & beyond', okinawa:'Okinawa'};
 const MOODS = ['Strange','Food','Water','Architecture','Slow','Move','Make','Culture'];
 const DAYS = Array.from({length:19},(_,i) => { const d=new Date(Date.UTC(2026,8,26+i));return d.toISOString().slice(0,10); });
-const E = x => String(x == null ? '' : x).replace(/[&<>"']/g,c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const E = x => String(x == null ? '' : x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const norm = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const safeJson = x => JSON.stringify(x).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
 const uid = () => globalThis.crypto?.randomUUID?.() || Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
