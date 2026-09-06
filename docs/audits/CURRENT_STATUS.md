@@ -4,15 +4,15 @@ Checkpoint: September 6, 2026. Branch `codex/cloudflare-friends-integration`; pr
 
 | Gate               | Observed state                                                                                                                                                   |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Shared app         | Integrated Worker, D1, R2 and 300 supplied discoveries; shared HTTPS preview deployed at `981a5f2`                                                               |
+| Shared app         | Integrated Worker, D1, R2 and 300 supplied discoveries; shared HTTPS preview deployed at `76aa4af`                                                               |
 | Native runtime     | 11 workerd smoke checks passed                                                                                                                                   |
 | Browser            | 10 native browser tests plus 2 hostile-name rendering tests passed Chromium and WebKit, including controlled clock/visibility lifecycle checks; no network mocks |
 | Repository         | `pnpm check`, database migration, integration tests, production-mode build, development E2E and production-container E2E passed                                  |
-| Preview            | Preview is live; restore D1/R2 isolated and provisioned; full restore round-trip in progress                                                                     |
-| CI deployment      | Preview deployment, native/browser and repository CI passed at `981a5f2`; CodeQL alerts are being addressed                                                      |
+| Preview            | Preview is live; restore D1/R2 isolated and provisioned; full restore round-trip passed                                                                          |
+| CI deployment      | Preview deployment, native/browser and repository CI passed at `76aa4af`; CodeQL and Gitleaks passed                                                             |
 | Production         | Protected manual main-branch workflow; reviewer approval required; not deployed                                                                                  |
-| Backup and restore | Separate destination required; cloud round-trip pending                                                                                                          |
-| Ask Omakase        | Integrated implementation passes 66 fast tests; live model returned validated cards in 21.5 seconds; deployed journey pending                                    |
+| Backup and restore | Cloud D1 snapshot + R2 photo restored to isolated destination; database and photo hashes verified                                                                |
+| Ask Omakase        | Integrated implementation passes 68 fast tests; live model returned validated cards in 21.5 seconds; deployed journey pending                                    |
 | Physical phones    | Not tested; browser emulation is separate evidence                                                                                                               |
 
 ## CI deployment credential
@@ -34,3 +34,21 @@ The manual workflow is unavailable until its file exists on the default branch. 
 ## Remote D1 compatibility finding
 
 On the isolated preview database the REST query endpoint rejected `SELECT CASE WHEN ... THEN RAISE(...) END` inside a trigger with `incomplete input`, while an equivalent `SELECT RAISE(...) WHERE ...` trigger succeeded. The probe trigger was removed. The failed initial migration left only Cloudflare metadata and the migration ledger, with no application tables. Initial migration guards now use the equivalent WHERE form; existing race/capacity/ownership tests remain the acceptance gates.
+
+## September 6 final evidence checkpoint
+
+All six PR checks passed at `76aa4af`: repository validation, native/browser checks, preview deployment, CodeQL workflow, CodeQL analysis and Gitleaks. The bounded research-loop regression at `7343c9f` allows a requested new discovery to be searched and checked before the final answer, without increasing the four-model-turn/four-tool/four-source limits. Its `pnpm check` (12 tasks, including 68 friends tests) and 11 native workerd checks passed; the final PR checks and exact deployed revision are available on PR #1 and `/api/health`.
+
+The ordinary live HTTPS journey passed on three independent browser sessions: the host published September 29 activity/lunch parts, B joined lunch only, and the Tokyo member remained unassigned. B uploaded a synthetic image to real R2; A loaded and decoded the shared photo. This is ordinary-app evidence, not AI acceptance. Sanitized reports and inspected mobile/desktop screenshots are in [evidence/live](evidence/live/ordinary-live.json).
+
+A version-4 backup containing three members, one plan, one RSVP, one memory and one photo restored successfully into the separate restore D1/R2 resources. All database and photo hashes verified. The restored browser displayed the records and decoded the photo. Ask tables were empty in this snapshot, so this cloud round-trip does not demonstrate restoration of populated AI tasks. The authenticated cleanup route removed a seeded expired row using the deployed cleanup handler; an actual scheduled cron firing has not been observed.
+
+## Try the preview
+
+Open https://adventure-omakase-friends-preview.thelaurenzary.workers.dev. Owner access is in the private local file `apps/friends/.deploy/preview/OPEN_MY_TRIP.html`; it must not be committed or shared publicly. It opens the synthetic acceptance trip. Use Invite friends inside the app for another browser/device. New production trips remain empty apart from the owner.
+
+For the companion, set explicit Osaka travel dates and preferences, choose September 28, 2026, Namba, 10:00–14:00, then ask for something unusual followed by lunch. Review the sourced cards and editable separate parts before confirming. From another member, join lunch only and inspect My day; edit the meeting point as host and verify reconfirmation. The committed `apps/friends/scripts/live-acceptance.mjs` runs this bounded journey with actual HTTPS/model/backend after quota is available; `--ordinary` deliberately excludes AI. No background retry is scheduled.
+
+Runtime: Cloudflare Worker + D1 + private R2, Workers AI binding with `@cf/openai/gpt-oss-120b`, bounded public-page research and one external search. Per task: 75 seconds, four model turns, four tool calls, four sources, one repair and a 3,000-neuron reservation; per trip/day 8,000 reserved neurons and per member/hour four requests. See ADR 0007 for accounting and cancellation limits.
+
+Remaining gates: revised shortlist and full deployed live-model acceptance, physical iPhone/Android checks, and explicit merge/production approval. No production deployment or paid subscription was performed.
