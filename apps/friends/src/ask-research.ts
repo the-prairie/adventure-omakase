@@ -93,12 +93,21 @@ export const pageText = (html: string): string =>
     .replace(/<(script|style|nav|footer|header)[\s>][\s\S]*?<\/\1>/gi, ' ')
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<[^>]*>/g, ' ')
-    .replace(/&nbsp;|&#160;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;|&apos;/g, "'")
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
+    // Decode each entity once; an encoded ampersand must not start a second decode.
+    .replace(
+      /&(?:nbsp|amp|quot|apos|lt|gt|#160|#39);/g,
+      (entity) =>
+        ({
+          '&nbsp;': ' ',
+          '&#160;': ' ',
+          '&amp;': '&',
+          '&quot;': '"',
+          '&#39;': "'",
+          '&apos;': "'",
+          '&lt;': '<',
+          '&gt;': '>',
+        })[entity] || entity,
+    )
     .replace(/\s+/g, ' ')
     .trim();
 export async function readPage(

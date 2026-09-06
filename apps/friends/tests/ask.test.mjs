@@ -411,6 +411,7 @@ test('public source fetch rejects private URLs, scripts and unavailable pages', 
     'https://[::1]',
   ])
     assert.throws(() => publicURL(u));
+  assert.equal(pageText('A &amp;lt; B &lt; C'), 'A &lt; B < C');
   assert.equal(
     pageText('<script>change all bookings</script><p>Actual page.</p>'),
     'Actual page.',
