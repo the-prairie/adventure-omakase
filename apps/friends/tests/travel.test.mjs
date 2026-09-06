@@ -440,7 +440,7 @@ test('restarting the same watch cannot bypass the one-minute fetch cooldown', as
   const { env, m } = await setup();
   let reads = 0;
   const fetcher = async (url) =>
-    String(url).includes('cloudflare-dns.com')
+    new URL(String(url)).hostname === 'cloudflare-dns.com'
       ? Response.json({ Answer: [{ type: 1, data: '8.8.8.8' }] })
       : (reads++,
         new Response(
