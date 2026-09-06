@@ -35,6 +35,8 @@ jobs:
           name: friends-native-evidence
           path: |
             apps/friends/evidence/runtime-smoke.json
+            apps/friends/evidence/native-browser.json
+            apps/friends/evidence/browser-artifacts/**/error-context.md
             apps/friends/evidence/browser-artifacts/**/*.png
           if-no-files-found: error
           retention-days: 14

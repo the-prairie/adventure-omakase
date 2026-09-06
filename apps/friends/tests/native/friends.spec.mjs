@@ -55,6 +55,7 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       reducedMotion: 'reduce',
     });
     contexts.push(c);
+    c.setDefaultTimeout(15000);
     const p = await c.newPage();
     p.on('pageerror', (e) => errors.push(e.message));
     return p;
@@ -453,6 +454,7 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       expect(errors).toEqual([]);
     });
   } finally {
-    await Promise.all(contexts.map((c) => c.close()));
+    // Preserve the failing action instead of masking it with teardown errors.
+    await Promise.allSettled(contexts.map((c) => c.close()));
   }
 });
