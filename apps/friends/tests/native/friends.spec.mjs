@@ -523,6 +523,45 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
         .toBe(before + 1);
       await close(a);
     });
+    await test.step('late invitation save respects a closed form', async () => {
+      await action(b, 'plan-new').click();
+      await b.locator('#f-title').fill('Synthetic delayed invitation');
+      await b.locator('#f-area').fill('Synthetic area');
+      await b.locator('#f-meeting').fill('Synthetic meeting');
+      let releaseSave,
+        receivedSave = false;
+      const held = new Promise((resolve) => {
+        releaseSave = resolve;
+      });
+      await b.route('**/api/plans', async (route) => {
+        if (route.request().method() !== 'POST') return route.continue();
+        receivedSave = true;
+        await held;
+        await route.continue();
+      });
+      try {
+        await b.locator('#plan-form [type=submit]').click();
+        await expect.poll(() => receivedSave).toBe(true);
+        await nav(b, 'discover');
+        releaseSave();
+        await expect(b.locator('#toast')).toContainText(
+          'Your invitation is open',
+        );
+        await expect(b.locator('#dialog')).not.toBeVisible();
+        await b.screenshot({
+          path: testInfo.outputPath('late-save-stays-on-discover.png'),
+          fullPage: true,
+        });
+        expect(
+          (await state(b)).plans.some(
+            (p) => p.title === 'Synthetic delayed invitation',
+          ),
+        ).toBe(true);
+      } finally {
+        releaseSave();
+        await b.unroute('**/api/plans');
+      }
+    });
     await test.step('responsive real UI, keyboard, source catalogue and scheduled handler', async () => {
       for (const width of [320, 390, 768, 1440]) {
         await a.setViewportSize({ width, height: 900 });

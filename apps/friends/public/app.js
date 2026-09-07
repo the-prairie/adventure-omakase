@@ -2136,7 +2136,7 @@
             /* Best-effort fallback; canonical server state is unchanged. */
           }
         await refresh();
-        showPlan(result.id);
+        if (form.isConnected && dialog.open) showPlan(result.id);
         toast(
           id
             ? 'Updated. Joined friends will be asked to reconfirm.'
