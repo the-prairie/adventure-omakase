@@ -125,3 +125,11 @@ Booking import is an optional disclosure inside the profile form, open for a new
 - **Don't** turn repeated content into a wall of rounded cards.
 - **Don't** introduce casino mechanics, neon gaming or a kawaii mascot direction.
 - **Don't** inherit legacy decorative eyebrows or text-glyph icons as rules for new surfaces; those exceptions are not part of the recorded system.
+
+## Interactive travel surfaces
+
+The home introduction is a compact welcome and next-plan row. Invitation detail places joining or host editing/sharing above secondary logistics. Effort, cost and booking information remain readable without separate enclosing cards. The editor leads with essential fields; additional descriptions, participation rules and logistics stay in a disclosure with their values preserved. Native validation opens a collapsed group when a field needs attention.
+
+Calendar replaces the primary file-download journey. A Monday-first date grid exposes personal hosted/joined plans or all shared invitations; desktop cells preview plan titles, while small screens retain counts and the selected-day agenda. Personal entries preserve the selected part's time and changed/cancelled state. The People date strip is keyboard-operable and leads to shared areas, existing invitations and a date/region-prefilled invitation. Shared stretches describe declared regional overlap, never proximity or availability.
+
+Discovery previews use the labelled eight-theme illustration atlas under `public/assets/discovery/`. The cube roll is the deliberate motion moment: a six-face CSS die tumbles for 1.15 seconds before revealing a local catalogue result. Reduced motion skips the tumble. Matching counts appear before rolling; exhausting a shortlist begins an explicitly labelled new round, and empty filters offer specific one-click alternative shortlists. Water, booking, excursion and event-date restrictions are never silently relaxed.

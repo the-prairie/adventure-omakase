@@ -132,3 +132,9 @@ failed with WebKit `page.reload` connection refused in the shared-trip test
 last observed HTTPS preview still served `f2140d3`, not the logo implementation.
 The existing CodeQL reporting failure is separate from the successful Security
 workflow. No production change occurred.
+
+## Interactive trip experience — September 7
+
+Local implementation connects the requested UI refinements: compact home spacing; clearer host/guest actions; optional editing details; a personal/group in-app calendar; interactive shared-date opportunities and prefilled invitations; visual catalogue previews; and a six-face animated die with viable shortlists and explicit alternatives. Calendar entries derive from existing plans/RSVPs, with personal selected-part times; no download or external calendar is needed. The existing optional .ics export is explicitly labelled. Shared regions are not inferred proximity or availability.
+
+The focused four-case Chromium/WebKit run passed: actual example-mode joining to calendar, correct coffee-only time, group scope, shared-day form prefilling, preserved hidden edit values, six dice faces, ordinary animation, reduced motion, exhausted shortlist reshuffle and empty-filter recovery. Desktop/mobile screenshots were inspected. Final local regression passed all 34 Chromium/WebKit cases (3.9 minutes), all 11 native workerd checks and all 12 `pnpm check` tasks, including 100 friends tests. Earlier full runs exposed test assumptions about newly disclosed fields, two discovery entry points and sticky Save scrolling; those tests were updated while retaining their behavior assertions. The final full run passed without retries or disabled cases. New illustrations depict invented themes rather than venues; provenance is recorded alongside the atlas. No new live-provider acceptance or physical-device evidence is claimed.

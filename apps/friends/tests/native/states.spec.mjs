@@ -112,7 +112,10 @@ test('invitation boundaries and recovery have inspected screenshot states', asyn
     await owner.locator('#f-start').fill('12:00');
     await owner.locator('#f-end').fill('13:00');
     await owner.locator('#f-meeting').fill('Synthetic north entrance');
-    await owner.locator('.form-detail summary').click();
+    await owner.locator('.plan-extra > summary').click();
+    await owner
+      .getByText('Cost, capacity, effort & booking', { exact: true })
+      .click();
     await owner.locator('#f-capacity').fill('2');
     await owner.locator('#plan-form [type=submit]').click();
     await expect(owner.locator('[data-action=plan-edit]')).toBeVisible();

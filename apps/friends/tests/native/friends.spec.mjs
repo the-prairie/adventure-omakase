@@ -194,7 +194,9 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       await c.locator('#profile-form [type=submit]').click();
       await expect(c.locator('#dialog')).not.toBeVisible();
       await nav(c, 'day');
-      await expect(c.locator('#main')).toContainText('Nothing you have to do.');
+      await expect(c.locator('#main')).toContainText(
+        'No plans on your calendar.',
+      );
       expect((await state(c)).me.profile.windows[0].from).toBe('2026-10-10');
     });
     let pid;
@@ -206,6 +208,7 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       await a.locator('#f-start').fill('07:30');
       await a.locator('#f-end').fill('10:00');
       await a.locator('#f-meeting').fill('Synthetic running start');
+      await a.locator('.plan-extra > summary').click();
       await a.locator('#f-joinStyle').selectOption('reunion');
       await action(a, 'add-segment').click();
       await a.locator('[data-seg=label]').fill('Just coffee');
@@ -300,6 +303,7 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
     });
     await test.step('changed meeting point requires reconfirmation; stale and concurrent edits reject', async () => {
       await action(a, 'plan-edit').click();
+      await a.locator('.plan-extra > summary').click();
       await a
         .locator('[data-seg=meeting]')
         .fill('Changed synthetic coffee meeting');
@@ -597,8 +601,11 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       await nav(a, 'discover');
       expect(await a.evaluate(() => window.OMAKASE.catalogue.length)).toBe(300);
       await a.locator('#search').fill('Sayamaike');
-      await expect(a.locator('[data-action=discovery]')).toHaveCount(1);
-      await action(a, 'discovery').click();
+      await expect(a.locator('.discovery-grid > article')).toHaveCount(1);
+      await a
+        .locator('.discovery-grid [data-action=discovery]')
+        .first()
+        .click();
       await a.keyboard.press('Escape');
       await expect(a.locator('#dialog')).not.toBeVisible();
       const scheduled = await fetch(
@@ -647,7 +654,10 @@ test('opening a new dialog starts at its title after a long form', async ({
   await page.locator('#f-name').fill('Dialog tester');
   await page.locator('#auth-form [type=submit]').click();
   await action(page, 'plan-new').click();
-  await page.locator('#plan-form [type=submit]').scrollIntoViewIfNeeded();
+  await page.locator('.plan-extra > summary').click();
+  await page.locator('#dialog').evaluate((dialog) => {
+    dialog.scrollTop = dialog.scrollHeight;
+  });
   expect(
     await page.locator('#dialog').evaluate((d) => d.scrollTop),
   ).toBeGreaterThan(0);

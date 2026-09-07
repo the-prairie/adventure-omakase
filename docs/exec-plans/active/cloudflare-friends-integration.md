@@ -94,3 +94,9 @@ tests); Chromium and WebKit checked entry and interactive example home at 1440,
 390 and 320 pixels. Screenshots inspected; logo loading, horizontal fit and home
 navigation passed. Evidence remains under `apps/friends/evidence/logo` and browser
 artifacts. Preview identity is recorded in CURRENT_STATUS after deployment.
+
+## September 7 amendment: interactive trip experience
+
+The user's UI walkthrough requested less empty space, clearer invitation actions, fewer exposed form fields, an in-app calendar, actionable shared dates, visual discovery and a tactile dice roll that does not dead-end. This slice keeps the existing identity and canonical state while connecting those surfaces: compact home, decision-first invitation, preserving optional form disclosure, personal/group calendar, shared-day invitation entry, labelled mood illustrations and recoverable animated draws. No live-provider call, new backend event store or production deployment is required by these changes.
+
+Acceptance includes selected-part calendar times without a download, a shared-day prefilled invitation, preservation of hidden editing values, normal/reduced-motion dice, an exhausted shortlist, explicit no-match alternatives and retained ordinary shared-trip journeys. Observed results and the implementation commit are recorded in CURRENT_STATUS.

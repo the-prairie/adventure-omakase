@@ -94,6 +94,7 @@ test('traveler surfaces retain readable controls across desktop and mobile', asy
   await page.locator('#f-start').fill('10:00');
   await page.locator('#f-end').fill('13:00');
   await page.locator('#f-meeting').fill('Synthetic bridge meeting point');
+  await page.locator('.plan-extra > summary').click();
   await page
     .locator('#f-description')
     .fill(

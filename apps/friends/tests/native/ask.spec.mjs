@@ -106,6 +106,7 @@ test('fixture AI cards confirm an ordinary invitation with lunch-only participat
       false,
     );
     await action(a, 'plan-edit').click();
+    await a.locator('.plan-extra > summary').click();
     await a
       .locator('[data-segment=part-2] [data-seg=meeting]')
       .fill('New lunch entrance');
