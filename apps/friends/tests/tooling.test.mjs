@@ -166,3 +166,32 @@ test('release deployment is gated on actual local Cloudflare runtime tests', asy
   for (const path of ['scripts/cloudflare-setup.mjs', 'scripts/deploy.mjs'])
     assert.match(await readFile(join(ROOT, path), 'utf8'), /test:cloudflare/);
 });
+
+test('reload recovery recognizes only an exact local Miniflare GET fault', async () => {
+  const { isLocalRuntimeDisconnect } =
+    await import('./native/reload-transport.mjs');
+  const fault = {
+    method: 'GET',
+    url: 'http://127.0.0.1:1234/',
+    expectedOrigin: 'http://127.0.0.1:1234',
+    status: 500,
+    body: 'Error: Network connection lost.\n    at async Object.fetch (file:///tmp/node_modules/miniflare/dist/src/workers/core/entry.worker.js:5204:22)',
+  };
+  assert.equal(isLocalRuntimeDisconnect(fault), true);
+  for (const change of [
+    { method: 'POST' },
+    { status: 200 },
+    { url: 'https://example.com/' },
+    { url: 'http://127.0.0.1:9999/' },
+    { url: 'http://127.0.0.1:1234/api/state' },
+    {
+      body: fault.body.replace(
+        'miniflare/dist/src/workers/core/entry.worker.js',
+        'app.js',
+      ),
+    },
+    { body: fault.body + '\nApplication error' },
+    { body: 'Error: Network connection lost.' },
+  ])
+    assert.equal(isLocalRuntimeDisconnect({ ...fault, ...change }), false);
+});

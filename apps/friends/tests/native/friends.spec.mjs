@@ -1,6 +1,7 @@
 import { test, expect, TEST_KEY } from './runtime.mjs';
 import { resolve } from 'node:path';
 import { ROOT } from '../../scripts/operator-lib.mjs';
+import { isLocalRuntimeDisconnect } from './reload-transport.mjs';
 
 const action = (page, name) =>
   page.locator(`[data-action="${name}"]:visible`).first();
@@ -33,7 +34,41 @@ async function call(page, path, method = 'GET', data) {
 }
 const diagnostics = new WeakMap();
 async function fresh(page) {
-  await page.reload();
+  const response = await page.reload();
+  const info = test.info();
+  if (
+    response?.status() === 500 &&
+    !info.annotations.some((a) => a.type === 'local-runtime-recovery')
+  ) {
+    const evidence = {
+      method: response.request().method(),
+      url: response.url(),
+      expectedOrigin: diagnostics.get(page)?.origin,
+      status: response.status(),
+      body: await response.text(),
+    };
+    if (isLocalRuntimeDisconnect(evidence)) {
+      evidence.body = evidence.body.replace(
+        /file:\/\/\/.*\/miniflare\/dist/,
+        'file:///<miniflare>/dist',
+      );
+      info.annotations.push({
+        type: 'local-runtime-recovery',
+        description:
+          'One Miniflare GET disconnect; fresh read repeated once. Not a clean first-attempt runtime pass.',
+      });
+      await info.attach('local-runtime-recovery', {
+        body: JSON.stringify(evidence),
+        contentType: 'application/json',
+      });
+      console.warn(
+        'Recovered one identified local Miniflare GET disconnect; evidence retained.',
+      );
+      // The upstream local proxy can remain disconnected briefly after the fault.
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await page.reload();
+    }
+  }
   try {
     await expect(page.locator('.header')).toBeVisible();
   } catch (cause) {
@@ -75,7 +110,7 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
     c.setDefaultTimeout(15000);
     const p = await c.newPage();
     await p.clock.setFixedTime(new Date('2026-09-06T12:00:00Z'));
-    const observed = { errors: [], failedRequests: [] };
+    const observed = { origin: runtime.url, errors: [], failedRequests: [] };
     diagnostics.set(p, observed);
     p.on('pageerror', (e) => {
       errors.push(e.message);
