@@ -84,3 +84,13 @@ The user requested low-friction entry from flights, accommodation confirmations 
 Implementation adds authenticated image/PDF extraction, private source review, explicit add/update choices, inferred-year acknowledgment, partial travel windows, stale-edit protection and a preserving helper-table migration with version-6 backup support. Manual entry remains available. Acceptance requires synthetic browser proof of joining with an image, later PDF updates preserving unrelated details, duplicate handling, changing a date back to unknown, cancellation/failure, and separate live-provider evidence. Current observed results are recorded in CURRENT_STATUS; absolute AI/OCR accuracy is not claimed.
 
 Booking slice implementation `ea29546` is deployed on the isolated preview. Observed gates: 100 friends tests, 12 repository tasks, 11 workerd checks and all 30 Chromium/WebKit cases. A complete pre-migration backup preceded migration 0004. One synthetic live screenshot read correctly preserved the destination-local October 1 arrival, unknown return/area and explicit year uncertainty without saving a profile. Current release and provider evidence are in CURRENT_STATUS. Physical-device and live-PDF coverage remain unverified; full companion invitation acceptance remains independently incomplete.
+
+## September 7 amendment: supplied logo
+
+Replace the typographic asterisk logo in entry and traveler headers with the
+user-supplied sun-and-waves wordmark. Preserve the original artwork and responsive
+home navigation. Local verification: `pnpm check` passed all 12 tasks (100 friends
+tests); Chromium and WebKit checked entry and interactive example home at 1440,
+390 and 320 pixels. Screenshots inspected; logo loading, horizontal fit and home
+navigation passed. Evidence remains under `apps/friends/evidence/logo` and browser
+artifacts. Preview identity is recorded in CURRENT_STATUS after deployment.

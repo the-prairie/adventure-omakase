@@ -343,25 +343,7 @@ svg.icon {
   text-align: left;
   line-height: 1;
 }
-.brand-name {
-  font-family: var(--serif);
-  font-weight: 700;
-  letter-spacing: -0.065em;
-  font-size: 34px;
-}
-.brand-star {
-  font-size: 35px;
-  color: var(--rust);
-}
-.brand small {
-  display: block;
-  font-family: var(--sans);
-  font-size: 8px;
-  letter-spacing: 0.22em;
-  line-height: 1.6;
-  margin-top: 4px;
-  color: var(--muted);
-}
+
 .nav {
   display: flex;
   gap: 4px;
@@ -2017,9 +1999,7 @@ dialog.reader {
     font-size: 11px;
     padding: 9px 11px;
   }
-  .brand-name {
-    font-size: 30px;
-  }
+
   .header-actions .invite-label {
     display: none;
   }
@@ -2244,15 +2224,7 @@ dialog.reader {
     padding: 12px 17px;
     gap: 8px;
   }
-  .brand-name {
-    font-size: 30px;
-  }
-  .brand-star {
-    font-size: 31px;
-  }
-  .brand small {
-    font-size: 7px;
-  }
+
   .header-actions {
     gap: 7px;
   }
@@ -2949,7 +2921,7 @@ select {
   padding: 10px 6px;
 }
 
-/* Linux WebKit's serif metrics are wider: keep the logo beside three 44px controls. */
+/* Keep the logo beside three 44px controls on narrow phones. */
 @media (max-width: 360px) {
   .header-inner {
     display: grid;
@@ -2958,14 +2930,7 @@ select {
   .header-actions {
     gap: 4px;
   }
-  .brand-name,
-  .brand-star {
-    font-size: 23px;
-  }
-  .brand small {
-    font-size: 6px;
-    letter-spacing: 0.08em;
-  }
+
   .chapter > span {
     min-width: 0;
   }
@@ -3281,14 +3246,7 @@ select {
 .section-heading h2 {
   font-size: 34px;
 }
-.brand-star .icon {
-  width: 28px;
-  height: 28px;
-  stroke-width: 1.4;
-}
-.brand small {
-  letter-spacing: 0.1em;
-}
+
 .header {
   background: var(--paper);
   backdrop-filter: none;
@@ -4151,4 +4109,36 @@ input[type='file']::file-selector-button {
 .date-open {
   margin-top: 4px;
   font-size: 12px;
+}
+
+/* Preserve the supplied artwork; frame its printed bounds without altering pixels. */
+.brand {
+  min-width: 0;
+  flex-shrink: 0;
+}
+.brand-art {
+  position: relative;
+  display: block;
+  width: 220px;
+  aspect-ratio: 1340 / 360;
+  overflow: hidden;
+  mix-blend-mode: darken;
+}
+.brand-art img {
+  position: absolute;
+  width: 132.3881%;
+  max-width: none;
+  height: auto;
+  left: -16.0448%;
+  top: -72.2222%;
+}
+@media (max-width: 580px) {
+  .brand-art {
+    width: 180px;
+  }
+}
+@media (max-width: 360px) {
+  .brand-art {
+    width: 152px;
+  }
 }
