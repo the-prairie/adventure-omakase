@@ -204,7 +204,9 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       await action(a, 'plan-new').click();
       await a.locator('#f-title').fill('Dawn run. Coffee together.');
       await a.locator('#f-area').fill('Synthetic Osaka area');
+      await a.locator('.trip-day-picker > summary').click();
       await a.locator('#f-date').fill('2026-10-04');
+      await a.locator('.trip-day-picker > summary').click();
       await a.locator('#f-start').fill('07:30');
       await a.locator('#f-end').fill('10:00');
       await a.locator('#f-meeting').fill('Synthetic running start');

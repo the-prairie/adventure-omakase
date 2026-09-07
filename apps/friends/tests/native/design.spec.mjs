@@ -90,7 +90,9 @@ test('traveler surfaces retain readable controls across desktop and mobile', asy
   await action('plan-new').click();
   await page.locator('#f-title').fill('A river walk, then lunch');
   await page.locator('#f-area').fill('Nakanoshima · synthetic');
+  await page.locator('.trip-day-picker > summary').click();
   await page.locator('#f-date').fill('2026-09-29');
+  await page.locator('.trip-day-picker > summary').click();
   await page.locator('#f-start').fill('10:00');
   await page.locator('#f-end').fill('13:00');
   await page.locator('#f-meeting').fill('Synthetic bridge meeting point');

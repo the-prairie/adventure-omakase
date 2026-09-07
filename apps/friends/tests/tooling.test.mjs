@@ -247,3 +247,37 @@ test('booking migration preserves populated helper rows and version-six backups 
     fresh.close();
   }
 });
+
+test('catalogue photographs retain unique local files, credits and source-linked guide provenance', async () => {
+  const { runInNewContext } = await import('node:vm');
+  const sandbox = { window: {} };
+  runInNewContext(
+    await readFile(join(ROOT, 'public/data.js'), 'utf8'),
+    sandbox,
+  );
+  const catalogue = sandbox.window.OMAKASE.catalogue;
+  assert.equal(catalogue.length, 300);
+  const illustrated = catalogue.filter((entry) => entry.photo);
+  assert.equal(illustrated.length, 24);
+  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 24);
+  for (const { photo } of illustrated) {
+    assert.match(photo.path, /^\/assets\/discovery\/photos\/[a-z0-9-]+\.webp$/);
+    assert.ok((await readFile(join(ROOT, 'public', photo.path))).length > 1000);
+    assert.match(
+      photo.source,
+      /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/,
+    );
+    assert.match(photo.licenseUrl, /^https:\/\/creativecommons\.org\//);
+    assert.ok(photo.author && photo.caption && photo.license);
+  }
+  for (const { experience } of catalogue.filter((entry) => entry.experience)) {
+    assert.match(
+      experience.source,
+      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com)\//,
+    );
+    assert.equal(experience.readAt, '2026-09-07');
+    assert.ok(
+      experience.summary && experience.planning && experience.highlights.length,
+    );
+  }
+});

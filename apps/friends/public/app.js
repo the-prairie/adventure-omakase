@@ -70,11 +70,6 @@
       return '';
     }
   };
-  const mapSearch = (p) =>
-    'https://www.google.com/maps/search/?api=1&query=' +
-    encodeURIComponent(
-      [p.meeting, p.area, R[p.region], 'Japan'].filter(Boolean).join(' '),
-    );
   const iconPaths = {
     plus: '<path d="M12 5v14M5 12h14"/>',
     close: '<path d="m6 6 12 12M6 18 18 6"/>',
@@ -716,34 +711,127 @@
           )),
     );
   }
-  function discoveryIllustration(a) {
-    const mood = a.mood.toLowerCase(),
-      subject = (a.title + ' ' + a.why).toLowerCase();
-    const theme = /food|drink/.test(mood)
-      ? 0
-      : /architecture|concrete|infrastructure|flood|sewer|engineering/.test(
-            mood + ' ' + subject,
-          )
-        ? 1
-        : /craft|pottery|ceramic/.test(mood + ' ' + subject)
-          ? 7
-          : /nature|forest|garden/.test(mood + ' ' + subject)
-            ? 4
-            : /water|coast|snorkel/.test(mood)
-              ? 5
-              : /running|active/.test(mood)
-                ? 6
-                : /museum|specimen|science|gallery/.test(subject)
-                  ? 2
-                  : 3;
-    return `<span class="discovery-illustration" style="--art-x:${((theme % 4) * 100) / 3}%;--art-y:${theme < 4 ? 0 : 100}%" aria-hidden="true"></span><span class="illustration-label">Imagined scene · not a venue photo</span>`;
+  function discoveryPhoto(a, interactive = false) {
+    const photo = a?.photo;
+    if (!photo?.path || !photo.path.startsWith('/assets/discovery/photos/'))
+      return '';
+    const img = `<img src="${E(photo.path)}" alt="${E(photo.caption)}" width="960" height="640" loading="lazy">`;
+    return `<figure class="experience-photo ${interactive ? 'card-photo' : ''}">${interactive ? `<button class="discovery-image" data-action="discovery" data-id="${E(a.id)}" aria-label="Explore ${E(a.title)}">${img}</button>` : img}<figcaption>${E(photo.caption)} · <a href="${E(safeURL(photo.source))}" target="_blank" rel="noopener noreferrer">${E(photo.author)}</a> · <a href="${E(safeURL(photo.licenseUrl))}" target="_blank" rel="noopener noreferrer">${E(photo.license)}</a></figcaption></figure>`;
+  }
+  function experienceContext(a) {
+    if (!a) return '';
+    const guide = a.experience;
+    return `<section class="experience-context"><h3>What you’ll experience</h3><p>${E(guide?.summary || a.why)}</p>${guide?.highlights?.length ? `<ul>${guide.highlights.map((line) => `<li>${E(line)}</li>`).join('')}</ul>` : ''}${guide?.planning ? `<p class="experience-planning">${E(guide.planning)}</p>` : ''}${safeURL(guide?.source || a.source) ? `<a class="text-btn" href="${E(safeURL(guide?.source || a.source))}" target="_blank" rel="noopener noreferrer">${E(guide?.sourceLabel || 'Research source')} ${I('external')}</a>` : ''}${guide?.readAt ? `<small class="muted">Source read ${dateText(guide.readAt)}. Check current opening and booking details before going.</small>` : ''}</section>`;
+  }
+  function embeddedMap(query, label, link = '') {
+    if (!query?.trim()) return '';
+    return `<section class="embedded-map"><div class="map-intro"><div><h3>${E(label)}</h3><p>${E(query)}</p></div><button type="button" class="btn subtle" data-action="load-map" data-query="${E(query)}">${I('pin')} Show map here</button></div><div class="map-canvas" aria-live="polite"></div><p class="small muted">Google Maps search · check the result and exact entrance. Loading sends this search to Google.</p><a class="text-btn" href="${E(safeURL(link) || 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query))}" target="_blank" rel="noopener noreferrer">Open in Google Maps ${I('external')}</a></section>`;
+  }
+  function meetingMap(p) {
+    const vague =
+      /^(meet( at)?( the)? location|tbd|tbc|to be confirmed|meet in (tokyo|osaka)|not decided|somewhere)$/i.test(
+        p.meeting.trim(),
+      );
+    const query = vague
+      ? [p.area, R[p.region], 'Japan'].join(' ')
+      : [p.meeting, p.area, R[p.region], 'Japan'].join(' ');
+    return `<div class="meeting-box"><span class="small muted">Meeting point · from the host</span><strong>${E(p.meeting)}</strong>${vague ? '<p class="small">The host still needs to name a meeting point. This map shows the area only.</p>' : ''}${embeddedMap(query, vague ? 'Explore the area' : 'Find the meeting point', p.mapLink)}</div>`;
+  }
+  function timingPicker(p) {
+    return `<fieldset class="plan-timing"><legend>When shall we go?</legend><details class="trip-day-picker"><summary>${I('calendar')} <span id="plan-day-label">${dateText(p.date, { weekday: 'long', day: 'numeric', month: 'long' })}</span><span class="small">Choose day</span></summary><div class="trip-day-grid" aria-label="Choose a trip day">${DAYS.map((day) => `<button type="button" class="trip-day ${day === p.date ? 'active' : ''}" data-action="plan-day" data-id="${day}" aria-pressed="${day === p.date}"><small>${dateText(day, { weekday: 'short' })}</small><strong>${dateText(day, { day: 'numeric' })}</strong><small>${dateText(day, { month: 'short' })}</small></button>`).join('')}</div>${field('date', 'Or enter a date', p.date, 'date', `min="${E(S.trip.start)}" max="${E(S.trip.end)}" required`)}</details><div class="field-row">${field('start', 'Start time', p.start, 'time', 'required')}${field('end', 'Finish time', p.end, 'time', 'required')}</div><div class="timing-shortcuts"><span class="small">Start around</span>${[
+      ['09:00', 'Morning'],
+      ['12:00', 'Lunch'],
+      ['14:00', 'Afternoon'],
+      ['18:00', 'Evening'],
+    ]
+      .map(
+        ([time, label]) =>
+          `<button type="button" class="filter" data-action="plan-start" data-id="${time}">${label}</button>`,
+      )
+      .join(
+        '',
+      )}</div><div class="timing-shortcuts"><span class="small">Stay for</span>${[
+      [30, '30 min'],
+      [60, '1 hour'],
+      [120, '2 hours'],
+      [180, '3 hours'],
+    ]
+      .map(
+        ([duration, label]) =>
+          `<button type="button" class="filter" data-action="plan-duration" data-id="${duration}">${label}</button>`,
+      )
+      .join(
+        '',
+      )}</div><p class="small muted" id="plan-time-summary" aria-live="polite"></p><small>All times are in Japan (JST). Adjust either time for an exact plan.</small></fieldset>`;
+  }
+  const timeMinutes = (value) =>
+    /^\d{2}:\d{2}$/.test(value)
+      ? Number(value.slice(0, 2)) * 60 + Number(value.slice(3))
+      : NaN;
+  function updateTiming(form, minutes = null, start = null) {
+    const from = form.elements.start,
+      until = form.elements.end,
+      previousStart = from.value;
+    const oldDuration = timeMinutes(until.value) - timeMinutes(from.value);
+    if (start !== null) from.value = start;
+    if (minutes !== null || start !== null) {
+      const end =
+        timeMinutes(from.value) +
+        (minutes ?? (oldDuration > 0 ? oldDuration : 60));
+      if (!Number.isFinite(end) || end >= 1440) {
+        toast(
+          'That runs into the next day. Choose an earlier start or a shorter outing.',
+          true,
+        );
+        if (start !== null) from.value = previousStart;
+        return;
+      }
+      until.value =
+        String(Math.floor(end / 60)).padStart(2, '0') +
+        ':' +
+        String(end % 60).padStart(2, '0');
+    }
+    form.dataset.lastStart = from.value;
+    const duration = timeMinutes(until.value) - timeMinutes(from.value);
+    const summary = form.querySelector('#plan-time-summary');
+    summary.textContent =
+      duration > 0
+        ? `${from.value}–${until.value} · ${duration < 60 ? duration + ' minutes' : (duration / 60).toLocaleString('en', { maximumFractionDigits: 2 }) + (duration === 60 ? ' hour' : ' hours')}`
+        : 'Choose a finish time after the start, on the same day.';
+    form
+      .querySelectorAll('[data-action=plan-duration]')
+      .forEach((button) =>
+        button.setAttribute(
+          'aria-pressed',
+          String(Number(button.dataset.id) === duration),
+        ),
+      );
+    form
+      .querySelectorAll('[data-action=plan-start]')
+      .forEach((button) =>
+        button.setAttribute(
+          'aria-pressed',
+          String(button.dataset.id === from.value),
+        ),
+      );
+    const day = form.elements.date.value;
+    form.querySelector('#plan-day-label').textContent = dateText(day, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    });
+    form.querySelectorAll('[data-action=plan-day]').forEach((button) => {
+      button.classList.toggle('active', button.dataset.id === day);
+      button.setAttribute('aria-pressed', String(button.dataset.id === day));
+    });
+    storePlanDraft();
   }
   function discoveryCard(a) {
     const pick = saved(a.id),
       friends = S.picks.filter(
         (p) => p.catalogueId === a.id && p.shared && p.memberId !== S.me.id,
       );
-    return `<article class="discovery ${a.featured ? 'featured' : ''}"><button class="discovery-image" data-action="discovery" data-id="${E(a.id)}" aria-label="Explore ${E(a.title)}">${discoveryIllustration(a)}</button><h3><button data-action="discovery" data-id="${E(a.id)}">${E(a.title)}</button></h3><p>${E(a.why)}</p>${a.custom ? `<p class="find-author">Found by ${E(person(a.memberId).name)}</p>` : ''}<div class="bottom"><span>${E(a.mood)} · ${E(a.area)}<br>${E(a.minutes < 60 ? a.minutes + ' min' : (a.minutes / 60).toFixed(a.minutes % 60 ? 1 : 0) + ' hr')} on site · estimate${friends.length ? `<br>${friends.map((f) => E(person(f.memberId).name)).join(', ')} saved this` : ''}</span><button class="icon-btn ${pick ? 'saved-star' : ''}" data-action="save" data-id="${E(a.id)}" aria-label="${pick ? 'Unsave' : 'Save'} ${E(a.title)}" aria-pressed="${!!pick}">${I(pick ? 'check' : 'save')}</button></div></article>`;
+    return `<article class="discovery ${a.featured ? 'featured' : ''}">${discoveryPhoto(a, true)}<h3><button data-action="discovery" data-id="${E(a.id)}">${E(a.title)}</button></h3><p>${E(a.why)}</p>${a.custom ? `<p class="find-author">Found by ${E(person(a.memberId).name)}</p>` : ''}<div class="bottom"><span>${E(a.mood)} · ${E(a.area)}<br>${E(a.minutes < 60 ? a.minutes + ' min' : (a.minutes / 60).toFixed(a.minutes % 60 ? 1 : 0) + ' hr')} on site · estimate${friends.length ? `<br>${friends.map((f) => E(person(f.memberId).name)).join(', ')} saved this` : ''}</span><button class="icon-btn ${pick ? 'saved-star' : ''}" data-action="save" data-id="${E(a.id)}" aria-label="${pick ? 'Unsave' : 'Save'} ${E(a.title)}" aria-pressed="${!!pick}">${I(pick ? 'check' : 'save')}</button></div></article>`;
   }
   function discover() {
     const matches = discoverMatches(),
@@ -754,7 +842,7 @@
           ),
         ),
       ].sort();
-    return `<section class="page-head discovery-head"><div><h1>Find your next<br> <em>detour.</em></h1><p>An idea for yourself, or a reason to meet. These are research leads; check details before going.</p><div class="row wrap">${mode === 'shared' ? btn('Find something for me ' + I('star'), 'ask-find', '', 'primary') : ''}${btn('Surprise me ' + I('dice'), 'dice', '', 'subtle')}${btn(I('plus') + 'Add a friend’s find', 'find-new', '', 'subtle')}</div></div><figure class="discovery-scene"><img src="${E(A[ui.region === 'all' ? 'osaka' : ui.region] || A.osaka)}" alt=""><figcaption>${ui.region === 'all' ? 'Japan, a little further in.' : E(R[ui.region])} · illustration</figcaption></figure></section>${regionFilters()}<div class="searchbar discovery-search">${I('search')}<label class="screenreader" for="search">Search discoveries</label><input id="search" type="search" placeholder="A place, a craving, a very specific curiosity…" value="${E(ui.q)}" autocomplete="off"></div><details id="discovery-filters" class="discovery-filters" ${ui.moreFilters ? 'open' : ''}><summary>${I('search')} Filter ideas <span>${[ui.mood !== 'all', ui.area !== 'all', ui.max !== 'all', ui.saved].filter(Boolean).length || ''}</span></summary><div class="filters mood-filters">${['all', ...Object.keys(MOODS)].map((m) => `<button class="filter ${ui.mood === m ? 'active' : ''}" data-action="mood" data-id="${m}">${m === 'all' ? 'Any mood' : m}</button>`).join('')}<button class="filter ${ui.saved ? 'active' : ''}" data-action="saved-only" aria-pressed="${ui.saved}">${I('save')} My saved ideas</button></div><div class="filters discovery-refine"><label class="screenreader" for="area-filter">Discovery area</label><select id="area-filter"><option value="all">Any neighborhood / island</option>${areas.map((a) => `<option ${a === ui.area ? 'selected' : ''}>${E(a)}</option>`).join('')}</select><label class="screenreader" for="time-filter">Estimated time on site</label><select id="time-filter">${[
+    return `<section class="page-head discovery-head"><div><h1>Find your next<br> <em>detour.</em></h1><p>An idea for yourself, or a reason to meet. These are research leads; check details before going.</p><div class="row wrap">${mode === 'shared' ? btn('Find something for me ' + I('star'), 'ask-find', '', 'primary') : ''}${btn('Surprise me ' + I('dice'), 'dice', '', 'subtle')}${btn(I('plus') + 'Add a friend’s find', 'find-new', '', 'subtle')}</div></div><figure class="discovery-scene"><img src="${E(A[ui.region === 'all' ? 'osaka' : ui.region] || A.osaka)}" alt=""><figcaption>${ui.region === 'all' ? 'Japan, a little further in.' : E(R[ui.region])} · illustration</figcaption></figure></section><div class="envelopes"><button class="envelope" data-action="envelope" data-id="Strange"><span class="eyebrow">Open when…</span><h3>You want something strange.</h3></button><button class="envelope" data-action="envelope" data-id="Food"><span class="eyebrow">Open when…</span><h3>Dinner needs a decision.</h3></button><button class="envelope" data-action="envelope" data-id="Slow"><span class="eyebrow">Open when…</span><h3>Doing less sounds lovely.</h3></button></div><div class="discovery-library"><div class="subnav"><button class="${!ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="all">All discoveries</button><button class="${ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="saved">${I('save')} Saved <span>${C.filter((a) => saved(a.id)).length}</span></button></div><p class="small muted">${ui.saved ? 'Your private shortlist. Saving doesn’t add a plan or recommend it to friends.' : 'Save an idea here to find it later in Saved.'}</p></div>${regionFilters()}<div class="searchbar discovery-search">${I('search')}<label class="screenreader" for="search">Search discoveries</label><input id="search" type="search" placeholder="A place, a craving, a very specific curiosity…" value="${E(ui.q)}" autocomplete="off"></div><details id="discovery-filters" class="discovery-filters" ${ui.moreFilters ? 'open' : ''}><summary>${I('search')} Filter ideas <span>${[ui.mood !== 'all', ui.area !== 'all', ui.max !== 'all', ui.saved].filter(Boolean).length || ''}</span></summary><div class="filters mood-filters">${['all', ...Object.keys(MOODS)].map((m) => `<button class="filter ${ui.mood === m ? 'active' : ''}" data-action="mood" data-id="${m}">${m === 'all' ? 'Any mood' : m}</button>`).join('')}</div><div class="filters discovery-refine"><label class="screenreader" for="area-filter">Discovery area</label><select id="area-filter"><option value="all">Any neighborhood / island</option>${areas.map((a) => `<option ${a === ui.area ? 'selected' : ''}>${E(a)}</option>`).join('')}</select><label class="screenreader" for="time-filter">Estimated time on site</label><select id="time-filter">${[
       ['all', 'Any time on site'],
       ['60', 'Up to 1 hr on site'],
       ['120', 'Up to 2 hr on site'],
@@ -766,7 +854,7 @@
       )
       .join(
         '',
-      )}</select><button class="text-btn" data-action="clear-filters">Reset filters</button></div></details><p class="discovery-count small muted" id="result-count">${matches.length} discoveries · travel time excluded</p><div class="discovery-grid" id="discovery-results">${matches.slice(0, ui.limit).map(discoveryCard).join('')}</div>${!matches.length ? empty('That is quite a specific adventure.', 'Try another area or relax a filter. Nothing has been invented to fill the gap.', 'Reset filters', 'clear-filters') : ''}${matches.length > ui.limit ? `<div class="row" style="justify-content:center;margin-top:28px">${btn('Show 24 more ' + I('plus'), 'more')}</div>` : ''}<div class="envelopes"><button class="envelope" data-action="envelope" data-id="Strange"><span class="eyebrow">Open when…</span><h3>You want something strange.</h3></button><button class="envelope" data-action="envelope" data-id="Food"><span class="eyebrow">Open when…</span><h3>Dinner needs a decision.</h3></button><button class="envelope" data-action="envelope" data-id="Slow"><span class="eyebrow">Open when…</span><h3>Doing less sounds lovely.</h3></button></div>`;
+      )}</select><button class="text-btn" data-action="clear-filters">Reset filters</button></div></details><p class="discovery-count small muted" id="result-count">${matches.length} discoveries · travel time excluded</p><div class="discovery-grid" id="discovery-results">${matches.slice(0, ui.limit).map(discoveryCard).join('')}</div>${!matches.length ? empty('That is quite a specific adventure.', 'Try another area or relax a filter. Nothing has been invented to fill the gap.', 'Reset filters', 'clear-filters') : ''}${matches.length > ui.limit ? `<div class="row" style="justify-content:center;margin-top:28px">${btn('Show 24 more ' + I('plus'), 'more')}</div>` : ''}`;
   }
   function overlapWith(member) {
     const mine = S.me.profile?.windows || [],
@@ -960,7 +1048,7 @@
     const a = BY.get(p.catalogueId);
     openModal(
       'An open invitation',
-      `<div class="plan-view"><div class="row wrap plan-status"><span class="pill ${p.kind === 'idea' ? 'rust' : 'green'}">${p.status !== 'open' ? E(p.status) : p.kind === 'idea' ? 'An idea · not yet decided' : 'I’m going · company welcome'}</span>${p.joinStyle === 'reunion' ? '<span class="pill blue">Solo first · meet afterward</span>' : ''}</div><h2 style="margin-top:17px">${E(p.title)}</h2><div class="detail-date">${I('calendar')}${dateText(p.date, { weekday: 'long', month: 'long', day: 'numeric' })} <span>·</span>${formatTime(p)} JST</div><div class="detail-host">${avatar(p.hostId)}<div>${E(person(p.hostId).name)} is hosting<small>You’re welcome for the parts that suit you.</small></div></div>${mode === 'demo' ? '<p class="plan-example small muted">Example plan with fictional people. Meeting points and availability are not verified. Nothing here is booked.</p>' : ''}${needs ? '<div class="notice warn"><strong>This changed since you joined.</strong><br>Review the current time, meeting point and selected part, then reconfirm. A changed plan does not silently change your commitment.</div>' : ''}<div class="fact-grid"><div class="fact"><small>Effort</small><strong>${{ easy: 'Easy pace', active: 'Active outing', demanding: 'Demanding outing' }[p.effort]}</strong></div><div class="fact"><small>Expected cost</small><strong>${E(p.cost || 'Not supplied · ask the host')}</strong></div><div class="fact"><small>Booking</small><strong>${{ check: 'Still needs checking', 'not-needed': 'Host says no booking needed', 'host-booked': 'Host has booked for themselves' }[p.booking]}</strong></div></div>${p.booking === 'host-booked' ? '<div class="notice warn">The host’s booking does not include you automatically. Confirm your own place or ask the host before paying or traveling.</div>' : ''}${a && (a.flags.includes('w') || a.flags.includes('o')) ? `<div class="notice warn">${a.flags.includes('w') ? 'Water activity: operator approval, conditions and safety must be confirmed separately. ' : ''}${a.flags.includes('o') ? 'A separate stay or island transfer may be needed.' : ''}</div>` : ''}<section class="plan-decision">${p.status === 'open' && !mine ? `<form id="rsvp-form" data-plan="${E(p.id)}" data-revision="${E(p.revision)}"><h3>Choose what you’ll join</h3>${p.joinStyle === 'open' ? `<label class="choose-part"><input type="radio" name="choice" value="all" ${!r || r.choice === 'all' ? 'checked' : ''}><span><strong>All of it</strong><small>${formatTime(p)} JST</small><small>${E(p.meeting)}</small></span></label>` : ''}${p.segments.map((s, i) => `<label class="choose-part"><input type="radio" name="choice" value="${E(s.id)}" ${r?.choice === s.id || (!r && p.joinStyle === 'reunion' && i === 0) ? 'checked' : ''}><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></label>`).join('')}<div class="form-error" role="alert"></div><div id="overlap-choice"></div><div class="row wrap" style="margin-top:20px"><button type="submit" name="status" value="${full ? 'waitlist' : 'joined'}" class="btn primary">${full ? 'Join the waitlist' : needs ? 'Reconfirm my part' : r?.status === 'joined' ? 'Update my part' : 'I’m coming'} ${I('arrow')}</button><button type="submit" name="status" value="interested" class="btn">Interested, not committed</button>${r ? `<button type="submit" name="status" value="leave" class="text-btn">Leave this plan</button>` : ''}</div><p class="time-note">${p.capacity ? `${1 + members.length} of ${E(p.capacity)} places including the host. ` : ''}One group-wide capacity applies to all parts. Waitlists are not auto-promoted. Joining never purchases a ticket.</p></form>` : mine && p.status === 'open' ? `<section class="host-actions"><p>You’re hosting this invitation. Edit it or send it to friends.</p><div class="row wrap">${btn(I('edit') + 'Edit invitation', 'plan-edit', p.id, 'primary')}${btn(I('arrow') + 'Send this invitation', 'share-plan', p.id, 'subtle')}</div></section>` : ''}</section>${mine || p.status !== 'open' ? `<div class="meeting-box"><span class="small muted">Meeting point · from the host</span><strong>${E(p.meeting)}</strong><a class="text-btn" href="${E(safeURL(p.mapLink) || mapSearch(p))}" target="_blank" rel="noopener noreferrer">${I('pin')}${safeURL(p.mapLink) ? 'Open host’s map link' : 'Search this meeting point in Maps'} ${I('external')}</a></div>` : ''}${(mine || p.status !== 'open') && p.segments.length ? `<section class="meeting-parts"><div class="section-label">Smaller meet-up parts</div>${p.segments.map((s) => `<div class="choose-part"><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></div>`).join('')}</section>` : ''}<details class="form-detail"><summary>About this outing & sources</summary>${!mine && p.status === 'open' ? `<div class="meeting-box"><span class="small muted">Meeting point · from the host</span><strong>${E(p.meeting)}</strong><a class="text-btn" href="${E(safeURL(p.mapLink) || mapSearch(p))}" target="_blank" rel="noopener noreferrer">${I('pin')}${safeURL(p.mapLink) ? 'Open host’s map link' : 'Search this meeting point in Maps'} ${I('external')}</a></div>` : ''}${a ? `<div class="notice">From the fieldbook: <button class="text-btn" data-action="discovery" data-id="${E(a.id)}">${E(a.title)} ${I('arrow')}</button><br>${a.flags.includes('w') ? 'Water activity: operator approval, conditions and safety must be confirmed separately. ' : ''}${a.flags.includes('o') ? 'A separate stay or island transfer may be needed. ' : ''}Catalogue durations exclude travel time. This invitation is not a checked route.</div>` : ''}<p class="lede" style="white-space:pre-wrap">${E(p.description)}</p></details><div class="plan-share-row">${!mine || p.status !== 'open' ? btn(I('arrow') + 'Send this invitation', 'share-plan', p.id, 'subtle') : ''}${mode === 'shared' ? btn('Check this idea ✳', 'ask-plan', p.id, 'subtle') + (mine && p.status === 'open' && p.segments.length && new Set(p.segments.map((s) => s.label)).size === p.segments.length ? btn('Help me rework this', 'ask-replan', p.id, 'subtle') : '') : ''}</div>${mine && p.status === 'open' ? `<div class="row wrap plan-management">${btn(I('check') + 'Mark completed', 'plan-complete', p.id, 'text-btn')}${btn('Cancel plan', 'plan-cancel', p.id, 'text-btn')}</div>` : ''}<div class="section-label">Who’s in the picture?</div><div class="person-rsvp">${avatar(p.hostId)}<span>${E(person(p.hostId).name)}<small>Hosting</small></span></div>${p.rsvps.map((r) => `<div class="person-rsvp">${avatar(r.memberId)}<span>${E(person(r.memberId).name)}<small>${E(r.status)}${r.choice !== 'all' ? ' · ' + E(p.segments.find((s) => s.id === r.choice)?.label || 'option changed') : ' · all of it'}${p.status === 'open' && r.status === 'joined' && r.acceptedRevision !== p.revision ? ' · needs to reconfirm' : ''}</small></span></div>`).join('') || '<p class="small muted" style="margin-top:14px">Nobody else has committed. That is absolutely fine.</p>'}<div class="row wrap" style="margin-top:16px">${btn(I('calendar') + 'View in calendar', 'calendar-plan', p.id, 'subtle')}${btn(I('camera') + 'Keep a memory', 'moment-plan', p.id, 'subtle')}</div><section class="conversation"><h3>Questions & updates.</h3><p class="small muted">Questions about meeting up, tickets or timing. Visible to this private trip.</p>${p.comments.map((c) => `<div class="comment">${avatar(c.memberId)}<div class="comment-body"><strong>${E(person(c.memberId).name)}</strong> <small>${when(c.created)} JST</small><p>${E(c.text)}</p>${c.memberId === S.me.id || S.me.role === 'owner' ? `<button class="text-btn" data-action="comment-delete" data-id="${E(c.id)}" data-plan="${E(p.id)}">Remove</button>` : ''}</div></div>`).join('')}<form id="comment-form" data-plan="${E(p.id)}" class="comment-form" style="margin-top:15px"><label for="comment-text" class="screenreader">Ask about this plan</label><textarea id="comment-text" name="text" maxlength="1200" placeholder="A question, a clearer exit, a tiny update…" required></textarea><button class="btn primary" type="submit">Send</button></form><div id="comment-error" class="form-error" role="alert"></div></section></div>`,
+      `<div class="plan-view"><div class="row wrap plan-status"><span class="pill ${p.kind === 'idea' ? 'rust' : 'green'}">${p.status !== 'open' ? E(p.status) : p.kind === 'idea' ? 'An idea · not yet decided' : 'I’m going · company welcome'}</span>${p.joinStyle === 'reunion' ? '<span class="pill blue">Solo first · meet afterward</span>' : ''}</div><h2 style="margin-top:17px">${E(p.title)}</h2>${discoveryPhoto(a)}<div class="detail-date">${I('calendar')}${dateText(p.date, { weekday: 'long', month: 'long', day: 'numeric' })} <span>·</span>${formatTime(p)} JST</div><div class="detail-host">${avatar(p.hostId)}<div>${E(person(p.hostId).name)} is hosting<small>You’re welcome for the parts that suit you.</small></div></div>${mode === 'demo' ? '<p class="plan-example small muted">Example plan with fictional people. Meeting points and availability are not verified. Nothing here is booked.</p>' : ''}${needs ? '<div class="notice warn"><strong>This changed since you joined.</strong><br>Review the current time, meeting point and selected part, then reconfirm. A changed plan does not silently change your commitment.</div>' : ''}${a ? experienceContext(a) : `<p class="plan-description">${E(p.description)}</p>`}<div class="fact-grid"><div class="fact"><small>Effort</small><strong>${{ easy: 'Easy pace', active: 'Active outing', demanding: 'Demanding outing' }[p.effort]}</strong></div><div class="fact"><small>Expected cost</small><strong>${E(p.cost || 'Not supplied · ask the host')}</strong></div><div class="fact"><small>Booking</small><strong>${{ check: 'Still needs checking', 'not-needed': 'Host says no booking needed', 'host-booked': 'Host has booked for themselves' }[p.booking]}</strong></div></div>${p.booking === 'host-booked' ? '<div class="notice warn">The host’s booking does not include you automatically. Confirm your own place or ask the host before paying or traveling.</div>' : ''}${a && (a.flags.includes('w') || a.flags.includes('o')) ? `<div class="notice warn">${a.flags.includes('w') ? 'Water activity: operator approval, conditions and safety must be confirmed separately. ' : ''}${a.flags.includes('o') ? 'A separate stay or island transfer may be needed.' : ''}</div>` : ''}<section class="plan-decision">${p.status === 'open' && !mine ? `<form id="rsvp-form" data-plan="${E(p.id)}" data-revision="${E(p.revision)}"><h3>Choose what you’ll join</h3>${p.joinStyle === 'open' ? `<label class="choose-part"><input type="radio" name="choice" value="all" ${!r || r.choice === 'all' ? 'checked' : ''}><span><strong>All of it</strong><small>${formatTime(p)} JST</small><small>${E(p.meeting)}</small></span></label>` : ''}${p.segments.map((s, i) => `<label class="choose-part"><input type="radio" name="choice" value="${E(s.id)}" ${r?.choice === s.id || (!r && p.joinStyle === 'reunion' && i === 0) ? 'checked' : ''}><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></label>`).join('')}<div class="form-error" role="alert"></div><div id="overlap-choice"></div><div class="row wrap" style="margin-top:20px"><button type="submit" name="status" value="${full ? 'waitlist' : 'joined'}" class="btn primary">${full ? 'Join the waitlist' : needs ? 'Reconfirm my part' : r?.status === 'joined' ? 'Update my part' : 'I’m coming'} ${I('arrow')}</button><button type="submit" name="status" value="interested" class="btn">Interested, not committed</button>${r ? `<button type="submit" name="status" value="leave" class="text-btn">Leave this plan</button>` : ''}</div><p class="time-note">${p.capacity ? `${1 + members.length} of ${E(p.capacity)} places including the host. ` : ''}One group-wide capacity applies to all parts. Waitlists are not auto-promoted. Joining never purchases a ticket.</p></form>` : mine && p.status === 'open' ? `<section class="host-actions"><p>You’re hosting this invitation. Edit it or send it to friends.</p><div class="row wrap">${btn(I('edit') + 'Edit invitation', 'plan-edit', p.id, 'primary')}${btn(I('arrow') + 'Send this invitation', 'share-plan', p.id, 'subtle')}</div></section>` : ''}</section>${meetingMap(p)}${(mine || p.status !== 'open') && p.segments.length ? `<section class="meeting-parts"><div class="section-label">Smaller meet-up parts</div>${p.segments.map((s) => `<div class="choose-part"><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></div>`).join('')}</section>` : ''}<details class="form-detail"><summary>About this outing & sources</summary>${a ? btn('Open the discovery guide ' + I('arrow'), 'discovery', a.id, 'subtle') : ''}<p class="lede" style="white-space:pre-wrap">${E(p.description)}</p></details><div class="plan-share-row">${!mine || p.status !== 'open' ? btn(I('arrow') + 'Send this invitation', 'share-plan', p.id, 'subtle') : ''}${mode === 'shared' ? btn('Check this idea ✳', 'ask-plan', p.id, 'subtle') + (mine && p.status === 'open' && p.segments.length && new Set(p.segments.map((s) => s.label)).size === p.segments.length ? btn('Help me rework this', 'ask-replan', p.id, 'subtle') : '') : ''}</div>${mine && p.status === 'open' ? `<div class="row wrap plan-management">${btn(I('check') + 'Mark completed', 'plan-complete', p.id, 'subtle')}${btn('Cancel plan', 'plan-cancel', p.id, 'danger subtle')}</div>` : ''}<div class="section-label">Who’s in the picture?</div><div class="person-rsvp">${avatar(p.hostId)}<span>${E(person(p.hostId).name)}<small>Hosting</small></span></div>${p.rsvps.map((r) => `<div class="person-rsvp">${avatar(r.memberId)}<span>${E(person(r.memberId).name)}<small>${E(r.status)}${r.choice !== 'all' ? ' · ' + E(p.segments.find((s) => s.id === r.choice)?.label || 'option changed') : ' · all of it'}${p.status === 'open' && r.status === 'joined' && r.acceptedRevision !== p.revision ? ' · needs to reconfirm' : ''}</small></span></div>`).join('') || '<p class="small muted" style="margin-top:14px">Nobody else has committed. That is absolutely fine.</p>'}<div class="row wrap" style="margin-top:16px">${btn(I('calendar') + 'View in calendar', 'calendar-plan', p.id, 'subtle')}${btn(I('camera') + 'Keep a memory', 'moment-plan', p.id, 'subtle')}</div><section class="conversation"><h3>Questions & updates.</h3><p class="small muted">Questions about meeting up, tickets or timing. Visible to this private trip.</p>${p.comments.map((c) => `<div class="comment">${avatar(c.memberId)}<div class="comment-body"><strong>${E(person(c.memberId).name)}</strong> <small>${when(c.created)} JST</small><p>${E(c.text)}</p>${c.memberId === S.me.id || S.me.role === 'owner' ? `<button class="text-btn" data-action="comment-delete" data-id="${E(c.id)}" data-plan="${E(p.id)}">Remove</button>` : ''}</div></div>`).join('')}<form id="comment-form" data-plan="${E(p.id)}" class="comment-form" style="margin-top:15px"><label for="comment-text" class="screenreader">Ask about this plan</label><textarea id="comment-text" name="text" maxlength="1200" placeholder="A question, a clearer exit, a tiny update…" required></textarea><button class="btn primary" type="submit">Send</button></form><div id="comment-error" class="form-error" role="alert"></div></section></div>`,
       'plan',
       id,
       true,
@@ -1035,7 +1123,8 @@
         end: '12:00',
         meeting: '',
         description: a
-          ? 'A discovery I’m curious about. Opening, access and bookings still need checking.'
+          ? (a.experience?.summary || a.why) +
+            '\n\nOpening, access and bookings still need checking.'
           : '',
         mapLink: '',
         cost: '',
@@ -1050,7 +1139,7 @@
     draftSegments = structuredClone(p.segments || []);
     openModal(
       old ? 'Edit your invitation' : 'Make an open invitation',
-      `<p class="lede">${old ? 'Change only what you need; the rest stays as it is.' : 'Start with what, when and where. Add other details if you need them.'} Times are in Japan.</p>${draft && !old ? '<div class="notice">An unsent draft was restored in this tab. <button class="text-btn" data-action="discard-draft">Discard draft</button></div>' : ''}${old ? '<div class="notice warn">Editing asks everyone already joined to review and reconfirm—even when they joined only one part.</div>' : ''}<form id="plan-form" data-id="${E(old?.id || '')}" data-revision="${E(old?.revision || '')}"><input type="hidden" name="catalogueId" value="${E(p.catalogueId)}"><input type="hidden" name="requestId" value="${E(p.requestId || uid())}"><div class="field"><label for="f-title">The invitation</label><input id="f-title" name="title" maxlength="150" required value="${E(p.title)}" placeholder="A river walk, then whatever smells good"></div><div class="field-row"><div class="field"><label for="f-region">Region</label><select id="f-region" name="region">${regionOptions(p.region)}</select></div>${field('area', 'Neighborhood / island', p.area, 'text', 'maxlength="100" required')}</div><div class="field-row three">${field('date', 'Day · Japan', p.date, 'date', `min="${E(S.trip.start)}" max="${E(S.trip.end)}" required`)}${field('start', 'From · JST', p.start, 'time', 'required')}${field('end', 'Until · JST', p.end, 'time', 'required')}</div><div class="field"><label for="f-meeting">The main meeting point</label><textarea id="f-meeting" name="meeting" maxlength="500" required placeholder="A named landmark, station exit or address. Add which side and how to spot you.">${E(p.meeting)}</textarea><small>A vague “meet in Osaka” is not enough. Avoid publishing hotel room numbers or private access codes.</small></div><details class="form-detail plan-extra"><summary>More details & ways to join${draftSegments.length ? ` · ${draftSegments.length} meet-up ${draftSegments.length === 1 ? 'part' : 'parts'}` : ''}</summary><div class="field-row"><div class="field"><label for="f-kind">How decided are you?</label><select id="f-kind" name="kind"><option value="going" ${p.kind === 'going' ? 'selected' : ''}>I’m going · company welcome</option><option value="idea" ${p.kind === 'idea' ? 'selected' : ''}>An idea · seeing who’s keen</option></select></div><div class="field"><label for="f-joinStyle">How can friends join?</label><select id="f-joinStyle" name="joinStyle"><option value="open" ${p.joinStyle === 'open' ? 'selected' : ''}>All of it, or a smaller part</option><option value="reunion" ${p.joinStyle === 'reunion' ? 'selected' : ''}>Solo first · meet afterward only</option></select></div></div><div class="field"><label for="f-description">The invitation in your words</label><textarea id="f-description" name="description" maxlength="3000" placeholder="The idea, the pace, what is and isn’t arranged. Permission to join just for the coffee.">${E(p.description)}</textarea></div><div class="section-label">Make it easy to join for a little</div><p class="small muted">Add an exact time and place for lunch, coffee, or meeting afterward. All parts must fit inside the invitation’s time window.</p><div id="segment-list">${draftSegments.map(segmentMarkup).join('')}</div>${btn(I('plus') + 'Add a meet-up part', 'add-segment', '', 'subtle')}<details class="form-detail"><summary>Cost, capacity, effort & booking</summary><div class="field-row">${field('capacity', 'Total places, including you', p.capacity || '', 'number', 'min="2" max="40" placeholder="No fixed limit"')}<div class="field"><label for="f-effort">Physical commitment</label><select id="f-effort" name="effort">${[
+      `<p class="lede">${old ? 'Change only what you need; the rest stays as it is.' : 'Start with what, when and where. Add other details if you need them.'} Times are in Japan.</p>${draft && !old ? '<div class="notice">An unsent draft was restored in this tab. <button class="text-btn" data-action="discard-draft">Discard draft</button></div>' : ''}${old ? '<div class="notice warn">Editing asks everyone already joined to review and reconfirm—even when they joined only one part.</div>' : ''}<form id="plan-form" data-id="${E(old?.id || '')}" data-revision="${E(old?.revision || '')}"><input type="hidden" name="catalogueId" value="${E(p.catalogueId)}"><input type="hidden" name="requestId" value="${E(p.requestId || uid())}"><div class="field"><label for="f-title">The invitation</label><input id="f-title" name="title" maxlength="150" required value="${E(p.title)}" placeholder="A river walk, then whatever smells good"></div><div class="field-row"><div class="field"><label for="f-region">Region</label><select id="f-region" name="region">${regionOptions(p.region)}</select></div>${field('area', 'Neighborhood / island', p.area, 'text', 'maxlength="100" required')}</div>${timingPicker(p)}<div class="field"><label for="f-meeting">The main meeting point</label><textarea id="f-meeting" name="meeting" maxlength="500" required placeholder="A named landmark, station exit or address. Add which side and how to spot you.">${E(p.meeting)}</textarea><small>A vague “meet in Osaka” is not enough. Avoid publishing hotel room numbers or private access codes.</small></div><details class="form-detail plan-extra"><summary>More details & ways to join${draftSegments.length ? ` · ${draftSegments.length} meet-up ${draftSegments.length === 1 ? 'part' : 'parts'}` : ''}</summary><div class="field-row"><div class="field"><label for="f-kind">How decided are you?</label><select id="f-kind" name="kind"><option value="going" ${p.kind === 'going' ? 'selected' : ''}>I’m going · company welcome</option><option value="idea" ${p.kind === 'idea' ? 'selected' : ''}>An idea · seeing who’s keen</option></select></div><div class="field"><label for="f-joinStyle">How can friends join?</label><select id="f-joinStyle" name="joinStyle"><option value="open" ${p.joinStyle === 'open' ? 'selected' : ''}>All of it, or a smaller part</option><option value="reunion" ${p.joinStyle === 'reunion' ? 'selected' : ''}>Solo first · meet afterward only</option></select></div></div><div class="field"><label for="f-description">The invitation in your words</label><textarea id="f-description" name="description" maxlength="3000" placeholder="The idea, the pace, what is and isn’t arranged. Permission to join just for the coffee.">${E(p.description)}</textarea></div><div class="section-label">Make it easy to join for a little</div><p class="small muted">Add an exact time and place for lunch, coffee, or meeting afterward. All parts must fit inside the invitation’s time window.</p><div id="segment-list">${draftSegments.map(segmentMarkup).join('')}</div>${btn(I('plus') + 'Add a meet-up part', 'add-segment', '', 'subtle')}<details class="form-detail"><summary>Cost, capacity, effort & booking</summary><div class="field-row">${field('capacity', 'Total places, including you', p.capacity || '', 'number', 'min="2" max="40" placeholder="No fixed limit"')}<div class="field"><label for="f-effort">Physical commitment</label><select id="f-effort" name="effort">${[
         ['easy', 'Easy pace'],
         ['active', 'Active outing'],
         ['demanding', 'Demanding outing'],
@@ -1077,6 +1166,7 @@
       id,
       true,
     );
+    updateTiming(dialog.querySelector('#plan-form'));
   }
   function showDiscovery(id) {
     const a = BY.get(id);
@@ -1088,7 +1178,7 @@
     );
     openModal(
       `${R[a.region]} / discovery ${E(String(a.n).padStart(3, '0'))}`,
-      `<div class="mood-symbol">${I(MOODS[a.mood])}</div><span class="eyebrow">${E(a.area)} · ${E(a.mood)}</span><h2 style="margin-top:13px">${E(a.title)}</h2><p class="lede">${E(a.why)}</p><div class="fact-grid"><div class="fact"><small>On-site estimate</small><strong>~${E(a.minutes)} minutes · travel excluded</strong></div><div class="fact"><small>Scale</small><strong>${a.flags.includes('o') ? 'Separate stay / island base' : a.flags.includes('d') ? 'Regional excursion' : 'Neighborhood / local area'}</strong></div><div class="fact"><small>Before going</small><strong>${a.flags.includes('b') ? 'Book or arrange ahead' : 'Check opening & access'}</strong></div></div>${a.start ? `<div class="notice warn">Listed event window: ${dateText(a.start)}–${dateText(a.end)} 2026. Recheck the organizer before committing.</div>` : ''}<p class="small" style="line-height:1.85">${E(a.practical)}</p>${a.flags.includes('w') ? '<div class="notice warn">Marine / river activity. A reputable operator must confirm access, weather, sea state and your suitability. The app cannot determine whether swimming is safe.</div>' : ''}${a.flags.includes('o') ? `<div class="notice">${a.region === 'okinawa' ? 'Island base: ' + E(a.cluster) + '. ' : 'Regional trip. '}Treat transport and accommodation as separate commitments, not a casual nearby stop.</div>` : ''}<div class="card-actions">${mode === 'shared' ? btn('Check this for my dates ✳', 'ask-check', a.id, 'subtle') : ''}${btn(I('plus') + 'Invite friends to this', 'plan-from', a.id, 'primary')}${btn(I(pick ? 'check' : 'save') + (pick ? 'Saved privately' : 'Save for myself'), 'save-detail', a.id)}${btn(I('people') + (pick?.shared ? 'Stop sharing this pick' : 'Recommend to the group'), 'recommend', a.id, 'subtle')}</div>${friends.length ? `<div class="detail-host">${friends.map((p) => avatar(p.memberId)).join('')}<span>${friends.map((p) => E(person(p.memberId).name)).join(', ')} recommended this</span></div>` : ''}${similar.length ? `<div class="section-label">There’s already an open invitation</div>${similar.map((p) => btn(E(p.title) + ' ' + I('arrow'), 'plan-detail', p.id, 'full')).join('')}` : ''}<div class="source-box"><strong>${a.custom ? 'A friend’s recommendation' : a.checked ? 'Narrow source check · ' + E(a.checked) : 'Research lead · not reverified for your visit'}</strong><p>${E(a.sourceScope || (a.custom ? 'Added by ' + person(a.memberId).name + '. Confirm details with the place before going.' : 'This catalogue preserves earlier research. A regional overview or third-party link is not confirmation of exact venue identity, operation, access or availability.'))}</p><div class="row wrap">${safeURL(a.source) ? `<a class="text-btn" href="${E(safeURL(a.source))}" target="_blank" rel="noopener noreferrer">${a.custom ? 'Open the shared link' : 'Read the research source'} ${I('external')}</a>` : ''}<a class="text-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.mapQuery)}" target="_blank" rel="noopener noreferrer">Search in Maps ${I('pin')}</a></div><p>A map search is not a verified pin or navigation route. Joining a friend does not remove any of these checks.</p></div>`,
+      `${discoveryPhoto(a)}<span class="eyebrow">${E(a.area)} · ${E(a.mood)}</span><h2 style="margin-top:13px">${E(a.title)}</h2>${experienceContext(a)}<div class="fact-grid"><div class="fact"><small>On-site estimate</small><strong>~${E(a.minutes)} minutes · travel excluded</strong></div><div class="fact"><small>Scale</small><strong>${a.flags.includes('o') ? 'Separate stay / island base' : a.flags.includes('d') ? 'Regional excursion' : 'Neighborhood / local area'}</strong></div><div class="fact"><small>Before going</small><strong>${a.flags.includes('b') ? 'Book or arrange ahead' : 'Check opening & access'}</strong></div></div>${a.start ? `<div class="notice warn">Listed event window: ${dateText(a.start)}–${dateText(a.end)} 2026. Recheck the organizer before committing.</div>` : ''}<p class="small" style="line-height:1.85">${E(a.practical)}</p>${a.flags.includes('w') ? '<div class="notice warn">Marine / river activity. A reputable operator must confirm access, weather, sea state and your suitability. The app cannot determine whether swimming is safe.</div>' : ''}${a.flags.includes('o') ? `<div class="notice">${a.region === 'okinawa' ? 'Island base: ' + E(a.cluster) + '. ' : 'Regional trip. '}Treat transport and accommodation as separate commitments, not a casual nearby stop.</div>` : ''}<div class="card-actions">${mode === 'shared' ? btn('Check this for my dates ✳', 'ask-check', a.id, 'subtle') : ''}${btn(I('plus') + 'Invite friends to this', 'plan-from', a.id, 'primary')}${btn(I(pick ? 'check' : 'save') + (pick ? 'Saved privately' : 'Save for myself'), 'save-detail', a.id)}${pick ? btn('View saved ideas ' + I('arrow'), 'view-saved', '', 'subtle') : ''}${btn(I('people') + (pick?.shared ? 'Stop sharing this pick' : 'Recommend to the group'), 'recommend', a.id, 'subtle')}</div>${friends.length ? `<div class="detail-host">${friends.map((p) => avatar(p.memberId)).join('')}<span>${friends.map((p) => E(person(p.memberId).name)).join(', ')} recommended this</span></div>` : ''}${similar.length ? `<div class="section-label">There’s already an open invitation</div>${similar.map((p) => btn(E(p.title) + ' ' + I('arrow'), 'plan-detail', p.id, 'full')).join('')}` : ''}${embeddedMap(a.mapQuery, 'Find this experience')}<div class="source-box"><strong>${a.custom ? 'A friend’s recommendation' : a.checked ? 'Narrow source check · ' + E(a.checked) : 'Research lead · not reverified for your visit'}</strong><p>${E(a.sourceScope || (a.custom ? 'Added by ' + person(a.memberId).name + '. Confirm details with the place before going.' : 'This catalogue preserves earlier research. A regional overview or third-party link is not confirmation of exact venue identity, operation, access or availability.'))}</p><div class="row wrap">${safeURL(a.source) ? `<a class="text-btn" href="${E(safeURL(a.source))}" target="_blank" rel="noopener noreferrer">${a.custom ? 'Open the shared link' : 'Read the research source'} ${I('external')}</a>` : ''}<a class="text-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.mapQuery)}" target="_blank" rel="noopener noreferrer">Search in Maps ${I('pin')}</a></div><p>A map search is not a verified pin or navigation route. Joining a friend does not remove any of these checks.</p></div>`,
       'discovery',
       id,
     );
@@ -2004,8 +2094,16 @@
               toast(
                 was
                   ? 'Removed from your saved discoveries.'
-                  : 'Saved for yourself. Not shared with friends.',
+                  : 'Saved to your private shortlist in Discover → Saved.',
               );
+              if (!was && action === 'save') {
+                const link = document.createElement('button');
+                link.type = 'button';
+                link.className = 'text-btn';
+                link.dataset.action = 'view-saved';
+                link.textContent = 'View saved';
+                document.getElementById('toast').append(' ', link);
+              }
             },
           );
           break;
@@ -2031,6 +2129,52 @@
           ui.mood = id;
           ui.limit = 24;
           render();
+          break;
+        case 'load-map': {
+          const panel = el.closest('.embedded-map'),
+            canvas = panel.querySelector('.map-canvas');
+          const frame = document.createElement('iframe');
+          frame.title = 'Google Maps: ' + el.dataset.query;
+          frame.src =
+            'https://maps.google.com/maps?q=' +
+            encodeURIComponent(el.dataset.query) +
+            '&output=embed';
+          frame.loading = 'lazy';
+          frame.referrerPolicy = 'no-referrer';
+          frame.allowFullscreen = true;
+          canvas.replaceChildren(frame);
+          el.hidden = true;
+          break;
+        }
+        case 'plan-day': {
+          const form = el.closest('form');
+          form.elements.date.value = id;
+          updateTiming(form);
+          el.closest('details').open = false;
+          break;
+        }
+        case 'plan-start':
+          updateTiming(el.closest('form'), null, id);
+          break;
+        case 'plan-duration':
+          updateTiming(el.closest('form'), Number(id));
+          break;
+        case 'view-saved':
+        case 'discovery-library':
+          closeModal();
+          ui.view = 'discover';
+          ui.saved = action === 'view-saved' || id === 'saved';
+          ui.q = '';
+          ui.region = 'all';
+          ui.area = 'all';
+          ui.mood = 'all';
+          ui.max = 'all';
+          ui.limit = 24;
+          render();
+          document.getElementById('toast').className = '';
+          document
+            .querySelector('.discovery-library')
+            .scrollIntoView({ block: 'start' });
           break;
         case 'saved-only':
           ui.saved = !ui.saved;
@@ -2588,7 +2732,11 @@
         /* Best-effort fallback; canonical server state is unchanged. */
       }
     }
-    if (e.target.closest('#plan-form')) storePlanDraft();
+    if (e.target.closest('#plan-form')) {
+      if (['f-date', 'f-start', 'f-end'].includes(e.target.id))
+        updateTiming(e.target.closest('form'));
+      else storePlanDraft();
+    }
   });
   document.addEventListener('change', async (e) => {
     const el = e.target;

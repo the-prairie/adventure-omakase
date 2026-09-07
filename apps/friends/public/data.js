@@ -5891,3 +5891,408 @@ window.OMAKASE = {
     osaka: '/assets/osaka.jpg',
   },
 };
+
+// Source-linked experience context; catalogue identity and earlier fields remain intact.
+{
+  const details = {
+    'tokyo-001': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-001.webp',
+        author: 'Kunitaka NIIDATE',
+        license: 'CC BY-SA 2.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Metropolitan_Area_Outer_Underground_Discharge_Channel_(10886145804).jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0',
+        caption: 'G-Cans surge tank · 2013',
+      },
+      mapQuery:
+        'Metropolitan Area Outer Underground Discharge Channel, 720 Kamikanazaki, Kasukabe, Saitama, Japan',
+      experience: {
+        summary:
+          'Go inside a working flood-control system in Kasukabe, north of Tokyo. The guided visit centres on a vast underground surge tank, where rows of concrete pillars make the engineering feel almost cathedral-like.',
+        highlights: [
+          'The basic Underground Shrine course visits the main tank with a guide.',
+          'Other courses add the vertical shaft, pumps or impeller; what you see depends on the course you book.',
+        ],
+        planning:
+          'Choose and reserve a specific course. The source lists a one-hour basic tour and longer specialist routes; the catalogue’s two-hour estimate is not the duration of every ticket.',
+        source: 'https://saitama-supportdesk.com/experiences/post-24362/',
+        sourceLabel: 'Saitama Tourism · tour guide',
+        readAt: '2026-09-07',
+      },
+    },
+    'tokyo-002': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-002.webp',
+        author: 'Syced',
+        license: 'CC0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Exhibits_at_Meguro_Parasitological_Museum_12.jpg',
+        licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/deed.en',
+        caption: 'A specimen at the parasite museum · 2024',
+      },
+      mapQuery:
+        'Meguro Parasitological Museum, 4-1-1 Shimomeguro, Meguro, Tokyo, Japan',
+      experience: {
+        summary:
+          'A small science museum devoted to parasites, with preserved specimens in glass jars and displays about the organisms that live in other animals. The memorable centrepiece is an 8.8-metre tapeworm.',
+        highlights: [
+          'Explore a collection that connects biology, medicine and everyday food habits.',
+          'Expect close-up scientific specimens rather than a conventional art or history exhibition.',
+        ],
+        planning:
+          'The tourism guide lists free admission and welcomes donations. Check the museum’s own calendar before setting out.',
+        source: 'https://www.gotokyo.org/en/spot/434/index.html',
+        readAt: '2026-09-07',
+        sourceLabel: 'GO TOKYO · official travel guide',
+      },
+    },
+    'tokyo-003': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-003.webp',
+        author: 'Syced',
+        license: 'CC0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Tokyo_Sewerage_Museum_%22Rainbow%22.jpg',
+        licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/deed.en',
+        caption: 'Rainbow sewerage museum entrance · 2020',
+      },
+      mapQuery:
+        'Tokyo Sewerage Museum Rainbow, 2-3-5 Ariake, Koto, Tokyo, Japan',
+      experience: {
+        summary:
+          'An interactive museum about the hidden systems that move and clean Tokyo’s wastewater. Re-created pipes, pumping stations and a water reclamation centre make the infrastructure tangible.',
+        highlights: [
+          'Explore Rainbow Town, a model town that reveals the sewerage beneath it.',
+          'Sewerage-worker activities take place on weekends, holidays and selected days; check the programme if you want to take part.',
+        ],
+        planning:
+          'This is a museum in the Ariake Water Reclamation Center, not a tour of the city’s working underground sewers.',
+        source: 'https://www.gotokyo.org/en/spot/633/index.html',
+        readAt: '2026-09-07',
+        sourceLabel: 'GO TOKYO · official travel guide',
+      },
+    },
+    'tokyo-004': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-004.webp',
+        author: 'Kestrel',
+        license: 'CC BY-SA 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Intermediatheque_P7159895a.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'Intermediatheque entrance · 2019',
+      },
+      mapQuery:
+        'Intermediatheque, KITTE, 2-7-2 Marunouchi, Chiyoda, Tokyo, Japan',
+      experience: {
+        summary:
+          'Wander through the University of Tokyo’s academic collections inside KITTE, beside Tokyo Station. Natural-history specimens, scientific objects and documents from many disciplines sit together in a museum that invites you to follow your curiosity.',
+        highlights: [
+          'There is no prescribed route through the exhibits.',
+          'The setting incorporates historic display cases and cabinets from university lecture halls.',
+        ],
+        planning:
+          'The museum occupies KITTE’s second and third floors. Check current exhibitions and opening days before visiting.',
+        source: 'https://www.gotokyo.org/en/spot/474/index.html',
+        readAt: '2026-09-07',
+        sourceLabel: 'GO TOKYO · official travel guide',
+      },
+    },
+    'tokyo-005': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-005.webp',
+        author: 'Lionel Allorge',
+        license: 'CC BY-SA 3.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Fukagawa_Edo_Museum_on_the_30th_of_october_2010_-_43.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+        caption: 'Recreated interior at Fukagawa Edo Museum · 2010',
+      },
+      mapQuery: 'Fukagawa Edo Museum, 1-3-28 Shirakawa, Koto, Tokyo, Japan',
+      experience: {
+        summary:
+          'Step into a life-size reconstruction of a Fukagawa neighbourhood near the end of the Edo period. Houses, everyday possessions and changing light make this an immersive streetscape rather than a room of small models.',
+        highlights: [
+          'Look inside the recreated homes to see how residents lived.',
+          'Lighting moves through different times of day; volunteer guides can explain details in the exhibits.',
+        ],
+        planning:
+          'The source lists English-speaking volunteer guides, but does not promise that one will be available for your visit.',
+        source: 'https://www.gotokyo.org/en/spot/631/index.html',
+        readAt: '2026-09-07',
+        sourceLabel: 'GO TOKYO · official travel guide',
+      },
+    },
+    'tokyo-006': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-006.webp',
+        author: 'Kestrel',
+        license: 'CC BY-SA 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Edo-Tokyo_Open_Air_Architectural_Museum_PB252276.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'Preserved streetscape at the open-air museum · 2017',
+      },
+      mapQuery:
+        'Edo-Tokyo Open Air Architectural Museum, 3-7-1 Sakuracho, Koganei, Tokyo, Japan',
+      experience: {
+        summary:
+          'Explore an outdoor collection of historic buildings moved here for preservation. Walking between restored homes and public buildings gives you a sense of how Tokyo’s architecture and daily life changed over time.',
+        highlights: [
+          'This is an architectural park with full-size buildings, not a single indoor gallery.',
+          'Allow time to move between buildings; the grounds also have places to pause for food.',
+        ],
+        planning:
+          'Plan for outdoor walking and the journey to Koganei. Recheck seasonal opening hours and any building closures.',
+        source: 'https://www.gotokyo.org/en/spot/417/index.html',
+        readAt: '2026-09-07',
+        sourceLabel: 'GO TOKYO · official travel guide',
+      },
+    },
+    'tokyo-007': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-007.webp',
+        author: 'Kotaro Iwaoka',
+        license: 'CC BY-SA 2.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Reversible_Destiny_Lofts_exterior.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0',
+        caption: 'Reversible Destiny Lofts exterior · 2010',
+      },
+      mapQuery:
+        'Reversible Destiny Lofts Mitaka, 2-2-8 Osawa, Mitaka, Tokyo, Japan',
+      experience: {
+        summary:
+          'See an unusually colourful housing complex made from stacked boxes, spheres and tubes. Its playful shapes turn an ordinary apartment building into a very different encounter with architecture.',
+        highlights: [
+          'The exterior’s vivid colours and contrasting shapes are central to the experience.',
+          'An interior visit is a separate arrangement; the source does not establish a walk-in tour for your date.',
+        ],
+        planning:
+          'Contact the operator about available visits and access requirements before making an invitation. These are housing units, so respect residents’ privacy.',
+        source: 'https://www.gotokyo.org/en/spot/157/index.html',
+        readAt: '2026-09-07',
+        sourceLabel: 'GO TOKYO · official travel guide',
+      },
+    },
+    'tokyo-008': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-008.webp',
+        author: 'Mr.Asylum',
+        license: 'CC BY-SA 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Tokyo_Toilet_Project_01.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'Shigeru Ban’s Tokyo Toilet design · 2020',
+      },
+    },
+    'tokyo-009': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-009.webp',
+        author: 'Wiki-wiki-rookie',
+        license: 'CC BY-SA 4.0',
+        source: 'https://commons.wikimedia.org/wiki/File:PIGEMNT_outside.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'PIGMENT TOKYO exterior · 2016',
+      },
+      mapQuery:
+        'PIGMENT TOKYO, 2-5-5 Higashi-Shinagawa, Shinagawa, Tokyo, Japan',
+      experience: {
+        summary:
+          'An art-materials space on Tennozu Isle where you can explore pigments and book workshops led by practising artists. The tourism guide describes sessions on creating colours, working with pigments and using metal leaf.',
+        highlights: [
+          'Browsing the space and taking a workshop are different ways to visit.',
+          'A class can offer a hands-on introduction to materials you would normally only see in a finished artwork.',
+        ],
+        planning:
+          'Check workshop dates and contact PIGMENT about language support. A catalogue save or group invitation does not reserve a place.',
+        source:
+          'https://www.gotokyo.org/en/new-and-now/new-and-trending/230227/topics.html',
+        readAt: '2026-09-07',
+        sourceLabel: 'GO TOKYO · official travel guide',
+      },
+    },
+    'tokyo-010': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-010.webp',
+        author: 'Syced',
+        license: 'CC0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Firefighting_trucks_and_details_at_Tokyo_Fire_Museum_2.jpg',
+        licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/deed.en',
+        caption: 'Historic fire engine at the Fire Museum · 2023',
+      },
+    },
+    'tokyo-011': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-011.webp',
+        author: 'Osamu Iwasaki from Tokyo, Japan',
+        license: 'CC BY-SA 2.0',
+        source: 'https://commons.wikimedia.org/wiki/File:NAOJ_mitaka.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0',
+        caption: 'NAOJ Mitaka campus · 2009',
+      },
+    },
+    'tokyo-012': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-012.webp',
+        author: 'Wpcpey',
+        license: 'CC BY-SA 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Nezu_Museum_Garden_view_201805.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'Nezu Museum garden · 2018',
+      },
+    },
+    'tokyo-013': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-013.webp',
+        author: 'Kakidai',
+        license: 'CC BY-SA 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:St._Mary%27s_Cathedral_Tokyo.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'St. Mary’s Cathedral exterior · 2016',
+      },
+    },
+    'tokyo-014': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-014.webp',
+        author: 'Wiiii',
+        license: 'CC BY-SA 3.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:21_21_DESIGN_SIGHT.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+        caption: '21_21 DESIGN SIGHT exterior · 2008',
+      },
+    },
+    'tokyo-015': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-015.webp',
+        author: 'Bea Phi',
+        license: 'CC BY-SA 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:SMALL_WORLDS_Miniature_Museum_01.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'SMALL WORLDS entrance · 2024',
+      },
+    },
+    'tokyo-016': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-016.webp',
+        author: 'Abasaa',
+        license: 'Public domain',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Tobacco_%26_Salt_Museum_(Tokyo).JPG',
+        licenseUrl: 'https://creativecommons.org/publicdomain/mark/1.0/',
+        caption: 'Tobacco and Salt Museum exterior · 2017',
+      },
+    },
+    'tokyo-017': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-017.webp',
+        author: 'Rs1421',
+        license: 'CC BY-SA 3.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:TRT-1001-Tokyo-Metro-Museum.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+        caption: 'Historic subway car at the Subway Museum · 2010',
+      },
+    },
+    'tokyo-019': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-019.webp',
+        author: 'Tzu-hsun Hsu',
+        license: 'CC BY-SA 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Entrance_of_Tokyo_Toy_Museum.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'Tokyo Toy Museum entrance · 2016',
+      },
+    },
+    'tokyo-020': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-020.webp',
+        author: 'Jakub Hałun',
+        license: 'CC BY 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Ghibli_Museum,_Mitaka,_Tokyo,_20240823_1131_5545.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by/4.0',
+        caption: 'Ghibli Museum exterior · 2024',
+      },
+    },
+    'tokyo-021': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-021.webp',
+        author: 'Christophe95',
+        license: 'CC BY-SA 4.0',
+        source: 'https://commons.wikimedia.org/wiki/File:Yanaka_Ginza_2.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'Yanaka Ginza shopping street · 2018',
+      },
+    },
+    'tokyo-022': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-022.webp',
+        author: 'Suikotei',
+        license: 'CC BY-SA 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Ueno_Sakuragi_Atari.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'Ueno Sakuragi Atari buildings · 2019',
+      },
+    },
+    'tokyo-023': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-023.webp',
+        author: 'Wiiii',
+        license: 'CC BY-SA 3.0',
+        source: 'https://commons.wikimedia.org/wiki/File:Nezu_Shrine_2010.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+        caption: 'Nezu Shrine · 2010',
+      },
+    },
+    'tokyo-024': {
+      photo: {
+        path: '/assets/discovery/photos/tokyo-024.webp',
+        author: 'Los688',
+        license: 'Public domain',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Shibamata_Taishakuten.jpg',
+        licenseUrl: 'https://creativecommons.org/publicdomain/mark/1.0/',
+        caption: 'Shibamata Taishakuten · 2005',
+      },
+    },
+    'tokyo-029': {
+      photo: {
+        path: '/assets/discovery/photos/shimokitazawa.webp',
+        author: 'Aw1805',
+        license: 'CC BY-SA 4.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Shimokitazawa_Street_2015.jpg',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+        caption: 'Shimokitazawa shopping street · 2015',
+      },
+      mapQuery: 'Shimokitazawa Station, Setagaya, Tokyo, Japan',
+      experience: {
+        summary:
+          'Spend an unhurried afternoon exploring the narrow streets around Shimokitazawa Station. The neighbourhood mixes vintage clothing, record shops, small cafés and live-music venues, so the experience is browsing and stopping wherever catches your eye.',
+        highlights: [
+          'Look through independent secondhand shops rather than following a fixed attraction route.',
+          'Leave room for coffee and a wander through the smaller streets between shops.',
+        ],
+        planning:
+          'GO TOKYO suggests arriving around lunchtime or later, when the neighbourhood gets going. Choose a specific station exit or shop as your meeting point.',
+        source:
+          'https://www.gotokyo.org/en/destinations/western-tokyo/shimokitazawa/index.html',
+        readAt: '2026-09-07',
+        sourceLabel: 'GO TOKYO · official travel guide',
+      },
+    },
+  };
+  for (const [id, detail] of Object.entries(details)) {
+    const entry = window.OMAKASE.catalogue.find((item) => item.id === id);
+    if (entry) Object.assign(entry, detail);
+  }
+}

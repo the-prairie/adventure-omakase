@@ -108,7 +108,9 @@ test('invitation boundaries and recovery have inspected screenshot states', asyn
     await action(owner, 'plan-new').click();
     await owner.locator('#f-title').fill('Synthetic lunch with two places');
     await owner.locator('#f-area').fill('Namba');
+    await owner.locator('.trip-day-picker > summary').click();
     await owner.locator('#f-date').fill('2026-10-04');
+    await owner.locator('.trip-day-picker > summary').click();
     await owner.locator('#f-start').fill('12:00');
     await owner.locator('#f-end').fill('13:00');
     await owner.locator('#f-meeting').fill('Synthetic north entrance');

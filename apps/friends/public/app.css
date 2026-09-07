@@ -4353,22 +4353,6 @@ input[type='file']::file-selector-button {
   position: relative;
   text-align: left;
 }
-.discovery-illustration {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: url('/assets/discovery/illustrated-moods.webp') var(--art-x)
-    var(--art-y) / 400% 200%;
-}
-.illustration-label {
-  display: block;
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 10px;
-}
-.discovery-image:hover .illustration-label {
-  color: var(--green);
-}
 .dice-table {
   height: 150px;
   display: grid;
@@ -4521,5 +4505,263 @@ input[type='file']::file-selector-button {
   }
   .overlap-day {
     scroll-margin-top: 96px;
+  }
+}
+
+/* Discover is a shelf of distinct experiences, with saved ideas beside browsing. */
+.discovery-library {
+  margin: 24px 0 16px;
+  scroll-margin-top: 112px;
+}
+.discovery-library .subnav {
+  margin-bottom: 8px;
+}
+.discovery-library .subnav button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.discovery-library p {
+  margin: 0;
+}
+.discovery-head + .envelopes {
+  margin: 0 0 24px;
+}
+.experience-photo {
+  margin: 0 0 20px;
+  min-width: 0;
+}
+.experience-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.experience-photo .discovery-image {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.experience-photo figcaption {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.experience-photo figcaption a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+.experience-context {
+  margin: 20px 0 24px;
+}
+.experience-context h3 {
+  font-size: 23px;
+  margin: 0 0 12px;
+}
+.experience-context p {
+  max-width: 68ch;
+  line-height: 1.7;
+}
+.experience-context ul {
+  margin: 12px 0;
+  padding-left: 20px;
+}
+.experience-context li {
+  margin-bottom: 8px;
+  line-height: 1.65;
+}
+.experience-context small {
+  display: block;
+}
+.experience-planning {
+  font-size: 14px;
+}
+.plan-description {
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+.plan-management {
+  padding: 16px 0;
+  gap: 16px;
+}
+.plan-management .btn {
+  padding: 12px 20px;
+  min-height: 48px;
+  font-size: 14px;
+  white-space: normal;
+}
+.plan-share-row:empty {
+  display: none;
+}
+.embedded-map {
+  margin: 24px 0;
+}
+.embedded-map h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+.map-intro {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+.map-intro p {
+  margin: 0;
+  font-size: 14px;
+}
+.map-intro > .btn {
+  flex-shrink: 0;
+}
+.map-canvas:not(:empty) {
+  margin: 16px 0;
+}
+.map-canvas iframe {
+  display: block;
+  width: 100%;
+  height: 320px;
+  border: 0;
+  border-radius: 8px;
+}
+.meeting-box .embedded-map {
+  margin-bottom: 0;
+}
+.plan-timing {
+  margin: 8px 0 24px;
+  padding: 16px 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  min-width: 0;
+}
+.plan-timing legend {
+  padding: 0 12px 0 0;
+  font-weight: 600;
+}
+.trip-day-picker {
+  margin-bottom: 16px;
+}
+.trip-day-picker > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  min-height: 48px;
+  color: var(--green);
+  font-weight: 600;
+}
+.trip-day-picker > summary .small {
+  margin-left: auto;
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.trip-day-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+.trip-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px;
+  min-height: 64px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  gap: 4px;
+}
+.trip-day strong {
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+.trip-day.active {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+.trip-day.active small {
+  color: white;
+}
+.timing-shortcuts {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.timing-shortcuts > span {
+  flex: 0 0 88px;
+}
+.timing-shortcuts .filter {
+  min-height: 40px;
+  margin: 0;
+}
+.timing-shortcuts [aria-pressed='true'] {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+#plan-time-summary {
+  margin: 12px 0 4px;
+}
+#toast .text-btn {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  margin-left: 8px;
+}
+@media (max-width: 700px) {
+  .discovery-head + .envelopes {
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  .discovery-head + .envelopes .envelope {
+    flex: 0 0 220px;
+    min-width: 0;
+  }
+  .map-intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .map-canvas iframe {
+    height: 280px;
+  }
+  .trip-day-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .plan-management {
+    align-items: stretch;
+  }
+  .plan-management .btn {
+    flex: 1 1 140px;
+  }
+  .timing-shortcuts > span {
+    flex-basis: 100%;
+  }
+  .experience-photo img {
+    max-height: 260px;
+  }
+}
+.map-intro .btn[hidden] {
+  display: none;
+}
+#toast.visible:has(button) {
+  pointer-events: auto;
+}
+@media (max-width: 700px) {
+  .plan-management {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .plan-management .btn {
+    justify-content: flex-start;
   }
 }

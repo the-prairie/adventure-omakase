@@ -14,6 +14,8 @@ Ask Omakase uses the same Worker with bounded read-only research and an environm
 
 The in-app friends calendar and interactive shared-date views derive from canonical invitation, RSVP and profile state; they introduce no second event store or external calendar dependency. Personal agenda times use the chosen participation segment. Discovery dice are a local catalogue suggestion, not a canonical group Fate Contract or a booking. Their animated cube does not change the selection constraints.
 
+Discovery detail uses static, source-linked context and licensed local photographs. Explicit map loading creates a Google Maps search iframe from the displayed discovery or meeting query; it does not call the paid server Maps adapter or expose its key. Only the search is sent to Google, with no automatic geolocation. Derived date/time presets still submit ordinary canonical plans.
+
 ## Preserved native architecture
 
 The sections below describe the earlier native foundation; their deployment targets are not used for the friends release.
