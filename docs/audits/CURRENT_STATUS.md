@@ -141,7 +141,7 @@ The focused four-case Chromium/WebKit run passed: actual example-mode joining to
 
 ## Discovery walkthrough feedback — September 7
 
-Implementation responds to all nine browser annotations with an integrated discovery-to-invitation flow: visible Saved navigation, early mood entrances, source-linked experience context, inline maps, quick date/time choices and properly padded host management actions. Saved remains private until explicitly recommended. A shortlist entry is not a plan or a booking.
+Implementation `75251a1` responds to all nine browser annotations with an integrated discovery-to-invitation flow: visible Saved navigation, early mood entrances, source-linked experience context, inline maps, quick date/time choices and properly padded host management actions. Saved remains private until explicitly recommended. A shortlist entry is not a plan or a booking.
 
 The repeated mood atlas is removed from discovery cards. There are 24 distinct, locally hosted photographs with inspected subjects and visible author/license links, plus nine expanded descriptions paraphrased from the cited official tourism sources read on September 7. Other catalogue entries keep their earlier research text and omit unverified imagery. Historical photo dates are visible; neither imagery nor source reading verifies current access or availability. The public discovery asset README records coverage, sources and licensing.
 
