@@ -50,6 +50,8 @@ The full backup includes private records and invitation/recovery material, and e
 
 During the trip, run a complete backup daily and before migrations, keeping an encrypted off-account copy. No off-account scheduling is implicitly installed. Originals are not stored: the app keeps resized JPEG copies, so retain phone originals separately. Shared-book exports are for the group; keep private editions private.
 
+Booking import uses migration `0004_profile_import.sql` to preserve existing helper rows while extending their kind constraint. Full backups now use schema version 6; restore accepts versions 3–6. Booking attachments are never stored, so backups include private extraction drafts, not source files. Take a complete backup before applying this migration.
+
 ## Restore safely
 
 Provision and deploy the separate `restore` environment without creating a trip, then install its operator secret with `owner:launch --env restore`. Do not open its launch form. Run:

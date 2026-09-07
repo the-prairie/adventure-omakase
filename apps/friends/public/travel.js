@@ -7,6 +7,7 @@ window.OmakaseTravel = function ({
   openModal,
   openAsk,
   openMemory,
+  openBookingDraft,
   release,
   toast,
 }) {
@@ -360,7 +361,8 @@ window.OmakaseTravel = function ({
       else if (action === 'history') await history();
       else if (action === 'history-open') {
         result = recent[Number(value)].result;
-        renderResult();
+        if (result.kind === 'profile-import') openBookingDraft(result);
+        else renderResult();
       } else if (action === 'record') await record();
       else if (action === 'stop-record') stopRecording();
       else if (action === 'cancel' && active) {

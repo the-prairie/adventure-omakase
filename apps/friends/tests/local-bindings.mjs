@@ -145,6 +145,15 @@ export function makeEnv(dir, { maintenance = false } = {}) {
     db.db.exec(
       readFileSync(join(ROOT, 'migrations/0003_travel_companion.sql'), 'utf8'),
     );
+  if (
+    !db.db
+      .prepare("SELECT sql FROM sqlite_master WHERE name='travel_tasks'")
+      .get()
+      .sql.includes('profile-import')
+  )
+    db.db.exec(
+      readFileSync(join(ROOT, 'migrations/0004_profile_import.sql'), 'utf8'),
+    );
   return {
     DB: db,
     PHOTOS: new LocalR2(join(dir, 'r2')),

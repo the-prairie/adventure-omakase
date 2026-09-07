@@ -115,6 +115,8 @@ Navigation uses a green underline for the active desktop item and a tonal hover 
 
 Content rows use spacing and separators. Hover on actionable rows may add light green; read-only prose should not acquire a button affordance. Discovery artwork remains labeled illustration, with origin metadata; it is not evidence of a real venue's current appearance.
 
+Booking import is an optional disclosure inside the profile form, open for a new traveller and collapsed when dates already exist. Show the selected source beside readable local dates and a specific uncertainty prompt. Applying a suggestion stages editable fields; the ordinary Save action commits them. Unknown arrival or departure stays visibly open, and later bookings preserve unrelated dates and personal details.
+
 ## Do's and Don'ts
 
 - **Do** keep labels visible and interaction states explicit.

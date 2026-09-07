@@ -1,5 +1,6 @@
 import { AskError, record, text } from './ask-contract.js';
 import type { Env, Row } from './platform.js';
+import { importBookings } from './profile-import.js';
 import { findPlaces, getRoute, interpret, webSearch } from './travel-tools.js';
 import { watchRoutes } from './watch-service.js';
 const json = (v: unknown, status = 200) =>
@@ -76,7 +77,14 @@ export async function travelRoutes(
       kind = text(b.kind, 20);
     if (
       !/^[\w-]{12,80}$/.test(id) ||
-      !['translate', 'memory', 'places', 'route', 'search'].includes(kind)
+      ![
+        'translate',
+        'memory',
+        'places',
+        'route',
+        'search',
+        'profile-import',
+      ].includes(kind)
     )
       throw new AskError(422, 'Choose a travel tool and a valid request.');
     const old = await db
@@ -122,20 +130,29 @@ export async function travelRoutes(
         destination = text(b.destination ?? '', 300, false);
       if (kind === 'route' && (!origin || !destination))
         throw new AskError(422, 'Enter both ends of the route.');
+      const trip =
+        kind === 'profile-import'
+          ? await db
+              .prepare('SELECT start,end FROM trips WHERE id=?')
+              .bind(member.trip_id)
+              .first<Row>()
+          : null;
       const result =
-        kind === 'places'
-          ? await findPlaces(env, query, controller.signal)
-          : kind === 'route'
-            ? await getRoute(
-                env,
-                origin,
-                destination,
-                text(b.mode ?? '', 20, false) || 'WALK',
-                controller.signal,
-              )
-            : kind === 'search'
-              ? await webSearch(env, query, controller.signal)
-              : await interpret(env, b, controller.signal);
+        kind === 'profile-import'
+          ? await importBookings(env, b, trip!, controller.signal)
+          : kind === 'places'
+            ? await findPlaces(env, query, controller.signal)
+            : kind === 'route'
+              ? await getRoute(
+                  env,
+                  origin,
+                  destination,
+                  text(b.mode ?? '', 20, false) || 'WALK',
+                  controller.signal,
+                )
+              : kind === 'search'
+                ? await webSearch(env, query, controller.signal)
+                : await interpret(env, b, controller.signal);
       const ephemeral = ['places', 'route', 'search'].includes(kind);
       const changed = await db
         .prepare(

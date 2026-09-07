@@ -143,3 +143,5 @@ Approved future boundaries are not “unknown”: Cloud Run, EAS, Supabase, the 
 ## Shared travel companion
 
 ADR 0008 adds Gemini, Places and Routes behind authenticated same-origin friends routes, private expiring helper results, and explicitly scheduled website watches. Canonical plan and memory writes remain ordinary domain actions. Durable cost reservations precede provider calls; no client receives provider credentials. See [the travel-tool decision](docs/decisions/0008-travel-companion-tools.md) for spend, retention, restoration and live-acceptance boundaries.
+
+Booking-to-profile entry uses the same private travel-task boundary. Files are transient inline provider inputs; reviewed coarse dates are saved through conditional ordinary profile updates. Unknown date bounds never imply an overlap. D1 migration 0004 and version-6 backups extend helper kinds without changing PostgreSQL. See [ADR 0009](docs/decisions/0009-booking-profile-import.md).

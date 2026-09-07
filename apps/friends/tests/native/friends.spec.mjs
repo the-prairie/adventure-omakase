@@ -149,8 +149,12 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       await b.setViewportSize({ width: 390, height: 844 });
       await b.goto(link);
       await expect(
-        b.locator('#auth-form input:not([type=hidden])'),
+        b.locator('#auth-form input:not([type=hidden]):not([type=file])'),
       ).toHaveCount(1);
+      await expect(b.locator('#join-booking-files')).toHaveCount(1);
+      await expect(b.locator('#join-booking-files')).not.toHaveAttribute(
+        'required',
+      );
       await expect(b.locator('.server-note')).toContainText(
         'Names are not verified',
       );

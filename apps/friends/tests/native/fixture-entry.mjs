@@ -10,6 +10,68 @@ globalThis.fetch = async (input, init) => {
     const body = JSON.parse(init.body);
     const prompt = body.contents[0].parts[0].text;
     const memory = prompt.includes('Draft a short memory');
+    if (prompt.startsWith('Extract booking details')) {
+      if (
+        (body.contents[0].parts || []).some(
+          (part) =>
+            part.inlineData &&
+            atob(part.inlineData.data).includes('SYNTHETIC-QUOTA'),
+        )
+      )
+        return Response.json(
+          {
+            error: {
+              code: 429,
+              status: 'RESOURCE_EXHAUSTED',
+              message: 'Synthetic quota exhausted.',
+            },
+          },
+          { status: 429 },
+        );
+
+      const stay = (body.contents[0].parts || []).some(
+        (part) =>
+          part.inlineData &&
+          atob(part.inlineData.data).includes('SYNTHETIC-STAY'),
+      );
+      return Response.json({
+        candidates: [
+          {
+            content: {
+              parts: [
+                {
+                  text: JSON.stringify({
+                    name: 'Riley',
+                    notes:
+                      'Synthetic provider fixture; not live extraction evidence.',
+                    windows: [
+                      {
+                        kind: stay ? 'stay' : 'flight',
+                        region: 'osaka',
+                        area: stay ? 'Namba' : '',
+                        from: '2026-10-01',
+                        to: stay ? '2026-10-05' : '',
+                        source: 1,
+                        yearSource: stay ? 'document' : 'trip',
+                        uncertainty: '',
+                        evidence: stay
+                          ? 'Synthetic accommodation: October 1 check-in, October 5 check-out.'
+                          : 'Synthetic flight: September 30 departure from Los Angeles; October 1 arrival at KIX, 18:45 local time. No departure from Japan is shown.',
+                      },
+                    ],
+                  }),
+                },
+              ],
+            },
+          },
+        ],
+        usageMetadata: {
+          promptTokenCount: 100,
+          candidatesTokenCount: 100,
+          thoughtsTokenCount: 10,
+        },
+      });
+    }
     return Response.json({
       candidates: [
         {

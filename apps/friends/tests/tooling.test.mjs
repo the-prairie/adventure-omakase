@@ -195,3 +195,55 @@ test('reload recovery recognizes only an exact local Miniflare GET fault', async
   ])
     assert.equal(isLocalRuntimeDisconnect({ ...fault, ...change }), false);
 });
+
+test('booking migration preserves populated helper rows and version-six backups restore them', async () => {
+  const db = new LocalD1(),
+    fresh = new LocalD1(),
+    backup = sample();
+  try {
+    for (const name of [
+      '0001_friends.sql',
+      '0002_ask_omakase.sql',
+      '0003_travel_companion.sql',
+    ]) {
+      const sql = await readFile(join(ROOT, 'migrations', name), 'utf8');
+      db.db.exec(sql);
+      fresh.db.exec(sql);
+    }
+    db.db.exec(restoreSQL(backup));
+    db.db.exec(
+      "INSERT INTO travel_tasks VALUES('existing','m','trip','memory','complete','{}','2026-09-06','2026-09-06')",
+    );
+    const before = db.db.prepare('SELECT * FROM travel_tasks').all();
+    const migration = await readFile(
+      join(ROOT, 'migrations/0004_profile_import.sql'),
+      'utf8',
+    );
+    db.db.exec(migration);
+    fresh.db.exec(migration);
+    assert.deepEqual(db.db.prepare('SELECT * FROM travel_tasks').all(), before);
+    db.db.exec(
+      "INSERT INTO travel_tasks VALUES('booking','m','trip','profile-import','complete','{\"windows\":[]}','2026-09-06','2026-09-06')",
+    );
+    assert.throws(
+      () =>
+        db.db.exec(
+          "INSERT INTO travel_tasks VALUES('bad','m','trip','unknown','complete','{}','2026-09-06','2026-09-06')",
+        ),
+      /CHECK/,
+    );
+    backup.schemaVersion = 6;
+    backup.tables.travel_tasks = db.db
+      .prepare('SELECT * FROM travel_tasks')
+      .all()
+      .map((r) => ({ ...r }));
+    fresh.db.exec(restoreSQL(backup));
+    assert.deepEqual(
+      fresh.db.prepare('SELECT * FROM travel_tasks ORDER BY id').all(),
+      db.db.prepare('SELECT * FROM travel_tasks ORDER BY id').all(),
+    );
+  } finally {
+    db.close();
+    fresh.close();
+  }
+});

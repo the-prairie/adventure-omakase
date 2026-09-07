@@ -4067,3 +4067,88 @@ input[type='file']::file-selector-button {
     width: 100%;
   }
 }
+
+/* Booking details belong to the profile; originals never enter the shared book. */
+.booking-import {
+  border-block: 1px solid var(--line);
+  padding-block: 22px;
+  margin-bottom: 24px;
+}
+.booking-import h3 {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+.booking-import p {
+  margin-bottom: 14px;
+}
+.booking-import [hidden] {
+  display: none;
+}
+.booking-import .row {
+  gap: 12px;
+}
+.booking-import details {
+  margin-block: 12px;
+}
+.booking-import details img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 12px;
+}
+.booking-import summary,
+.join-booking summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding-block: 10px;
+}
+.booking-proposal {
+  border-top: 1px solid var(--line);
+  padding-block: 20px;
+}
+.booking-proposal h4 {
+  font-family: var(--serif);
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.booking-proposal select {
+  width: 100%;
+  margin-block: 10px;
+}
+.booking-dates {
+  font-weight: 600;
+}
+.booking-confirm {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  margin-block: 12px;
+}
+.booking-confirm input {
+  flex: 0 0 auto;
+  margin-top: 5px;
+}
+.join-booking {
+  margin-bottom: 18px;
+}
+@media (max-width: 700px) {
+  .booking-import .row {
+    align-items: stretch;
+  }
+  .booking-import [data-booking-read],
+  .booking-proposal > .btn {
+    width: 100%;
+  }
+}
+.booking-import > summary {
+  font-weight: 600;
+  padding: 0;
+}
+.booking-import[open] > summary {
+  margin-bottom: 14px;
+}
+.date-open {
+  margin-top: 4px;
+  font-size: 12px;
+}

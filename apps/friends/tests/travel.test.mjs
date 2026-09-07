@@ -13,6 +13,11 @@ import {
 } from '../build/companion-provider.js';
 import { findPlaces, getRoute, interpret } from '../build/travel-tools.js';
 import { watchRoutes, checkWatches } from '../build/watch-service.js';
+import {
+  bookingAttachments,
+  bookingResult,
+  importBookings,
+} from '../build/profile-import.js';
 const fixtures = [];
 async function setup() {
   const dir = await mkdtemp(join(tmpdir(), 'omakase-travel-')),
@@ -713,4 +718,249 @@ test('Gemini tool responses preserve provider IDs, full model parts and parallel
       },
     ],
   });
+});
+
+const bookingWindow = (override = {}) => ({
+  kind: 'flight',
+  region: 'osaka',
+  area: '',
+  from: '2026-10-01',
+  to: '',
+  source: 1,
+  yearSource: 'trip',
+  evidence:
+    'Synthetic flight arrives October 1 at 18:45 local time. Departure date is not shown.',
+  uncertainty: '',
+  ...override,
+});
+const bookingPDF =
+  'data:application/pdf;base64,' +
+  Buffer.from('%PDF-1.4\nSynthetic booking contract fixture\n%%EOF').toString(
+    'base64',
+  );
+
+test('booking files are bounded inline documents, never remote URLs or spoofed types', () => {
+  assert.equal(
+    bookingAttachments([bookingPDF])[0].inlineData.mimeType,
+    'application/pdf',
+  );
+  for (const files of [
+    [],
+    Array(5).fill(bookingPDF),
+    ['https://example.com/booking.pdf'],
+    ['data:application/pdf;base64,aGVsbG8='],
+    ['data:application/pdf;base64,YWJ'],
+    ['data:text/html;base64,PHNjcmlwdD4='],
+  ])
+    assert.throws(() => bookingAttachments(files));
+  const large =
+    'data:application/pdf;base64,' +
+    Buffer.from('%PDF-' + 'x'.repeat(4_500_000)).toString('base64');
+  assert.throws(() => bookingAttachments([large]), /4.5 MB/);
+});
+
+test('booking dates stay partial, inferred years require review, and invalid model fields reject', () => {
+  const result = bookingResult(
+    { name: 'Fixture', notes: '', windows: [bookingWindow()] },
+    1,
+  );
+  assert.equal(result.windows[0].from, '2026-10-01');
+  assert.equal(result.windows[0].to, '');
+  assert.match(result.windows[0].uncertainty, /not shown in the booking/);
+  for (const override of [
+    { from: '2026-02-30' },
+    { to: '2026-09-30' },
+    { region: 'guess' },
+    { source: 2 },
+    { yearSource: 'unknown' },
+    { kind: 'instruction' },
+  ])
+    assert.throws(() =>
+      bookingResult({ windows: [bookingWindow(override)] }, 1),
+    );
+  assert.deepEqual(
+    bookingResult({ windows: [], notes: 'No readable dates.' }, 1).windows,
+    [],
+  );
+});
+
+test('booking extraction is private and idempotent; only reviewed profile writes change shared dates', async () => {
+  const { env, call, owner } = await setup();
+  env.GEMINI_API_KEY = 'synthetic-booking-fixture';
+  const inv = await call('/invite', 'GET', undefined, owner.cookie);
+  const friend = await call('/join', 'POST', {
+    name: 'Other traveler',
+    token: inv.data.token,
+  });
+  const before = await call('/state', 'GET', undefined, owner.cookie);
+  const original = globalThis.fetch;
+  let calls = 0,
+    sent;
+  globalThis.fetch = async (_url, init) => {
+    calls++;
+    sent = JSON.parse(init.body);
+    return Response.json(
+      modelData([
+        {
+          text: JSON.stringify({
+            name: 'Fixture',
+            notes: '',
+            windows: [bookingWindow()],
+          }),
+        },
+      ]),
+    );
+  };
+  try {
+    const id = crypto.randomUUID();
+    const result = await call(
+      '/travel/tasks',
+      'POST',
+      { kind: 'profile-import', requestId: id, files: [bookingPDF] },
+      owner.cookie,
+    );
+    assert.equal(result.status, 200);
+    assert.equal(result.data.status, 'complete');
+    assert.equal(result.data.result.windows[0].to, '');
+    assert.equal(
+      sent.contents[0].parts[1].inlineData.mimeType,
+      'application/pdf',
+    );
+    assert.match(sent.contents[0].parts[0].text, /ARRIVAL region/);
+    assert.match(sent.contents[0].parts[0].text, /never instructions/);
+    assert.equal(sent.tools, undefined);
+    const repeated = await call(
+      '/travel/tasks',
+      'POST',
+      { kind: 'profile-import', requestId: id, files: [bookingPDF] },
+      owner.cookie,
+    );
+    assert.equal(repeated.data.duplicate, true);
+    assert.equal(calls, 1);
+    assert.equal(
+      (await call('/travel/tasks/' + id, 'GET', undefined, friend.cookie))
+        .status,
+      404,
+    );
+    assert.equal(
+      (await call('/travel/tasks', 'GET', undefined, friend.cookie)).data.tasks
+        .length,
+      0,
+    );
+    const after = await call('/state', 'GET', undefined, owner.cookie);
+    assert.deepEqual(after.data.me.profile, before.data.me.profile);
+    const stored = env.DB.db
+      .prepare('SELECT * FROM travel_tasks WHERE id=?')
+      .get(id);
+    assert.ok(!JSON.stringify(stored).includes(bookingPDF.split(',')[1]));
+    assert.equal(
+      env.DB.db.prepare('SELECT count(*) n FROM moments').get().n,
+      0,
+    );
+    const saved = await call(
+      '/profile',
+      'PUT',
+      {
+        name: 'A',
+        bio: 'Keep my pace',
+        interests: 'Architecture',
+        windows: [{ region: 'osaka', area: '', from: '2026-10-01', to: '' }],
+        expected: {
+          name: before.data.me.name,
+          profile: before.data.me.profile,
+        },
+      },
+      owner.cookie,
+    );
+    assert.equal(saved.status, 200);
+    const shared = await call('/state', 'GET', undefined, friend.cookie);
+    assert.equal(
+      shared.data.members.find((m) => m.id === owner.data.me.id).profile
+        .windows[0].to,
+      '',
+    );
+    assert.ok(!JSON.stringify(shared.data).includes('Synthetic flight'));
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test('incremental profile edits preserve open dates and reject stale snapshots without false change events', async () => {
+  const { call, owner, env } = await setup();
+  const initial = (await call('/state', 'GET', undefined, owner.cookie)).data
+    .me;
+  const payload = {
+    name: initial.name,
+    bio: 'Manual details',
+    interests: 'Food',
+    windows: [{ region: 'tokyo', area: 'Ueno', from: '', to: '' }],
+    expected: { name: initial.name, profile: initial.profile },
+  };
+  assert.equal(
+    (await call('/profile', 'PUT', payload, owner.cookie)).status,
+    200,
+  );
+  const events = env.DB.db.prepare('SELECT count(*) n FROM changes').get().n;
+  assert.equal(
+    (await call('/profile', 'PUT', { ...payload, windows: [] }, owner.cookie))
+      .status,
+    409,
+  );
+  assert.equal(
+    env.DB.db.prepare('SELECT count(*) n FROM changes').get().n,
+    events,
+  );
+  const current = (await call('/state', 'GET', undefined, owner.cookie)).data
+    .me;
+  assert.equal(current.profile.bio, 'Manual details');
+  assert.equal(current.profile.windows[0].from, '');
+  const update = {
+    name: current.name,
+    ...current.profile,
+    windows: [
+      { ...current.profile.windows[0], from: '2026-10-02', to: '2026-10-05' },
+    ],
+    expected: { name: current.name, profile: current.profile },
+  };
+  assert.equal(
+    (await call('/profile', 'PUT', update, owner.cookie)).status,
+    200,
+  );
+  assert.equal(
+    (
+      await call(
+        '/profile',
+        'PUT',
+        {
+          ...update,
+          expected: undefined,
+          windows: [{ region: 'tokyo', from: '2026-02-30', to: '' }],
+        },
+        owner.cookie,
+      )
+    ).status,
+    422,
+  );
+});
+
+test('a missing booking year cannot silently use a conflicting or multi-year trip', async () => {
+  const { env } = await setup();
+  env.GEMINI_API_KEY = 'synthetic';
+  const original = globalThis.fetch;
+  globalThis.fetch = async () =>
+    Response.json(
+      modelData([{ text: JSON.stringify({ windows: [bookingWindow()] }) }]),
+    );
+  try {
+    for (const trip of [
+      { start: '2027-09-26', end: '2027-10-14' },
+      { start: '2026-12-20', end: '2027-01-04' },
+    ])
+      await assert.rejects(
+        importBookings(env, { files: [bookingPDF] }, trip, signal()),
+        /year is not clear/,
+      );
+  } finally {
+    globalThis.fetch = original;
+  }
 });

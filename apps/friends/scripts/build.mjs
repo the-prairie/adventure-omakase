@@ -25,6 +25,7 @@ export async function buildAssets(release) {
   for (const name of [
     'app.js',
     'controls.js',
+    'bookings.js',
     'ask.js',
     'travel.js',
     'app.css',

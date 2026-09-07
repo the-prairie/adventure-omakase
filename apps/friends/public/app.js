@@ -166,6 +166,7 @@
     draftPhotos = [],
     draftSegments = [],
     windowsDraft = [],
+    profileBaseline = null,
     photoBusy = false,
     diceSeen = new Set(),
     confirmation = null;
@@ -628,7 +629,7 @@
     );
     const windows =
       S.me.profile?.windows?.filter(
-        (w) => w.from <= ui.day && ui.day <= w.to,
+        (w) => w.from && w.to && w.from <= ui.day && ui.day <= w.to,
       ) || [];
     const overlaps = [];
     for (let i = 0; i < plans.length; i++)
@@ -715,6 +716,7 @@
       parts = [];
     for (const a of mine)
       for (const b of theirs) {
+        if (!a.from || !a.to || !b.from || !b.to) continue;
         const from = a.from > b.from ? a.from : b.from,
           to = a.to < b.to ? a.to : b.to;
         if (a.region === b.region && from <= to)
@@ -732,7 +734,7 @@
           `<div class="name">${avatar(m.id)} ${E(m.name)}</div>${DAYS.map(
             (d) => {
               const w = m.profile?.windows?.find(
-                (w) => w.from <= d && d <= w.to,
+                (w) => w.from && w.to && w.from <= d && d <= w.to,
               );
               return `<div class="day-cell ${E(w ? w.region : '')}" title="${E(m.name)} · ${dateText(d)} · ${E(w ? `${R[w.region]} / ${w.area || 'area not specified'}` : 'not shared')}" aria-label="${E(m.name + ' ' + dateText(d) + ' ' + (w ? R[w.region] : 'not shared'))}"></div>`;
             },
@@ -743,7 +745,7 @@
       )}</div></div><div class="row wrap" style="margin-bottom:25px"><span class="key"><i></i>Tokyo</span><span class="key"><i class="osaka"></i>Osaka & beyond</span><span class="key"><i class="okinawa"></i>Okinawa</span><span class="small muted">Blank = dates not shared, not absence.</span></div><div class="portrait-grid">${members
       .map((m) => {
         const overlap = m.id !== S.me.id ? overlapWith(m) : [];
-        return `<article class="portrait-card">${avatar(m.id)}<h3>${E(m.name)}${m.id === S.me.id ? ' <small class="muted">you</small>' : ''}</h3><span class="pill">${m.role === 'owner' ? 'Trip owner' : 'Free to roam'}</span><p>${E(m.profile?.bio || 'A little room for getting to know each other along the way.')}</p>${m.profile?.interests ? `<p><strong>Drawn to</strong><br>${E(m.profile.interests)}</p>` : ''}${(m.profile?.windows || []).map((w) => `<div class="window-chip"><span><i class="region-chip ${E(w.region)}"></i> ${E(w.area || R[w.region])}</span><span>${dateText(w.from)}–${dateText(w.to)}</span></div>`).join('') || '<p class="small muted">Travel dates not shared yet.</p>'}${overlap.length ? `<div class="overlap"><strong>You overlap in the same region</strong><br>${overlap.map(E).join('<br>')}</div>` : ''}<div class="card-actions">${m.id === S.me.id ? btn('Edit my profile ' + I('edit'), 'profile', '', 'subtle') : btn('See their invitations ' + I('arrow'), 'person-plans', m.id, 'subtle')}</div></article>`;
+        return `<article class="portrait-card">${avatar(m.id)}<h3>${E(m.name)}${m.id === S.me.id ? ' <small class="muted">you</small>' : ''}</h3><span class="pill">${m.role === 'owner' ? 'Trip owner' : 'Free to roam'}</span><p>${E(m.profile?.bio || 'A little room for getting to know each other along the way.')}</p>${m.profile?.interests ? `<p><strong>Drawn to</strong><br>${E(m.profile.interests)}</p>` : ''}${(m.profile?.windows || []).map((w) => `<div class="window-chip"><span><i class="region-chip ${E(w.region)}"></i> ${E(w.area || R[w.region])}</span><span>${w.from ? dateText(w.from) : 'Arrival open'}–${w.to ? dateText(w.to) : 'Departure open'}</span></div>`).join('') || '<p class="small muted">Travel dates not shared yet.</p>'}${overlap.length ? `<div class="overlap"><strong>You overlap in the same region</strong><br>${overlap.map(E).join('<br>')}</div>` : ''}<div class="card-actions">${m.id === S.me.id ? btn('Edit my profile ' + I('edit'), 'profile', '', 'subtle') : btn('See their invitations ' + I('arrow'), 'person-plans', m.id, 'subtle')}</div></article>`;
       })
       .join('')}</div>`;
   }
@@ -970,7 +972,7 @@
         });
   }
   function windowMarkup(w, i) {
-    return `<section class="travel-window" data-window><div class="row between"><span class="window-title">Travel dates ${i + 1}</span><button type="button" class="icon-btn" data-action="remove-window" data-index="${i}" aria-label="Remove travel window">${I('close')}</button></div><div class="field-row"><div class="field"><label for="window-${i}-region">Region</label><select id="window-${i}-region" data-w="region">${regionOptions(w.region)}</select></div><div class="field"><label for="window-${i}-area">Area / island (optional)</label><input id="window-${i}-area" data-w="area" maxlength="100" value="${E(w.area)}" placeholder="Aka / Naha / Kitahama"></div></div><div class="field-row"><div class="field"><label for="window-${i}-from">From</label><input id="window-${i}-from" data-w="from" type="date" value="${E(w.from)}" min="${E(S.trip.start)}" max="${E(S.trip.end)}" required></div><div class="field"><label for="window-${i}-to">Through</label><input id="window-${i}-to" data-w="to" type="date" value="${E(w.to)}" min="${E(S.trip.start)}" max="${E(S.trip.end)}" required></div></div></section>`;
+    return `<section class="travel-window" data-window><div class="row between"><span class="window-title">Travel dates ${i + 1}</span><button type="button" class="icon-btn" data-action="remove-window" data-index="${i}" aria-label="Remove travel window">${I('close')}</button></div><div class="field-row"><div class="field"><label for="window-${i}-region">Region</label><select id="window-${i}-region" data-w="region">${regionOptions(w.region)}</select></div><div class="field"><label for="window-${i}-area">Area / island (optional)</label><input id="window-${i}-area" data-w="area" maxlength="100" value="${E(w.area)}" placeholder="Aka / Naha / Kitahama"></div></div><div class="field-row"><div class="field"><label for="window-${i}-from">From · if known</label><input id="window-${i}-from" data-w="from" type="date" value="${E(w.from)}"><button type="button" class="text-btn date-open" data-action="clear-window-date" data-bound="from" aria-label="Leave arrival date open">Leave open</button></div><div class="field"><label for="window-${i}-to">Through · if known</label><input id="window-${i}-to" data-w="to" type="date" value="${E(w.to)}"><button type="button" class="text-btn date-open" data-action="clear-window-date" data-bound="to" aria-label="Leave departure date open">Leave open</button></div></div></section>`;
   }
   function readWindows() {
     return [...dialog.querySelectorAll('[data-window]')].map((el) =>
@@ -982,11 +984,16 @@
   function profileModal() {
     const m = S.me;
     windowsDraft = structuredClone(m.profile?.windows || []);
+    profileBaseline = {
+      name: m.name,
+      profile: structuredClone(m.profile || {}),
+    };
     openModal(
       'Your part of the trip',
-      `<h2>Where might we<br><em>cross paths?</em></h2><p class="lede">Share only the areas and dates you want friends to know. No live location, hotel address, or complete itinerary is required.</p><form id="profile-form">${field('name', 'Your display name', m.name, 'text', 'maxlength="50" required')}<div class="field"><label for="f-bio">A little about your pace</label><textarea id="f-bio" name="bio" maxlength="300" placeholder="Early runs, late breakfasts, very happy to split up and meet later.">${E(m.profile?.bio || '')}</textarea></div>${field('interests', 'Things you’re drawn to', m.profile?.interests || '', 'text', 'maxlength="200" placeholder="Food, architecture, water, tiny shops…"')}<div class="section-label">My shared travel windows</div><div id="window-list">${windowsDraft.map(windowMarkup).join('')}</div>${btn(I('plus') + 'Add dates in a region', 'add-window', '', 'subtle')}<div class="notice">Everything entered here is shared with this trip’s members when you save. Leaving a date blank does not tell friends where you are.</div><div class="form-error" role="alert"></div><div class="form-actions"><button type="button" class="btn subtle" data-action="close">Cancel</button><button type="submit" class="btn primary">Save my shared profile ${I('arrow')}</button></div></form>`,
+      `<h2>Where might we<br><em>cross paths?</em></h2><p class="lede">Share only the areas and dates you want friends to know. No live location, hotel address, or complete itinerary is required.</p><form id="profile-form">${mode === 'shared' ? bookings.markup(!windowsDraft.length) : ''}${field('name', 'Your display name', m.name, 'text', 'maxlength="50" required')}<div class="field"><label for="f-bio">A little about your pace</label><textarea id="f-bio" name="bio" maxlength="300" placeholder="Early runs, late breakfasts, very happy to split up and meet later.">${E(m.profile?.bio || '')}</textarea></div>${field('interests', 'Things you’re drawn to', m.profile?.interests || '', 'text', 'maxlength="200" placeholder="Food, architecture, water, tiny shops…"')}<div class="section-label">My shared travel windows</div><div id="window-list">${windowsDraft.map(windowMarkup).join('')}</div>${btn(I('plus') + 'Add dates in a region', 'add-window', '', 'subtle')}<div class="notice">Your name, bio, interests and travel windows are shared when you save. Booking files and extraction notes stay private. Leave unknown dates open, and adjust them whenever plans change.</div><div class="form-error" role="alert"></div><div class="form-actions"><button type="button" class="btn subtle" data-action="close">Cancel</button><button type="submit" class="btn primary">Save my shared profile ${I('arrow')}</button></div></form>`,
       'profile',
     );
+    bookings.attach(dialog.querySelector('#profile-form'));
   }
   function openMoment(id = '', planId = '') {
     const m = S.moments.find((m) => m.id === id),
@@ -1420,7 +1427,17 @@
       return;
     }
     const creating = !!setupKey && setupRequired;
-    app.innerHTML = `<div class="tagbar"><span>DIFFERENT PLANS. SAME FRIENDS.</span><span class="tag-second">26 SEP — 14 OCT 2026</span></div><header class="header"><div class="header-inner"><span class="brand"><span class="brand-name">omakase<span class="brand-star">${I('star')}</span><small>THE TOGETHER, APART EDITION</small></span></span><button class="text-btn" data-action="try-demo">Explore the example ${I('arrow')}</button></div></header><main id="main" class="signin ${joinToken && !creating ? 'invited' : ''}"><div><h1>Your own trip.<br><em>Friends welcome.</em></h1><p class="intro">Share an idea. Join just the coffee. Go somewhere entirely different. Bring back a story.</p><div class="intro-promises"><span>${I('route')}No compulsory itinerary</span><span>${I('people')}No account setup</span></div><div class="join-vignettes"><img src="${E(A.tokyo)}" alt="Decorative Tokyo illustration"><img src="${E(A.osaka)}" alt="Decorative Osaka illustration"><img src="${E(A.okinawa)}" alt="Decorative Okinawa illustration"></div><span class="art-note">Illustrated impressions · not venue photographs</span></div><div class="signin-panel"><h2>${creating ? 'Make it ours.' : joinToken ? 'What do we<br>call you?' : 'Got the group link?'}</h2><p class="small muted" style="margin-bottom:24px">${creating ? 'Set the name of your trip once. After this, share one link with everyone.' : joinToken ? 'Just the name your friends know. Dates and plans can come later. This device will remember you.' : 'Open the invitation from the group chat. That link brings you into your friends’ trip.'}</p>${creating || joinToken ? `<form id="auth-form" data-kind="${creating ? 'create' : 'join'}">${field('name', 'Your name', '', 'text', 'maxlength="50" required autocomplete="given-name"')}${creating ? field('title', 'Trip name', 'Japan, slightly off script', 'text', 'maxlength="100" required') : ''}<div class="form-error" role="alert"></div><button type="submit" class="btn primary full">${creating ? 'Open our trip' : 'I’m in'} ${I('arrow')}</button></form><p class="server-note">${creating ? 'No example people or pretend bookings are added.' : 'Anyone you forward this link to can participate. Names are not verified identities.'}</p>` : `<div class="notice">Already joined on another device? Use your personal device link, or ask the trip owner to help you sign back in.</div><div class="form-error" role="alert"></div>`}</div></main>`;
+    app.innerHTML = `<div class="tagbar"><span>DIFFERENT PLANS. SAME FRIENDS.</span><span class="tag-second">26 SEP — 14 OCT 2026</span></div><header class="header"><div class="header-inner"><span class="brand"><span class="brand-name">omakase<span class="brand-star">${I('star')}</span><small>THE TOGETHER, APART EDITION</small></span></span><button class="text-btn" data-action="try-demo">Explore the example ${I('arrow')}</button></div></header><main id="main" class="signin ${joinToken && !creating ? 'invited' : ''}"><div><h1>Your own trip.<br><em>Friends welcome.</em></h1><p class="intro">Share an idea. Join just the coffee. Go somewhere entirely different. Bring back a story.</p><div class="intro-promises"><span>${I('route')}No compulsory itinerary</span><span>${I('people')}No account setup</span></div><div class="join-vignettes"><img src="${E(A.tokyo)}" alt="Decorative Tokyo illustration"><img src="${E(A.osaka)}" alt="Decorative Osaka illustration"><img src="${E(A.okinawa)}" alt="Decorative Okinawa illustration"></div><span class="art-note">Illustrated impressions · not venue photographs</span></div><div class="signin-panel"><h2>${creating ? 'Make it ours.' : joinToken ? 'What do we<br>call you?' : 'Got the group link?'}</h2><p class="small muted" style="margin-bottom:24px">${creating ? 'Set the name of your trip once. After this, share one link with everyone.' : joinToken ? 'Just the name your friends know. Dates and plans can come later. This device will remember you.' : 'Open the invitation from the group chat. That link brings you into your friends’ trip.'}</p>${creating || joinToken ? `<form id="auth-form" data-kind="${creating ? 'create' : 'join'}">${field('name', 'Your name', '', 'text', 'maxlength="50" required autocomplete="given-name"')}${creating ? field('title', 'Trip name', 'Japan, slightly off script', 'text', 'maxlength="100" required') : ''}<details class="join-booking"><summary>Add flights or accommodation now</summary><div class="field"><label for="join-booking-files">Booking images or PDFs · optional</label><input id="join-booking-files" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" multiple><small>Gemini reads these privately after you join. Review the dates before sharing. You can add more later.</small></div></details><div class="form-error" role="alert"></div><button type="submit" class="btn primary full">${creating ? 'Open our trip' : 'I’m in'} ${I('arrow')}</button></form><p class="server-note">${creating ? 'No example people or pretend bookings are added.' : 'Anyone you forward this link to can participate. Names are not verified identities.'}</p>` : `<div class="notice">Already joined on another device? Use your personal device link, or ask the trip owner to help you sign back in.</div><div class="form-error" role="alert"></div>`}</div></main>`;
+    app
+      .querySelector('#join-booking-files')
+      ?.addEventListener('change', (event) => {
+        const button = app.querySelector('#auth-form [type=submit]');
+        button.textContent = event.target.files.length
+          ? 'Join and read my booking'
+          : creating
+            ? 'Open our trip'
+            : 'I’m in';
+      });
   }
 
   async function init() {
@@ -1778,6 +1795,19 @@
         case 'profile':
           profileModal();
           break;
+        case 'clear-window-date': {
+          const input = el
+            .closest('[data-window]')
+            .querySelector(`[data-w=${el.dataset.bound}]`);
+          // WebKit can retain native date segments after value='' and reject
+          // an optional empty date on submit. A fresh control clears that state.
+          const cleared = input.cloneNode(false);
+          cleared.removeAttribute('value');
+          cleared.value = '';
+          input.replaceWith(cleared);
+          cleared.dispatchEvent(new Event('input', { bubbles: true }));
+          break;
+        }
         case 'add-window':
           windowsDraft = readWindows();
           if (windowsDraft.length >= 12) {
@@ -1787,8 +1817,8 @@
           windowsDraft.push({
             region: 'osaka',
             area: '',
-            from: ui.day,
-            to: ui.day,
+            from: '',
+            to: '',
           });
           dialog.querySelector('#window-list').innerHTML = windowsDraft
             .map(windowMarkup)
@@ -2085,6 +2115,9 @@
       if (form.id === 'auth-form') {
         online = true;
         const kind = form.dataset.kind;
+        const selectedBookings = [
+          ...(form.querySelector('#join-booking-files')?.files || []),
+        ];
         const response = await api(
           kind === 'create' ? '/trips' : '/join',
           'POST',
@@ -2104,7 +2137,10 @@
           navigator.serviceWorker.register('/sw.js').catch(() => {
             /* Best-effort cleanup or optional browser capability. */
           });
-        if (pendingPlan) {
+        if (selectedBookings.length) {
+          profileModal();
+          void bookings.selectAndRead(selectedBookings);
+        } else if (pendingPlan) {
           const id = pendingPlan;
           pendingPlan = '';
           showPlan(id);
@@ -2197,9 +2233,9 @@
         await mutate(
           '/profile',
           'PUT',
-          { ...d, windows: readWindows() },
+          { ...d, windows: readWindows(), expected: profileBaseline },
           () => {
-            closeModal();
+            if (form.isConnected && dialog.open) closeModal();
             toast('Your chosen travel windows are shared with friends.');
           },
         );
@@ -2357,6 +2393,17 @@
     }
   });
   window.addEventListener('beforeunload', () => stream?.close());
+  const bookings = window.OmakaseBookings({
+    escape: E,
+    release: CLIENT_RELEASE,
+    getWindows: readWindows,
+    setWindows: (windows) => {
+      windowsDraft = windows;
+      dialog.querySelector('#window-list').innerHTML = windows
+        .map(windowMarkup)
+        .join('');
+    },
+  });
   window.OmakaseTravel({
     getState: () => S,
     getMode: () => mode,
@@ -2365,6 +2412,10 @@
     release: CLIENT_RELEASE,
     toast,
     openAsk: (options) => companion.open(options),
+    openBookingDraft: (draft) => {
+      profileModal();
+      bookings.review(draft);
+    },
     openMemory: (draft) => {
       openMoment();
       dialog.querySelector('#memory-text').value = draft.text;

@@ -905,7 +905,7 @@ async function routes(
       request,
       env,
       m,
-      method === 'POST' ? await body(request, 2200000) : undefined,
+      method === 'POST' ? await body(request, 6_100_000) : undefined,
     );
   }
   if (path.startsWith('/api/ask/') || path.startsWith('/api/research/'))
@@ -1036,12 +1036,24 @@ async function routes(
   if (path === '/api/profile' && method === 'PUT') {
     const d = await body(request),
       windows = d.windows ?? [];
+    if (
+      d.expected &&
+      (d.expected.name !== m.name ||
+        JSON.stringify(d.expected.profile) !==
+          JSON.stringify(JSON.parse(m.profile)))
+    )
+      fail(
+        409,
+        'Your profile changed on another device. Reopen it before saving; nothing was overwritten.',
+      );
     if (!Array.isArray(windows) || windows.length > 12)
       fail(422, 'Use up to 12 travel windows.');
     const clean = windows.map((w: Row) => {
-      const from = date(w.from),
-        to = date(w.to);
-      if (to < from) fail(422, 'Departure is before arrival.');
+      if (!w || typeof w !== 'object' || Array.isArray(w))
+        fail(422, 'Use a region and any known dates for each travel window.');
+      const from = w.from == null || w.from === '' ? '' : date(w.from),
+        to = w.to == null || w.to === '' ? '' : date(w.to);
+      if (from && to && to < from) fail(422, 'Departure is before arrival.');
       return {
         region: choice(w, 'region', REGIONS, 'tokyo'),
         area: txt(w, 'area', 100),
@@ -1049,12 +1061,12 @@ async function routes(
         to,
       };
     });
-    await write(
+    const changed = await write(
       env,
       m,
       stmt(
         db,
-        'UPDATE members SET name=?,profile=? WHERE id=?',
+        'UPDATE members SET name=?,profile=? WHERE id=? AND name=? AND profile=? RETURNING id',
         txt(d, 'name', 50, true),
         JSON.stringify({
           bio: txt(d, 'bio', 300),
@@ -1062,11 +1074,18 @@ async function routes(
           windows: clean,
         }),
         m.id,
+        m.name,
+        m.profile,
       ),
       'profile',
       m.id,
       'updated their travel dates',
     );
+    if (!changed.results.length)
+      fail(
+        409,
+        'Your profile changed on another device. Reopen it before saving; nothing was overwritten.',
+      );
     return json({ ok: true });
   }
   let match: RegExpMatchArray | null;
@@ -1606,7 +1625,7 @@ async function admin(request: Request, env: Env): Promise<Response> {
       BACKUP_TABLES.map((t) => db.prepare(`SELECT * FROM ${t}`)),
     );
     return json({
-      schemaVersion: 5,
+      schemaVersion: 6,
       created: now(),
       tables: Object.fromEntries(
         BACKUP_TABLES.map((t, i) => [t, values[i].results]),
@@ -1647,12 +1666,12 @@ async function admin(request: Request, env: Env): Promise<Response> {
       );
     const d = await body(request, 10_000_000);
     if (
-      ![3, 4, 5].includes(d.schemaVersion) ||
+      ![3, 4, 5, 6].includes(d.schemaVersion) ||
       !d.tables ||
       !Array.isArray(d.tables.trips) ||
       d.tables.trips.length !== 1
     )
-      fail(422, 'Use a version 3, 4 or 5 full backup.');
+      fail(422, 'Use a version 3, 4, 5 or 6 full backup.');
     // Column names come from the migration, never from untrusted JSON.
     const batch: Statement[] = [
       stmt(db, "INSERT OR REPLACE INTO app_meta VALUES('restoring','1')"),
