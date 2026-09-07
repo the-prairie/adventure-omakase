@@ -115,3 +115,20 @@ A complete pre-migration preview backup was created at 01:42:22 UTC, with its on
 Booking implementation commit: `ea2954638470b6bd4b220162527110ae5da25f0c`. The guarded preview deployment repeated all 100 friends tests, 11 workerd checks and 30 browser cases, applied migration 0004, then verified matching HTTPS Worker/static release at 01:53:40 UTC. The first broader browser run had two outdated one-input join assertions; both were updated to assert one ordinary name field plus an optional upload, and the full suite and deployment gate subsequently passed.
 
 At 01:54:38 UTC, one synthetic live booking-read action returned HTTP 200. Gemini extracted Osaka arrival October 1, 2026 from a Los Angeles September 30 departure, left return date and area blank, and explicitly identified the missing year as inferred from trip context. The existing profile was unchanged. The provider adapter recorded two attempts within that one action, 1,639 input tokens and 189 output tokens, estimated US$0.001938; no separate manual inference retry or quota change was made. The result and inspected mobile evidence are retained under `apps/friends/evidence/booking-live`. This is one real image-extraction success, not a guarantee of OCR accuracy or live PDF/device coverage. The supplied personal booking was not uploaded.
+
+## September 7: supplied logo
+
+Implementation `2359732a02a65abd6787883b087bd21dfc23ae5d` replaces the entry and
+traveler-header asterisk wordmark with the supplied sun-and-waves artwork, framed
+responsively without changing the source pixels. Local `pnpm check` passed all
+12 tasks and 100 friends tests. The release gate passed 11 workerd checks and all
+30 Chromium/WebKit cases. Focused entry/home checks at 1440, 390 and 320 pixels
+passed in both engines; screenshots were inspected.
+
+Preview publishing is not complete. Local deployment failed at Cloudflare D1
+access with error 7403 before remote changes. Hosted deployment run 34091124421
+failed with WebKit `page.reload` connection refused in the shared-trip test
+(29 passed); the separate Cloudflare browser workflow 34091124355 passed. The
+last observed HTTPS preview still served `f2140d3`, not the logo implementation.
+The existing CodeQL reporting failure is separate from the successful Security
+workflow. No production change occurred.
