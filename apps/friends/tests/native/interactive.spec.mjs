@@ -165,6 +165,13 @@ test('visual discoveries roll real dice, recover empty filters and reshuffle an 
   await expect(page.locator('#dice-result')).toContainText('Fresh round');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: info.outputPath('dice-result-mobile.png') });
+  await expect(page.locator('#dice-preferences')).toBeHidden();
+  await expect(page.locator('#dice-mood')).toHaveValue('Food');
+  await page.getByRole('button', { name: 'Change preferences' }).click();
+  await expect(
+    page.getByRole('combobox', { name: 'Where are you exploring?' }),
+  ).toBeFocused();
+  await expect(page.locator('#dice-area')).toHaveValue('Yanaka & Nezu');
   await page.locator('#dice-mood').selectOption('Water');
   await expect(page.locator('#dice-result .discovery')).toHaveCount(0);
   await expect(page.locator('#dice-form [type=submit]')).toBeDisabled();

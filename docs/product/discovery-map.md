@@ -16,6 +16,8 @@ Experience descriptions, practical information, source status and host notes are
 
 ## Atlas dice
 
+After a successful roll, the result takes focus and preferences collapse. Roll again reuses the current shortlist settings. Change preferences restores those settings and focuses the region control; the next successful roll collapses them again.
+
 The selected interaction combines the atlas concept with tactile dice physics. The draw opens a map stage; dragging and releasing the die supplies bounded velocity to a short gravity, friction and rebound simulation. Tapping, keyboard activation and the form button use the same draw. The existing catalogue filter and unbiased random selection remain authoritative; gesture strength never changes eligibility or odds.
 
 After the die settles, the map flies from the chosen area's wider surroundings to its area reference, then reveals the discovery card. The marker explicitly identifies an approximate area, not a venue entrance. Unlocated ideas receive no fabricated marker; failed tiles leave drawing and detail actions usable. Actual venue search and directions remain in the discovery detail and journey link. No new provider key, geolocation, audio, backend event or canonical plan is introduced.

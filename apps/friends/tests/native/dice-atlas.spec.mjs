@@ -35,6 +35,10 @@ test('atlas dice fling, land, survive cancellation and work without map tiles', 
     'landed',
   );
   await expect(page.locator('#dice-result')).not.toBeEmpty();
+  await expect(page.locator('#dice-preferences')).toBeHidden();
+  await expect(
+    page.getByRole('button', { name: 'Change preferences' }),
+  ).toBeVisible();
   await expect(page.locator('.dice-map-caption')).toContainText('Karahori');
   await page.screenshot({
     path: info.outputPath('atlas-landed-desktop.png'),
@@ -52,6 +56,11 @@ test('atlas dice fling, land, survive cancellation and work without map tiles', 
     }),
   ).toBe(true);
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole('button', { name: 'Change preferences' }).click();
+  await expect(
+    page.getByRole('combobox', { name: 'Where are you exploring?' }),
+  ).toBeFocused();
+  await expect(page.locator('#dice-area')).toHaveValue('Karahori & Tanimachi');
   await page.locator('#dice-region').selectOption('tokyo');
   await page.locator('#dice-area').selectOption('Yanaka & Nezu');
   await page.locator('.dice-table').scrollIntoViewIfNeeded();

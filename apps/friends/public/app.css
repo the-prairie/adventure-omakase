@@ -5200,3 +5200,7 @@ input[type='file']::file-selector-button {
     height: 140px;
   }
 }
+
+#dice-form [hidden] {
+  display: none;
+}

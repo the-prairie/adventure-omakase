@@ -1397,7 +1397,7 @@
   function drawModal(mood = 'all') {
     openModal(
       'Roll a little adventure',
-      `<h2>Where will the dice take you?</h2><p class="lede">Choose your patch of Japan. Let chance find the detour.</p>${diceMarkup()}<div id="dice-result" aria-live="polite" tabindex="-1"></div><form id="dice-form"><div class="field-row"><div class="field"><label for="dice-region">Where are you exploring?</label><select id="dice-region">${Object.entries(
+      `<h2>Where will the dice take you?</h2><p class="lede">Choose your patch of Japan. Let chance find the detour.</p>${diceMarkup()}<div id="dice-result" aria-live="polite" tabindex="-1"></div><form id="dice-form"><div id="dice-preferences"><div class="field-row"><div class="field"><label for="dice-region">Where are you exploring?</label><select id="dice-region">${Object.entries(
         R,
       )
         .filter(([k]) => k !== 'elsewhere')
@@ -1413,7 +1413,7 @@
         .map((k) => `<option ${k === mood ? 'selected' : ''}>${k}</option>`)
         .join(
           '',
-        )}</select></div><div class="field"><label for="dice-time">Time on site</label><select id="dice-time"><option value="90">Up to 90 minutes</option><option value="180" selected>Up to 3 hours</option><option value="600">Up to a day</option></select></div></div><details class="form-detail"><summary>More adventurous options</summary><label class="check-row"><input id="dice-arranged" type="checkbox">Include advance arrangements, separate stays or regional excursions.</label><label class="check-row"><input id="dice-water" type="checkbox">Include operator-led water activities; I’ll check conditions independently.</label></details><p id="dice-count" role="status"></p><div id="dice-alternatives"></div><div class="form-error" role="alert"></div><button type="submit" class="btn primary full">Roll the dice ${I('dice')}</button></form>`,
+        )}</select></div><div class="field"><label for="dice-time">Time on site</label><select id="dice-time"><option value="90">Up to 90 minutes</option><option value="180" selected>Up to 3 hours</option><option value="600">Up to a day</option></select></div></div><details class="form-detail"><summary>More adventurous options</summary><label class="check-row"><input id="dice-arranged" type="checkbox">Include advance arrangements, separate stays or regional excursions.</label><label class="check-row"><input id="dice-water" type="checkbox">Include operator-led water activities; I’ll check conditions independently.</label></details><p id="dice-count" role="status"></p><div id="dice-alternatives"></div></div><div class="form-error" role="alert"></div><button type="button" class="btn subtle" data-action="dice-preferences" aria-controls="dice-preferences" aria-expanded="false" hidden>Change preferences</button><button type="submit" class="btn primary full">Roll the dice ${I('dice')}</button></form>`,
       'dice',
       '',
       true,
@@ -1570,6 +1570,7 @@
     const button = form.querySelector('[type=submit]');
     form.dataset.rolling = 'true';
     button.disabled = true;
+    form.querySelector('[data-action=dice-preferences]').disabled = true;
     dialog.querySelector('.dice-table').disabled = true;
     button.textContent = 'Rolling…';
     for (const field of form.querySelectorAll('select,input'))
@@ -1587,6 +1588,10 @@
       if (!form.isConnected || !dialog.open) return;
       diceSeen.add(a.id);
       result.innerHTML = `${freshRound ? '<p class="small muted">Fresh round: you’ve explored this shortlist before.</p>' : ''}<article class="discovery dice-pick"><h3>${E(a.title)}</h3><p>${E(a.why)}</p><div class="dice-visuals">${discoveryPhoto(a)}</div></article>${journeyContext(a)}<div class="card-actions">${btn('Explore this idea ' + I('arrow'), 'discovery', a.id, 'subtle')}${btn('Invite friends ' + I('plus'), 'plan-from', a.id, 'primary')}</div>`;
+      form.querySelector('#dice-preferences').hidden = true;
+      const preferences = form.querySelector('[data-action=dice-preferences]');
+      preferences.hidden = false;
+      preferences.setAttribute('aria-expanded', 'false');
       result.focus({ preventScroll: true });
       (dialog.querySelector('.dice-atlas') || result).scrollIntoView({
         block: 'start',
@@ -1597,6 +1602,7 @@
         delete form.dataset.rolling;
         for (const field of form.querySelectorAll('select,input'))
           field.disabled = false;
+        form.querySelector('[data-action=dice-preferences]').disabled = false;
         button.textContent = 'Roll again';
         updateDiceCount();
       }
@@ -2200,6 +2206,18 @@
         case 'roll-table':
           await drawDiscovery();
           break;
+        case 'dice-preferences': {
+          const form = dialog.querySelector('#dice-form');
+          if (form.dataset.rolling) break;
+          form.querySelector('#dice-preferences').hidden = false;
+          el.setAttribute('aria-expanded', 'true');
+          el.hidden = true;
+          const region = form.querySelector('#dice-region');
+          (
+            region.parentElement.querySelector('.choice-trigger') || region
+          ).focus();
+          break;
+        }
         case 'dice-area-quick':
           if (dialog.querySelector('#dice-form').dataset.rolling) break;
           dialog.querySelector('#dice-area').value = id;
