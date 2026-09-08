@@ -120,3 +120,5 @@ The user requested understandable geography, visible explanations, menu links, a
 ## September 8 amendment: curated Map / Fieldbook
 
 The user approved connected Map and Fieldbook views over one curated collection, using Google Maps inside the app and keeping Google navigation as an external action. Implement shared filters/selection, on-demand persistent map loading, source-backed site references where available, honest area/unlocated states, and the restricted public browser-key boundary. Preserve research content, saved ideas, dice and invitations. Keep provider fixture checks separate from real Google preview proof; record observed gates and release identity in CURRENT_STATUS.
+
+Implementation `187bd9c` is live and exact-verified on preview. Actual Google rendering, site selection, shared view context and retained map instance passed desktop/phone-width checks. Deployment passed 103 friends tests, 11 native checks and all 48 browser cases. Separate friends CI passed 47/48 with an unexplained WebKit example-navigation failure; targeted reproduction passed. Detailed release proof and limits are recorded in CURRENT_STATUS.
