@@ -1418,7 +1418,7 @@
     );
   }
   function diceMarkup() {
-    return `<div class="dice-atlas" data-phase="ready"><div id="dice-map" aria-label="Map of the discovery draw"></div><p class="dice-map-caption"></p><button type="button" class="dice-table" data-action="roll-table" aria-label="Roll the dice"><span class="dice-body"><span class="dice-cube" aria-hidden="true">${[1, 2, 3, 4, 5, 6].map((n) => `<div class="dice-face face-${n}">${Array.from({ length: 9 }, (_, i) => `<i class="${{ 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] }[n].includes(i) ? 'pip' : ''}"></i>`).join('')}</div>`).join('')}</span></span><span class="dice-shadow"></span><span class="dice-hint">Drag and fling · or tap to roll</span></button></div><p class="dice-map-note small muted"></p>`;
+    return `<div class="dice-atlas" data-phase="ready"><div id="dice-map" aria-label="Map of the discovery draw"></div><p class="dice-map-caption"></p><button type="button" class="dice-table" data-action="roll-table" aria-label="Roll the dice"><span class="dice-body"><span class="dice-cube" aria-hidden="true">${[1, 2, 3, 4, 5, 6].map((n) => `<div class="dice-face face-${n}">${Array.from({ length: 9 }, (_, i) => `<i class="${{ 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] }[n].includes(i) ? 'pip' : ''}"></i>`).join('')}</div>`).join('')}</span></span><span class="dice-shadow"></span><span class="dice-hint">Drag and fling · or tap to roll</span></button><div class="dice-empty" hidden role="status"></div></div><p class="dice-map-note small muted"></p>`;
   }
   function drawModal(mood = 'all') {
     openModal(
@@ -1487,6 +1487,7 @@
       area: q('area').value,
       mood: q('mood').value,
       minutes: +q('time').value,
+      arranged: q('arranged').checked,
       ...overrides,
     };
     return C.filter(
@@ -1495,7 +1496,7 @@
         (values.area === 'all' || a.area === values.area) &&
         (values.mood === 'all' || a.mood === values.mood) &&
         a.minutes <= values.minutes &&
-        (q('arranged').checked || !/[bod]/.test(a.flags)) &&
+        (values.arranged || !/[bod]/.test(a.flags)) &&
         (q('water').checked || !a.flags.includes('w')) &&
         (!a.start || (ui.day >= a.start && ui.day <= a.end)),
     );
@@ -1512,6 +1513,13 @@
     }
     const pool = dicePool();
     dialog.querySelector('.dice-table').disabled = !pool.length;
+    const empty = dialog.querySelector('.dice-empty');
+    const canInclude = !pool.length && dicePool({ arranged: true }).length;
+    empty.hidden = !!pool.length;
+    dialog.querySelector('.dice-table').hidden = !pool.length;
+    if (!pool.length)
+      empty.innerHTML = `<strong>No ideas match these filters.</strong><p>${canInclude ? 'Ideas here are excluded by your regional excursions / advance arrangements setting.' : 'Try another area, mood or time limit to make a shortlist.'}</p><div class="row wrap">${canInclude ? btn('Include these ideas and roll', 'dice-include-arranged', '', 'primary') : ''}${btn('Change filters', 'dice-change-filters', '', 'subtle')}</div>`;
+
     for (const b of dialog.querySelectorAll('[data-action=dice-area-quick]'))
       b.setAttribute(
         'aria-pressed',
@@ -2261,6 +2269,17 @@
         case 'roll-table':
           await drawDiscovery();
           break;
+        case 'dice-include-arranged':
+          if (dialog.querySelector('#dice-form').dataset.rolling) break;
+          dialog.querySelector('#dice-arranged').checked = true;
+          updateDiceCount(true);
+          await drawDiscovery();
+          break;
+        case 'dice-change-filters': {
+          const area = dialog.querySelector('#dice-area');
+          (area.parentElement.querySelector('.choice-trigger') || area).focus();
+          break;
+        }
         case 'dice-preferences': {
           const form = dialog.querySelector('#dice-form');
           if (form.dataset.rolling) break;

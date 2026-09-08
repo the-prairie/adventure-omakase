@@ -106,3 +106,36 @@ test('atlas dice fling, land, survive cancellation and work without map tiles', 
   await expect(page.locator('#dialog')).not.toHaveClass(/atlas-dialog/);
   expect(errors).toEqual([]);
 });
+
+test('Himeji empty shortlist explains the disabled die and offers an explicit recovery', async ({
+  page,
+  runtime,
+}, info) => {
+  await page.goto(runtime.url + '/example.html#demo/discover');
+  await page.locator('[data-action=dice]:visible').first().click();
+  await page.locator('#dice-region').selectOption('osaka');
+  await page.locator('#dice-area').selectOption('Hyogo: Himeji');
+  await expect(page.locator('.dice-table')).toBeDisabled();
+  await expect(page.locator('.dice-empty')).toBeVisible();
+  await expect(page.locator('.dice-empty')).toContainText(
+    'regional excursions',
+  );
+  await expect(page.locator('#dice-arranged')).not.toBeChecked();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('.dice-empty').scrollIntoViewIfNeeded();
+  await page.screenshot({ path: info.outputPath('himeji-empty-mobile.png') });
+  await page
+    .getByRole('button', { name: 'Include these ideas and roll' })
+    .click();
+  await expect(page.locator('#dice-result')).toContainText(
+    'Himeji almond-butter toast',
+  );
+  await expect(page.locator('.dice-empty')).toBeHidden();
+  await expect(page.locator('#dice-arranged')).toBeChecked();
+  await expect(page.locator('#dice-preferences')).toBeHidden();
+  await page.screenshot({ path: info.outputPath('himeji-result-mobile.png') });
+  await page.getByRole('button', { name: 'Roll again', exact: true }).click();
+  await expect(page.locator('#dice-result')).toContainText(
+    'Himeji almond-butter toast',
+  );
+});

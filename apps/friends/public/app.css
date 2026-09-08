@@ -5272,3 +5272,24 @@ input[type='file']::file-selector-button {
 .discovery-head.map-mode ~ .discovery-atlas {
   margin-top: 12px;
 }
+
+/* Empty shortlists explain the unavailable roll at the point of interaction. */
+.dice-empty {
+  position: absolute;
+  z-index: 403;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(440px, calc(100% - 32px));
+  padding: 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.dice-empty p {
+  margin: 8px 0 16px;
+}
+.dice-empty[hidden],
+.dice-table[hidden] {
+  display: none;
+}
