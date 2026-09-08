@@ -1,11 +1,10 @@
 # Repository Agent Guide
 
-Read, in order:
-
-1. `docs/exec-plans/active/cloudflare-friends-integration.md` for the current friends release, then `docs/product/adventure-omakase-v1.md`
-2. `docs/exec-plans/active/adventure-omakase-v1-build.md`
-3. `ARCHITECTURE.md`
-4. Applicable ADRs and nested `AGENTS.md` files
+Read `ARCHITECTURE.md`, applicable ADRs and nested `AGENTS.md` files.
+For friends release work, read `docs/exec-plans/active/cloudflare-friends-integration.md`.
+For broader product work, read the applicable sections of
+`docs/product/adventure-omakase-v1.md` and
+`docs/exec-plans/active/adventure-omakase-v1-build.md`.
 
 ## Agent skills
 
@@ -26,7 +25,7 @@ See `docs/agents/domain.md`.
 
 The complete product plan is present and authoritative. Never reintroduce a “missing plan” blocker.
 
-Select the highest-priority unblocked requirement in the active ledger and work through an integrated vertical slice. Keep status, acceptance, implementation evidence, observed test evidence and commit SHA current. A scaffold, type, table, route or mock does not complete a product requirement.
+For open-ended build requests, select the highest-priority unblocked requirement in the active ledger and work through an integrated vertical slice. For a scoped request, complete that request without selecting unrelated ledger work. Keep status, acceptance, implementation evidence, observed test evidence and commit SHA current. A scaffold, type, table, route or mock does not complete a product requirement.
 
 Preserve these executable boundaries:
 
