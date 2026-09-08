@@ -90,8 +90,7 @@ test('experience guides carry into invitations with inline maps and quick exact 
     'href',
     'https://saitama-supportdesk.com/experiences/post-24362/',
   );
-  await expect(page.locator('#dialog iframe')).toHaveCount(0);
-  await action(page, 'load-map').click();
+  await page.locator('#dialog .embedded-map').scrollIntoViewIfNeeded();
   await expect(page.locator('#dialog iframe')).toHaveAttribute(
     'src',
     /maps.google.com\/maps\?q=Metropolitan/,
@@ -130,12 +129,13 @@ test('experience guides carry into invitations with inline maps and quick exact 
   await expect(page.locator('.plan-view .experience-context')).toContainText(
     'vintage clothing',
   );
+  await page.getByText('About this outing & sources', { exact: true }).click();
   await expect(page.locator('.plan-view .experience-photo img')).toBeVisible();
   await expect(page.locator('.meeting-box')).toContainText('area only');
-  await action(page, 'load-map').click();
-  await expect.poll(() => queries.length).toBe(2);
-  expect(queries[1]).not.toContain('meet at location');
-  expect(queries[1]).toContain('Shimokitazawa');
+  await page.locator('.meeting-box iframe').scrollIntoViewIfNeeded();
+  await expect.poll(() => queries.length).toBeGreaterThanOrEqual(2);
+  expect(queries.at(-1)).not.toContain('meet at location');
+  expect(queries.at(-1)).toContain('Shimokitazawa');
   const manage = page.locator('.plan-management');
   await manage.scrollIntoViewIfNeeded();
   for (const name of ['plan-complete', 'plan-cancel']) {

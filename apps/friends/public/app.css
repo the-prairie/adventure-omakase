@@ -4765,3 +4765,141 @@ input[type='file']::file-selector-button {
     justify-content: flex-start;
   }
 }
+
+/* Decision-first discovery: reveal, journey, then the next roll. */
+.dice-table {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink);
+}
+.dice-hint {
+  position: absolute;
+  bottom: 10px;
+  font-size: 12px;
+}
+.dice-table:active .dice-cube {
+  scale: 0.94;
+}
+.dice-table:disabled {
+  cursor: wait;
+}
+#dice-result:not(:empty) {
+  margin: 24px 0 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 96px;
+}
+#dice-result .discovery {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+#dice-result > h3 {
+  font-size: 32px;
+}
+#dice-result .experience-photo img {
+  max-height: 300px;
+}
+#dice-result .card-actions {
+  margin-top: 24px;
+}
+.journey-context {
+  margin: 24px 0;
+}
+.journey-context strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.journey-context p {
+  margin: 8px 0 12px;
+}
+.outing-scale {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.discovery-start {
+  margin: 20px 0;
+  max-width: 640px;
+}
+.discovery-start > label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.discovery-start > .choice {
+  width: 100%;
+}
+.discovery-start > p {
+  margin-top: 10px;
+}
+#dice-area-shortcuts {
+  margin: -4px 0 24px;
+}
+#dice-area-shortcuts [aria-pressed='true'] {
+  background: var(--lightgreen);
+}
+.experience-context > .lede {
+  margin-top: 16px;
+}
+.plan-view > .plan-description {
+  max-width: 65ch;
+}
+@media (max-width: 600px) {
+  #dice-result .map-canvas iframe {
+    height: 240px;
+  }
+  #dice-result .card-actions {
+    display: grid;
+  }
+}
+.dice-pick > h3 {
+  font-size: 32px;
+  margin: 0 0 12px;
+}
+.dice-visuals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+  margin-top: 20px;
+}
+.dice-visuals > :only-child {
+  grid-column: 1 / -1;
+}
+.dice-visuals .embedded-map {
+  margin: 0;
+}
+.dice-visuals .map-intro {
+  display: none;
+}
+.dice-visuals .map-canvas {
+  margin-top: 0;
+}
+#dice-result .dice-visuals .experience-photo {
+  margin: 0;
+}
+#dice-result .dice-visuals img,
+#dice-result .dice-visuals iframe {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+@media (max-width: 600px) {
+  .dice-visuals {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  #dice-result .dice-visuals img {
+    height: 170px;
+  }
+  #dice-result .dice-visuals iframe {
+    height: 200px;
+  }
+  .dice-pick > h3 {
+    font-size: 28px;
+  }
+}

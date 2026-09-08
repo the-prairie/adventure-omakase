@@ -2146,6 +2146,15 @@ window.OMAKASE = {
     },
     {
       id: 'osaka-011',
+      photo: {
+        path: '/assets/discovery/photos/osaka-011.webp',
+        caption: 'Dojima River, Nakanoshima area · 2014',
+        author: 'Oilstreet',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Dojima_River_Nakanoshima_Osaka_Japan02-r.jpg',
+        license: 'CC BY 2.5',
+        licenseUrl: 'https://creativecommons.org/licenses/by/2.5/',
+      },
       n: 11,
       region: 'osaka',
       title: 'Nakanoshima to Kitahama walk',
@@ -2159,7 +2168,7 @@ window.OMAKASE = {
       indoor: false,
       cluster: 'Kansai',
       locationKind: 'Place / area',
-      mapQuery: 'Nakanoshima to Kitahama walk Nakanoshima & Kitahama Japan',
+      mapQuery: 'Nakanoshima Kitahama Osaka Japan',
       practical:
         'Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.',
     },

@@ -44,3 +44,7 @@ Nine expanded guides were read on September 7, 2026. The prose is a short paraph
 - tokyo-007: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/spot/157/index.html)
 - tokyo-009: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/new-and-now/new-and-trending/230227/topics.html)
 - tokyo-029: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/destinations/western-tokyo/shimokitazawa/index.html)
+
+## Nakanoshima area photograph
+
+`photos/osaka-011.webp`: [Dojima River Nakanoshima Osaka Japan02-r.jpg](https://commons.wikimedia.org/wiki/File:Dojima_River_Nakanoshima_Osaka_Japan02-r.jpg), Oilstreet, 22 December 2014, [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/). Resized to 960px and converted to WebP; responsive display crops may apply. Depicts the Nakanoshima area, not an exact meeting point or current appearance.

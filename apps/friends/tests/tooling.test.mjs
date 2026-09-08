@@ -258,8 +258,8 @@ test('catalogue photographs retain unique local files, credits and source-linked
   const catalogue = sandbox.window.OMAKASE.catalogue;
   assert.equal(catalogue.length, 300);
   const illustrated = catalogue.filter((entry) => entry.photo);
-  assert.equal(illustrated.length, 24);
-  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 24);
+  assert.equal(illustrated.length, 25);
+  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 25);
   for (const { photo } of illustrated) {
     assert.match(photo.path, /^\/assets\/discovery\/photos\/[a-z0-9-]+\.webp$/);
     assert.ok((await readFile(join(ROOT, 'public', photo.path))).length > 1000);

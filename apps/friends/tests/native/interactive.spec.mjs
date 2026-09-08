@@ -119,10 +119,15 @@ test('visual discoveries roll real dice, recover empty filters and reshuffle an 
   await action(page, 'dice').click();
   await expect(page.locator('.dice-face')).toHaveCount(6);
   await page.locator('#dice-region').selectOption('tokyo');
+  const areaShortcut = page.locator('[data-action=dice-area-quick]').first();
+  const shortcutArea = await areaShortcut.getAttribute('data-id');
+  await areaShortcut.click();
+  await expect(page.locator('#dice-area')).toHaveValue(shortcutArea);
   await page.locator('#dice-area').selectOption('Yanaka & Nezu');
   await page.locator('#dice-mood').selectOption('Food');
   await expect(page.locator('#dice-form [type=submit]')).toBeEnabled();
-  await page.locator('#dice-form [type=submit]').click();
+  await page.locator('[data-action=roll-table]').focus();
+  await page.keyboard.press('Enter');
   await expect(page.locator('#dice-form')).toHaveAttribute(
     'data-rolling',
     'true',
@@ -130,6 +135,25 @@ test('visual discoveries roll real dice, recover empty filters and reshuffle an 
   await page.screenshot({ path: info.outputPath('dice-rolling.png') });
   await expect(page.locator('#dice-result .discovery')).toBeVisible();
   await expect(page.locator('#dice-form')).not.toHaveAttribute('data-rolling');
+  await expect(page.locator('#dice-result')).toBeFocused();
+  const titleBounds = await page
+    .locator('#dice-result .discovery > h3')
+    .boundingBox();
+  const headerBounds = await page.locator('.dialog-top').boundingBox();
+  expect(titleBounds.y).toBeGreaterThanOrEqual(
+    headerBounds.y + headerBounds.height,
+  );
+  await expect(page.locator('#dice-result iframe')).toHaveAttribute(
+    'src',
+    /maps.google.com/,
+  );
+  await expect(page.locator('#dice-result .journey-context')).toContainText(
+    'plus travel',
+  );
+  await expect(page.locator('#dice-result .journey-context a')).toHaveAttribute(
+    'href',
+    /maps\/dir/,
+  );
   await page.locator('#dice-form [type=submit]').click();
   await expect(page.locator('#dice-result .discovery')).toBeVisible();
   await expect(page.locator('#dice-result')).toContainText('Fresh round');

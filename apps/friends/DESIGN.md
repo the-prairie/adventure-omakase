@@ -138,4 +138,10 @@ Discovery previews use the labelled eight-theme illustration atlas under `public
 
 Discover puts mood entrances and the Saved shelf before catalogue results. Saving is a private shortlist action with visible feedback and a direct destination. Genuine, attributed location photographs replace the repeated mood atlas; entries without verified images stay text-led. Photo dates and linked credit/license remain visible. Source-derived experience prose carries into invitations while host-authored notes stay distinct.
 
-Maps load inline on explicit request, describe a search rather than a verified pin, and offer a normal external Maps link. Vague host text produces an area view. A friendly trip-day picker leads date entry; native exact date entry sits inside it. Start presets and duration buttons populate editable native time fields, with Japan time explicit and no silent next-day rollover. Host completion/cancellation use normal padded controls and stack on narrow screens. Palette changes await the user's inspiration images.
+Maps load inline automatically near the viewport, describe a search rather than a verified pin, and offer a normal external Maps link. Vague host text produces an area view. A friendly trip-day picker leads date entry; native exact date entry sits inside it. Start presets and duration buttons populate editable native time fields, with Japan time explicit and no silent next-day rollover. Host completion/cancellation use normal padded controls and stack on narrow screens. Palette changes await the user's inspiration images.
+
+## Decision-first discovery refinement
+
+Dice can be rolled directly with touch or keyboard. Its result appears before the controls and receives focus, with a credited photograph where available, travel scale, map and next action. Area shortcuts supplement the searchable keyboard-friendly chooser. Discover exposes its area selector before advanced filters; area matches do not imply walking distance.
+
+Maps load automatically near the viewport. Short summaries lead; longer guides, practical notes and research status use disclosure. Invitations lead with time, host, cost, booking and joining; photographs and source detail sit under About this outing. Water, separate-stay and booking warnings stay visible. Journey links ask for a starting point in Google Maps; no travel duration is fabricated.
