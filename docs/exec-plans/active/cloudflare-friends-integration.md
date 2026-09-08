@@ -126,3 +126,5 @@ Implementation `187bd9c` is live and exact-verified on preview. Actual Google re
 ## September 8: unavailable dice recovery
 
 The reported faded Himeji die is an empty shortlist caused by the default regional-excursion exclusion. Explain the reason on the atlas and offer explicit recovery there, preserving all other filters and existing draw behavior. Local regression and interaction suites passed 8/8 across Chromium/WebKit; pnpm check passed. Release identity and live proof are recorded in CURRENT_STATUS.
+
+Implemented and exact-verified on preview at `a1dfa39`. Hosted Himeji recovery and re-roll passed; deployment passed all 50 browser cases. A separate CI run recorded one external Google iframe error, detailed in CURRENT_STATUS.
