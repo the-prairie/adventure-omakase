@@ -48,3 +48,11 @@ Nine expanded guides were read on September 7, 2026. The prose is a short paraph
 ## Nakanoshima area photograph
 
 `photos/osaka-011.webp`: [Dojima River Nakanoshima Osaka Japan02-r.jpg](https://commons.wikimedia.org/wiki/File:Dojima_River_Nakanoshima_Osaka_Japan02-r.jpg), Oilstreet, 22 December 2014, [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/). Resized to 960px and converted to WebP; responsive display crops may apply. Depicts the Nakanoshima area, not an exact meeting point or current appearance.
+
+## September 8 context additions
+
+- `assets/discovery/photos/karahori-arcade.webp`: [File:Osaka Karahori 20110626.jpg](https://commons.wikimedia.org/wiki/File:Osaka_Karahori_20110626.jpg), Kyoww, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). Karahori shopping arcade · 2011. Resized to 960px and converted to WebP; display crops may apply.
+- `assets/discovery/photos/dozeu-meal.webp`: [File:Dozeu nabe.jpg](https://commons.wikimedia.org/wiki/File:Dozeu_nabe.jpg), Tadashi Okoshi, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0). Loach hot pot at Komagata Dozeu · 2008. Resized to 960px and converted to WebP; display crops may apply.
+- `assets/discovery/photos/dozeu-exterior.webp`: [File:Komagata Dozeu -01.jpg](https://commons.wikimedia.org/wiki/File:Komagata_Dozeu_-01.jpg), Aimaimyi, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). Komagata Dozeu exterior · 2011. Resized to 960px and converted to WebP; display crops may apply.
+
+Karahori and Kyu Yamutei expanded descriptions cite the linked Osaka tourism and Good Luck Trip pages in data.js. Two checked menu links distinguish official menu from historical diner photos. No current opening, menu, availability or booking claim is made.

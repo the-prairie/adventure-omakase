@@ -129,7 +129,9 @@ test('experience guides carry into invitations with inline maps and quick exact 
   await expect(page.locator('.plan-view .experience-context')).toContainText(
     'vintage clothing',
   );
-  await page.getByText('About this outing & sources', { exact: true }).click();
+  await expect(
+    page.getByRole('heading', { name: 'What the outing is' }),
+  ).toBeVisible();
   await expect(page.locator('.plan-view .experience-photo img')).toBeVisible();
   await expect(page.locator('.meeting-box')).toContainText('area only');
   await page.locator('.meeting-box iframe').scrollIntoViewIfNeeded();

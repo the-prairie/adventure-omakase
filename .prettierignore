@@ -12,3 +12,5 @@ apps/friends/build
 apps/friends/.wrangler
 apps/friends/evidence
 apps/friends/reference/legacy-fieldbook.html
+
+apps/friends/public/vendor

@@ -145,3 +145,9 @@ Maps load inline automatically near the viewport, describe a search rather than 
 Dice can be rolled directly with touch or keyboard. Its result appears before the controls and receives focus, with a credited photograph where available, travel scale, map and next action. Area shortcuts supplement the searchable keyboard-friendly chooser. Discover exposes its area selector before advanced filters; area matches do not imply walking distance.
 
 Maps load automatically near the viewport. Short summaries lead; longer guides, practical notes and research status use disclosure. Invitations lead with time, host, cost, booking and joining; photographs and source detail sit under About this outing. Water, separate-stay and booking warnings stay visible. Journey links ask for a starting point in Google Maps; no travel duration is fabricated.
+
+## Geographic discovery and readable experiences
+
+The geographic index connects the regional scale of Japan to catalogue neighbourhoods, with clustered labels, click-to-filter areas and a keyboard area chooser. Forest labels sit on a real base map; selected areas use the existing rust accent. Broad anchors and unlocated entries are explicit. Map tiles load lazily and attribution remains visible.
+
+Descriptions, practical notes, research status and host notes now use ordinary reading sections instead of nested disclosures. The title precedes the photographs; a two-photo mobile gallery preserves room for the explanation. Historical image dates and licenses remain visible. The Karahori curry suggestion is an optional meal, not the host's selection. The ambitious dice direction remains pending the user's choice from the proposed directions.

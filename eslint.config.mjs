@@ -22,6 +22,7 @@ export default tseslint.config(
       '**/.turbo/**',
       '**/dist/**',
       'apps/friends/build/**',
+      'apps/friends/public/vendor/**',
       'apps/friends/evidence/**',
       '**/.wrangler/**',
       '**/.deploy/**',

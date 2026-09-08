@@ -258,9 +258,12 @@ test('catalogue photographs retain unique local files, credits and source-linked
   const catalogue = sandbox.window.OMAKASE.catalogue;
   assert.equal(catalogue.length, 300);
   const illustrated = catalogue.filter((entry) => entry.photo);
-  assert.equal(illustrated.length, 25);
-  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 25);
-  for (const { photo } of illustrated) {
+  assert.equal(illustrated.length, 27);
+  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 27);
+  for (const photo of illustrated.flatMap((entry) => [
+    entry.photo,
+    ...(entry.photos || []),
+  ])) {
     assert.match(photo.path, /^\/assets\/discovery\/photos\/[a-z0-9-]+\.webp$/);
     assert.ok((await readFile(join(ROOT, 'public', photo.path))).length > 1000);
     assert.match(
@@ -273,11 +276,52 @@ test('catalogue photographs retain unique local files, credits and source-linked
   for (const { experience } of catalogue.filter((entry) => entry.experience)) {
     assert.match(
       experience.source,
-      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com)\//,
+      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com)\//,
     );
-    assert.equal(experience.readAt, '2026-09-07');
+    assert.match(experience.readAt, /^2026-09-0[78]$/);
     assert.ok(
       experience.summary && experience.planning && experience.highlights.length,
     );
   }
+});
+
+test('area references preserve provenance, geographic bounds and unlocated entries', async () => {
+  const { runInNewContext } = await import('node:vm');
+  const sandbox = { window: {} };
+  for (const file of ['data.js', 'area-data.js'])
+    runInNewContext(
+      await readFile(join(ROOT, 'public', file), 'utf8'),
+      sandbox,
+    );
+  const { catalogue, areas } = sandbox.window.OMAKASE;
+  assert.equal(areas.length, 144);
+  assert.equal(
+    new Set(areas.map((p) => p.region + '/' + p.area)).size,
+    areas.length,
+  );
+  for (const point of areas) {
+    assert.ok(
+      point.lat >= 24 &&
+        point.lat <= 37 &&
+        point.lng >= 122 &&
+        point.lng <= 141,
+    );
+    assert.match(point.source, /^https:\/\/(en|ja)\.wikipedia\.org\/wiki\//);
+    assert.equal(point.precision, 'area anchor');
+    assert.ok(
+      catalogue.some((a) => a.area === point.area && a.region === point.region),
+    );
+  }
+  assert.equal(
+    catalogue.filter((a) =>
+      areas.some((p) => p.region === a.region && p.area === a.area),
+    ).length,
+    276,
+  );
+  assert.ok(
+    !areas.some(
+      (p) => p.area === 'Ibakita' || p.area.includes('arrange location'),
+    ),
+  );
+  assert.ok(areas.find((p) => p.area === 'Namba').lng < 135.52);
 });

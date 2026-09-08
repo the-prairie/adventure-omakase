@@ -6305,3 +6305,112 @@ window.OMAKASE = {
     if (entry) Object.assign(entry, detail);
   }
 }
+
+// Source-backed context read 2026-09-08; menus are references, not bookings.
+{
+  const additions = {
+    'osaka-013': {
+      experience: {
+        summary:
+          'Karahori is an old shopping neighbourhood in central Osaka. The outing is a self-guided wander through a covered shopping street and the smaller lanes around it, where everyday shops sit alongside cafés and businesses in renovated wooden houses.',
+        highlights: [
+          'Follow the shopping arcade across the neighbourhood, then turn into the side streets to see the older row houses.',
+          'Pause for a café or food stop that appeals to you; this is a neighbourhood walk, not a ticketed attraction or a fixed restaurant reservation.',
+        ],
+        planning:
+          'The arcade runs roughly 800 metres between Matsuyamachi-suji and Kamimachi-suji. The official Osaka guide suggests Matsuyamachi or Tanimachi 6-chome stations. Shops keep their own hours, and there are slopes along the way.',
+        source: 'https://osaka-info.jp/en/spot/karahori-shopping-street/',
+        sourceLabel: 'Osaka official tourism guide',
+        readAt: '2026-09-08',
+      },
+      relatedMeals: ['osaka-042'],
+    },
+    'osaka-042': {
+      experience: {
+        summary:
+          'Kyuyamutei’s Karahori restaurant serves Osaka-style spice curry in an old wooden house. Expect a plate built around changing keema and other curries, rice and vegetable accompaniments, rather than a single fixed Japanese curry recipe.',
+        highlights: [
+          'The changing curry combinations are the main reason to come; the menu photos give a sense of the format.',
+          'The old-house setting makes this a possible lunch stop while exploring Karahori.',
+        ],
+        planning:
+          'Confirm the current menu, opening and queue arrangements with this branch. The menu-photo link is contributed by diners and can show older prices or dishes. Dietary suitability needs a direct check.',
+        source: 'https://www.gltjp.com/ja/directory/item/12074/',
+        sourceLabel: 'Good Luck Trip · restaurant profile',
+        readAt: '2026-09-08',
+      },
+      menu: {
+        url: 'https://tabelog.com/osaka/A2701/A270204/27060944/dtlmenu/photo/',
+        label: 'See Karahori menu photos',
+        note: 'Diner-uploaded photos on Tabelog, including older menus. Dishes and prices may have changed; confirm the day’s menu at the restaurant.',
+        checkedAt: '2026-09-08',
+      },
+    },
+    'tokyo-051': {
+      experience: {
+        summary:
+          'This is a sit-down meal centred on loach, a small freshwater fish. Komagata Dozeu’s menu includes loach hot pots and soup, with rice and pickles available alongside them. The dish photograph shows the kind of hot pot to expect.',
+        highlights: [
+          'Choose a hot pot on its own or a set meal; the listed sets include rice, soup, pickles and dengaku.',
+          'Open the restaurant’s menu before deciding whether this particular food appeals to everyone joining.',
+        ],
+        planning:
+          'The official menu is in Japanese and includes several preparations. Ask the restaurant about ingredients, dietary needs and current availability before ordering.',
+        source: 'https://dozeu.com/food/',
+        sourceLabel: 'Komagata Dozeu · official food menu',
+        readAt: '2026-09-08',
+      },
+      menu: {
+        url: 'https://dozeu.com/food/',
+        label: 'Open Komagata Dozeu’s food menu',
+        note: 'The restaurant’s own menu, in Japanese. Check current prices and availability with the restaurant.',
+        checkedAt: '2026-09-08',
+      },
+    },
+  };
+  for (const [id, detail] of Object.entries(additions)) {
+    const entry = window.OMAKASE.catalogue.find((item) => item.id === id);
+    if (entry) Object.assign(entry, detail);
+  }
+}
+
+{
+  const photos = {
+    'osaka-013': {
+      photo: {
+        path: '/assets/discovery/photos/karahori-arcade.webp',
+        caption: 'Karahori shopping arcade · 2011',
+        author: 'Kyoww',
+        license: 'CC BY-SA 3.0',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Osaka_Karahori_20110626.jpg',
+      },
+    },
+    'tokyo-051': {
+      photos: [
+        {
+          path: '/assets/discovery/photos/dozeu-meal.webp',
+          caption: 'Loach hot pot at Komagata Dozeu · 2008',
+          author: 'Tadashi Okoshi',
+          license: 'CC BY 2.0',
+          licenseUrl: 'https://creativecommons.org/licenses/by/2.0',
+          source: 'https://commons.wikimedia.org/wiki/File:Dozeu_nabe.jpg',
+        },
+      ],
+      photo: {
+        path: '/assets/discovery/photos/dozeu-exterior.webp',
+        caption: 'Komagata Dozeu exterior · 2011',
+        author: 'Aimaimyi',
+        license: 'CC BY-SA 3.0',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+        source:
+          'https://commons.wikimedia.org/wiki/File:Komagata_Dozeu_-01.jpg',
+      },
+    },
+  };
+  for (const [id, detail] of Object.entries(photos)) {
+    const entry = window.OMAKASE.catalogue.find((item) => item.id === id);
+    if (entry) Object.assign(entry, detail);
+  }
+}

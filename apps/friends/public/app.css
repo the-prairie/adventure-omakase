@@ -4903,3 +4903,131 @@ input[type='file']::file-selector-button {
     font-size: 28px;
   }
 }
+
+/* A geographic index, with the same reading surface as the fieldbook. */
+.discovery-atlas {
+  margin: 28px 0 0;
+}
+.map-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+.map-heading h2 {
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  margin: 0 0 8px;
+}
+.map-heading p {
+  max-width: 65ch;
+  margin: 0;
+}
+.map-heading > span {
+  max-width: 22ch;
+  flex-shrink: 0;
+}
+#area-map {
+  height: 430px;
+  border-radius: 12px;
+  background: #e5e9df;
+  z-index: 0;
+}
+#area-map .leaflet-control-attribution {
+  font: 11px/1.5 var(--sans);
+  background: #fff;
+  color: #20352e;
+}
+#area-map .leaflet-control-attribution a {
+  color: #214e45;
+}
+.area-map-marker {
+  border: 0;
+  background: none;
+}
+.area-marker-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: #234b40;
+  color: #fffdf4;
+  font: 600 12px/1.25 var(--sans);
+  text-align: center;
+  box-shadow: 0 4px 12px #213b322e;
+}
+.area-map-marker.selected .area-marker-label {
+  background: #953f2d;
+}
+.area-map-marker:focus-visible {
+  outline: 3px solid #953f2d;
+  outline-offset: 4px;
+}
+#map-selection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  padding: 18px 0 8px;
+}
+#map-selection a {
+  font-size: 12px;
+}
+#map-selection span {
+  font-size: 14px;
+}
+.experience-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 22px 0;
+}
+.experience-gallery .experience-photo {
+  margin: 0;
+}
+.experience-gallery .experience-photo img {
+  height: 220px;
+}
+.experience-context {
+  max-width: 70ch;
+}
+.experience-context ul {
+  padding-left: 22px;
+}
+.experience-context li {
+  margin: 10px 0;
+}
+.experience-menu,
+.related-meals,
+.experience-practical {
+  margin: 24px 0;
+}
+.outing-context {
+  margin: 32px 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.outing-context h3 {
+  margin: 24px 0 12px;
+}
+@media (max-width: 600px) {
+  .map-heading {
+    display: block;
+  }
+  .map-heading > span {
+    display: block;
+    max-width: none;
+    margin-top: 12px;
+  }
+  #area-map {
+    height: 360px;
+  }
+  .experience-gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+  .experience-gallery .experience-photo img {
+    height: 140px;
+  }
+}
