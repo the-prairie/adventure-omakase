@@ -79,10 +79,15 @@ test('atlas dice fling, land, survive cancellation and work without map tiles', 
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.locator('#dice-form [type=submit]').click();
   await page.locator('[data-action=close]:visible').click();
-  await page.route('https://tile.openstreetmap.org/**', (route) =>
-    route.abort(),
-  );
+  let failedTiles = 0;
+  await page.route('https://tile.openstreetmap.org/**', (route) => {
+    failedTiles++;
+    return route.abort();
+  });
   await open();
+  // Use an unvisited area: a reopened map may reuse decoded image tiles.
+  await page.locator('#dice-region').selectOption('okinawa');
+  await expect.poll(() => failedTiles).toBeGreaterThan(0);
   await expect(page.locator('.dice-map-note')).toContainText(
     'Map tiles unavailable',
   );
