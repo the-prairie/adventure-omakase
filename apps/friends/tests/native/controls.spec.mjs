@@ -54,6 +54,7 @@ test('choice controls preserve forms, keyboard navigation and dialog boundaries'
   await expect(page.locator('#dialog')).toBeVisible();
 
   await trigger('dice-time').click();
+  await expect(trigger('dice-time')).toHaveAttribute('aria-expanded', 'true');
   await page
     .getByRole('option', { name: 'Up to 90 minutes', exact: true })
     .click();

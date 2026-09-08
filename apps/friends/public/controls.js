@@ -95,7 +95,15 @@
         const item = list.children[active];
         if (item) {
           trigger.setAttribute('aria-activedescendant', item.id);
-          item.scrollIntoView({ block: 'nearest' });
+          // Keep keyboard highlighting within the popup. scrollIntoView also
+          // scrolls the containing dialog, which dismisses the new popup.
+          if (item.offsetTop < list.scrollTop) list.scrollTop = item.offsetTop;
+          else if (
+            item.offsetTop + item.offsetHeight >
+            list.scrollTop + list.clientHeight
+          )
+            list.scrollTop =
+              item.offsetTop + item.offsetHeight - list.clientHeight;
         } else trigger.removeAttribute('aria-activedescendant');
       }
       function position() {
@@ -139,7 +147,7 @@
         select.dispatchEvent(new Event('input', { bubbles: true }));
         select.dispatchEvent(new Event('change', { bubbles: true }));
       }
-      const widget = { sync, close, wrap, list, position };
+      const widget = { sync, close, wrap, list, position, trigger };
       widgets.set(select, widget);
       trigger.addEventListener('click', () =>
         list.matches(':popover-open') ? close() : open(),
@@ -251,8 +259,14 @@
   document.addEventListener(
     'scroll',
     (event) => {
-      if (openWidget && !openWidget.list.contains(event.target))
-        openWidget.close();
+      if (openWidget && !openWidget.list.contains(event.target)) {
+        // A trigger can scroll into view immediately before its click opens
+        // the menu. Follow the anchor instead of dismissing that fresh menu.
+        const rect = openWidget.trigger.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight)
+          openWidget.close();
+        else openWidget.position();
+      }
     },
     true,
   );

@@ -4784,6 +4784,175 @@ input[type='file']::file-selector-button {
 .dice-table:disabled {
   cursor: wait;
 }
+/* The atlas is the stage; the die is the only draggable object. */
+.dice-atlas {
+  scroll-margin-top: 80px;
+}
+.atlas-dialog {
+  max-width: 1000px;
+}
+.dice-atlas {
+  position: relative;
+  height: clamp(300px, 48vh, 470px);
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--lightgreen);
+  isolation: isolate;
+}
+#dice-map {
+  position: absolute;
+  inset: 0;
+  background: #e0e6d9;
+}
+.dice-map-caption {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  right: 18px;
+  z-index: 401;
+  margin: 0;
+  padding: 10px 14px;
+  width: fit-content;
+  max-width: calc(100% - 36px);
+  background: var(--paper, #f8f5ee);
+  color: var(--ink);
+  font-size: 15px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+.dice-atlas .dice-table {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 126px;
+  height: 130px;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  overflow: visible;
+  margin: 0;
+  z-index: 402;
+  touch-action: none;
+  cursor: grab;
+}
+.dice-atlas .dice-table.grabbing {
+  cursor: grabbing;
+}
+.dice-atlas .dice-table:disabled {
+  cursor: default;
+}
+.dice-body {
+  display: block;
+  position: absolute;
+  left: 32px;
+  top: 20px;
+  width: 62px;
+  height: 62px;
+  perspective: 700px;
+}
+.dice-atlas .dice-cube {
+  display: block;
+}
+.dice-atlas .dice-face {
+  background: linear-gradient(135deg, #fff9e9, #e4d5b6);
+  box-shadow: inset 0 2px 4px #fff8;
+}
+.dice-atlas .pip {
+  background: #253d32;
+  box-shadow: inset 0 2px 2px #15251d;
+}
+.dice-atlas .dice-shadow {
+  top: 90px;
+  left: 28px;
+  bottom: auto;
+  background: #263a2d;
+  filter: blur(7px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+.dice-atlas .dice-hint {
+  top: 135px;
+  bottom: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  padding: 8px 12px;
+  background: #f8f5ee;
+  border-radius: 8px;
+  font-size: 13px;
+  pointer-events: none;
+}
+.dice-atlas[data-phase='rolling'] .dice-hint,
+.dice-atlas[data-phase='travelling'] .dice-hint,
+.dice-atlas.has-landed .dice-table {
+  opacity: 0;
+  pointer-events: none;
+}
+.dice-atlas[data-phase='rolling'] .dice-table {
+  opacity: 1;
+}
+.dice-atlas.has-landed .dice-table {
+  visibility: hidden;
+}
+.dice-atlas .leaflet-control-attribution {
+  font-size: 10px;
+}
+.dice-atlas.has-landed .leaflet-bottom {
+  bottom: 56px;
+}
+.atlas-dialog .dice-visuals:empty {
+  display: none;
+}
+.dice-map-note:empty {
+  display: none;
+}
+.atlas-dialog #dice-result:not(:empty) {
+  position: relative;
+  margin: -48px 24px 28px;
+  padding: 24px;
+  z-index: 403;
+  background: #f8f5ee;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px #263a2d24;
+  scroll-margin-top: 90px;
+}
+.atlas-dialog .dice-visuals {
+  display: block;
+}
+.atlas-dialog #dice-result .experience-photo img {
+  max-height: 250px;
+  object-fit: cover;
+}
+.atlas-dialog #dice-result .dice-pick h3 {
+  font-size: clamp(26px, 4vw, 38px);
+}
+.atlas-dialog #dice-result:not(:empty) {
+  animation: atlas-reveal 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes atlas-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 600px) {
+  .atlas-dialog #dice-result:not(:empty) {
+    margin: -28px 8px 24px;
+    padding: 18px;
+  }
+  .dice-map-caption {
+    font-size: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-dialog #dice-result:not(:empty) {
+    animation: none;
+  }
+}
 #dice-result:not(:empty) {
   margin: 24px 0 36px;
   padding-bottom: 28px;

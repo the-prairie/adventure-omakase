@@ -26,6 +26,7 @@ export async function buildAssets(release) {
     'app.js',
     'area-data.js',
     'discovery-map.js',
+    'dice-atlas.js',
     'controls.js',
     'bookings.js',
     'ask.js',

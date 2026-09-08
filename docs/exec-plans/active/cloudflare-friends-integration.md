@@ -2,6 +2,8 @@
 
 Status: In progress. Baseline: `20adc46`, clean main checkout, origin `https://github.com/the-prairie/adventure-omakase.git`.
 
+September 7 atlas dice amendment: the user selected atlas adventure with tactile drag/fling physics after reviewing two visual concepts. The implementation preserves catalogue eligibility, draws without replacement and empty-shortlist recovery, while adding area camera travel, an overlapping result card, keyboard/reduced-motion alternatives and cancellation. Verification and release identity are recorded in CURRENT_STATUS; physical-device performance remains separate from browser emulation.
+
 The September 6 user assignment supersedes the native-first release scope for this friends edition. The earlier blueprint remains historical context, not a missing-plan blocker.
 
 ## Reconciliation decisions

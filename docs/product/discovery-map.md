@@ -13,3 +13,11 @@ Leaflet 1.9.4 is vendored from its official distribution, under its included BSD
 - [OpenStreetMap tile policy](https://operations.osmfoundation.org/policies/tiles/)
 
 Experience descriptions, practical information, source status and host notes are visible without nested disclosure. Karahori and its optional curry stop have expanded context; Komagata Dozeu explains the meal and links the official menu. The curry link explicitly identifies historical diner-uploaded menu photos. Restaurant selection and bookings are never inferred from an optional food link. Three additional licensed photos cover the Karahori arcade and Dozeu exterior/dish, bringing coverage to 27 entries and 28 images; the remaining entries stay text-led. Image provenance is under `apps/friends/public/assets/discovery/README.md`.
+
+## Atlas dice
+
+The selected interaction combines the atlas concept with tactile dice physics. The draw opens a map stage; dragging and releasing the die supplies bounded velocity to a short gravity, friction and rebound simulation. Tapping, keyboard activation and the form button use the same draw. The existing catalogue filter and unbiased random selection remain authoritative; gesture strength never changes eligibility or odds.
+
+After the die settles, the map flies from the chosen area's wider surroundings to its area reference, then reveals the discovery card. The marker explicitly identifies an approximate area, not a venue entrance. Unlocated ideas receive no fabricated marker; failed tiles leave drawing and detail actions usable. Actual venue search and directions remain in the discovery detail and journey link. No new provider key, geolocation, audio, backend event or canonical plan is introduced.
+
+`dice-atlas.js` owns presentation and cancellation. Closing or replacing the dialog disposes animation frames, event listeners and the Leaflet instance. Reduced-motion mode skips the physical roll, camera flight and card animation. Map tiles use the same attribution, referrer and no-prefetch policy as discovery geography. Browser-emulated touch layouts do not establish performance on physical phones.

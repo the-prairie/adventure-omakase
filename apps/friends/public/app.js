@@ -1056,7 +1056,10 @@
           )
     }`;
   }
+  let diceAtlas;
   function openModal(title, html, type = 'generic', id = '', wide = false) {
+    window.OmakaseDice?.destroy();
+    diceAtlas = null;
     lastFocus = document.activeElement;
     modal = { type, id, revision: S?.plans.find((p) => p.id === id)?.revision };
     dialog.className = wide ? 'wide' : '';
@@ -1079,6 +1082,8 @@
     true,
   );
   function closeModal() {
+    window.OmakaseDice?.destroy();
+    diceAtlas = null;
     if (dialog.open) dialog.close();
     dialog.innerHTML = '';
     modal = null;
@@ -1387,7 +1392,7 @@
     );
   }
   function diceMarkup() {
-    return `<button type="button" class="dice-table" data-action="roll-table" aria-label="Roll the dice"><div class="dice-cube" aria-hidden="true">${[1, 2, 3, 4, 5, 6].map((n) => `<div class="dice-face face-${n}">${Array.from({ length: 9 }, (_, i) => `<i class="${{ 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] }[n].includes(i) ? 'pip' : ''}"></i>`).join('')}</div>`).join('')}</div><span class="dice-shadow"></span><span class="dice-hint">Tap to let chance choose</span></button>`;
+    return `<div class="dice-atlas" data-phase="ready"><div id="dice-map" aria-label="Map of the discovery draw"></div><p class="dice-map-caption"></p><button type="button" class="dice-table" data-action="roll-table" aria-label="Roll the dice"><span class="dice-body"><span class="dice-cube" aria-hidden="true">${[1, 2, 3, 4, 5, 6].map((n) => `<div class="dice-face face-${n}">${Array.from({ length: 9 }, (_, i) => `<i class="${{ 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] }[n].includes(i) ? 'pip' : ''}"></i>`).join('')}</div>`).join('')}</span></span><span class="dice-shadow"></span><span class="dice-hint">Drag and fling · or tap to roll</span></button></div><p class="dice-map-note small muted"></p>`;
   }
   function drawModal(mood = 'all') {
     openModal(
@@ -1410,7 +1415,11 @@
           '',
         )}</select></div><div class="field"><label for="dice-time">Time on site</label><select id="dice-time"><option value="90">Up to 90 minutes</option><option value="180" selected>Up to 3 hours</option><option value="600">Up to a day</option></select></div></div><details class="form-detail"><summary>More adventurous options</summary><label class="check-row"><input id="dice-arranged" type="checkbox">Include advance arrangements, separate stays or regional excursions.</label><label class="check-row"><input id="dice-water" type="checkbox">Include operator-led water activities; I’ll check conditions independently.</label></details><p id="dice-count" role="status"></p><div id="dice-alternatives"></div><div class="form-error" role="alert"></div><button type="submit" class="btn primary full">Roll the dice ${I('dice')}</button></form>`,
       'dice',
+      '',
+      true,
     );
+    dialog.classList.add('atlas-dialog');
+    diceAtlas = window.OmakaseDice?.mount(dialog, drawDiscovery);
     updateDiceAreas();
   }
   function updateDiceAreas() {
@@ -1468,7 +1477,13 @@
   function updateDiceCount(clearResult = false) {
     const form = dialog.querySelector('#dice-form');
     if (!form) return;
-    if (clearResult) dialog.querySelector('#dice-result').replaceChildren();
+    if (clearResult) {
+      dialog.querySelector('#dice-result').replaceChildren();
+      diceAtlas?.scope(
+        dialog.querySelector('#dice-region').value,
+        dialog.querySelector('#dice-area').value,
+      );
+    }
     const pool = dicePool();
     dialog.querySelector('.dice-table').disabled = !pool.length;
     for (const b of dialog.querySelectorAll('[data-action=dice-area-quick]'))
@@ -1528,7 +1543,7 @@
         '<p class="small muted">No ideas meet these limits in this region today. Try another region or browse the fieldbook.</p>' +
         btn('Browse discoveries', 'discover-nav', '', 'subtle');
   }
-  async function drawDiscovery() {
+  async function drawDiscovery(impulse) {
     const form = dialog.querySelector('#dice-form');
     if (!form || form.dataset.rolling) return;
     const pool = dicePool();
@@ -1552,7 +1567,6 @@
     };
     const a = options[uniform(options.length)];
     const result = dialog.querySelector('#dice-result');
-    const cube = dialog.querySelector('.dice-cube');
     const button = form.querySelector('[type=submit]');
     form.dataset.rolling = 'true';
     button.disabled = true;
@@ -1564,45 +1578,20 @@
       ? 'A fresh shuffled round of your shortlist…'
       : 'Letting the dice decide…';
     result.replaceChildren();
-    const faces = [
-      'rotateX(-18deg) rotateY(18deg)',
-      'rotateX(-18deg) rotateY(-72deg)',
-      'rotateX(-108deg) rotateY(18deg)',
-      'rotateX(72deg) rotateY(18deg)',
-      'rotateX(-18deg) rotateY(108deg)',
-      'rotateX(-18deg) rotateY(198deg)',
-    ];
-    const finish = faces[uniform(faces.length)];
+    const atlas = diceAtlas;
     try {
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const animation = cube.animate(
-          [
-            { transform: 'translateY(-24px) rotateX(0deg) rotateY(0deg)' },
-            {
-              transform: 'translateY(8px) rotateX(540deg) rotateY(430deg)',
-              offset: 0.55,
-            },
-            {
-              transform: 'translateY(-10px) rotateX(690deg) rotateY(700deg)',
-              offset: 0.78,
-            },
-            { transform: finish },
-          ],
-          {
-            duration: 1150,
-            easing: 'cubic-bezier(.2,.65,.3,1)',
-            fill: 'forwards',
-          },
-        );
-        await animation.finished.catch(() => undefined);
-        animation.cancel();
-      }
+      dialog
+        .querySelector('.dice-atlas')
+        ?.scrollIntoView({ block: 'center', behavior: 'instant' });
+      await atlas?.animate(a, impulse, uniform(6));
       if (!form.isConnected || !dialog.open) return;
-      cube.style.transform = finish;
       diceSeen.add(a.id);
-      result.innerHTML = `${freshRound ? '<p class="small muted">Fresh round: you’ve explored this shortlist before.</p>' : ''}<article class="discovery dice-pick"><h3>${E(a.title)}</h3><p>${E(a.why)}</p><div class="dice-visuals">${discoveryPhoto(a)}${embeddedMap(a.mapQuery, 'Find your detour')}</div></article>${journeyContext(a)}<div class="card-actions">${btn('Explore this idea ' + I('arrow'), 'discovery', a.id, 'subtle')}${btn('Invite friends ' + I('plus'), 'plan-from', a.id, 'primary')}</div>`;
+      result.innerHTML = `${freshRound ? '<p class="small muted">Fresh round: you’ve explored this shortlist before.</p>' : ''}<article class="discovery dice-pick"><h3>${E(a.title)}</h3><p>${E(a.why)}</p><div class="dice-visuals">${discoveryPhoto(a)}</div></article>${journeyContext(a)}<div class="card-actions">${btn('Explore this idea ' + I('arrow'), 'discovery', a.id, 'subtle')}${btn('Invite friends ' + I('plus'), 'plan-from', a.id, 'primary')}</div>`;
       result.focus({ preventScroll: true });
-      result.scrollIntoView({ block: 'start', behavior: 'instant' });
+      (dialog.querySelector('.dice-atlas') || result).scrollIntoView({
+        block: 'start',
+        behavior: 'instant',
+      });
     } finally {
       if (form.isConnected) {
         delete form.dataset.rolling;

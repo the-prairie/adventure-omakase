@@ -12,7 +12,7 @@
     "db:local": "wrangler d1 migrations apply DB --local",
     "db:remote": "wrangler d1 migrations apply DB --remote",
     "typecheck": "tsc --noEmit",
-    "check": "pnpm typecheck && node --check public/app.js && node --check public/controls.js && node --check public/bookings.js && node --check public/demo.js && node --check public/ask.js && node --check public/travel.js",
+    "check": "pnpm typecheck && node --check public/app.js && node --check public/dice-atlas.js && node --check public/controls.js && node --check public/bookings.js && node --check public/demo.js && node --check public/ask.js && node --check public/travel.js",
     "build": "node scripts/build.mjs",
     "test": "pnpm compile && node --experimental-sqlite --test --test-concurrency=1 tests/integration.test.mjs tests/tooling.test.mjs tests/deployment.test.mjs tests/ask.test.mjs tests/travel.test.mjs",
     "test:browser": "playwright test --config playwright.config.mjs",

@@ -143,10 +143,16 @@ test('visual discoveries roll real dice, recover empty filters and reshuffle an 
   expect(titleBounds.y).toBeGreaterThanOrEqual(
     headerBounds.y + headerBounds.height,
   );
-  await expect(page.locator('#dice-result iframe')).toHaveAttribute(
-    'src',
-    /maps.google.com/,
+  await expect(page.locator('.dice-atlas')).toHaveAttribute(
+    'data-phase',
+    'landed',
   );
+  await expect(page.locator('.dice-map-caption')).toContainText(
+    'Yanaka & Nezu',
+  );
+  await expect(
+    page.locator('#dice-map .leaflet-overlay-pane path'),
+  ).toHaveCount(1);
   await expect(page.locator('#dice-result .journey-context')).toContainText(
     'plus travel',
   );
