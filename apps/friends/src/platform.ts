@@ -40,6 +40,7 @@ export interface Env {
   WATCHES_ENABLED?: string;
   GEMINI_API_KEY?: string;
   GOOGLE_MAPS_API_KEY?: string;
+  GOOGLE_MAPS_BROWSER_KEY?: string;
   COMPANION_BUDGET_USD?: string;
   AI?: { run(model: string, input: Record<string, unknown>): Promise<unknown> };
   DB: Database;

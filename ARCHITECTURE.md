@@ -151,3 +151,7 @@ ADR 0008 adds Gemini, Places and Routes behind authenticated same-origin friends
 Booking-to-profile entry uses the same private travel-task boundary. Files are transient inline provider inputs; reviewed coarse dates are saved through conditional ordinary profile updates. Unknown date bounds never imply an overlap. D1 migration 0004 and version-6 backups extend helper kinds without changing PostgreSQL. See [ADR 0009](docs/decisions/0009-booking-profile-import.md).
 
 The friends discovery index uses a self-hosted Leaflet distribution, static attributed area references and public OpenStreetMap base tiles. It is browser-only public geography; private state, geolocation and route calculation are outside this boundary. Area selection filters the existing catalogue. See [discovery geography](docs/product/discovery-map.md) for provenance, coverage, provider policy and fallback behavior.
+
+### Discovery view and browser Maps boundary
+
+Map and Fieldbook share the local curated catalogue, filters and selected discovery. Google Maps JavaScript is a lazy, persistent browser presentation; view switches do not recreate it. Site coordinates retain provenance separately from broader area anchors. A public configuration endpoint exposes only the dedicated website/API-restricted browser key; existing provider secrets remain server-only. Origin-only referrers support Google's restriction. The existing Leaflet area presentation remains the unavailable-provider fallback and dice renderer. See [discovery geography](docs/product/discovery-map.md).

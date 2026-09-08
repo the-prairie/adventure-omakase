@@ -8,7 +8,7 @@ import { checkWatches } from './watch-service.js';
 
 /** Cloudflare-native friends' trip. No local files, server timers or global state.
  * SQL guards and D1 batches enforce capacity, stale versions and idempotency.
- * Cloudflare auth and API keys never reach a friend's browser.
+ * Cloudflare auth and server API keys never reach a friend's browser.
  */
 const VERSION = '3.0.0',
   COOKIE = 'omakase_friends',
@@ -725,6 +725,9 @@ async function routes(
     method = request.method,
     db = env.DB;
   if (!path.startsWith('/api/')) return env.ASSETS.fetch(request);
+  // Only the referrer/API-restricted public browser key is exposed here.
+  if (path === '/api/maps/config' && method === 'GET')
+    return json({ browserKey: env.GOOGLE_MAPS_BROWSER_KEY || null });
   if (path === '/api/health' && method === 'GET') {
     const meta = await one(db, "SELECT value FROM app_meta WHERE key='schema'");
     return json({
@@ -1874,7 +1877,12 @@ export default {
     const headers = new Headers(response.headers);
     headers.set('X-Omakase-Release', env.RELEASE_SHA || 'development');
     headers.set('X-Content-Type-Options', 'nosniff');
-    headers.set('Referrer-Policy', 'no-referrer');
+    headers.set(
+      'Referrer-Policy',
+      new URL(request.url).pathname.startsWith('/api/')
+        ? 'no-referrer'
+        : 'strict-origin',
+    );
     headers.set('X-Robots-Tag', 'noindex, nofollow');
     headers.set('X-Frame-Options', 'SAMEORIGIN');
     if (new URL(request.url).pathname.startsWith('/api/'))

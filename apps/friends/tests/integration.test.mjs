@@ -1227,3 +1227,17 @@ test('operator owner-device link repairs access after restoring without sessions
     o.data.me.id,
   );
 });
+
+test('public map config exposes only the dedicated browser key', async () => {
+  const f = await fixture();
+  f.env.GOOGLE_MAPS_API_KEY = 'private-server-fixture';
+  assert.deepEqual((await f.call('/maps/config')).data, { browserKey: null });
+  f.env.GOOGLE_MAPS_BROWSER_KEY = 'restricted-browser-fixture';
+  const response = await f.call('/maps/config');
+  assert.equal(response.status, 200);
+  assert.deepEqual(response.data, { browserKey: 'restricted-browser-fixture' });
+  assert.equal(
+    JSON.stringify(response.data).includes('private-server-fixture'),
+    false,
+  );
+});

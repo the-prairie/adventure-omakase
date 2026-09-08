@@ -116,3 +116,7 @@ Implemented in `432e184`: direct dice interaction, area shortcuts and visible di
 ## September 8: geographic discovery and experience context
 
 The user requested understandable geography, visible explanations, menu links, additional photographs and a more ambitious dice interaction. The geographic/content slice adds a clustered area map driving discovery filters, sourced broad anchors, unlocated-area fallback, flattened experience/host text, two menu references and three licensed photographs. Coverage is 144 area anchors / 276 catalogue entries and 27 photographed entries. See docs/product/discovery-map.md. Dice implementation awaits the user's direction choice; it is not completed by the map work. Verification and commit identity are recorded in CURRENT_STATUS.
+
+## September 8 amendment: curated Map / Fieldbook
+
+The user approved connected Map and Fieldbook views over one curated collection, using Google Maps inside the app and keeping Google navigation as an external action. Implement shared filters/selection, on-demand persistent map loading, source-backed site references where available, honest area/unlocated states, and the restricted public browser-key boundary. Preserve research content, saved ideas, dice and invitations. Keep provider fixture checks separate from real Google preview proof; record observed gates and release identity in CURRENT_STATUS.

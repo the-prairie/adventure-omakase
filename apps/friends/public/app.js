@@ -135,6 +135,16 @@
     ui = {
       view: 'plans',
       region: 'all',
+      discoveryView: (() => {
+        try {
+          return localStorage.getItem('omakase-discovery-view') === 'map'
+            ? 'map'
+            : 'fieldbook';
+        } catch {
+          return 'fieldbook';
+        }
+      })(),
+      selectedDiscovery: null,
       day:
         mode === 'demo'
           ? '2026-10-04'
@@ -496,10 +506,10 @@
       .join('');
   }
   function footer() {
-    return `<footer class="footer"><div><strong>Adventure Omakase</strong> · Together, apart.<br>300 research leads. No compulsory itinerary. No location tracking.</div><div class="row wrap"><button data-action="invite">Invite friends</button><button data-action="legacy">Fieldbook</button><button data-action="settings">Trip settings</button></div></footer>`;
+    return `<footer class="footer"><div><strong>Adventure Omakase</strong> · Together, apart.<br>300 research leads. No compulsory itinerary. No location tracking.</div><div class="row wrap"><button data-action="invite">Invite friends</button><button data-action="legacy">Original fieldbook</button><button data-action="settings">Trip settings</button></div></footer>`;
   }
   function render() {
-    window.OmakaseMap?.destroy();
+    window.OmakaseMap?.detach();
     if (!S) {
       renderLogin();
       return;
@@ -509,10 +519,20 @@
       `<div class="container"><div class="meta-line"><span class="trip-context"><span>${E(S.trip.name)}</span><span class="connection-label">${mode === 'demo' ? 'Local example' : `<i class="live-dot"></i>${online ? 'Shared trip' : 'Offline copy'}`} · JST</span></span><span class="row"><span class="meta-date">${dateText(S.trip.start)} — ${dateText(S.trip.end)}</span>${mode === 'shared' ? `<button class="text-btn companion-entry" data-action="companion">${I('star')} Travel companion</button>` : ''}</span></div><main id="main" tabindex="-1">${({ plans: board, day: myDay, discover: discover, people: peoplePage, story: storyPage }[ui.view] || board)()}</main>${footer()}</div><nav class="nav-dock" aria-label="Quick navigation">${navButtons(true)}</nav>`;
     if (ui.view === 'discover')
       window.OmakaseMap?.mount({
-        catalogue: C,
+        catalogue: discoverMatches(),
+        visible: ui.discoveryView === 'map',
+        selected: ui.selectedDiscovery,
+        place: (id) => {
+          ui.selectedDiscovery = id;
+          render();
+          document
+            .querySelector('.map-current')
+            ?.focus({ preventScroll: true });
+        },
         region: ui.region,
         area: ui.area,
         select: (region, area) => {
+          ui.selectedDiscovery = null;
           ui.region = region;
           ui.area = area;
           ui.limit = 24;
@@ -728,11 +748,13 @@
     );
   }
   function discoveryMap() {
+    const site = window.OMAKASE.locations?.[ui.selectedDiscovery];
+    const selected = BY.get(ui.selectedDiscovery);
     const point = window.OMAKASE.areas.find(
       (p) =>
         p.area === ui.area && (ui.region === 'all' || p.region === ui.region),
     );
-    return `<section class="discovery-atlas"><div class="map-heading"><div><h2>Get your bearings.</h2><p>Tokyo on the mainland. Osaka farther west. Okinawa is a chain of islands to the southwest.</p></div><span class="small">Tap a group to zoom, then choose an area.</span></div><div id="area-map" role="region" aria-label="Explore Japan by area"></div><div id="map-selection" tabindex="-1" aria-live="polite">${point ? `<strong>${E(point.area)}</strong><span>Showing discoveries in this area below.</span><a href="${E(point.source)}" target="_blank" rel="noopener noreferrer">Approximate anchor: ${E(point.anchor)} ${I('external')}</a>` : `<strong>${ui.area === 'all' ? 'Where catches your eye?' : E(ui.area)}</strong><span>${ui.area === 'all' ? 'Numbers count catalogue ideas, not available bookings.' : 'This area does not yet have a checked map reference. Its ideas are listed below.'}</span>`}</div><p class="small muted" id="map-load-note">Area anchors show the broad location, not a venue entrance or a walking route. Some unlocated ideas are available through the area list.</p></section>`;
+    return `<section class="discovery-atlas" ${ui.discoveryView === 'map' ? '' : 'hidden'}><div class="map-heading"><div><h2>Get your bearings.</h2><p>Tokyo on the mainland. Osaka farther west. Okinawa is a chain of islands to the southwest.</p></div><span class="small">Tap a group to zoom. Choose a site or an area.</span></div><div id="area-map" role="region" aria-label="Explore Japan by area"></div><div id="map-selection" tabindex="-1" aria-live="polite">${site && selected ? `<strong>${E(selected.title)}</strong><span>Mapped site · confirm the entrance before going.</span><a href="${E(site.source)}" target="_blank" rel="noopener noreferrer">Location source: ${E(site.sourceTitle)} ${I('external')}</a>` : point ? `<strong>${E(point.area)}</strong><span>Showing discoveries in this area below.</span><a href="${E(point.source)}" target="_blank" rel="noopener noreferrer">Approximate anchor: ${E(point.anchor)} ${I('external')}</a>` : `<strong>${ui.area === 'all' ? 'Where catches your eye?' : E(ui.area)}</strong><span>${ui.area === 'all' ? 'Numbers count catalogue ideas, not available bookings.' : 'This area does not yet have a checked map reference. Its ideas are listed below.'}</span>`}</div><p class="small muted" id="map-load-note">Site markers use source-backed landmark coordinates; area markers group ideas without a checked site location. Neither verifies an entrance or opening hours.</p></section>`;
   }
   function discoveryPhoto(a, interactive = false) {
     const photos = interactive ? [a?.photo] : [a?.photo, ...(a?.photos || [])];
@@ -887,7 +909,10 @@
       friends = S.picks.filter(
         (p) => p.catalogueId === a.id && p.shared && p.memberId !== S.me.id,
       );
-    return `<article class="discovery ${a.featured ? 'featured' : ''}">${discoveryPhoto(a, true)}<h3><button data-action="discovery" data-id="${E(a.id)}">${E(a.title)}</button></h3><p>${E(a.why)}</p>${a.custom ? `<p class="find-author">Found by ${E(person(a.memberId).name)}</p>` : ''}<p class="outing-scale">${I('route')} ${outingScale(a)}${a.flags.includes('b') ? ' · Arrange ahead' : ''}</p><div class="bottom"><span>${E(a.mood)} · ${E(a.area)}<br>${E(a.minutes < 60 ? a.minutes + ' min' : (a.minutes / 60).toFixed(a.minutes % 60 ? 1 : 0) + ' hr')} on site · estimate${friends.length ? `<br>${friends.map((f) => E(person(f.memberId).name)).join(', ')} saved this` : ''}</span><button class="icon-btn ${pick ? 'saved-star' : ''}" data-action="save" data-id="${E(a.id)}" aria-label="${pick ? 'Unsave' : 'Save'} ${E(a.title)}" aria-pressed="${!!pick}">${I(pick ? 'check' : 'save')}</button></div></article>`;
+    return `<article data-discovery-id="${E(a.id)}" class="discovery ${a.featured ? 'featured' : ''}">${discoveryPhoto(a, true)}<h3><button data-action="discovery" data-id="${E(a.id)}">${E(a.title)}</button></h3><p>${E(a.why)}</p>${a.custom ? `<p class="find-author">Found by ${E(person(a.memberId).name)}</p>` : ''}<p class="outing-scale">${I('route')} ${outingScale(a)}${a.flags.includes('b') ? ' · Arrange ahead' : ''}</p><div class="bottom"><span>${E(a.mood)} · ${E(a.area)}<br>${E(a.minutes < 60 ? a.minutes + ' min' : (a.minutes / 60).toFixed(a.minutes % 60 ? 1 : 0) + ' hr')} on site · estimate${friends.length ? `<br>${friends.map((f) => E(person(f.memberId).name)).join(', ')} saved this` : ''}</span><button class="icon-btn ${pick ? 'saved-star' : ''}" data-action="save" data-id="${E(a.id)}" aria-label="${pick ? 'Unsave' : 'Save'} ${E(a.title)}" aria-pressed="${!!pick}">${I(pick ? 'check' : 'save')}</button></div>${btn('Show on map ' + I('pin'), 'show-on-map', a.id, 'subtle')}</article>`;
+  }
+  function discoveryViewSwitch() {
+    return `<div class="discovery-view-switch" role="group" aria-label="Discovery view"><button class="btn ${ui.discoveryView === 'fieldbook' ? 'primary' : 'subtle'}" data-action="discovery-view" data-id="fieldbook" aria-pressed="${ui.discoveryView === 'fieldbook'}">${I('book')} Fieldbook</button><button class="btn ${ui.discoveryView === 'map' ? 'primary' : 'subtle'}" data-action="discovery-view" data-id="map" aria-pressed="${ui.discoveryView === 'map'}">${I('pin')} Map</button><span class="small muted">${ui.discoveryView === 'map' ? 'Find an area. See what belongs together.' : 'Follow a story, a craving, a curiosity.'}</span></div>`;
   }
   function discover() {
     const matches = discoverMatches(),
@@ -898,7 +923,7 @@
           ),
         ),
       ].sort();
-    return `<section class="page-head discovery-head"><div><h1>Find your next<br> <em>detour.</em></h1><p>An idea for yourself, or a reason to meet. These are research leads; check details before going.</p><div class="row wrap">${mode === 'shared' ? btn('Find something for me ' + I('star'), 'ask-find', '', 'primary') : ''}${btn('Surprise me ' + I('dice'), 'dice', '', 'subtle')}${btn(I('plus') + 'Add a friend’s find', 'find-new', '', 'subtle')}</div></div><figure class="discovery-scene"><img src="${E(A[ui.region === 'all' ? 'osaka' : ui.region] || A.osaka)}" alt=""><figcaption>${ui.region === 'all' ? 'Japan, a little further in.' : E(R[ui.region])} · illustration</figcaption></figure></section><div class="envelopes"><button class="envelope" data-action="envelope" data-id="Strange"><span class="eyebrow">Open when…</span><h3>You want something strange.</h3></button><button class="envelope" data-action="envelope" data-id="Food"><span class="eyebrow">Open when…</span><h3>Dinner needs a decision.</h3></button><button class="envelope" data-action="envelope" data-id="Slow"><span class="eyebrow">Open when…</span><h3>Doing less sounds lovely.</h3></button></div><div class="discovery-library"><div class="subnav"><button class="${!ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="all">All discoveries</button><button class="${ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="saved">${I('save')} Saved <span>${C.filter((a) => saved(a.id)).length}</span></button></div><p class="small muted">${ui.saved ? 'Your private shortlist. Saving doesn’t add a plan or recommend it to friends.' : 'Save an idea here to find it later in Saved.'}</p></div>${regionFilters()}${discoveryMap()}<div class="discovery-start"><label for="area-filter">Explore around</label><select id="area-filter"><option value="all">Choose a neighborhood or island</option>${areas.map((a) => `<option ${a === ui.area ? 'selected' : ''}>${E(a)}</option>`).join('')}</select><p class="small muted">${ui.area === 'all' ? 'Pick an area to narrow the field.' : 'Ideas in ' + E(ui.area) + '.'} Area matches are not walking-distance estimates; check the journey from where you’re staying.</p></div><div class="searchbar discovery-search">${I('search')}<label class="screenreader" for="search">Search discoveries</label><input id="search" type="search" placeholder="A place, a craving, a very specific curiosity…" value="${E(ui.q)}" autocomplete="off"></div><details id="discovery-filters" class="discovery-filters" ${ui.moreFilters ? 'open' : ''}><summary>${I('search')} Filter ideas <span>${[ui.mood !== 'all', ui.area !== 'all', ui.max !== 'all', ui.saved].filter(Boolean).length || ''}</span></summary><div class="filters mood-filters">${['all', ...Object.keys(MOODS)].map((m) => `<button class="filter ${ui.mood === m ? 'active' : ''}" data-action="mood" data-id="${m}">${m === 'all' ? 'Any mood' : m}</button>`).join('')}</div><div class="filters discovery-refine"><label class="screenreader" for="time-filter">Estimated time on site</label><select id="time-filter">${[
+    return `<section class="page-head discovery-head ${ui.discoveryView === 'map' ? 'map-mode' : ''}"><div><h1>Find your next<br> <em>detour.</em></h1><p>An idea for yourself, or a reason to meet. These are research leads; check details before going.</p><div class="row wrap">${mode === 'shared' ? btn('Find something for me ' + I('star'), 'ask-find', '', 'primary') : ''}${btn('Surprise me ' + I('dice'), 'dice', '', 'subtle')}${btn(I('plus') + 'Add a friend’s find', 'find-new', '', 'subtle')}</div></div><figure class="discovery-scene"><img src="${E(A[ui.region === 'all' ? 'osaka' : ui.region] || A.osaka)}" alt=""><figcaption>${ui.region === 'all' ? 'Japan, a little further in.' : E(R[ui.region])} · illustration</figcaption></figure></section>${discoveryViewSwitch()}<div class="envelopes" ${ui.discoveryView === 'map' ? 'hidden' : ''}><button class="envelope" data-action="envelope" data-id="Strange"><span class="eyebrow">Open when…</span><h3>You want something strange.</h3></button><button class="envelope" data-action="envelope" data-id="Food"><span class="eyebrow">Open when…</span><h3>Dinner needs a decision.</h3></button><button class="envelope" data-action="envelope" data-id="Slow"><span class="eyebrow">Open when…</span><h3>Doing less sounds lovely.</h3></button></div><div class="discovery-library"><div class="subnav"><button class="${!ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="all">All discoveries</button><button class="${ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="saved">${I('save')} Saved <span>${C.filter((a) => saved(a.id)).length}</span></button></div><p class="small muted">${ui.saved ? 'Your private shortlist. Saving doesn’t add a plan or recommend it to friends.' : 'Save an idea here to find it later in Saved.'}</p></div>${regionFilters()}${discoveryMap()}${ui.discoveryView === 'map' && ui.selectedDiscovery && BY.has(ui.selectedDiscovery) ? `<section class="map-current" tabindex="-1" aria-label="Selected discovery">${discoveryCard(BY.get(ui.selectedDiscovery))}</section>` : ''}<div class="discovery-start"><label for="area-filter">Explore around</label><select id="area-filter"><option value="all">Choose a neighborhood or island</option>${areas.map((a) => `<option ${a === ui.area ? 'selected' : ''}>${E(a)}</option>`).join('')}</select><p class="small muted">${ui.area === 'all' ? 'Pick an area to narrow the field.' : 'Ideas in ' + E(ui.area) + '.'} Area matches are not walking-distance estimates; check the journey from where you’re staying.</p></div><div class="searchbar discovery-search">${I('search')}<label class="screenreader" for="search">Search discoveries</label><input id="search" type="search" placeholder="A place, a craving, a very specific curiosity…" value="${E(ui.q)}" autocomplete="off"></div><details id="discovery-filters" class="discovery-filters" ${ui.moreFilters ? 'open' : ''}><summary>${I('search')} Filter ideas <span>${[ui.mood !== 'all', ui.area !== 'all', ui.max !== 'all', ui.saved].filter(Boolean).length || ''}</span></summary><div class="filters mood-filters">${['all', ...Object.keys(MOODS)].map((m) => `<button class="filter ${ui.mood === m ? 'active' : ''}" data-action="mood" data-id="${m}">${m === 'all' ? 'Any mood' : m}</button>`).join('')}</div><div class="filters discovery-refine"><label class="screenreader" for="time-filter">Estimated time on site</label><select id="time-filter">${[
       ['all', 'Any time on site'],
       ['60', 'Up to 1 hr on site'],
       ['120', 'Up to 2 hr on site'],
@@ -1232,6 +1257,7 @@
   function showDiscovery(id) {
     const a = BY.get(id);
     if (!a) return;
+    ui.selectedDiscovery = id;
     const pick = saved(a.id),
       friends = S.picks.filter((p) => p.catalogueId === a.id && p.shared);
     const similar = S.plans.filter(
@@ -1239,7 +1265,7 @@
     );
     openModal(
       `${R[a.region]} / discovery ${E(String(a.n).padStart(3, '0'))}`,
-      `<h2>${E(a.title)}</h2><p class="small muted">${E(a.area)} · ${E(a.mood)}</p>${discoveryPhoto(a)}${experienceContext(a)}${journeyContext(a)}${a.start ? `<div class="notice warn">Listed event window: ${dateText(a.start)}–${dateText(a.end)} 2026. Recheck the organizer before committing.</div>` : ''}<section class="experience-practical"><h3>Before you go</h3><p>${E(a.practical)}</p></section>${a.flags.includes('w') ? '<div class="notice warn">Marine / river activity. A reputable operator must confirm access, weather, sea state and your suitability. The app cannot determine whether swimming is safe.</div>' : ''}${a.flags.includes('o') ? `<div class="notice">${a.region === 'okinawa' ? 'Island base: ' + E(a.cluster) + '. ' : 'Regional trip. '}Treat transport and accommodation as separate commitments, not a casual nearby stop.</div>` : ''}<div class="card-actions">${mode === 'shared' ? btn('Check this for my dates ✳', 'ask-check', a.id, 'subtle') : ''}${btn(I('plus') + 'Invite friends to this', 'plan-from', a.id, 'primary')}${btn(I(pick ? 'check' : 'save') + (pick ? 'Saved privately' : 'Save for myself'), 'save-detail', a.id)}${pick ? btn('View saved ideas ' + I('arrow'), 'view-saved', '', 'subtle') : ''}${btn(I('people') + (pick?.shared ? 'Stop sharing this pick' : 'Recommend to the group'), 'recommend', a.id, 'subtle')}</div>${friends.length ? `<div class="detail-host">${friends.map((p) => avatar(p.memberId)).join('')}<span>${friends.map((p) => E(person(p.memberId).name)).join(', ')} recommended this</span></div>` : ''}${similar.length ? `<div class="section-label">There’s already an open invitation</div>${similar.map((p) => btn(E(p.title) + ' ' + I('arrow'), 'plan-detail', p.id, 'full')).join('')}` : ''}${embeddedMap(a.mapQuery, 'Find this experience')}<section class="source-box"><h3>Research status</h3><strong>${a.custom ? 'A friend’s recommendation' : a.checked ? 'Narrow source check · ' + E(a.checked) : 'Research lead · not reverified for your visit'}</strong><p>${E(a.sourceScope || (a.custom ? 'Added by ' + person(a.memberId).name + '. Confirm details with the place before going.' : 'This catalogue preserves earlier research. A regional overview or third-party link is not confirmation of exact venue identity, operation, access or availability.'))}</p><div class="row wrap">${safeURL(a.source) ? `<a class="text-btn" href="${E(safeURL(a.source))}" target="_blank" rel="noopener noreferrer">${a.custom ? 'Open the shared link' : 'Read the research source'} ${I('external')}</a>` : ''}<a class="text-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.mapQuery)}" target="_blank" rel="noopener noreferrer">Search in Maps ${I('pin')}</a></div><p>A map search is not a verified pin or navigation route. Joining a friend does not remove any of these checks.</p></section>`,
+      `<h2>${E(a.title)}</h2><p class="small muted">${E(a.area)} · ${E(a.mood)}</p>${discoveryPhoto(a)}${experienceContext(a)}${journeyContext(a)}${a.start ? `<div class="notice warn">Listed event window: ${dateText(a.start)}–${dateText(a.end)} 2026. Recheck the organizer before committing.</div>` : ''}<section class="experience-practical"><h3>Before you go</h3><p>${E(a.practical)}</p></section>${a.flags.includes('w') ? '<div class="notice warn">Marine / river activity. A reputable operator must confirm access, weather, sea state and your suitability. The app cannot determine whether swimming is safe.</div>' : ''}${a.flags.includes('o') ? `<div class="notice">${a.region === 'okinawa' ? 'Island base: ' + E(a.cluster) + '. ' : 'Regional trip. '}Treat transport and accommodation as separate commitments, not a casual nearby stop.</div>` : ''}<div class="card-actions">${mode === 'shared' ? btn('Check this for my dates ✳', 'ask-check', a.id, 'subtle') : ''}${btn(I('plus') + 'Invite friends to this', 'plan-from', a.id, 'primary')}${btn(I(pick ? 'check' : 'save') + (pick ? 'Saved privately' : 'Save for myself'), 'save-detail', a.id)}${pick ? btn('View saved ideas ' + I('arrow'), 'view-saved', '', 'subtle') : ''}${btn(I('people') + (pick?.shared ? 'Stop sharing this pick' : 'Recommend to the group'), 'recommend', a.id, 'subtle')}</div>${friends.length ? `<div class="detail-host">${friends.map((p) => avatar(p.memberId)).join('')}<span>${friends.map((p) => E(person(p.memberId).name)).join(', ')} recommended this</span></div>` : ''}${similar.length ? `<div class="section-label">There’s already an open invitation</div>${similar.map((p) => btn(E(p.title) + ' ' + I('arrow'), 'plan-detail', p.id, 'full')).join('')}` : ''}${btn('Show on map ' + I('pin'), 'show-on-map', a.id, 'subtle')}${embeddedMap(a.mapQuery, 'Find this experience')}<section class="source-box"><h3>Research status</h3><strong>${a.custom ? 'A friend’s recommendation' : a.checked ? 'Narrow source check · ' + E(a.checked) : 'Research lead · not reverified for your visit'}</strong><p>${E(a.sourceScope || (a.custom ? 'Added by ' + person(a.memberId).name + '. Confirm details with the place before going.' : 'This catalogue preserves earlier research. A regional overview or third-party link is not confirmation of exact venue identity, operation, access or availability.'))}</p><div class="row wrap">${safeURL(a.source) ? `<a class="text-btn" href="${E(safeURL(a.source))}" target="_blank" rel="noopener noreferrer">${a.custom ? 'Open the shared link' : 'Read the research source'} ${I('external')}</a>` : ''}<a class="text-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.mapQuery)}" target="_blank" rel="noopener noreferrer">Search in Maps ${I('pin')}</a></div><p>A map search is not a verified pin or navigation route. Joining a friend does not remove any of these checks.</p></section>`,
       'discovery',
       id,
     );
@@ -2005,6 +2031,7 @@
           route('people');
           break;
         case 'region':
+          ui.selectedDiscovery = null;
           ui.region = id;
           ui.area = 'all';
           ui.limit = 24;
@@ -2199,10 +2226,38 @@
           break;
         }
         case 'mood':
+          ui.selectedDiscovery = null;
           ui.mood = id;
           ui.limit = 24;
           render();
           break;
+        case 'discovery-view':
+          ui.discoveryView = id === 'map' ? 'map' : 'fieldbook';
+          try {
+            localStorage.setItem('omakase-discovery-view', ui.discoveryView);
+          } catch {
+            /* Browsing still works without persistence. */
+          }
+          render();
+          document
+            .querySelector(
+              `[data-action=discovery-view][data-id=${ui.discoveryView}]`,
+            )
+            ?.focus({ preventScroll: true });
+          break;
+        case 'show-on-map': {
+          const place = BY.get(id);
+          if (!place) break;
+          closeModal();
+          ui.view = 'discover';
+          ui.discoveryView = 'map';
+          ui.selectedDiscovery = id;
+          ui.region = place.region;
+          ui.area = place.area;
+          render();
+          document.querySelector('#map-selection')?.focus();
+          break;
+        }
         case 'roll-table':
           await drawDiscovery();
           break;
@@ -2263,6 +2318,7 @@
           render();
           break;
         case 'clear-filters':
+          ui.selectedDiscovery = null;
           ui.q = '';
           ui.mood = 'all';
           ui.area = 'all';
@@ -2797,6 +2853,7 @@
   });
   document.addEventListener('input', (e) => {
     if (e.target.id === 'search') {
+      ui.selectedDiscovery = null;
       ui.q = e.target.value;
       ui.limit = 24;
       const pos = e.target.selectionStart;
@@ -2829,11 +2886,13 @@
         render();
         break;
       case 'area-filter':
+        ui.selectedDiscovery = null;
         ui.area = el.value;
         ui.limit = 24;
         render();
         break;
       case 'time-filter':
+        ui.selectedDiscovery = null;
         ui.max = el.value;
         ui.limit = 24;
         render();

@@ -18,6 +18,7 @@ test('area map filters discoveries and experience context stays visible', async 
   );
   await page.setViewportSize({ width: 1200, height: 1000 });
   await page.goto(runtime.url + '/example.html#demo/discover');
+  await page.getByRole('button', { name: 'Map', exact: true }).click();
   await page.locator('#area-map').scrollIntoViewIfNeeded();
   await expect(page.locator('.area-map-marker').first()).toBeVisible();
   await expect(page.locator('#area-map')).toContainText('Osaka');

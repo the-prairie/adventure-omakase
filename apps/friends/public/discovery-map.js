@@ -1,5 +1,5 @@
 'use strict';
-window.OmakaseMap = (() => {
+window.OmakaseFallbackMap = (() => {
   let map, observer, camera, lastRegion, lastArea;
   const regions = {
     tokyo: 'Tokyo & nearby',
@@ -152,4 +152,210 @@ window.OmakaseMap = (() => {
     observer.observe(container);
   }
   return { mount, destroy };
+})();
+
+// One Google map survives view switches and ordinary app renders. Catalogue
+// content stays local; no Places search, geocoding or location access occurs.
+window.OmakaseMap = (() => {
+  let map,
+    element,
+    loader,
+    current,
+    authorizationFailed = false,
+    generation = 0;
+  let markers = [],
+    lastScope = '';
+  const cameras = {
+    all: { center: { lat: 32.7, lng: 134 }, zoom: 5 },
+    tokyo: { center: { lat: 35.7, lng: 139.7 }, zoom: 9 },
+    osaka: { center: { lat: 34.7, lng: 135.5 }, zoom: 9 },
+    okinawa: { center: { lat: 25.5, lng: 126.8 }, zoom: 6 },
+  };
+  function load() {
+    if (authorizationFailed)
+      return Promise.reject(Error('Google map authorization unavailable'));
+    if (loader) return loader;
+    loader = (async () => {
+      const response = await fetch('/api/maps/config');
+      if (!response.ok) throw Error('Map configuration unavailable');
+      const config = await response.json();
+      if (!config.browserKey) throw Error('Google map not configured');
+      if (window.google?.maps?.Map) return;
+      await new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        const timeout = setTimeout(
+          () => reject(Error('Map loading timed out')),
+          15000,
+        );
+        window.omakaseGoogleReady = () => {
+          clearTimeout(timeout);
+          resolve();
+        };
+        window.gm_authFailure = () => {
+          authorizationFailed = true;
+          clearTimeout(timeout);
+          reject(Error('Google map authorization unavailable'));
+          fallback();
+        };
+        script.referrerPolicy = 'strict-origin-when-cross-origin';
+        script.src =
+          'https://maps.googleapis.com/maps/api/js?' +
+          new URLSearchParams({
+            key: config.browserKey,
+            callback: 'omakaseGoogleReady',
+            loading: 'async',
+            v: 'quarterly',
+          });
+        script.async = true;
+        script.onerror = () => {
+          clearTimeout(timeout);
+          reject(Error('Map could not load'));
+        };
+        document.head.append(script);
+      });
+    })();
+    return loader;
+  }
+  function detach() {
+    generation++;
+    window.OmakaseFallbackMap?.destroy();
+    element?.remove();
+  }
+  function fallback() {
+    if (!current?.visible || !document.getElementById('area-map')) return;
+    element?.remove();
+    window.OmakaseFallbackMap?.mount(current);
+    const note = document.getElementById('map-load-note');
+    if (note)
+      note.textContent =
+        'Google Maps is unavailable. The area map and Fieldbook remain available; markers show approximate areas.';
+  }
+  function draw() {
+    if (!map || !current) return;
+    markers.forEach((m) => m.setMap(null));
+    markers = [];
+    const { catalogue, region, area, select, place, selected } = current;
+    const locations = window.OMAKASE.locations || {};
+    const points = window.OMAKASE.areas
+      .filter((p) => region === 'all' || p.region === region)
+      .map((p) => ({
+        ...p,
+        count: catalogue.filter(
+          (a) => !locations[a.id] && a.region === p.region && a.area === p.area,
+        ).length,
+      }))
+      .filter((p) => p.count);
+    for (const a of catalogue) {
+      const location = locations[a.id];
+      if (location)
+        points.push({
+          ...location,
+          id: a.id,
+          title: a.title,
+          area: a.area,
+          region: a.region,
+          count: 1,
+        });
+    }
+    // Group broad overviews; at neighborhood zoom show the underlying areas.
+    const zoom = map.getZoom() || 5;
+    const groups = [];
+    const cell = zoom < 7 ? 3 : zoom < 10 ? 0.15 : 0;
+    for (const point of points) {
+      const key =
+        point.id === selected || point.area === area || !cell
+          ? `${point.region}:${point.id || point.area}`
+          : `${point.region}:${Math.floor(point.lat / cell)}:${Math.floor(point.lng / cell)}`;
+      let group = groups.find((g) => g.key === key);
+      if (!group) {
+        group = { key, points: [] };
+        groups.push(group);
+      }
+      group.points.push(point);
+    }
+    for (const { points: group } of groups) {
+      const p = group[0];
+      const count = group.reduce((sum, a) => sum + a.count, 0);
+      const title =
+        group.length > 1
+          ? `${p.region === 'tokyo' ? 'Tokyo' : p.region === 'osaka' ? 'Osaka & beyond' : 'Okinawa'}: ${count} discoveries, zoom in`
+          : p.id
+            ? `${p.title}: mapped site, show discovery`
+            : `${p.area}: ${count} discoveries, select area`;
+      const marker = new window.google.maps.Marker({
+        map,
+        position: { lat: p.lat, lng: p.lng },
+        title,
+        label: {
+          text: group.length === 1 && p.id ? '•' : String(count),
+          color: '#ffffff',
+          fontWeight: '600',
+        },
+        icon: {
+          path: window.google.maps.SymbolPath.CIRCLE,
+          scale: 20,
+          fillColor: p.id || p.area === area ? '#a04f35' : '#294b3b',
+          fillOpacity: 1,
+          strokeColor: '#faf7ef',
+          strokeWeight: 2,
+        },
+        optimized: false,
+      });
+      marker.addListener('click', () => {
+        if (group.length === 1) {
+          if (p.id) place(p.id);
+          else select(p.region, p.area);
+        } else {
+          map.setCenter({ lat: p.lat, lng: p.lng });
+          map.setZoom(Math.min(13, zoom + 3));
+        }
+      });
+      markers.push(marker);
+    }
+  }
+  async function mount(options) {
+    current = options;
+    const ticket = ++generation;
+    const host = document.getElementById('area-map');
+    if (!host || !options.visible) return;
+    try {
+      await load();
+      if (ticket !== generation || !host.isConnected) return;
+      if (!element) {
+        element = document.createElement('div');
+        element.className = 'google-discovery-map';
+      }
+      host.replaceChildren(element);
+      if (!map) {
+        map = new window.google.maps.Map(element, {
+          ...cameras.all,
+          mapTypeControl: false,
+          streetViewControl: false,
+          fullscreenControl: false,
+          gestureHandling: 'cooperative',
+          clickableIcons: false,
+        });
+        map.addListener('idle', draw);
+      }
+      window.google.maps.event.trigger(map, 'resize');
+      const scope = `${options.region}:${options.area}:${options.selected || ''}`;
+      if (scope !== lastScope) {
+        const point =
+          window.OMAKASE.locations?.[options.selected] ||
+          window.OMAKASE.areas.find(
+            (p) => p.region === options.region && p.area === options.area,
+          );
+        const camera = point
+          ? { center: { lat: point.lat, lng: point.lng }, zoom: 13 }
+          : cameras[options.region] || cameras.all;
+        map.setCenter(camera.center);
+        map.setZoom(camera.zoom);
+        lastScope = scope;
+      }
+      draw();
+    } catch {
+      if (ticket === generation && host.isConnected) fallback();
+    }
+  }
+  return { mount, detach };
 })();
