@@ -145,3 +145,10 @@ unchanged. Fieldbook collections lead to the ordinary guide/save/invite flow
 and do not create canonical plans. Date-specific availability and field-tested
 journey times remain unverified. Implementation and checks are recorded in
 CURRENT_STATUS; the separate Sites evaluation has its own saved release.
+
+The user extended the slice to nearby Okinawan islands and an open-ended onward
+journey before Taiwan. Four additional collections cover Tokashiki, Zamami,
+Ishigaki/Taketomi and Miyako/Irabu/Shimoji. Eight more expanded guides bring
+coverage to 51. Separate stays explicitly require accommodation and transport;
+Kagoshima/Yakushima is an onward direction, not an Okinawa catalogue entry.
+Flight operation for October and bookings remain unconfirmed.

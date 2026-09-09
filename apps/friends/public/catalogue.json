@@ -5697,14 +5697,25 @@
     "mood": "Water",
     "minutes": 180,
     "flags": "bow",
-    "why": "Let the operator choose safe crossings and permitted landing places rather than chasing a fixed island list.",
-    "source": "https://visitokinawajapan.com/destinations/kerama-islands/zamami-island/",
+    "why": "Paddle towards a small island with a guide who chooses the course for the conditions.",
+    "source": "https://keramakayak.jp/english.html",
     "featured": false,
     "indoor": false,
     "cluster": "Kerama: Zamami",
     "locationKind": "Place / area",
     "mapQuery": "Guided islet kayaking from Zamami Kerama: Zamami Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Kerama Kayak Center offers guided kayaking and snorkeling from Zamami. The appeal is being close to the water, with stops that depend on wind and sea conditions.",
+      "highlights": [
+        "The operator may substitute a beach course when an islet crossing is unsuitable."
+      ],
+      "planning": "Choose an actual half-day or full-day product, confirm English guidance and participant requirements, and reserve separately. A full-day tour is better paired with an island stay than a tight ferry connection.",
+      "source": "https://keramakayak.jp/english.html",
+      "sourceLabel": "Kerama Kayak Center · tour and conditions",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-066",
@@ -5733,14 +5744,25 @@
     "mood": "Move",
     "minutes": 180,
     "flags": "o",
-    "why": "Choose a land-based island adventure between boat days. Check heat, roads and open paths.",
+    "why": "See the Kerama islands layered across the horizon from above Zamami.",
     "source": "https://visitokinawajapan.com/destinations/kerama-islands/zamami-island/",
     "featured": false,
     "indoor": false,
     "cluster": "Kerama: Zamami",
     "locationKind": "Place / area",
     "mapQuery": "Zamami viewpoint walk Kerama: Zamami Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Takatsukiyama’s observation decks look over Ago no Ura Bay towards neighbouring islands. Make the uphill effort a separate, unhurried part of an island stay.",
+      "highlights": [
+        "Choose a viewpoint around weather, energy and the return journey."
+      ],
+      "planning": "Zamami is hilly. Arrange local transport or check the walking route; do not treat every viewpoint as an easy port-side stroll. Return before dark unless you have suitable transport and equipment.",
+      "source": "https://visitokinawajapan.com/destinations/kerama-islands/zamami-island/",
+      "sourceLabel": "Okinawa tourism · Zamami",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-068",
@@ -5751,14 +5773,25 @@
     "mood": "Slow",
     "minutes": 240,
     "flags": "o",
-    "why": "Give a village and beach real time instead of reducing them to a fast ferry-and-photo visit.",
+    "why": "A whole day for Aharen’s blue water, white sand and a village lunch.",
     "source": "https://visitokinawajapan.com/destinations/kerama-islands/tokashiki-island/",
     "featured": false,
     "indoor": false,
     "cluster": "Kerama: Tokashiki",
     "locationKind": "Place / area",
     "mapQuery": "Aharen beach and village day Kerama: Tokashiki Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Take the ferry to Tokashiki, then transfer across the island to Aharen. Keep the beach and adjacent village as the day’s focus.",
+      "highlights": [
+        "A guided marine activity is an optional separate booking; the beach pause works without one."
+      ],
+      "planning": "Reserve both ferry legs and arrange the port transfer. Sea conditions can cancel crossings; an October timetable and operating day still need checking. This is an island day, not a walk from Naha.",
+      "source": "https://visitokinawajapan.com/destinations/kerama-islands/tokashiki-island/",
+      "sourceLabel": "Okinawa tourism · Tokashiki",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-069",
@@ -5913,14 +5946,25 @@
     "mood": "Slow",
     "minutes": 90,
     "flags": "o",
-    "why": "Coastal views and an airport setting make a distinctive walk. This is not a swimming recommendation.",
+    "why": "A runway-edge coastal walk for luminous water and an enormous horizon.",
     "source": "https://visitokinawajapan.com/destinations/miyako-islands/shimoji-island/",
     "featured": false,
     "indoor": false,
     "cluster": "Miyako islands",
     "locationKind": "Place / area",
     "mapQuery": "17END coastal walk Miyako: Shimoji Japan",
-    "practical": "Viewpoint and walking idea only. Do not swim at 17END; follow current site restrictions."
+    "practical": "Viewpoint and walking idea only. Do not swim at 17END; follow current site restrictions.",
+    "experience": {
+      "summary": "The northern end of Shimoji Airport’s runway, known as 17END, has striking coastal views. Come for the walk and water colours; seeing aircraft depends on the flight schedule.",
+      "highlights": [
+        "The official tourism guide states that swimming is prohibited here."
+      ],
+      "planning": "Use designated public access and observe airport restrictions. Check the walking approach and parking locally; bring sun protection and water. This is a viewpoint stop, not a swimming beach.",
+      "source": "https://visitokinawajapan.com/destinations/miyako-islands/shimoji-island/",
+      "sourceLabel": "Okinawa tourism · Shimoji",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-078",
@@ -5931,14 +5975,23 @@
     "mood": "Strange",
     "minutes": 60,
     "flags": "o",
-    "why": "View linked pools from designated paths; do not attempt independent cave swimming.",
+    "why": "Two deep-blue limestone pools, with their connection hidden underwater.",
     "source": "https://visitokinawajapan.com/destinations/miyako-islands/shimoji-island/",
     "featured": false,
     "indoor": false,
     "cluster": "Miyako islands",
     "locationKind": "Place / area",
     "mapQuery": "Tooriike viewpoint Miyako: Shimoji Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "At Tooriike, a short wooden walking trail gives views of two neighbouring ponds. Underwater passages connect the pools with each other and the sea.",
+      "highlights": ["View the pools from the visitor trail."],
+      "planning": "Check current trail access. Exploring the underwater tunnels requires advanced diving skills; this catalogue stop is the land viewpoint only.",
+      "source": "https://visitokinawajapan.com/destinations/miyako-islands/shimoji-island/",
+      "sourceLabel": "Okinawa tourism · Shimoji",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-079",
@@ -5967,14 +6020,25 @@
     "mood": "Food",
     "minutes": 90,
     "flags": "o",
-    "why": "A working fishing community gives lunch more context than a generic resort menu.",
+    "why": "Build an Irabu afternoon around a seafood lunch in a working bonito port.",
     "source": "https://visitokinawajapan.com/destinations/miyako-islands/irabu-island/",
     "featured": false,
     "indoor": true,
     "cluster": "Miyako islands",
     "locationKind": "Place / area",
     "mapQuery": "Bonito lunch in Sarahama Miyako: Irabu Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Sarahama is a hillside fishing town known for its bonito catch. Look for a local diner and keep the working harbour as context rather than a staged attraction.",
+      "highlights": [
+        "Ask what fish is available that day instead of expecting one fixed dish."
+      ],
+      "planning": "Restaurant hours and menus vary. Arrange road transport across the bridges from Miyako or Shimoji; this is not an inter-island ferry stop.",
+      "source": "https://visitokinawajapan.com/destinations/miyako-islands/irabu-island/",
+      "sourceLabel": "Okinawa tourism · Irabu",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-081",
@@ -6075,14 +6139,23 @@
     "mood": "Water",
     "minutes": 60,
     "flags": "bo",
-    "why": "See underwater life without entering a bay where swimming is prohibited.",
-    "source": "https://visitokinawajapan.com/travel-inspiration/okinawa-snorkeling-guide/",
+    "why": "Watch coral and fish beneath a boat at Kabira Bay, then enjoy the shore.",
+    "source": "https://visitokinawajapan.com/destinations/yaeyama-islands/ishigaki-island/",
     "featured": false,
     "indoor": false,
     "cluster": "Yaeyama: Ishigaki",
     "locationKind": "Place / area",
     "mapQuery": "Kabira Bay glass-bottom boat Yaeyama: Ishigaki Japan",
-    "practical": "Glass-bottom boat only, subject to operator and sea conditions. Do not swim in Kabira Bay."
+    "practical": "Glass-bottom boat only, subject to operator and sea conditions. Do not swim in Kabira Bay.",
+    "experience": {
+      "summary": "Kabira Bay’s glass-bottom boats offer a way to look into the water without a snorkeling session. The bay’s small islands and shifting colours are part of the appeal.",
+      "highlights": ["Marine sightings and visibility depend on conditions."],
+      "planning": "Confirm an operator, current departures and road transport from your Ishigaki base. Swimming and snorkeling from the beach are not permitted at Kabira Bay. This is a separate flight-and-stay destination from Naha.",
+      "source": "https://visitokinawajapan.com/destinations/yaeyama-islands/ishigaki-island/",
+      "sourceLabel": "Okinawa tourism · Ishigaki",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-087",
@@ -6204,14 +6277,25 @@
     "mood": "Slow",
     "minutes": 480,
     "flags": "bo",
-    "why": "Dinner and quiet hours offer a different island from a short daytime bicycle circuit.",
+    "why": "Stay after the day visitors leave, with time for village lanes and an unhurried evening.",
     "source": "https://visitokinawajapan.com/destinations/yaeyama-islands/taketomi-island/",
     "featured": false,
     "indoor": false,
     "cluster": "Yaeyama: Taketomi",
     "locationKind": "Place / area",
     "mapQuery": "Taketomi minshuku overnight Yaeyama: Taketomi Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "An overnight on Taketomi changes the pace: spend the afternoon among red-tiled houses and sandy lanes, then settle into a small guesthouse.",
+      "highlights": [
+        "Choose the stay for the village atmosphere, not a list of scheduled attractions."
+      ],
+      "planning": "Reserve accommodation and confirm meals, check-in and port transfers directly. Arrange the ferry from Ishigaki separately; leave room for disrupted sailings before an onward flight.",
+      "source": "https://visitokinawajapan.com/destinations/yaeyama-islands/taketomi-island/",
+      "sourceLabel": "Okinawa tourism · Taketomi",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-093",

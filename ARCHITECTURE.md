@@ -165,3 +165,8 @@ Region filtering applies to collections, while search, Saved, area/mood/time
 filters and Map retain their existing discovery scope. Opening a stop uses the
 ordinary guide, private-save and invitation flow. Browser and companion catalogue
 exports remain identical; collection metadata is browser editorial content.
+
+Collections distinguish local outings, full-day excursions and separate stays.
+Island-transfer flags remain unchanged and never silently widen the local dice.
+An onward Southern Kyushu editorial note sits outside the catalogue and has no
+canonical save action; it does not imply that Kyushu is part of Okinawa.

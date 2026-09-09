@@ -911,6 +911,26 @@
       );
     return `<article data-discovery-id="${E(a.id)}" class="discovery ${a.featured ? 'featured' : ''}">${discoveryPhoto(a, true)}<h3><button data-action="discovery" data-id="${E(a.id)}">${E(a.title)}</button></h3><p>${E(a.why)}</p>${a.custom ? `<p class="find-author">Found by ${E(person(a.memberId).name)}</p>` : ''}<p class="outing-scale">${I('route')} ${outingScale(a)}${a.flags.includes('b') ? ' · Arrange ahead' : ''}</p><div class="bottom"><span>${E(a.mood)} · ${E(a.area)}<br>${E(a.minutes < 60 ? a.minutes + ' min' : (a.minutes / 60).toFixed(a.minutes % 60 ? 1 : 0) + ' hr')} on site · estimate${friends.length ? `<br>${friends.map((f) => E(person(f.memberId).name)).join(', ')} saved this` : ''}</span><button class="icon-btn ${pick ? 'saved-star' : ''}" data-action="save" data-id="${E(a.id)}" aria-label="${pick ? 'Unsave' : 'Save'} ${E(a.title)}" aria-pressed="${!!pick}">${I(pick ? 'check' : 'save')}</button></div>${btn('Show on map ' + I('pin'), 'show-on-map', a.id, 'subtle')}</article>`;
   }
+  function curatedSources(sources) {
+    return `<div class="curated-sources">${sources.map((source) => (safeURL(source.url) ? `<a href="${E(safeURL(source.url))}" target="_blank" rel="noopener noreferrer">${E(source.label)} ${I('external')}</a>` : '')).join('')}</div>`;
+  }
+  function curatedOuting(c) {
+    const scale =
+      c.travelScale === 'separate-stay'
+        ? 'Separate stay'
+        : c.travelScale === 'day-trip'
+          ? 'Day trip'
+          : 'Local outing';
+    return `<details class="curated-outing" data-collection-id="${E(c.id)}" data-travel-scale="${E(c.travelScale || 'local')}"><summary><h3>${E(c.title)}</h3><span class="curated-place">${E(R[c.region])} · ${E(scale)} · ${E(c.duration)}</span><span class="curated-pitch">${E(c.pitch)}</span><span class="curated-open">Explore this outing ${I('arrow')}</span></summary><div class="curated-body"><p class="curated-fit">${E(c.bestFor)}</p><p>${E(c.transport)}</p><ol class="curated-stops">${c.stops
+      .map((stop) => {
+        const a = BY.get(stop.catalogueId);
+        if (!a) return '';
+        return `<li><h4>${E(a.title)}</h4><p>${E(stop.note)}</p>${btn('Explore ' + E(a.title), 'discovery', a.id, 'subtle')}</li>`;
+      })
+      .join(
+        '',
+      )}</ol><p class="curated-planning">${E(c.planning)}</p><p class="small muted">Suggested sequence and timing are editorial estimates. Check journeys, opening and reservations for your day.</p>${curatedSources(c.sources)}<p class="small muted">Sources read ${E(dateText(c.readAt))}</p></div></details>`;
+  }
   function curatedOutings() {
     if (
       ui.discoveryView !== 'fieldbook' ||
@@ -924,21 +944,38 @@
     const collections = (window.OMAKASE.collections || []).filter(
       (c) => ui.region === 'all' || c.region === ui.region,
     );
-    if (!collections.length) return '';
-    return `<section class="curated-outings" aria-labelledby="curated-heading"><div class="curated-intro"><h2 id="curated-heading">Make an afternoon of it.</h2><p>A few places that belong together. Pick a thread, follow your curiosity, leave room for a detour.</p></div><div class="curated-list">${collections
+    const groups = [
+      {
+        id: 'curated-heading',
+        title: 'A few hours or a day.',
+        description:
+          'A few places that belong together. Follow a thread and leave room for a detour.',
+        items: collections.filter((c) => c.travelScale !== 'separate-stay'),
+      },
+      {
+        id: 'curated-stays-heading',
+        title: 'Stay a little longer.',
+        description:
+          'Choose a new island base. These need accommodation and a separate transport plan.',
+        items: collections.filter((c) => c.travelScale === 'separate-stay'),
+      },
+    ];
+    const outings = groups
+      .filter((group) => group.items.length)
       .map(
-        (c) =>
-          `<details class="curated-outing" data-collection-id="${E(c.id)}"><summary><h3>${E(c.title)}</h3><span class="curated-place">${E(R[c.region])} · ${E(c.duration)}</span><span class="curated-pitch">${E(c.pitch)}</span><span class="curated-open">Explore this outing ${I('arrow')}</span></summary><div class="curated-body"><p class="curated-fit">${E(c.bestFor)}</p><p>${E(c.transport)}</p><ol class="curated-stops">${c.stops
-            .map((stop) => {
-              const a = BY.get(stop.catalogueId);
-              if (!a) return '';
-              return `<li><h4>${E(a.title)}</h4><p>${E(stop.note)}</p>${btn('Explore ' + E(a.title), 'discovery', a.id, 'subtle')}</li>`;
-            })
-            .join(
-              '',
-            )}</ol><p class="curated-planning">${E(c.planning)}</p><p class="small muted">Suggested sequence and timing are editorial estimates. Check journeys, opening and reservations for your day.</p><div class="curated-sources">${c.sources.map((source) => (safeURL(source.url) ? `<a href="${E(safeURL(source.url))}" target="_blank" rel="noopener noreferrer">${E(source.label)} ${I('external')}</a>` : '')).join('')}</div><p class="small muted">Sources read ${E(dateText(c.readAt))}</p></div></details>`,
+        (group) =>
+          `<section class="curated-outings" aria-labelledby="${group.id}"><div class="curated-intro"><h2 id="${group.id}">${E(group.title)}</h2><p>${E(group.description)}</p></div><div class="curated-list">${group.items.map(curatedOuting).join('')}</div></section>`,
       )
-      .join('')}</div></section>`;
+      .join('');
+    const onward = ['all', 'okinawa'].includes(ui.region)
+      ? (window.OMAKASE.onwardIdeas || [])
+          .map(
+            (idea) =>
+              `<section class="curated-onward" aria-labelledby="onward-${E(idea.id)}"><h2 id="onward-${E(idea.id)}">${E(idea.title)}</h2><p class="curated-fit">${E(idea.regionLabel)}</p><p>${E(idea.pitch)}</p><p>${E(idea.planning)}</p><p>${E(idea.onward)}</p>${curatedSources(idea.sources)}<p class="small muted">Sources read ${E(dateText(idea.readAt))} · a direction to explore, not a booked itinerary.</p></section>`,
+          )
+          .join('')
+      : '';
+    return outings + onward;
   }
   function discoveryViewSwitch() {
     return `<div class="discovery-view-switch" role="group" aria-label="Discovery view"><button class="btn ${ui.discoveryView === 'fieldbook' ? 'primary' : 'subtle'}" data-action="discovery-view" data-id="fieldbook" aria-pressed="${ui.discoveryView === 'fieldbook'}">${I('book')} Fieldbook</button><button class="btn ${ui.discoveryView === 'map' ? 'primary' : 'subtle'}" data-action="discovery-view" data-id="map" aria-pressed="${ui.discoveryView === 'map'}">${I('pin')} Map</button><span class="small muted">${ui.discoveryView === 'map' ? 'Find an area. See what belongs together.' : 'Follow a story, a craving, a curiosity.'}</span></div>`;

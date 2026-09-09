@@ -6,10 +6,16 @@ test('curated outings lead to existing guides and preserve discovery filters', a
 }, info) => {
   await page.goto(runtime.url + '/example.html#demo/discover');
   const section = page.getByRole('region', {
-    name: 'Make an afternoon of it.',
+    name: 'A few hours or a day.',
   });
   await expect(section).toBeVisible();
-  await expect(section.locator('details')).toHaveCount(6);
+  const stays = page.getByRole('region', { name: 'Stay a little longer.' });
+  await expect(stays.locator('details')).toHaveCount(3);
+  await expect(stays).toContainText('Separate stay');
+  await expect(
+    section.locator('[data-travel-scale=separate-stay]'),
+  ).toHaveCount(0);
+  await expect(section.locator('details')).toHaveCount(7);
   await section.locator('summary').first().click();
   await expect(section.locator('details').first()).toHaveAttribute('open', '');
   const firstStop = section
@@ -29,7 +35,38 @@ test('curated outings lead to existing guides and preserve discovery filters', a
   ).toHaveAttribute('data-id', id);
   await page.locator('#dialog [data-action=close]').click();
   await page.locator('[data-action=region][data-id=okinawa]').click();
-  await expect(section.locator('details')).toHaveCount(3);
+  await expect(section.locator('details')).toHaveCount(4);
+  const islandDay = section.locator('[data-collection-id=tokashiki-blue-day]');
+  await islandDay.locator('summary').click();
+  await expect(islandDay).toContainText('Rough seas can cancel boats');
+  await islandDay.locator('[data-action=discovery]').click();
+  await expect(
+    page.locator('#dialog [data-action=save-detail]'),
+  ).toHaveAttribute('data-id', 'okinawa-068');
+  await page.locator('#dialog [data-action=close]').click();
+  await islandDay.locator('summary').click();
+  const longerStay = stays.locator(
+    '[data-collection-id=yaeyama-village-and-bay]',
+  );
+  await longerStay.locator('summary').click();
+  await expect(longerStay).toContainText(
+    'October operating dates and seats are unconfirmed',
+  );
+  await stays.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: info.outputPath('island-stays-desktop.png') });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await stays.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: info.outputPath('island-stays-mobile.png') });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await longerStay.locator('summary').click();
+  const onward = page.getByRole('region', {
+    name: 'Trade the beach for lava and cedar forest',
+  });
+  await expect(onward).toContainText('Southern Kyushu · a separate trip north');
+  await page.locator('[data-action=region][data-id=osaka]').click();
+  await expect(stays).toHaveCount(0);
+  await expect(onward).toHaveCount(0);
+  await page.locator('[data-action=region][data-id=okinawa]').click();
   await page.locator('#search').fill('pottery');
   await expect(section).toHaveCount(0);
   await page.locator('#search').fill('');

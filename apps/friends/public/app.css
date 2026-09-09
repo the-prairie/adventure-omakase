@@ -5438,3 +5438,16 @@ input[type='file']::file-selector-button {
     font-size: 26px;
   }
 }
+
+.curated-onward {
+  max-width: 72ch;
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+  margin: 24px 0;
+}
+.curated-onward h2 {
+  margin-top: 0;
+}
+.curated-outings[aria-labelledby='curated-stays-heading'] .curated-intro > p {
+  display: block;
+}

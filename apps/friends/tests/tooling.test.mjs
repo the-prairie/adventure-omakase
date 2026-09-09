@@ -273,7 +273,7 @@ test('catalogue photographs retain unique local files, credits and source-linked
     assert.match(photo.licenseUrl, /^https:\/\/creativecommons\.org\//);
     assert.ok(photo.author && photo.caption && photo.license);
   }
-  assert.equal(catalogue.filter((entry) => entry.experience).length, 43);
+  assert.equal(catalogue.filter((entry) => entry.experience).length, 51);
   for (const region of ['osaka', 'okinawa']) {
     assert.ok(
       catalogue.filter(
@@ -284,7 +284,7 @@ test('catalogue photographs retain unique local files, credits and source-linked
   for (const { experience } of catalogue.filter((entry) => entry.experience)) {
     assert.match(
       experience.source,
-      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com|taiyounotou-expo70\.jp|www\.cupnoodles-museum\.jp|www\.minpaku\.ac\.jp|katsuo-ji-temple\.or\.jp|himeji-kanko\.jp|www\.otagiji\.com|visitokinawajapan\.com|gangala\.com|www\.gyokusendo\.co\.jp|okimu\.jp|cruise\.visitokinawa\.jp|sachibaru\.jp|www\.japan\.travel|www\.shuri-ryusen\.com|www\.makishi-public-market\.jp)\//,
+      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com|taiyounotou-expo70\.jp|www\.cupnoodles-museum\.jp|www\.minpaku\.ac\.jp|katsuo-ji-temple\.or\.jp|himeji-kanko\.jp|www\.otagiji\.com|visitokinawajapan\.com|gangala\.com|www\.gyokusendo\.co\.jp|okimu\.jp|cruise\.visitokinawa\.jp|sachibaru\.jp|www\.japan\.travel|www\.shuri-ryusen\.com|www\.makishi-public-market\.jp|keramakayak\.jp)\//,
     );
     assert.match(experience.readAt, /^2026-09-0[789]$/);
     assert.ok(
@@ -342,7 +342,7 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
     sandbox,
   );
   const { catalogue, collections } = sandbox.window.OMAKASE;
-  assert.equal(collections.length, 6);
+  assert.equal(collections.length, 10);
   assert.equal(
     new Set(collections.map((item) => item.id)).size,
     collections.length,
@@ -350,7 +350,7 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
   for (const region of ['osaka', 'okinawa']) {
     assert.equal(
       collections.filter((item) => item.region === region).length,
-      3,
+      region === 'osaka' ? 3 : 7,
     );
   }
   const byId = new Map(catalogue.map((item) => [item.id, item]));
@@ -375,7 +375,12 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
       assert.equal(new URL(source.url).protocol, 'https:');
       assert.ok(source.label);
     }
-    assert.ok(outing.stops.length >= 2);
+    assert.ok(
+      outing.stops.length >= (outing.id === 'tokashiki-blue-day' ? 1 : 2),
+    );
+    assert.ok(
+      ['local', 'day-trip', 'separate-stay'].includes(outing.travelScale),
+    );
     assert.equal(
       new Set(outing.stops.map((stop) => stop.catalogueId)).size,
       outing.stops.length,
@@ -391,8 +396,9 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
         'evergreen outings must not depend on dated events',
       );
       assert.ok(
-        !entry.flags.includes('o'),
-        'short outings must not silently require an overnight stay',
+        !entry.flags.includes('o') ||
+          ['day-trip', 'separate-stay'].includes(outing.travelScale),
+        'island transfer stops must not masquerade as local outings',
       );
     }
   }
@@ -403,5 +409,60 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
       JSON.stringify(JSON.parse(await readFile(join(ROOT, file), 'utf8'))),
       serialized,
     );
+  }
+});
+
+test('island chapters preserve existing transfer flags and keep onward directions outside the catalogue', async () => {
+  const { runInNewContext } = await import('node:vm');
+  const sandbox = { window: {} };
+  runInNewContext(
+    await readFile(join(ROOT, 'public/data.js'), 'utf8'),
+    sandbox,
+  );
+  const { catalogue, collections, onwardIdeas } = sandbox.window.OMAKASE;
+  assert.equal(catalogue.length, 300);
+  assert.equal(
+    collections.filter((item) => item.travelScale === 'separate-stay').length,
+    3,
+  );
+  for (const item of collections.slice(0, 6)) {
+    for (const stop of item.stops)
+      assert.ok(
+        !catalogue
+          .find((entry) => entry.id === stop.catalogueId)
+          .flags.includes('o'),
+      );
+  }
+  const flags = {
+    'okinawa-065': 'bow',
+    'okinawa-067': 'o',
+    'okinawa-068': 'o',
+    'okinawa-077': 'o',
+    'okinawa-078': 'o',
+    'okinawa-080': 'o',
+    'okinawa-086': 'bo',
+    'okinawa-091': 'o',
+    'okinawa-092': 'bo',
+  };
+  for (const [id, expected] of Object.entries(flags))
+    assert.equal(catalogue.find((entry) => entry.id === id).flags, expected);
+  assert.equal(onwardIdeas.length, 1);
+  for (const idea of onwardIdeas) {
+    assert.ok(!catalogue.some((entry) => entry.id === idea.id));
+    assert.ok(!idea.stops && !idea.catalogueId);
+    for (const key of [
+      'title',
+      'regionLabel',
+      'pitch',
+      'planning',
+      'onward',
+      'readAt',
+    ])
+      assert.ok(idea[key]);
+    assert.match(idea.regionLabel, /Kyushu/);
+    assert.match(idea.onward, /October.*not confirmed/);
+    assert.ok(idea.sources.length >= 3);
+    for (const source of idea.sources)
+      assert.equal(new URL(source.url).protocol, 'https:');
   }
 });

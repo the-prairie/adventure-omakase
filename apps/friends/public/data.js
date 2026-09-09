@@ -7370,3 +7370,345 @@ window.OMAKASE.collections = [
     readAt: '2026-09-09',
   },
 ];
+
+// Island chapters retain the catalogue transfer/overnight flags; they do not widen local dice eligibility.
+{
+  const details = {
+    'okinawa-068': {
+      why: 'A whole day for Aharen’s blue water, white sand and a village lunch.',
+      experience: {
+        summary:
+          'Take the ferry to Tokashiki, then transfer across the island to Aharen. Keep the beach and adjacent village as the day’s focus.',
+        highlights: [
+          'A guided marine activity is an optional separate booking; the beach pause works without one.',
+        ],
+        planning:
+          'Reserve both ferry legs and arrange the port transfer. Sea conditions can cancel crossings; an October timetable and operating day still need checking. This is an island day, not a walk from Naha.',
+        source:
+          'https://visitokinawajapan.com/destinations/kerama-islands/tokashiki-island/',
+        sourceLabel: 'Okinawa tourism · Tokashiki',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-065': {
+      why: 'Paddle towards a small island with a guide who chooses the course for the conditions.',
+      experience: {
+        summary:
+          'Kerama Kayak Center offers guided kayaking and snorkeling from Zamami. The appeal is being close to the water, with stops that depend on wind and sea conditions.',
+        highlights: [
+          'The operator may substitute a beach course when an islet crossing is unsuitable.',
+        ],
+        planning:
+          'Choose an actual half-day or full-day product, confirm English guidance and participant requirements, and reserve separately. A full-day tour is better paired with an island stay than a tight ferry connection.',
+        source: 'https://keramakayak.jp/english.html',
+        sourceLabel: 'Kerama Kayak Center · tour and conditions',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-067': {
+      why: 'See the Kerama islands layered across the horizon from above Zamami.',
+      experience: {
+        summary:
+          'Takatsukiyama’s observation decks look over Ago no Ura Bay towards neighbouring islands. Make the uphill effort a separate, unhurried part of an island stay.',
+        highlights: [
+          'Choose a viewpoint around weather, energy and the return journey.',
+        ],
+        planning:
+          'Zamami is hilly. Arrange local transport or check the walking route; do not treat every viewpoint as an easy port-side stroll. Return before dark unless you have suitable transport and equipment.',
+        source:
+          'https://visitokinawajapan.com/destinations/kerama-islands/zamami-island/',
+        sourceLabel: 'Okinawa tourism · Zamami',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-086': {
+      why: 'Watch coral and fish beneath a boat at Kabira Bay, then enjoy the shore.',
+      experience: {
+        summary:
+          'Kabira Bay’s glass-bottom boats offer a way to look into the water without a snorkeling session. The bay’s small islands and shifting colours are part of the appeal.',
+        highlights: ['Marine sightings and visibility depend on conditions.'],
+        planning:
+          'Confirm an operator, current departures and road transport from your Ishigaki base. Swimming and snorkeling from the beach are not permitted at Kabira Bay. This is a separate flight-and-stay destination from Naha.',
+        source:
+          'https://visitokinawajapan.com/destinations/yaeyama-islands/ishigaki-island/',
+        sourceLabel: 'Okinawa tourism · Ishigaki',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-092': {
+      why: 'Stay after the day visitors leave, with time for village lanes and an unhurried evening.',
+      experience: {
+        summary:
+          'An overnight on Taketomi changes the pace: spend the afternoon among red-tiled houses and sandy lanes, then settle into a small guesthouse.',
+        highlights: [
+          'Choose the stay for the village atmosphere, not a list of scheduled attractions.',
+        ],
+        planning:
+          'Reserve accommodation and confirm meals, check-in and port transfers directly. Arrange the ferry from Ishigaki separately; leave room for disrupted sailings before an onward flight.',
+        source:
+          'https://visitokinawajapan.com/destinations/yaeyama-islands/taketomi-island/',
+        sourceLabel: 'Okinawa tourism · Taketomi',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-077': {
+      why: 'A runway-edge coastal walk for luminous water and an enormous horizon.',
+      experience: {
+        summary:
+          'The northern end of Shimoji Airport’s runway, known as 17END, has striking coastal views. Come for the walk and water colours; seeing aircraft depends on the flight schedule.',
+        highlights: [
+          'The official tourism guide states that swimming is prohibited here.',
+        ],
+        planning:
+          'Use designated public access and observe airport restrictions. Check the walking approach and parking locally; bring sun protection and water. This is a viewpoint stop, not a swimming beach.',
+        source:
+          'https://visitokinawajapan.com/destinations/miyako-islands/shimoji-island/',
+        sourceLabel: 'Okinawa tourism · Shimoji',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-078': {
+      why: 'Two deep-blue limestone pools, with their connection hidden underwater.',
+      experience: {
+        summary:
+          'At Tooriike, a short wooden walking trail gives views of two neighbouring ponds. Underwater passages connect the pools with each other and the sea.',
+        highlights: ['View the pools from the visitor trail.'],
+        planning:
+          'Check current trail access. Exploring the underwater tunnels requires advanced diving skills; this catalogue stop is the land viewpoint only.',
+        source:
+          'https://visitokinawajapan.com/destinations/miyako-islands/shimoji-island/',
+        sourceLabel: 'Okinawa tourism · Shimoji',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-080': {
+      why: 'Build an Irabu afternoon around a seafood lunch in a working bonito port.',
+      experience: {
+        summary:
+          'Sarahama is a hillside fishing town known for its bonito catch. Look for a local diner and keep the working harbour as context rather than a staged attraction.',
+        highlights: [
+          'Ask what fish is available that day instead of expecting one fixed dish.',
+        ],
+        planning:
+          'Restaurant hours and menus vary. Arrange road transport across the bridges from Miyako or Shimoji; this is not an inter-island ferry stop.',
+        source:
+          'https://visitokinawajapan.com/destinations/miyako-islands/irabu-island/',
+        sourceLabel: 'Okinawa tourism · Irabu',
+        readAt: '2026-09-09',
+      },
+    },
+  };
+  for (const [id, detail] of Object.entries(details)) {
+    const entry = window.OMAKASE.catalogue.find((item) => item.id === id);
+    if (entry)
+      Object.assign(entry, detail, {
+        source: detail.experience.source,
+        checked: detail.experience.readAt,
+      });
+  }
+  for (const item of window.OMAKASE.collections)
+    item.travelScale =
+      item.id === 'naha-forest-to-shore' ? 'day-trip' : 'local';
+  window.OMAKASE.collections.push(
+    ...[
+      {
+        id: 'tokashiki-blue-day',
+        region: 'okinawa',
+        travelScale: 'day-trip',
+        title: 'One island, one beach, no rush',
+        pitch:
+          'Choose Tokashiki for a taste of the Keramas while keeping a Naha base. Aharen is enough for one good day.',
+        duration: 'Full day from Naha · planning estimate',
+        transport:
+          'Ferry from Naha’s Tomari Port to Tokashiki, then a bus, taxi or arranged transfer to Aharen and back.',
+        bestFor: 'An island day · beach time',
+        planning:
+          'Check and reserve outward and return sailings, then match the local transfer. Rough seas can cancel boats. Use current fares: the operator announces a change from October 1. Avoid making this the same day as an important onward flight.',
+        stops: [
+          {
+            catalogueId: 'okinawa-068',
+            note: 'Spend the available time at Aharen and in the village. Add a guided water session only if its finish leaves a comfortable return margin.',
+          },
+        ],
+        sources: [
+          {
+            url: 'https://visitokinawajapan.com/destinations/kerama-islands/tokashiki-island/',
+            label: 'Okinawa tourism · Tokashiki',
+          },
+          {
+            url: 'https://tokashiki-ferry.jp/Senpaku/portal',
+            label: 'Tokashiki village · ferry status and reservations',
+          },
+        ],
+        readAt: '2026-09-09',
+      },
+      {
+        id: 'zamami-paddle-and-stay',
+        region: 'okinawa',
+        travelScale: 'separate-stay',
+        title: 'Stay for the island, paddle when it suits',
+        pitch:
+          'Choose Zamami when the sea deserves more than the gap between two ferries: a guided paddle, a high viewpoint and a night on the island.',
+        duration: '2–3 days with an overnight stay · planning estimate',
+        transport:
+          'Ferry from Tomari Port to Zamami; arrange island accommodation, local travel and the return crossing separately.',
+        bestFor: 'A small-island stay · guided kayaking',
+        planning:
+          'Book the stay and tour around confirmed ferry options. Wind can change the paddling course or cancel boats; keep a buffer before any fixed onward flight. Whale watching is a winter activity, not an October promise.',
+        stops: [
+          {
+            catalogueId: 'okinawa-065',
+            note: 'Make a guided kayak outing the main activity on the better-weather day; let the operator choose the course.',
+          },
+          {
+            catalogueId: 'okinawa-067',
+            note: 'Use another clear part of the stay for a viewpoint, leaving time to enjoy the village rather than filling every hour.',
+          },
+        ],
+        sources: [
+          {
+            url: 'https://keramakayak.jp/english.html',
+            label: 'Kerama Kayak Center · tour and conditions',
+          },
+          {
+            url: 'https://visitokinawajapan.com/destinations/kerama-islands/zamami-island/',
+            label: 'Okinawa tourism · Zamami',
+          },
+          {
+            url: 'https://www.zamamitourism.com/en/aboutboat',
+            label: 'Zamami tourism association · boat reservations',
+          },
+        ],
+        readAt: '2026-09-09',
+      },
+      {
+        id: 'yaeyama-village-and-bay',
+        region: 'okinawa',
+        travelScale: 'separate-stay',
+        title: 'Ishigaki’s blue bay, Taketomi’s quiet lanes',
+        pitch:
+          'Choose the Yaeyamas for contrast: a larger island base and a small village island that invites you to slow down.',
+        duration: '3–5 days across two islands · planning estimate',
+        transport:
+          'Fly to Ishigaki, travel by road to Kabira, and use the separate Ishigaki–Taketomi ferry for the village island.',
+        bestFor: 'A longer island chapter · village life',
+        planning:
+          'Choose an Ishigaki base, with a Taketomi overnight only if rooms and meals suit. The airport lists a Taipei route, but October operating dates and seats are unconfirmed; check the airline before shaping an onward Taiwan plan. Keep the final ferry away from a tight flight connection.',
+        stops: [
+          {
+            catalogueId: 'okinawa-086',
+            note: 'Give Kabira Bay its own part of a day, including the road journey from your base.',
+          },
+          {
+            catalogueId: 'okinawa-091',
+            note: 'On a different day, ferry to Taketomi for cycling or walking through the village.',
+          },
+          {
+            catalogueId: 'okinawa-092',
+            note: 'Optional: stay overnight on Taketomi instead of returning that afternoon; arrange the guesthouse and ferry yourself.',
+          },
+        ],
+        sources: [
+          {
+            url: 'https://visitokinawajapan.com/destinations/yaeyama-islands/ishigaki-island/',
+            label: 'Okinawa tourism · Ishigaki',
+          },
+          {
+            url: 'https://visitokinawajapan.com/destinations/yaeyama-islands/taketomi-island/',
+            label: 'Okinawa tourism · Taketomi',
+          },
+          {
+            url: 'https://aneikankou.co.jp/timetable/detail/3',
+            label: 'Anei Kanko · Ishigaki–Taketomi ferry',
+          },
+          {
+            url: 'https://www.ishigaki-airport.co.jp/en/fly/network/index.html',
+            label: 'Ishigaki Airport · route network',
+          },
+        ],
+        readAt: '2026-09-09',
+      },
+      {
+        id: 'miyako-bridges-and-blue',
+        region: 'okinawa',
+        travelScale: 'separate-stay',
+        title: 'Three islands, connected by road',
+        pitch:
+          'Choose Miyako, Irabu and Shimoji for coastal space, unusual limestone and a fishing-port lunch, with a base you can return to each night.',
+        duration: '3–4 days with a Miyako-area stay · planning estimate',
+        transport:
+          'Fly to Miyako or Shimoji Airport, then use the bridges to Irabu and Shimoji. Arrange road transport; bus services can be limited.',
+        bestFor: 'Coastal exploring · a slower road trip',
+        planning:
+          'These are alternatives to a Naha stay, not nearby ferry hops. Confirm the arrival airport, lodging and local transport first. Check any onward flight separately; this collection does not promise a direct Taiwan connection.',
+        stops: [
+          {
+            catalogueId: 'okinawa-080',
+            note: 'Make Sarahama’s fishing-port lunch an anchor on an Irabu day.',
+          },
+          {
+            catalogueId: 'okinawa-078',
+            note: 'Continue to Tooriike’s land viewpoints, checking the current trail access.',
+          },
+          {
+            catalogueId: 'okinawa-077',
+            note: 'Leave time for the 17END coast; keep it a walk, with no swimming or promised aircraft sighting.',
+          },
+        ],
+        sources: [
+          {
+            url: 'https://visitokinawajapan.com/destinations/miyako-islands/irabu-island/',
+            label: 'Okinawa tourism · Irabu',
+          },
+          {
+            url: 'https://visitokinawajapan.com/destinations/miyako-islands/shimoji-island/',
+            label: 'Okinawa tourism · Shimoji',
+          },
+          {
+            url: 'https://visitokinawajapan.com/plan-your-trip/getting-around-okinawa/flights-between-islands/',
+            label: 'Okinawa tourism · flights between islands',
+          },
+          {
+            url: 'https://visitokinawajapan.com/plan-your-trip/getting-around-okinawa/okinawa-by-bus/buses-on-miyako-islands/',
+            label: 'Okinawa tourism · Miyako road transport',
+          },
+        ],
+        readAt: '2026-09-09',
+      },
+    ],
+  );
+}
+
+// An onward editorial direction, deliberately outside the Okinawa catalogue and dice.
+window.OMAKASE.onwardIdeas = [
+  {
+    id: 'kagoshima-yakushima',
+    title: 'Trade the beach for lava and cedar forest',
+    regionLabel: 'Southern Kyushu · a separate trip north',
+    pitch:
+      'Consider Kagoshima’s Sakurajima lava coast and hot-spring footbath, then Yakushima’s cedar forest if you want a different landscape before Taiwan.',
+    planning:
+      'Allow several extra nights and arrange onward transport separately. Kagoshima–Yakushima requires a flight or boat connection; airport and ferry terminals are far apart. Check current operators, weather and trail access.',
+    onward:
+      'Kagoshima Airport lists a Taipei service in its September timetable. October operation and seats are not confirmed; treat this as a route to investigate.',
+    sources: [
+      {
+        url: 'https://visitor.sakurajima.gr.jp/en/guide.html',
+        label: 'Sakurajima Visitor Center',
+      },
+      {
+        url: 'https://www.kagoshima-kankou.com/for/highlights/yakushima_island',
+        label: 'Yakushima official guide',
+      },
+      {
+        url: 'https://www.kagoshima-kankou.com/for/highlights/yakushima_island/access',
+        label: 'Yakushima transport',
+      },
+      {
+        url: 'https://www.koj-ab.co.jp/en/flight/monthly/tpe_d.html',
+        label: 'Kagoshima Airport · Taipei timetable',
+      },
+    ],
+    readAt: '2026-09-09',
+  },
+];
