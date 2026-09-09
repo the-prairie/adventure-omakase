@@ -128,3 +128,7 @@ Implementation `187bd9c` is live and exact-verified on preview. Actual Google re
 The reported faded Himeji die is an empty shortlist caused by the default regional-excursion exclusion. Explain the reason on the atlas and offer explicit recovery there, preserving all other filters and existing draw behavior. Local regression and interaction suites passed 8/8 across Chromium/WebKit; pnpm check passed. Release identity and live proof are recorded in CURRENT_STATUS.
 
 Implemented and exact-verified on preview at `a1dfa39`. Hosted Himeji recovery and re-roll passed; deployment passed all 50 browser cases. A separate CI run recorded one external Google iframe error, detailed in CURRENT_STATUS.
+
+## September 8: deeper discovery content
+
+The user requested enough context and relevant imagery to understand each recommendation’s atmosphere and actual experience. This slice expands 24 Osaka/Kansai and Okinawa entries with source-linked descriptions, things to do and practical arrangements, and adds 23 licensed photographs. It preserves all 300 identities and their selection constraints. Coverage is now 36 expanded guides and 50 photographed entries (51 photographs); the rest retain their existing research depth. The public JSON export and companion catalogue match the browser catalogue, including three previously missing public-export enrichments. Tower of the Sun links the operator’s illustrated guide because no suitable reusable photo was established. Exact verification and release identity are recorded in CURRENT_STATUS.

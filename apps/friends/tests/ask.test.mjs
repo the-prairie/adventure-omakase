@@ -108,6 +108,10 @@ test('companion catalogue is exactly the original 300 discovery records', async 
     catalogue,
     JSON.parse(JSON.stringify(sandbox.window.OMAKASE.catalogue)),
   );
+  assert.deepEqual(
+    JSON.parse(await readFile(join(ROOT, 'public/catalogue.json'), 'utf8')),
+    catalogue,
+  );
 });
 test('member context contains only explicit own preferences, windows and selected commitments', () => {
   const s = {

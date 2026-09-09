@@ -258,8 +258,8 @@ test('catalogue photographs retain unique local files, credits and source-linked
   const catalogue = sandbox.window.OMAKASE.catalogue;
   assert.equal(catalogue.length, 300);
   const illustrated = catalogue.filter((entry) => entry.photo);
-  assert.equal(illustrated.length, 27);
-  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 27);
+  assert.equal(illustrated.length, 50);
+  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 50);
   for (const photo of illustrated.flatMap((entry) => [
     entry.photo,
     ...(entry.photos || []),
@@ -273,10 +273,18 @@ test('catalogue photographs retain unique local files, credits and source-linked
     assert.match(photo.licenseUrl, /^https:\/\/creativecommons\.org\//);
     assert.ok(photo.author && photo.caption && photo.license);
   }
+  assert.equal(catalogue.filter((entry) => entry.experience).length, 36);
+  for (const region of ['osaka', 'okinawa']) {
+    assert.ok(
+      catalogue.filter(
+        (entry) => entry.id.startsWith(region + '-') && entry.experience,
+      ).length >= 12,
+    );
+  }
   for (const { experience } of catalogue.filter((entry) => entry.experience)) {
     assert.match(
       experience.source,
-      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com)\//,
+      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com|taiyounotou-expo70\.jp|www\.cupnoodles-museum\.jp|www\.minpaku\.ac\.jp|katsuo-ji-temple\.or\.jp|himeji-kanko\.jp|www\.otagiji\.com|visitokinawajapan\.com|gangala\.com|www\.gyokusendo\.co\.jp|okimu\.jp|cruise\.visitokinawa\.jp|sachibaru\.jp|www\.japan\.travel)\//,
     );
     assert.match(experience.readAt, /^2026-09-0[78]$/);
     assert.ok(

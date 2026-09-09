@@ -56,3 +56,62 @@ Nine expanded guides were read on September 7, 2026. The prose is a short paraph
 - `assets/discovery/photos/dozeu-exterior.webp`: [File:Komagata Dozeu -01.jpg](https://commons.wikimedia.org/wiki/File:Komagata_Dozeu_-01.jpg), Aimaimyi, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). Komagata Dozeu exterior · 2011. Resized to 960px and converted to WebP; display crops may apply.
 
 Karahori and Kyu Yamutei expanded descriptions cite the linked Osaka tourism and Good Luck Trip pages in data.js. Two checked menu links distinguish official menu from historical diner photos. No current opening, menu, availability or booking claim is made.
+
+## September 8: Osaka and Okinawa experience expansion
+
+24 additional guides cover what visitors do, the setting, and practical arrangements. Each links its official venue or tourism source and records the reading date. Research is not live availability. The catalogue now has 36 expanded guides and 50 photographed entries (51 photographs), out of 300 discoveries.
+
+23 licensed photographs were added. The Tower of the Sun guide links the operator’s illustrated page; no photograph with unresolved reuse rights is bundled. Captions distinguish exteriors, historical seasons, a regional example dish and a daytime island view. Small original images are not evidence of present conditions.
+
+| Discovery   | Photograph / attribution                                                                                                                                                                                | License                                                             | Original date                           |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | --------------------------------------- |
+| osaka-001   | [Senkouji Temple, Osaka 2.jpg](https://commons.wikimedia.org/wiki/File:Senkouji_Temple,_Osaka_2.jpg) · Motokoka                                                                                         | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2009-05-30 15:16:21                     |
+| osaka-002   | [Namba-Yasaka-Shrine-lions head theater.jpg](https://commons.wikimedia.org/wiki/File:Namba-Yasaka-Shrine-lions_head_theater.jpg) · Immanuelle                                                           | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)            | 2024-08-05 14:55:16                     |
+| osaka-005   | [Osaka Prefectural Sayamaike Museum waterfall-01.JPG](https://commons.wikimedia.org/wiki/File:Osaka_Prefectural_Sayamaike_Museum_waterfall-01.JPG) · Ajax                                               | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2016-03-23 15:09:15                     |
+| osaka-006   | [Chikatsu asuka museum01s3592.jpg](https://commons.wikimedia.org/wiki/File:Chikatsu_asuka_museum01s3592.jpg) · 663highland                                                                              | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5)            | 2007-01-20                              |
+| osaka-007   | [Open-Air Museum of Old Japanese Farm Houses 3-26 (26259523120).jpg](<https://commons.wikimedia.org/wiki/File:Open-Air_Museum_of_Old_Japanese_Farm_Houses_3-26_(26259523120).jpg>) · KimonBerlin        | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)      | 2016-03-26 10:58:50                     |
+| osaka-022   | [Laboratory of Momofuku (3).jpg](<https://commons.wikimedia.org/wiki/File:Laboratory_of_Momofuku_(3).jpg>) · Mr.ちゅらさん                                                                              | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2016-11-14 12:47:05                     |
+| osaka-030   | [National museum of ethnology Japan.jpg](https://commons.wikimedia.org/wiki/File:National_museum_of_ethnology_Japan.jpg) · No machine-readable author provided. Fk assumed (based on copyright claims). | [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5)      | 4 April 2002 (according to Exif data)   |
+| osaka-031   | [Minoh Falls Minoh Osaka pref Japan08s3.jpg](https://commons.wikimedia.org/wiki/File:Minoh_Falls_Minoh_Osaka_pref_Japan08s3.jpg) · 663highland                                                          | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5)            | 2012-12-01                              |
+| osaka-032   | [Daruma Dolls Osaka.JPG](https://commons.wikimedia.org/wiki/File:Daruma_Dolls_Osaka.JPG) · EllieRH                                                                                                      | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2015-06-21 17:18:38                     |
+| osaka-093   | [Tatsuno Almond butter turst.JPG](https://commons.wikimedia.org/wiki/File:Tatsuno_Almond_butter_turst.JPG) · Mti                                                                                        | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)      | 2013-02-24 13:17:20                     |
+| osaka-098   | [Otagi nenbutsuji06s3200.jpg](https://commons.wikimedia.org/wiki/File:Otagi_nenbutsuji06s3200.jpg) · 663highland                                                                                        | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5)            | 2010-11-23                              |
+| okinawa-005 | [Naha Okinawa Japan Shikinaen-01.jpg](https://commons.wikimedia.org/wiki/File:Naha_Okinawa_Japan_Shikinaen-01.jpg) · CEphoto, Uwe Aranas                                                                | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)      | 2016-01-07                              |
+| okinawa-006 | [Tsuboya Yachimun Street.jpg](https://commons.wikimedia.org/wiki/File:Tsuboya_Yachimun_Street.jpg) · Hajime NAKANO                                                                                      | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)            | 2006-12-16 13:50:31                     |
+| okinawa-010 | [Naha Sakaemachi Ichiba 01.JPG](https://commons.wikimedia.org/wiki/File:Naha_Sakaemachi_Ichiba_01.JPG) · Abasaa                                                                                         | [Public domain](https://creativecommons.org/publicdomain/mark/1.0/) | 2023-07-09                              |
+| okinawa-011 | [Valley of Gangala 2.jpg](https://commons.wikimedia.org/wiki/File:Valley_of_Gangala_2.jpg) · Bernie Ongewe                                                                                              | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 16 June 2022 (according to Exif data)   |
+| okinawa-012 | [Gyokusendo 20221228-2.jpg](https://commons.wikimedia.org/wiki/File:Gyokusendo_20221228-2.jpg) · Suicasmo                                                                                               | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2022-12-28 13:26:22                     |
+| okinawa-019 | [Okinawa Prefectural Museum & Art Museum02bss3200.jpg](https://commons.wikimedia.org/wiki/File:Okinawa_Prefectural_Museum_%26_Art_Museum02bss3200.jpg) · 663highland                                    | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5)            | 2009-03-20                              |
+| okinawa-024 | [Zakimi Burg, äußerer Ring.jpg](https://commons.wikimedia.org/wiki/File:Zakimi_Burg,_%C3%A4u%C3%9Ferer_Ring.jpg) · Renate Hano                                                                          | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2023-06-08 13:27:54                     |
+| okinawa-036 | [Bise Fukugi Tree Road 01.JPG](https://commons.wikimedia.org/wiki/File:Bise_Fukugi_Tree_Road_01.JPG) · Abasaa                                                                                           | [Public domain](https://creativecommons.org/publicdomain/mark/1.0/) | 2017-09-30                              |
+| okinawa-037 | [Nakijin Castle 20221229.jpg](https://commons.wikimedia.org/wiki/File:Nakijin_Castle_20221229.jpg) · Suicasmo                                                                                           | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2022-12-29 14:52:58                     |
+| okinawa-043 | [浜辺の茶屋 （Hamabe no Chaya) - panoramio.jpg](<https://commons.wikimedia.org/wiki/File:%E6%B5%9C%E8%BE%BA%E3%81%AE%E8%8C%B6%E5%B1%8B_%EF%BC%88Hamabe_no_Chaya)_-_panoramio.jpg>) · popsaurus          | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0)            | 25 February 2008 (original upload date) |
+| okinawa-091 | [Village in Taketomi Island - located at southwest Japan.jpg](https://commons.wikimedia.org/wiki/File:Village_in_Taketomi_Island_-_located_at_southwest_Japan.jpg) · ippei & janine naoi                | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)            | 2006-07-30                              |
+| okinawa-098 | [Aerial photo of the Hateruma Island village.jpg](https://commons.wikimedia.org/wiki/File:Aerial_photo_of_the_Hateruma_Island_village.jpg) · ブルーノ・プラス                                           | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)            | 2024-06                                 |
+
+### Guide sources
+
+- osaka-001: [Osaka official tourism guide](https://osaka-info.jp/en/spot/senkoji-1/)
+- osaka-002: [Osaka official tourism guide](https://osaka-info.jp/en/spot/nanbayasakajinja/)
+- osaka-004: [Tower of the Sun · official illustrated guide](https://taiyounotou-expo70.jp/en/about/)
+- osaka-005: [Osaka official tourism guide](https://osaka-info.jp/experience/en/osaka/spot/593)
+- osaka-006: [Osaka official tourism guide](https://osaka-info.jp/experience/en/osaka/spot/518)
+- osaka-007: [Osaka official tourism guide](https://osaka-info.jp/en/spot/open-air-museum-old-japanese-houses/)
+- osaka-022: [CUPNOODLES MUSEUM · official visitor guide](https://www.cupnoodles-museum.jp/en/osaka_ikeda/)
+- osaka-030: [National Museum of Ethnology · permanent exhibitions](https://www.minpaku.ac.jp/en/exhibition/permanent)
+- osaka-031: [Osaka official tourism guide](https://osaka-info.jp/en/modelcourse/course-family-minoh/)
+- osaka-032: [Katsuoji · official Kachi-Daruma guide (PDF)](https://katsuo-ji-temple.or.jp/download/pdf/kachidaruma_eng.pdf)
+- osaka-093: [Himeji official tourism guide · almond toast](https://himeji-kanko.jp/gourmet/6/)
+- osaka-098: [Otagi Nenbutsuji · official visitor guide](https://www.otagiji.com/visit-en)
+- okinawa-005: [Okinawa official tourism guide](https://visitokinawajapan.com/discover/world-heritage-top/shikinaen-royal-garden/)
+- okinawa-006: [Okinawa official tourism guide](https://visitokinawajapan.com/travel-inspiration/get-to-know-naha/)
+- okinawa-010: [Okinawa official tourism guide](https://visitokinawajapan.com/travel-inspiration/explore-sakaemachi/)
+- okinawa-011: [Valley of Gangala · official tour course](https://gangala.com/en/about-en/)
+- okinawa-012: [Okinawa World · official attraction guide](https://www.gyokusendo.co.jp/okinawaworld/)
+- okinawa-019: [Okinawa Prefectural Museum · permanent exhibition](https://okimu.jp/exhibition/1515730190/)
+- okinawa-024: [Okinawa official tourism guide](https://visitokinawajapan.com/discover/world-heritage-top/zakimi-castle-ruins/)
+- okinawa-036: [Okinawa official tourism guide](https://visitokinawajapan.com/destinations/okinawa-main-island/northern-okinawa-main-island/motobu-peninsula/)
+- okinawa-037: [Okinawa official cruise guide · Nakijin (PDF)](https://cruise.visitokinawa.jp/ad_sys/wp-content/themes/cruiseokinawa/assets/pdf/okinawacruiseguide_2025_en.pdf)
+- okinawa-043: [Hamabe no Chaya · official café guide](https://sachibaru.jp/en/hamacha/)
+- okinawa-091: [Japan National Tourism Organization · Taketomi](https://www.japan.travel/en/spot/566/)
+- okinawa-098: [Okinawa official tourism guide](https://visitokinawajapan.com/destinations/yaeyama-islands/hateruma-island/)

@@ -2144,14 +2144,35 @@
     "mood": "Strange",
     "minutes": 60,
     "flags": "",
-    "why": "Religious imagery makes this a striking alternative to the standard tranquil-temple visit.",
+    "why": "A small working temple with a startling Buddhist hell hall and a quieter vision of paradise.",
     "source": "https://osaka-info.jp/en/spot/senkoji-1/",
     "featured": false,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Senkoji's Hell Hall Hirano Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Senkoji puts two very different moods inside one neighbourhood temple: vivid Buddhist depictions of hell, then a contemplative space representing paradise. Come for the unusual religious imagery and a short, attentive visit in Hirano.",
+      "highlights": [
+        "Look for Enma, the judge of the dead, in the Hell Hall; its punishment scenes can feel unsettling.",
+        "The paradise space offers a calmer counterpoint, with a stained-glass mandala and a place for meditation."
+      ],
+      "planning": "This is a place of worship. Follow on-site instructions for entry and photography, and consider whether the graphic imagery suits everyone joining. Allow for the walk from Hirano station.",
+      "source": "https://osaka-info.jp/en/spot/senkoji-1/",
+      "sourceLabel": "Osaka official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-001.webp",
+      "caption": "Entrance to Senkoji’s paradise space · 2009",
+      "author": "Motokoka",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Senkouji_Temple,_Osaka_2.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-002",
@@ -2162,14 +2183,35 @@
     "mood": "Architecture",
     "minutes": 30,
     "flags": "",
-    "why": "An enormous sculptural stage turns a small shrine visit into an architectural surprise.",
+    "why": "A giant lion-mouth stage turns a short shrine visit into a wonderfully strange architectural stop.",
     "source": "https://osaka-info.jp/en/spot/nanbayasakajinja/",
     "featured": false,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Namba Yasaka lion-head stage Namba Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "At Namba Yasaka Shrine, a huge open-mouthed lion forms the backdrop of a ceremonial stage. The pleasure is in its scale and details: teeth, eyes and a mouth large enough to frame a performance, set within a working shrine.",
+      "highlights": [
+        "Step back in the grounds to take in the whole lion, then look at the smaller shrine buildings.",
+        "Pair it with a walk through Namba; it works as a brief stop between longer activities."
+      ],
+      "planning": "A visit to the grounds does not include a performance or entry inside the lion. Keep worshippers’ access clear and follow the shrine’s photography signs.",
+      "source": "https://osaka-info.jp/en/spot/nanbayasakajinja/",
+      "sourceLabel": "Osaka official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-002.webp",
+      "caption": "Lion-head stage at Namba Yasaka Shrine · 2024",
+      "author": "Immanuelle",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Namba-Yasaka-Shrine-lions_head_theater.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-003",
@@ -2198,14 +2240,27 @@
     "mood": "Strange",
     "minutes": 90,
     "flags": "b",
-    "why": "Go beyond the famous exterior into a much stranger account of postwar imagination.",
-    "source": "https://www.japan.travel/en/spot/1082/",
+    "why": "Step inside an Expo ’70 artwork built around an enormous, surreal Tree of Life.",
+    "source": "https://taiyounotou-expo70.jp/en/about/",
     "featured": false,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Inside the Tower of the Sun Expo Park Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Taro Okamoto’s Tower of the Sun is an artwork you can enter. Inside, a towering Tree of Life carries models of organisms through an imagined story of evolution. It is a theatrical encounter with Expo ’70’s ideas about humanity and the future.",
+      "highlights": [
+        "Look for the contrasting faces on the outside before entering.",
+        "The official guide includes interior photographs; use them to decide whether this unusual art environment appeals to you."
+      ],
+      "planning": "Arrange an interior admission slot through the official site and check the separate park-entry requirements. Seeing the tower from the park is a different visit from going inside.",
+      "source": "https://taiyounotou-expo70.jp/en/about/",
+      "sourceLabel": "Tower of the Sun · official illustrated guide",
+      "readAt": "2026-09-08"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-005",
@@ -2216,14 +2271,35 @@
     "mood": "Architecture",
     "minutes": 150,
     "flags": "d",
-    "why": "Water engineering and Tadao Ando architecture make a rare combination of technical and spatial interest.",
-    "source": "https://osaka-info.jp/en/spot/sayamaike-museum/",
+    "why": "Ando’s concrete architecture frames a museum about the engineering hidden inside an ancient reservoir.",
+    "source": "https://osaka-info.jp/experience/en/osaka/spot/593",
     "featured": true,
     "indoor": true,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Sayamaike Museum Osakasayama Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Sayamaike Museum combines Tadao Ando’s architecture with the story of a reservoir that has supplied irrigation water since ancient times. The visit moves between large concrete spaces and exhibits explaining how people built, repaired and used the dam.",
+      "highlights": [
+        "Follow the exhibition zones through successive eras of Sayamaike’s history.",
+        "Give the architecture its own time: the photographed water court is part of the setting, rather than a separate attraction."
+      ],
+      "planning": "The tourism guide lists free admission and a roughly 15-minute walk from Osakasayama-shi station. Check the museum calendar before the journey; leave travel time beyond the on-site estimate.",
+      "source": "https://osaka-info.jp/experience/en/osaka/spot/593",
+      "sourceLabel": "Osaka official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-005.webp",
+      "caption": "Water court at Sayamaike Museum · 2016",
+      "author": "Ajax",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Prefectural_Sayamaike_Museum_waterfall-01.JPG"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-006",
@@ -2234,14 +2310,35 @@
     "mood": "Architecture",
     "minutes": 150,
     "flags": "d",
-    "why": "An architectural destination that also introduces the region's ancient burial cultures.",
-    "source": "https://osaka-info.jp/en/spot/osaka-chikatsu-asuka-museum/",
+    "why": "A monumental concrete museum connects ancient burial mounds with the objects found inside them.",
+    "source": "https://osaka-info.jp/experience/en/osaka/spot/518",
     "featured": false,
     "indoor": true,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Chikatsu Asuka Museum Kanan Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Chikatsu Asuka Museum explores the Kofun and Asuka periods inside a Tadao Ando building conceived in the image of a burial mound. Haniwa clay figures, armour and excavated objects make this a history visit as well as an architecture outing.",
+      "highlights": [
+        "Compare the building’s broad stepped form with the burial-mound landscape it references.",
+        "Consider the neighbouring preserved tomb area if you want to extend the visit outdoors."
+      ],
+      "planning": "This is outside central Osaka. Check the museum’s current bus access, opening calendar and exhibition admission before setting out; allow extra time for the surrounding archaeological area.",
+      "source": "https://osaka-info.jp/experience/en/osaka/spot/518",
+      "sourceLabel": "Osaka official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-006.webp",
+      "caption": "Exterior steps at Chikatsu Asuka Museum · 2007",
+      "author": "663highland",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Chikatsu_asuka_museum01s3592.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-007",
@@ -2252,14 +2349,35 @@
     "mood": "Architecture",
     "minutes": 150,
     "flags": "",
-    "why": "Compare how different regions built homes for different environments.",
-    "source": "https://www.japan.travel/en/spot/1078/",
+    "why": "Walk between relocated farmhouses and compare how different regions built a home.",
+    "source": "https://osaka-info.jp/en/spot/open-air-museum-old-japanese-houses/",
     "featured": false,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Open-Air Museum of Old Japanese Farmhouses Toyonaka Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "This outdoor museum in Hattori Ryokuchi brings traditional houses from across Japan into one leafy site. Instead of a single village frozen in time, you move between buildings shaped by different climates and ways of living.",
+      "highlights": [
+        "Compare the roofs, raised floors and interiors of houses from northern Japan and the southern islands.",
+        "Make it a slow circuit through the grounds, with time to look inside the buildings that are open."
+      ],
+      "planning": "Expect an outdoor walk between exhibits. Check the opening calendar and any demonstrations separately; events are not guaranteed with admission. Ryokuchi-koen station is a walk away from the museum entrance.",
+      "source": "https://osaka-info.jp/en/spot/open-air-museum-old-japanese-houses/",
+      "sourceLabel": "Osaka official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-007.webp",
+      "caption": "A relocated house at the open-air farmhouse museum · 2016",
+      "author": "KimonBerlin",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Open-Air_Museum_of_Old_Japanese_Farm_Houses_3-26_(26259523120).jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-008",
@@ -2550,14 +2668,35 @@
     "mood": "Make",
     "minutes": 90,
     "flags": "b",
-    "why": "A playful way to think about packaging and a product that changed everyday eating.",
+    "why": "Design a cup noodle souvenir, then explore the small workshop where instant ramen began.",
     "source": "https://www.cupnoodles-museum.jp/en/osaka_ikeda/",
     "featured": false,
     "indoor": true,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Design a Cup Noodles creation Ikeda Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "CUPNOODLES MUSEUM Osaka Ikeda mixes food history with playful making. The recreated workshop shows Momofuku Ando’s early experiments, while My CUPNOODLES Factory lets you decorate a cup and choose a soup-and-topping combination.",
+      "highlights": [
+        "Browse the product-history displays before choosing whether to do a paid activity.",
+        "The cup-design activity and the hands-on Chicken Ramen Factory are separate experiences with different arrangements."
+      ],
+      "planning": "General museum entry is free, but activities cost extra. My CUPNOODLES Factory uses limited numbered tickets; Chicken Ramen Factory needs a reservation. Check the official activity pages before promising either to the group.",
+      "source": "https://www.cupnoodles-museum.jp/en/osaka_ikeda/",
+      "sourceLabel": "CUPNOODLES MUSEUM · official visitor guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-022.webp",
+      "caption": "Recreated Ando workshop at CUPNOODLES MUSEUM Osaka Ikeda · 2016",
+      "author": "Mr.ちゅらさん",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Laboratory_of_Momofuku_(3).jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-023",
@@ -2702,14 +2841,35 @@
     "mood": "Culture",
     "minutes": 180,
     "flags": "",
-    "why": "Objects and ways of living invite comparative looking rather than rushing through famous masterpieces.",
-    "source": "https://www.japan.travel/en/spot/1082/",
+    "why": "A world-culture museum where music, language and everyday objects reward a curious, unhurried look.",
+    "source": "https://www.minpaku.ac.jp/en/exhibition/permanent",
     "featured": false,
     "indoor": true,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "National Museum of Ethnology Expo Park Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Minpaku’s permanent galleries travel through nine world regions, beginning with Oceania and ending in Japan. Cross-cultural sections on music and language connect the regional displays, making this a good choice for people who enjoy following an unexpected object or idea.",
+      "highlights": [
+        "Choose a few regions that interest you instead of trying to absorb the entire collection.",
+        "Use the information zone’s films and study resources to explore the people and practices behind the displays."
+      ],
+      "planning": "The museum is in Senri Expo Park. Check its own opening calendar and exhibition tickets when combining it with the Tower of the Sun; admission to one does not arrange the other.",
+      "source": "https://www.minpaku.ac.jp/en/exhibition/permanent",
+      "sourceLabel": "National Museum of Ethnology · permanent exhibitions",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-030.webp",
+      "caption": "National Museum of Ethnology exterior · 2002",
+      "author": "No machine-readable author provided. Fk assumed (based on copyright claims).",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:National_museum_of_ethnology_Japan.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-031",
@@ -2720,14 +2880,35 @@
     "mood": "Move",
     "minutes": 180,
     "flags": "d",
-    "why": "Pair a forest walk with an unusually specific snack. Do not count on peak foliage in early October.",
-    "source": "https://www.japan.travel/en/spot/1080/",
+    "why": "A wooded waterfall walk with a distinctly local snack: crisp, battered maple leaves.",
+    "source": "https://osaka-info.jp/en/modelcourse/course-family-minoh/",
     "featured": false,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Minoh Falls and maple-leaf tempura Minoh Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "The Minoh outing is as much about the approach as the waterfall: follow the valley path from town, stop at the falls, and browse shops selling momiji tempura on the way. The snack is made from maple leaves and eaten as a crisp treat.",
+      "highlights": [
+        "Let the walk set the pace, with the waterfall as the turning point.",
+        "Try a small portion of momiji tempura from an open shop if the ingredients suit you."
+      ],
+      "planning": "Allow time for the walk out and back, not just the waterfall viewpoint. Check weather and path access. The historical photograph shows autumn foliage; leaf colour depends on season and is not promised for your trip.",
+      "source": "https://osaka-info.jp/en/modelcourse/course-family-minoh/",
+      "sourceLabel": "Osaka official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-031.webp",
+      "caption": "Minoh Falls in autumn · 2012",
+      "author": "663highland",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Minoh_Falls_Minoh_Osaka_pref_Japan08s3.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-032",
@@ -2738,14 +2919,35 @@
     "mood": "Culture",
     "minutes": 120,
     "flags": "d",
-    "why": "Repeated little figures add a playful visual layer to the temple landscape.",
-    "source": "https://osaka-info.jp/experience/en/osaka/spot?area=7",
+    "why": "Red daruma dolls give this temple visit a vivid visual focus—and a practice of setting personal goals.",
+    "source": "https://katsuo-ji-temple.or.jp/download/pdf/kachidaruma_eng.pdf",
     "featured": false,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Katsuoji daruma grounds Minoh Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Katsuoji’s daruma are connected to a practice of committing to a goal, working toward it and giving thanks. Seeing them across the temple grounds is more meaningful with that context than treating them only as colourful photo props.",
+      "highlights": [
+        "Look at the daruma displays while making a respectful circuit of the temple grounds.",
+        "If you choose a Kachi-Daruma, the temple’s English guide explains writing a goal and filling in its eyes at different stages."
+      ],
+      "planning": "Read the temple’s instructions before taking part. Leave other visitors’ offerings in place, and check current transport and admission for the mountain-temple visit.",
+      "source": "https://katsuo-ji-temple.or.jp/download/pdf/kachidaruma_eng.pdf",
+      "sourceLabel": "Katsuoji · official Kachi-Daruma guide (PDF)",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-032.webp",
+      "caption": "Daruma dolls at Katsuoji · 2015",
+      "author": "EllieRH",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Daruma_Dolls_Osaka.JPG"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-033",
@@ -3855,14 +4057,35 @@
     "mood": "Food",
     "minutes": 60,
     "flags": "d",
-    "why": "A modest local breakfast obsession is a fun counterweight to the city's monumental castle.",
-    "source": "https://www.hyogo-tourism.jp/feature/gourmet",
+    "why": "Make time for Himeji’s café breakfast tradition: almond-butter toast with coffee.",
+    "source": "https://himeji-kanko.jp/gourmet/6/",
     "featured": false,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Himeji almond-butter toast Hyogo: Himeji Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Almond toast is a local coffee-shop staple around Himeji and the wider Banshu area. Each café makes its own version, so this recommendation is about choosing a breakfast stop rather than ordering one identical signature dish everywhere.",
+      "highlights": [
+        "The city guide lists Hamamoto Coffee, Café de Muche and Sabo Tairiku among the places serving it.",
+        "Compare the café profiles for the setting you want: a coffee-focused pause or a more substantial meal."
+      ],
+      "planning": "Choose a café and confirm its current menu and morning-service hours before making a plan. The dish photo is an example from nearby Tatsuno, not a plate from a selected Himeji café. It contains almonds; check other ingredients directly.",
+      "source": "https://himeji-kanko.jp/gourmet/6/",
+      "sourceLabel": "Himeji official tourism guide · almond toast",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-093.webp",
+      "caption": "Almond-butter toast in nearby Tatsuno · example dish · 2013",
+      "author": "Mti",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tatsuno_Almond_butter_turst.JPG"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-094",
@@ -3947,14 +4170,35 @@
     "mood": "Culture",
     "minutes": 90,
     "flags": "d",
-    "why": "Individual carved expressions reward slow, amused observation.",
-    "source": "https://www.otagiji.com/story-en",
+    "why": "An Arashiyama hillside temple filled with individually expressive stone figures.",
+    "source": "https://www.otagiji.com/visit-en",
     "featured": false,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Otagi Nenbutsuji faces Kyoto: Arashiyama Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Otagi Nenbutsuji’s many stone figures make this a visit for close looking: pause over faces and gestures rather than rushing for one panoramic photograph. Its hillside setting also works as the beginning of a longer walk down through Saga-Toriimoto toward central Arashiyama.",
+      "highlights": [
+        "Leave time to notice the differences between the figures and enjoy the temple grounds.",
+        "The temple suggests arriving by taxi or bus, then walking downhill through the preserved village street."
+      ],
+      "planning": "This is in Kyoto, requiring a separate journey from Osaka. The temple currently lists Wednesday and Saturday closures; check its own visitor page before fixing the date. Walking up from Saga-Arashiyama station is a longer uphill approach.",
+      "source": "https://www.otagiji.com/visit-en",
+      "sourceLabel": "Otagi Nenbutsuji · official visitor guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-098.webp",
+      "caption": "Stone figures at Otagi Nenbutsuji · 2010",
+      "author": "663highland",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Otagi_nenbutsuji06s3200.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-099",
@@ -4077,14 +4321,35 @@
     "mood": "Slow",
     "minutes": 90,
     "flags": "",
-    "why": "Explore the cultural exchanges visible in a Ryukyuan royal retreat.",
-    "source": "https://visitokinawajapan.com/destinations/okinawa-main-island/southern-okinawa-main-island/naha/",
+    "why": "A pond-side royal garden where Ryukyuan, Chinese and Japanese design meet.",
+    "source": "https://visitokinawajapan.com/discover/world-heritage-top/shikinaen-royal-garden/",
     "featured": false,
     "indoor": false,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Shikinaen garden Naha Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Shikinaen was a royal retreat and a place to receive envoys to the Ryukyu Kingdom. Today, a circuit around the pond reveals arched stone bridges, a Chinese-style pavilion and red-tiled buildings within a restored garden.",
+      "highlights": [
+        "Walk the pond circuit and compare the bridges, pavilion and statehouse across the water.",
+        "Look for the blend of architectural traditions that reflects the kingdom’s overseas relationships."
+      ],
+      "planning": "The garden was restored after wartime destruction; its appearance is not an untouched survival. Check admission and the opening calendar, and plan the bus or taxi journey from central Naha.",
+      "source": "https://visitokinawajapan.com/discover/world-heritage-top/shikinaen-royal-garden/",
+      "sourceLabel": "Okinawa official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-005.webp",
+      "caption": "Rokkakudo pavilion at Shikinaen · 2016",
+      "author": "CEphoto, Uwe Aranas",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Naha_Okinawa_Japan_Shikinaen-01.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-006",
@@ -4095,14 +4360,35 @@
     "mood": "Make",
     "minutes": 120,
     "flags": "",
-    "why": "Choose an object you would genuinely live with rather than a generic souvenir.",
+    "why": "Browse pottery along a stone-paved street, then use a tea stop to enjoy the tableware in practice.",
     "source": "https://visitokinawajapan.com/travel-inspiration/get-to-know-naha/",
     "featured": false,
     "indoor": false,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Tsuboya pottery streets Naha Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Tsuboya’s Yachimun Street is a place to browse Okinawan pottery at your own pace. The stone-paved setting and small shops make it an easy craft-focused wander, with the option of pausing for tea served in local ceramics.",
+      "highlights": [
+        "Compare bowls, cups and glazes across the shops that catch your eye.",
+        "The tourism guide highlights BUKU-BUKU teahouse for its distinctive foamed Ryukyuan tea and pottery gallery."
+      ],
+      "planning": "This is a neighbourhood with independent businesses, so shop hours vary. A pottery-making class would need a separate arrangement. If tea is part of the plan, check the café’s current opening and menu first.",
+      "source": "https://visitokinawajapan.com/travel-inspiration/get-to-know-naha/",
+      "sourceLabel": "Okinawa official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-006.webp",
+      "caption": "Shisa and entrance details on Tsuboya Yachimun Street · 2006",
+      "author": "Hajime NAKANO",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tsuboya_Yachimun_Street.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-007",
@@ -4167,14 +4453,35 @@
     "mood": "Food",
     "minutes": 150,
     "flags": "",
-    "why": "Small establishments and neighborhood streets offer an intimate alternative to the main tourist strip.",
+    "why": "Narrow market alleys shift from everyday shopping to small bars as evening arrives.",
     "source": "https://visitokinawajapan.com/travel-inspiration/explore-sakaemachi/",
     "featured": true,
     "indoor": false,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Sakaemachi Market evening Naha Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Sakaemachi is a compact market neighbourhood near Asato station. By day it serves everyday shoppers; in the evening, small bars and food spots take over as grocery stores close. Choose the time of day for the atmosphere you want.",
+      "highlights": [
+        "Wander the lanes in daylight for market life and a coffee stop.",
+        "For an evening outing, pick one inviting small place and see how the group feels before moving on."
+      ],
+      "planning": "The linked tourism essay is older, so treat its named businesses as leads to recheck. Small venues may not seat the whole group together. Confirm opening and ordering arrangements at the places you choose.",
+      "source": "https://visitokinawajapan.com/travel-inspiration/explore-sakaemachi/",
+      "sourceLabel": "Okinawa official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-010.webp",
+      "caption": "Sakaemachi Market entrance by day · 2023",
+      "author": "Abasaa",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Naha_Sakaemachi_Ichiba_01.JPG"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-011",
@@ -4185,14 +4492,35 @@
     "mood": "Strange",
     "minutes": 120,
     "flags": "b",
-    "why": "A collapsed-cave landscape combines subtropical vegetation and geology.",
-    "source": "https://visitokinawajapan.com/plan-your-trip/recommended-trips/two-days-bus-trip-itinerary/",
+    "why": "A reserved forest walk through collapsed limestone caves, banyan roots and places of prayer.",
+    "source": "https://gangala.com/en/about-en/",
     "featured": true,
     "indoor": false,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Valley of Gangala guided walk Nanjo Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Gangala’s guided route moves from a cave entrance into dense subtropical forest. Banyan roots, limestone formations and culturally significant caves give the walk its character, while the guide explains the landscape and traces of human life.",
+      "highlights": [
+        "Follow the guided course from Cave Cafe through the forest and cave sites.",
+        "The route includes stairs and roughly a kilometre of walking, with frequent stops for explanation."
+      ],
+      "planning": "Reserve ahead: entry is by guided tour only. Allow about 80–90 minutes, arrive at least 10 minutes early and use the toilets beforehand. Wear comfortable walking shoes; the operator says wheelchairs and strollers cannot use the course. Confirm tour language when booking.",
+      "source": "https://gangala.com/en/about-en/",
+      "sourceLabel": "Valley of Gangala · official tour course",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-011.webp",
+      "caption": "Banyan roots in the Valley of Gangala · 2022",
+      "author": "Bernie Ongewe",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Valley_of_Gangala_2.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-012",
@@ -4203,14 +4531,35 @@
     "mood": "Strange",
     "minutes": 90,
     "flags": "",
-    "why": "Go underground for a dramatic contrast with the islands' bright coastal landscapes.",
-    "source": "https://visitokinawajapan.com/destinations/okinawa-main-island/southern-okinawa-main-island/itoman-and-nanjo/",
+    "why": "Follow an illuminated underground route through a dense landscape of limestone formations.",
+    "source": "https://www.gyokusendo.co.jp/okinawaworld/",
     "featured": false,
     "indoor": false,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Gyokusendo limestone cave Nanjo Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Gyokusendo is the cave visit within Okinawa World. The route takes you underground to look at stalactites, columns and formations lit along the visitor path. It suits people drawn to unusual natural spaces and a sustained walk below ground.",
+      "highlights": [
+        "Make the cave the main event, or leave additional time for the park’s craft and cultural attractions.",
+        "The park map helps distinguish the cave route from the other activities above ground."
+      ],
+      "planning": "Check the current admission package and cave access before going. The ordinary visitor route and seasonal adventure-caving tours are different products. Allow more time if adding a show or craft experience, and check mobility requirements directly with the operator.",
+      "source": "https://www.gyokusendo.co.jp/okinawaworld/",
+      "sourceLabel": "Okinawa World · official attraction guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-012.webp",
+      "caption": "Illuminated limestone formations in Gyokusendo · 2022",
+      "author": "Suicasmo",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Gyokusendo_20221228-2.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-013",
@@ -4329,14 +4678,35 @@
     "mood": "Culture",
     "minutes": 150,
     "flags": "",
-    "why": "Orient yourself to the islands' natural and cultural differences before heading farther afield.",
-    "source": "https://visitokinawajapan.com/destinations/okinawa-main-island/southern-okinawa-main-island/naha/",
+    "why": "Give the rest of the island context through its natural history, archaeology and everyday culture.",
+    "source": "https://okimu.jp/exhibition/1515730190/",
     "featured": false,
     "indoor": true,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Okinawa Prefectural Museum and Art Museum Naha Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "The prefectural museum’s permanent exhibition connects Okinawa’s environment with the people who have lived here. Objects, models and films cover natural history, archaeology, crafts, history and folk life, making this a useful early-trip stop before visiting castles and villages.",
+      "highlights": [
+        "Start with the broad historical overview, then follow the sections that interest you.",
+        "The art museum is in the same complex; check its programme separately if contemporary art is your main interest."
+      ],
+      "planning": "Choose the exhibitions you want before buying tickets, as the museum and art programmes have separate admission arrangements. Check closure days and allow enough time for focused looking.",
+      "source": "https://okimu.jp/exhibition/1515730190/",
+      "sourceLabel": "Okinawa Prefectural Museum · permanent exhibition",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-019.webp",
+      "caption": "Okinawa Prefectural Museum & Art Museum exterior · 2009",
+      "author": "663highland",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Okinawa_Prefectural_Museum_%26_Art_Museum02bss3200.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-020",
@@ -4419,14 +4789,35 @@
     "mood": "Architecture",
     "minutes": 75,
     "flags": "",
-    "why": "Sweeping stone walls and views make a compact architectural stop.",
-    "source": "https://visitokinawajapan.com/destinations/okinawa-main-island/central-okinawa-main-island/yomitan/",
+    "why": "Curving stone ramparts and arched gates make a compact, open-air architecture walk.",
+    "source": "https://visitokinawajapan.com/discover/world-heritage-top/zakimi-castle-ruins/",
     "featured": false,
     "indoor": false,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Zakimi Castle Yomitan Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "At Zakimi, the surviving walls are the experience: follow their curves through the castle enclosures and look closely at the masonry and arched gateways. The hilltop setting adds a broad view over Yomitan when visibility allows.",
+      "highlights": [
+        "Notice how the projecting walls and passageways shaped the castle’s defences.",
+        "The nearby Yuntanza Museum offers local history and a model explaining the wall construction."
+      ],
+      "planning": "Use only the wall sections and paths currently open to visitors. The museum has separate admission. From Naha, allow for a substantial journey and a walk from the bus stop; check the return connection before setting out.",
+      "source": "https://visitokinawajapan.com/discover/world-heritage-top/zakimi-castle-ruins/",
+      "sourceLabel": "Okinawa official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-024.webp",
+      "caption": "Zakimi Castle’s second enclosure · 2023",
+      "author": "Renate Hano",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Zakimi_Burg,_%C3%A4u%C3%9Ferer_Ring.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-025",
@@ -4635,14 +5026,35 @@
     "mood": "Slow",
     "minutes": 90,
     "flags": "",
-    "why": "Walk shaded village streets slowly, remembering that residents live behind the beautiful scenery.",
-    "source": "https://visitokinawajapan.com/travel-inspiration/yanbaru-getting-back-to-nature/",
+    "why": "A slow village wander under green tunnels of fukugi trees near the northern coast.",
+    "source": "https://visitokinawajapan.com/destinations/okinawa-main-island/northern-okinawa-main-island/motobu-peninsula/",
     "featured": false,
     "indoor": false,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Bise fukugi lanes Motobu Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Bise’s lanes are lined with evergreen fukugi trees, creating pockets of dappled shade around the village. The appeal is the small scale: walk between the trees, notice the houses and let the outing unfold without a fixed attraction checklist.",
+      "highlights": [
+        "Explore the tree-lined lanes on foot, or arrange a rental bicycle if you want to cover more ground.",
+        "Keep the village as the focus and add a coastal pause if conditions and time suit."
+      ],
+      "planning": "These lanes run alongside people’s homes. Stay on public paths and give residents room. Arrange travel to the Motobu area separately; this is a northern-main-island outing rather than a short walk from Naha.",
+      "source": "https://visitokinawajapan.com/destinations/okinawa-main-island/northern-okinawa-main-island/motobu-peninsula/",
+      "sourceLabel": "Okinawa official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-036.webp",
+      "caption": "Fukugi-lined lane in Bise · 2017",
+      "author": "Abasaa",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Bise_Fukugi_Tree_Road_01.JPG"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-037",
@@ -4653,14 +5065,35 @@
     "mood": "Culture",
     "minutes": 120,
     "flags": "",
-    "why": "Choose the stonework and regional history; its famous cherry blossoms belong to a different season.",
-    "source": "https://visitokinawajapan.com/travel-inspiration/yanbaru-getting-back-to-nature/",
+    "why": "Follow sweeping limestone walls across the remains of a northern Okinawan stronghold.",
+    "source": "https://cruise.visitokinawa.jp/ad_sys/wp-content/themes/cruiseokinawa/assets/pdf/okinawacruiseguide_2025_en.pdf",
     "featured": false,
     "indoor": false,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Nakijin Castle ruins Nakijin Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Nakijin is an expansive castle ruin whose long, curving stone walls follow the landscape. Walking the grounds gives a sense of the northern kingdom’s former seat and the scale of Okinawa’s gusuku fortifications.",
+      "highlights": [
+        "Take time to follow the wall lines and compare the views from different parts of the grounds.",
+        "Pair the visit with another Motobu-area stop only after allowing for travel and the walk around the site."
+      ],
+      "planning": "This is an outdoor ruin. Check admission, the last entry and currently open paths. Cherry blossoms here are a winter highlight, not something to expect on an autumn trip.",
+      "source": "https://cruise.visitokinawa.jp/ad_sys/wp-content/themes/cruiseokinawa/assets/pdf/okinawacruiseguide_2025_en.pdf",
+      "sourceLabel": "Okinawa official cruise guide · Nakijin (PDF)",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-037.webp",
+      "caption": "Nakijin Castle grounds and stone walls · 2022",
+      "author": "Suicasmo",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Nakijin_Castle_20221229.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-038",
@@ -4761,14 +5194,35 @@
     "mood": "Food",
     "minutes": 75,
     "flags": "",
-    "why": "Give the café, shoreline and changing tide enough time to become an experience rather than a check-in.",
+    "why": "An unhurried café pause beside the shore, with the sea as the main attraction.",
     "source": "https://sachibaru.jp/en/hamacha/",
     "featured": false,
     "indoor": true,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Waterfront pause at Hamabe no Chaya Nanjo Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Hamabe no Chaya is a small seaside café in Tamagusuku, built around the pleasure of sitting close to the water. Come for a drink, conversation and the changing shoreline, with time to settle rather than squeeze in a quick photo stop.",
+      "highlights": [
+        "The sea-facing counter is part of the appeal, but seating depends on what is available when you arrive.",
+        "Open the café’s own menu and calendar before deciding whether to make it a snack or breakfast stop."
+      ],
+      "planning": "Ordinary visits are seated in arrival order; the operator lists a separate breakfast arrangement for guests of partner accommodation. Check its current notices before travelling. Weather and the tide change the scene, so a photograph does not promise the same view.",
+      "source": "https://sachibaru.jp/en/hamacha/",
+      "sourceLabel": "Hamabe no Chaya · official café guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-043.webp",
+      "caption": "Hamabe no Chaya’s shore at low tide · 2008",
+      "author": "popsaurus",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:%E6%B5%9C%E8%BE%BA%E3%81%AE%E8%8C%B6%E5%B1%8B_%EF%BC%88Hamabe_no_Chaya)_-_panoramio.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-044",
@@ -5627,14 +6081,35 @@
     "mood": "Move",
     "minutes": 180,
     "flags": "o",
-    "why": "A compact traditional landscape is best explored slowly, with residents and pedestrians given priority.",
-    "source": "https://visitokinawajapan.com/destinations/yaeyama-islands/taketomi-island/",
+    "why": "A bicycle day among red-tiled houses, pale village lanes and nearby beaches.",
+    "source": "https://www.japan.travel/en/spot/566/",
     "featured": false,
     "indoor": false,
     "cluster": "Yaeyama: Taketomi",
     "locationKind": "Place / area",
     "mapQuery": "Cycle Taketomi's village lanes Yaeyama: Taketomi Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Taketomi is a compact island reached from Ishigaki, with a traditional village of red-tiled roofs, stone walls and pale sandy lanes. Renting a bicycle lets you move between the village and the western shore at your own pace.",
+      "highlights": [
+        "Look for shisa figures while walking the village lanes, giving residents and other road users space.",
+        "Use the bicycle for the longer link to Kondoi Beach or the West Pier, with pauses wherever you want to linger."
+      ],
+      "planning": "Arrange the ferry from Ishigaki and bike rental separately. Confirm the last return boat and bike-return time before leaving the port area. This requires being in the Yaeyama Islands, not just staying on Okinawa’s main island.",
+      "source": "https://www.japan.travel/en/spot/566/",
+      "sourceLabel": "Japan National Tourism Organization · Taketomi",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-091.webp",
+      "caption": "Red-tiled village roofs on Taketomi · 2006",
+      "author": "ippei & janine naoi",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Village_in_Taketomi_Island_-_located_at_southwest_Japan.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-092",
@@ -5753,14 +6228,35 @@
     "mood": "Slow",
     "minutes": 480,
     "flags": "bo",
-    "why": "Dark-sky possibilities justify a genuine overnight commitment and a transport buffer.",
+    "why": "An overnight island stay for open horizons and the possibility of a dark, star-filled sky.",
     "source": "https://visitokinawajapan.com/destinations/yaeyama-islands/hateruma-island/",
     "featured": false,
     "indoor": false,
     "cluster": "Yaeyama: Hateruma",
     "locationKind": "Place / area",
     "mapQuery": "Hateruma stargazing stay Yaeyama: Hateruma Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Hateruma combines sugarcane fields, a small village and exposed coastal scenery with relatively little artificial light at night. The stargazing idea works best as a deliberate overnight stay, leaving room for an evening outdoors if the sky clears.",
+      "highlights": [
+        "Let the daytime island landscape be part of the visit, rather than making the whole journey depend on stars.",
+        "The village photograph shows the setting by day; it is not an example of what the night sky will look like."
+      ],
+      "planning": "Arrange transport from Ishigaki, accommodation and local travel first, with flexibility for disrupted sailings. Check cloud and moon conditions for your dates. The tourism guide’s best Southern Cross viewing season is late April to mid-June, not this autumn trip.",
+      "source": "https://visitokinawajapan.com/destinations/yaeyama-islands/hateruma-island/",
+      "sourceLabel": "Okinawa official tourism guide",
+      "readAt": "2026-09-08"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-098.webp",
+      "caption": "Hateruma village and fields · daytime aerial view · 2024",
+      "author": "ブルーノ・プラス",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Aerial_photo_of_the_Hateruma_Island_village.jpg"
+    },
+    "checked": "2026-09-08",
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "okinawa-099",

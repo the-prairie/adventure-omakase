@@ -162,3 +162,53 @@ test('experience guides carry into invitations with inline maps and quick exact 
   await expect(page.locator('#f-end')).toHaveValue('15:00');
   expect(errors).toEqual([]);
 });
+
+test('Osaka and Okinawa guides pair real photographs with useful planning context', async ({
+  page,
+  runtime,
+}, info) => {
+  await page.route('https://maps.google.com/maps?*', (route) =>
+    route.fulfill({
+      contentType: 'text/html',
+      body: '<main>Map fixture</main>',
+    }),
+  );
+  await page.goto(runtime.url + '/example.html#demo/discover');
+  for (const [query, id, phrase, credit] of [
+    ['Namba Yasaka', 'osaka-002', 'ceremonial stage', 'Lion-head stage'],
+    ['Gangala', 'okinawa-011', 'guided tour only', 'Banyan roots'],
+    ['Hamabe', 'okinawa-043', 'arrival order', 'low tide'],
+  ]) {
+    await page.locator('#search').fill(query);
+    await page
+      .locator(`[data-action=discovery][data-id="${id}"]`)
+      .first()
+      .click();
+    await expect(page.locator('#dialog .experience-context')).toContainText(
+      phrase,
+    );
+    const photo = page.locator('#dialog .experience-photo img');
+    await expect(photo).toBeVisible();
+    await expect
+      .poll(() => photo.evaluate((img) => img.complete && img.naturalWidth > 0))
+      .toBe(true);
+    await expect(page.locator('#dialog figcaption')).toContainText(credit);
+    await expect(
+      page.locator('#dialog .experience-context a').last(),
+    ).toHaveAttribute('href', /^https:\/\//);
+    if (id === 'okinawa-011') {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.screenshot({
+        path: info.outputPath('gangala-guide-mobile.png'),
+      });
+      await action(page, 'plan-from').click();
+      await expect(page.locator('#f-description')).toHaveValue(
+        /Gangala’s guided route/,
+      );
+      await action(page, 'close').click();
+    } else {
+      await page.screenshot({ path: info.outputPath(`${id}-guide.png`) });
+      await action(page, 'close').click();
+    }
+  }
+});
