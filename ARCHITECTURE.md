@@ -170,3 +170,6 @@ Collections distinguish local outings, full-day excursions and separate stays.
 Island-transfer flags remain unchanged and never silently widen the local dice.
 An onward Southern Kyushu editorial note sits outside the catalogue and has no
 canonical save action; it does not imply that Kyushu is part of Okinawa.
+
+Each curated collection has an editorial main focus and optional breathing room.
+These fields guide pacing; they do not generate scheduled or booked plans.

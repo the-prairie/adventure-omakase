@@ -152,3 +152,9 @@ Ishigaki/Taketomi and Miyako/Irabu/Shimoji. Eight more expanded guides bring
 coverage to 51. Separate stays explicitly require accommodation and transport;
 Kagoshima/Yakushima is an onward direction, not an Okinawa catalogue entry.
 Flight operation for October and bookings remain unconfirmed.
+
+The user confirmed all three interests: food/bars/wandering, unusual experiences,
+and culture/outdoors. Two additional evening collections and three expanded
+guides cover Shinsekai play and dinner plus Urizun/Sakaemachi. Tenma includes
+optional small-bar wandering. All twelve collections now name their main focus
+and what to leave optional. No automatic itinerary or preference record is made.

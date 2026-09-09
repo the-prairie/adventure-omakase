@@ -15,7 +15,7 @@ test('curated outings lead to existing guides and preserve discovery filters', a
   await expect(
     section.locator('[data-travel-scale=separate-stay]'),
   ).toHaveCount(0);
-  await expect(section.locator('details')).toHaveCount(7);
+  await expect(section.locator('details')).toHaveCount(9);
   await section.locator('summary').first().click();
   await expect(section.locator('details').first()).toHaveAttribute('open', '');
   const firstStop = section
@@ -35,7 +35,30 @@ test('curated outings lead to existing guides and preserve discovery filters', a
   ).toHaveAttribute('data-id', id);
   await page.locator('#dialog [data-action=close]').click();
   await page.locator('[data-action=region][data-id=okinawa]').click();
-  await expect(section.locator('details')).toHaveCount(4);
+  await expect(section.locator('details')).toHaveCount(5);
+  const evening = section.locator(
+    '[data-collection-id=naha-sakaemachi-evening]',
+  );
+  await evening.locator('summary').click();
+  await expect(evening).toContainText('Make time for');
+  await expect(evening).toContainText('One small bar afterwards is plenty');
+  await evening.locator('[data-action=discovery]').first().click();
+  await expect(page.locator('#dialog')).toContainText('duruten');
+  await expect(
+    page.locator('#dialog [data-action=save-detail]'),
+  ).toHaveAttribute('data-id', 'okinawa-042');
+  await page.locator('#dialog [data-action=close]').click();
+  await evening.scrollIntoViewIfNeeded();
+  await page.screenshot({
+    path: info.outputPath('balanced-evening-desktop.png'),
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await evening.scrollIntoViewIfNeeded();
+  await page.screenshot({
+    path: info.outputPath('balanced-evening-mobile.png'),
+  });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await evening.locator('summary').click();
   const islandDay = section.locator('[data-collection-id=tokashiki-blue-day]');
   await islandDay.locator('summary').click();
   await expect(islandDay).toContainText('Rough seas can cancel boats');

@@ -2848,7 +2848,15 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Smartball in Shinsekai Shinsekai Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "A short, playful stop with old-fashioned smartball machines in Shinsekai. Treat it as a curiosity, then wander on.",
+      "highlights": ["Try a round if the hall is open and admits your group."],
+      "planning": "Check current opening and entry rules at the hall. Keep this optional rather than planning the evening around it.",
+      "source": "https://osaka-info.jp/en/modelcourse/course-shinsekai/",
+      "sourceLabel": "Osaka tourism · Shinsekai",
+      "readAt": "2026-09-09"
+    }
   },
   {
     "id": "osaka-029",
@@ -3396,7 +3404,17 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Shinsekai kushikatsu tasting Shinsekai Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Shinsekai’s Janjan Yokocho offers kushikatsu: fried skewers that make an easy dinner anchor.",
+      "highlights": [
+        "Choose a place from its current menu and order a few things to share."
+      ],
+      "planning": "Check seating, prices and ordering rules before settling in. This is a neighbourhood food idea, not a reserved tasting.",
+      "source": "https://osaka-info.jp/en/modelcourse/course-shinsekai/",
+      "sourceLabel": "Osaka tourism · Shinsekai",
+      "readAt": "2026-09-09"
+    }
   },
   {
     "id": "osaka-055",
@@ -5255,7 +5273,18 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Duruten at Urizun Naha Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Urizun in Asato serves Okinawan cooking, including its duruten speciality, alongside awamori. Make dinner the centre of the evening.",
+      "highlights": [
+        "Look for duruten and ask about the day’s Okinawan dishes.",
+        "Stay for a full meal; another bar is optional."
+      ],
+      "planning": "The restaurant-managed listing accepts reservations. Confirm the current menu, dietary needs and seating directly; availability for your date has not been checked.",
+      "source": "https://tabelog.com/en/okinawa/A4701/A470101/47000019/",
+      "sourceLabel": "Urizun · restaurant-managed listing",
+      "readAt": "2026-09-09"
+    }
   },
   {
     "id": "okinawa-043",

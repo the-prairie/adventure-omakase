@@ -921,7 +921,7 @@
         : c.travelScale === 'day-trip'
           ? 'Day trip'
           : 'Local outing';
-    return `<details class="curated-outing" data-collection-id="${E(c.id)}" data-travel-scale="${E(c.travelScale || 'local')}"><summary><h3>${E(c.title)}</h3><span class="curated-place">${E(R[c.region])} · ${E(scale)} · ${E(c.duration)}</span><span class="curated-pitch">${E(c.pitch)}</span><span class="curated-open">Explore this outing ${I('arrow')}</span></summary><div class="curated-body"><p class="curated-fit">${E(c.bestFor)}</p><p>${E(c.transport)}</p><ol class="curated-stops">${c.stops
+    return `<details class="curated-outing" data-collection-id="${E(c.id)}" data-travel-scale="${E(c.travelScale || 'local')}"><summary><h3>${E(c.title)}</h3><span class="curated-place">${E(R[c.region])} · ${E(scale)} · ${E(c.duration)}</span><span class="curated-pitch">${E(c.pitch)}</span><span class="curated-open">Explore this outing ${I('arrow')}</span></summary><div class="curated-body"><p class="curated-fit">${E(c.bestFor)}</p><p>${E(c.transport)}</p><div class="curated-rhythm"><p><strong>Make time for</strong> ${E(c.anchor)}</p><p><strong>Leave room</strong> ${E(c.leaveRoom)}</p></div><ol class="curated-stops">${c.stops
       .map((stop) => {
         const a = BY.get(stop.catalogueId);
         if (!a) return '';

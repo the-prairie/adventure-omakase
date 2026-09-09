@@ -5451,3 +5451,16 @@ input[type='file']::file-selector-button {
 .curated-outings[aria-labelledby='curated-stays-heading'] .curated-intro > p {
   display: block;
 }
+
+.curated-rhythm {
+  border-block: 1px solid var(--line);
+  margin: 20px 0;
+  padding: 12px 0;
+}
+.curated-rhythm p {
+  margin: 6px 0;
+}
+.curated-rhythm strong {
+  display: block;
+  color: var(--green);
+}

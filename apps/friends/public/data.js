@@ -7712,3 +7712,183 @@ window.OMAKASE.onwardIdeas = [
     readAt: '2026-09-09',
   },
 ];
+
+// Balanced outings: one main reason to go, with room to wander.
+{
+  const guides = {
+    'osaka-028': {
+      summary:
+        'A short, playful stop with old-fashioned smartball machines in Shinsekai. Treat it as a curiosity, then wander on.',
+      highlights: ['Try a round if the hall is open and admits your group.'],
+      planning:
+        'Check current opening and entry rules at the hall. Keep this optional rather than planning the evening around it.',
+      source: 'https://osaka-info.jp/en/modelcourse/course-shinsekai/',
+      sourceLabel: 'Osaka tourism · Shinsekai',
+      readAt: '2026-09-09',
+    },
+    'osaka-054': {
+      summary:
+        'Shinsekai’s Janjan Yokocho offers kushikatsu: fried skewers that make an easy dinner anchor.',
+      highlights: [
+        'Choose a place from its current menu and order a few things to share.',
+      ],
+      planning:
+        'Check seating, prices and ordering rules before settling in. This is a neighbourhood food idea, not a reserved tasting.',
+      source: 'https://osaka-info.jp/en/modelcourse/course-shinsekai/',
+      sourceLabel: 'Osaka tourism · Shinsekai',
+      readAt: '2026-09-09',
+    },
+    'okinawa-042': {
+      summary:
+        'Urizun in Asato serves Okinawan cooking, including its duruten speciality, alongside awamori. Make dinner the centre of the evening.',
+      highlights: [
+        'Look for duruten and ask about the day’s Okinawan dishes.',
+        'Stay for a full meal; another bar is optional.',
+      ],
+      planning:
+        'The restaurant-managed listing accepts reservations. Confirm the current menu, dietary needs and seating directly; availability for your date has not been checked.',
+      source: 'https://tabelog.com/en/okinawa/A4701/A470101/47000019/',
+      sourceLabel: 'Urizun · restaurant-managed listing',
+      readAt: '2026-09-09',
+    },
+  };
+  for (const [id, experience] of Object.entries(guides)) {
+    const entry = window.OMAKASE.catalogue.find((item) => item.id === id);
+    if (entry) entry.experience = experience;
+  }
+  window.OMAKASE.collections.push(
+    ...[
+      {
+        id: 'osaka-shinsekai-play',
+        region: 'osaka',
+        travelScale: 'local',
+        title: 'A little old-school play, then dinner',
+        pitch:
+          'Try smartball, wander Shinsekai and settle in for skewers. A small curiosity, a proper meal and no rush.',
+        duration: '2–3 hours · planning estimate',
+        transport:
+          'Travel to Shinsekai, then explore on foot. Check the journey from your base.',
+        bestFor: 'Unusual experiences · local food',
+        planning:
+          'Confirm current hall access and restaurant opening. If smartball is unavailable, keep the neighbourhood walk and dinner.',
+        stops: [
+          {
+            catalogueId: 'osaka-028',
+            note: 'Optional: try a round before dinner.',
+          },
+          {
+            catalogueId: 'osaka-054',
+            note: 'Make this the main stop; choose a table and stay a while.',
+          },
+        ],
+        sources: [
+          {
+            url: 'https://osaka-info.jp/en/modelcourse/course-shinsekai/',
+            label: 'Osaka tourism · Shinsekai',
+          },
+          {
+            url: 'https://osaka-info.jp/en/discover-kansai/osaka-night-life/',
+            label: 'Osaka tourism · evenings',
+          },
+        ],
+        readAt: '2026-09-09',
+      },
+      {
+        id: 'naha-sakaemachi-evening',
+        region: 'okinawa',
+        travelScale: 'local',
+        title: 'Dinner first, then follow the lanterns',
+        pitch:
+          'Settle into Okinawan cooking at Urizun, then wander Sakaemachi’s small evening bars if you feel like another stop.',
+        duration: '2–3 hours · planning estimate',
+        transport:
+          'Head to Asato by monorail or taxi, then explore the area on foot. Check the last service home.',
+        bestFor: 'Local food · small bars · wandering',
+        planning:
+          'Reserve dinner if it matters to you. The market’s small bars may not fit the whole group; choose somewhere with room and confirm prices and any cover charge. The linked neighbourhood essay is older, so recheck individual businesses.',
+        stops: [
+          {
+            catalogueId: 'okinawa-042',
+            note: 'Make dinner the anchor: order duruten and explore the Okinawan menu.',
+          },
+          {
+            catalogueId: 'okinawa-010',
+            note: 'Optional: walk the lanes and choose one small bar that appeals, or finish after dinner.',
+          },
+        ],
+        sources: [
+          {
+            url: 'https://tabelog.com/en/okinawa/A4701/A470101/47000019/',
+            label: 'Urizun · restaurant-managed listing',
+          },
+          {
+            url: 'https://visitokinawajapan.com/travel-inspiration/explore-sakaemachi/',
+            label: 'Okinawa tourism · Sakaemachi',
+          },
+        ],
+        readAt: '2026-09-09',
+      },
+    ],
+  );
+  const rhythm = {
+    'osaka-river-and-cake': [
+      'The riverside walk',
+      'Keep the cake stop flexible; sit longer if the view wins.',
+    ],
+    'osaka-karahori-spice': [
+      'A curry lunch in Karahori',
+      'Browse a few lanes afterwards; there is no need to cover every shop.',
+    ],
+    'osaka-tenma-live': [
+      'Choose the performance or a meal in Tenma',
+      'Skip the show if its language or timing does not suit. Follow the arcade into Ura-Tenma for food and, optionally, one small bar.',
+    ],
+    'naha-pottery-and-lunch': [
+      'Time among the pottery shops',
+      'Lunch can be simple. Leave time to stop when a bowl or conversation catches you.',
+    ],
+    'naha-make-and-wander': [
+      'The coral-dyeing workshop',
+      'Treat the stone-road walk as optional, especially in heat or rain.',
+    ],
+    'naha-forest-to-shore': [
+      'The guided forest walk',
+      'Keep the café as a gentle finish, not another appointment.',
+    ],
+    'tokashiki-blue-day': [
+      'A day at Aharen',
+      'Choose beach time or a guided water session; do not try to squeeze in both.',
+    ],
+    'zamami-paddle-and-stay': [
+      'A guided paddle on the better-weather day',
+      'Leave another part of the stay open for the village, a viewpoint or doing very little.',
+    ],
+    'yaeyama-village-and-bay': [
+      'One island or area each day',
+      'Give Kabira and Taketomi different days. An overnight on Taketomi is an option, not an extra task.',
+    ],
+    'miyako-bridges-and-blue': [
+      'One coastal area per day',
+      'Choose a lunch and a viewpoint; save another coast for tomorrow.',
+    ],
+    'osaka-shinsekai-play': [
+      'A kushikatsu dinner',
+      'Smartball is the optional curiosity. A wander and a good meal are enough.',
+    ],
+    'naha-sakaemachi-evening': [
+      'Dinner at Urizun',
+      'One small bar afterwards is plenty; finish at dinner if that feels right.',
+    ],
+  };
+  for (const collection of window.OMAKASE.collections) {
+    [collection.anchor, collection.leaveRoom] = rhythm[collection.id];
+  }
+  const tenma = window.OMAKASE.collections.find(
+    (item) => item.id === 'osaka-tenma-live',
+  );
+  tenma.bestFor = 'Live culture · local food · small bars';
+  tenma.sources.push({
+    url: 'https://metronine.osaka/en/article_tour/temma-hashigozake/',
+    label: 'Osaka Metro · Tenma and Ura-Tenma',
+  });
+}

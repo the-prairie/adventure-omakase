@@ -273,7 +273,7 @@ test('catalogue photographs retain unique local files, credits and source-linked
     assert.match(photo.licenseUrl, /^https:\/\/creativecommons\.org\//);
     assert.ok(photo.author && photo.caption && photo.license);
   }
-  assert.equal(catalogue.filter((entry) => entry.experience).length, 51);
+  assert.equal(catalogue.filter((entry) => entry.experience).length, 54);
   for (const region of ['osaka', 'okinawa']) {
     assert.ok(
       catalogue.filter(
@@ -284,7 +284,7 @@ test('catalogue photographs retain unique local files, credits and source-linked
   for (const { experience } of catalogue.filter((entry) => entry.experience)) {
     assert.match(
       experience.source,
-      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com|taiyounotou-expo70\.jp|www\.cupnoodles-museum\.jp|www\.minpaku\.ac\.jp|katsuo-ji-temple\.or\.jp|himeji-kanko\.jp|www\.otagiji\.com|visitokinawajapan\.com|gangala\.com|www\.gyokusendo\.co\.jp|okimu\.jp|cruise\.visitokinawa\.jp|sachibaru\.jp|www\.japan\.travel|www\.shuri-ryusen\.com|www\.makishi-public-market\.jp|keramakayak\.jp)\//,
+      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com|taiyounotou-expo70\.jp|www\.cupnoodles-museum\.jp|www\.minpaku\.ac\.jp|katsuo-ji-temple\.or\.jp|himeji-kanko\.jp|www\.otagiji\.com|visitokinawajapan\.com|gangala\.com|www\.gyokusendo\.co\.jp|okimu\.jp|cruise\.visitokinawa\.jp|sachibaru\.jp|www\.japan\.travel|www\.shuri-ryusen\.com|www\.makishi-public-market\.jp|keramakayak\.jp|tabelog\.com)\//,
     );
     assert.match(experience.readAt, /^2026-09-0[789]$/);
     assert.ok(
@@ -342,7 +342,7 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
     sandbox,
   );
   const { catalogue, collections } = sandbox.window.OMAKASE;
-  assert.equal(collections.length, 10);
+  assert.equal(collections.length, 12);
   assert.equal(
     new Set(collections.map((item) => item.id)).size,
     collections.length,
@@ -350,7 +350,7 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
   for (const region of ['osaka', 'okinawa']) {
     assert.equal(
       collections.filter((item) => item.region === region).length,
-      region === 'osaka' ? 3 : 7,
+      region === 'osaka' ? 4 : 8,
     );
   }
   const byId = new Map(catalogue.map((item) => [item.id, item]));
@@ -362,6 +362,8 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
       'transport',
       'bestFor',
       'planning',
+      'anchor',
+      'leaveRoom',
     ]) {
       assert.ok(
         typeof outing[key] === 'string' && outing[key].trim(),
