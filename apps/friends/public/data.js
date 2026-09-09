@@ -7034,3 +7034,339 @@ window.OMAKASE = {
       });
   }
 }
+
+// Source-backed editorial outings. Sequences and elapsed times are planning estimates, not verified routes.
+{
+  const details = {
+    'osaka-011': {
+      why: 'Read Osaka in brick, bronze and river light; cross the lion bridge into Kitahama.',
+      experience: {
+        summary:
+          'Follow the eastern part of Nakanoshima past the library and red-brick Central Public Hall, then cross Naniwa Bridge into Kitahama. The city’s merchant wealth becomes visible in a compact sequence of public buildings, bridges and exchange façades.',
+        highlights: [
+          'Look for the four stone lions at Naniwa Bridge.',
+          'Make the buildings the route: pause to compare their entrances and materials rather than aiming for a distant attraction.',
+        ],
+        planning:
+          'An exterior walk works without building admission. Interior tours and exhibitions have separate access rules; the Bank of Japan is not a spontaneous walk-in stop. The route and pauses are an editorial suggestion.',
+        source:
+          'https://osaka-info.jp/en/modelcourse/course-retro-architecture/',
+        sourceLabel: 'Osaka tourism · architecture walk',
+        readAt: '2026-09-09',
+      },
+    },
+    'osaka-056': {
+      why: 'Finish the river walk with a Japanese rice-flour cake at GOKAN.',
+      experience: {
+        summary:
+          'GOKAN gives a Kitahama wander a specific sweet finish. Its rice-flour roll cake combines domestic black soybeans and cream; choose from what the shop actually has that day.',
+        highlights: [
+          'Try sharing a cake rather than committing the afternoon to a full meal.',
+          'Use the Kitahama main shop for this outing; a station concession is a different setting.',
+        ],
+        planning:
+          'Check the Kitahama shop’s current service and seating before relying on a café stop. Product availability, queues and seats have not been checked; takeaway is a possible alternative, not a guaranteed fallback.',
+        source:
+          'https://osaka-info.jp/en/special/dc/specialtrip/?category=nakanoshima',
+        sourceLabel: 'Osaka tourism · GOKAN and Nakanoshima',
+        readAt: '2026-09-09',
+      },
+    },
+    'osaka-018': {
+      why: 'Let one covered shopping street turn into a choose-as-you-go food evening.',
+      experience: {
+        summary:
+          'Tenjinbashisuji is a long shopping arcade of everyday shops and places to eat. Pick a section around Tenma and browse until a menu catches your attention; this works best with room for an unplanned second stop.',
+        highlights: [
+          'Give the arcade a small mission: everyone chooses one thing they would like to taste.',
+          'Keep dinner flexible instead of collecting a list of full meals.',
+        ],
+        planning:
+          'This is an area outing, not a reserved restaurant crawl. Each business has its own hours and capacity. Confirm prices and what is included before ordering; the catalogue does not promise any particular counter will be open.',
+        source: 'https://osaka-info.jp/experience/en/osaka/spot/237',
+        sourceLabel: 'Osaka tourism · Tenjinbashisuji',
+        readAt: '2026-09-09',
+      },
+    },
+    'osaka-024': {
+      why: 'A small stage, one storyteller and Osaka’s live comic tradition.',
+      experience: {
+        summary:
+          'Tenma Tenjin Hanjotei is a theatre beside Osaka Tenmangu devoted to Kamigata rakugo. A performance can anchor an afternoon before eating along Tenjinbashisuji.',
+        highlights: [
+          'The attraction is the performer’s voice, timing and gestures in a room built for live storytelling.',
+          'Choose a named performance before building the rest of the day around it.',
+        ],
+        planning:
+          'Check the theatre’s programme, language and ticket availability. Do not assume English interpretation: this is a language-dependent choice. The tourism page gives inconsistent start times, so use the theatre’s current listing. Allow the full advertised performance length; this is not a drop-in show.',
+        source:
+          'https://osaka-info.jp/en/spot/rakugo-theater-temma-tenjin-hanjo-tei/',
+        sourceLabel: 'Osaka tourism · Hanjotei',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-048': {
+      why: 'Turn the fish market into lunch, with the cooking and price agreed first.',
+      experience: {
+        summary:
+          'Makishi Public Market combines ingredient shopping with upstairs places to eat. Browse the seafood counters, then decide whether to eat at a restaurant or ask a participating vendor about having your purchase cooked upstairs.',
+        highlights: [
+          'Look beyond the busiest aisle and compare what is being sold before choosing lunch.',
+          'Ask how the purchase-and-cook arrangement works before buying seafood.',
+        ],
+        planning:
+          'Confirm the total food and cooking cost, participating restaurant and serving style before paying. Shops set their own hours. This is a meal idea, not a prepaid market tour or a confirmed booking.',
+        source: 'https://www.makishi-public-market.jp/about/howto/',
+        sourceLabel: 'Makishi Public Market · purchase-and-cook guide',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-009': {
+      why: 'Make a tote or cloth patterned with fossil-coral textures, then carry it home.',
+      experience: {
+        summary:
+          'At Shuri Ryusen, use the workshop’s supplied coral fossils to print colour and texture onto fabric. Choose a cloth, tote or T-shirt and build your own pattern during the guided session.',
+        highlights: [
+          'The operator lists an approximately 50-minute coral-dyeing session.',
+          'Take the piece away the same day, with instructions for setting the colour at home.',
+        ],
+        planning:
+          'Reservations are required and the operator requests arrival at least 15 minutes early. Check the live booking calendar and chosen workshop type; coral dyeing and bingata are separate experiences. No seat is reserved by saving this idea.',
+        source: 'https://www.shuri-ryusen.com/course/sango-en.html',
+        sourceLabel: 'Shuri Ryusen · coral-dyeing workshop',
+        readAt: '2026-09-09',
+      },
+    },
+    'okinawa-003': {
+      why: 'Follow old limestone paving downhill through Shuri’s lived-in streets.',
+      experience: {
+        summary:
+          'Kinjo Stone Road preserves part of a historic route from Shuri towards Naha Port. Its irregular Ryukyu limestone paving, slopes and surrounding traditional architecture reward an unhurried look.',
+        highlights: [
+          'Make the texture of the road and the changing views the reason to walk.',
+          'Stay on public paths and give homes and residents space.',
+        ],
+        planning:
+          'This is a steep walk on uneven stone, not a flat promenade. Skip the lane if wet surfaces or the slope do not suit your group; the craft workshop can stand alone. Arrange the onward journey from where you finish rather than assuming the station is at the bottom.',
+        source:
+          'https://visitokinawajapan.com/destinations/okinawa-main-island/southern-okinawa-main-island/shuri/',
+        sourceLabel: 'Okinawa tourism · Shuri',
+        readAt: '2026-09-09',
+      },
+    },
+  };
+  for (const [id, detail] of Object.entries(details)) {
+    const entry = window.OMAKASE.catalogue.find((item) => item.id === id);
+    if (entry)
+      Object.assign(entry, detail, {
+        source: detail.experience.source,
+        checked: detail.experience.readAt,
+      });
+  }
+}
+window.OMAKASE.collections = [
+  {
+    id: 'osaka-river-and-cake',
+    region: 'osaka',
+    title: 'River light, lion bridge, one good cake',
+    pitch:
+      'An easy first afternoon: handsome public buildings, a river crossing and a sweet finish in Kitahama.',
+    duration: '2–3 hours · planning estimate',
+    transport:
+      'Walk within Nakanoshima and Kitahama; travel to the start is extra.',
+    bestFor: 'A gentle start · architecture · sweets',
+    planning:
+      'Suggested sequence, not a guided tour. Keep the walk outdoors if interiors are closed; choose the cake stop around the shop’s current service.',
+    stops: [
+      {
+        catalogueId: 'osaka-011',
+        note: 'Begin around the library and Central Public Hall; cross Naniwa Bridge towards Kitahama.',
+      },
+      {
+        catalogueId: 'osaka-056',
+        note: 'Finish with GOKAN’s rice-flour roll cake or another available sweet. Check seating before counting on a long café pause.',
+      },
+    ],
+    sources: [
+      {
+        url: 'https://osaka-info.jp/en/modelcourse/course-retro-architecture/',
+        label: 'Osaka tourism · architecture walk',
+      },
+      {
+        url: 'https://osaka-info.jp/en/special/dc/specialtrip/?category=nakanoshima',
+        label: 'Osaka tourism · GOKAN and Nakanoshima',
+      },
+    ],
+    readAt: '2026-09-09',
+  },
+  {
+    id: 'osaka-karahori-spice',
+    region: 'osaka',
+    title: 'Spice curry and the lanes behind it',
+    pitch:
+      'Build lunch around Osaka’s inventive curry, then follow the small shops and old rowhouses of Karahori.',
+    duration: '2–3 hours · planning estimate',
+    transport:
+      'Walk around Tanimachi Rokuchome and Karahori; the area has slopes.',
+    bestFor: 'A food-led afternoon · independent shops',
+    planning:
+      'Check the Karahori branch’s menu and hours first. Eat first if the queue is manageable; swap the order if you need to wait. Shopping time is deliberately loose.',
+    stops: [
+      {
+        catalogueId: 'osaka-042',
+        note: 'Make Kyu Yamutei the lunch anchor. Choose from the current curry combinations, not an old menu photograph.',
+      },
+      {
+        catalogueId: 'osaka-013',
+        note: 'After lunch, explore the arcade and adjacent public lanes; stop at the shops that actually interest you.',
+      },
+    ],
+    sources: [
+      {
+        url: 'https://osaka-info.jp/en/spot/karahori-shopping-street/',
+        label: 'Osaka tourism · Karahori',
+      },
+      {
+        url: 'https://discover.osaka-info.jp/en/articles/curry-mania',
+        label: 'Osaka tourism · spice-curry culture',
+      },
+    ],
+    readAt: '2026-09-09',
+  },
+  {
+    id: 'osaka-tenma-live',
+    region: 'osaka',
+    title: 'A storyteller, then follow your appetite',
+    pitch:
+      'A live rakugo performance gives the day a centre; Tenjinbashisuji supplies an unhurried food finish.',
+    duration: '4–5 hours with a show · planning estimate',
+    transport:
+      'Walk from the Hanjotei / Osaka Tenmangu area north along the arcade towards Tenma.',
+    bestFor: 'Live culture · curious eaters',
+    planning:
+      'The performance is optional and language-dependent. Select its actual programme and duration first. Without a suitable show, make this a shorter food-and-arcade outing.',
+    stops: [
+      {
+        catalogueId: 'osaka-024',
+        note: 'Start with a ticketed performance only if its language and length suit you; check the theatre directly.',
+      },
+      {
+        catalogueId: 'osaka-018',
+        note: 'Leave the next meal unscripted: browse a section of the arcade, compare menus and pick a place with room.',
+      },
+    ],
+    sources: [
+      {
+        url: 'https://osaka-info.jp/en/spot/rakugo-theater-temma-tenjin-hanjo-tei/',
+        label: 'Osaka tourism · Hanjotei',
+      },
+      {
+        url: 'https://osaka-info.jp/experience/en/osaka/spot/237',
+        label: 'Osaka tourism · Tenjinbashisuji',
+      },
+    ],
+    readAt: '2026-09-09',
+  },
+  {
+    id: 'naha-pottery-and-lunch',
+    region: 'okinawa',
+    title: 'Find your bowl, then find your lunch',
+    pitch:
+      'Compare glazes and everyday ceramics in Tsuboya before letting Makishi’s ingredients decide lunch.',
+    duration: '3–4 hours · planning estimate',
+    transport:
+      'Walk between Tsuboya and the nearby Makishi market area; add travel from your lodging.',
+    bestFor: 'Craft browsing · a market meal',
+    planning:
+      'Shop and restaurant hours vary. This sequence leaves time for a tea pause; pottery-making is a separate booking, not included in a shop visit.',
+    stops: [
+      {
+        catalogueId: 'okinawa-006',
+        note: 'Start with cups and bowls along Yachimun Street. Optional: check BUKU-BUKU’s current menu for foamed Ryukyuan tea.',
+      },
+      {
+        catalogueId: 'okinawa-048',
+        note: 'Choose lunch after browsing. Agree any seafood purchase-and-cooking arrangement and total price before buying.',
+      },
+    ],
+    sources: [
+      {
+        url: 'https://visitokinawajapan.com/travel-inspiration/get-to-know-naha/',
+        label: 'Okinawa tourism · Naha craft and food',
+      },
+      {
+        url: 'https://www.makishi-public-market.jp/about/howto/',
+        label: 'Makishi Public Market · purchase-and-cook guide',
+      },
+    ],
+    readAt: '2026-09-09',
+  },
+  {
+    id: 'naha-make-and-wander',
+    region: 'okinawa',
+    title: 'Print a coral pattern, walk the old stone road',
+    pitch:
+      'Make something you will keep, then trade the worktable for Shuri’s limestone lanes.',
+    duration: '2–3 hours · planning estimate',
+    transport:
+      'Arrange travel up to Shuri; local walking includes steep, uneven paving.',
+    bestFor: 'Hands-on craft · a quieter afternoon',
+    planning:
+      'Book the dyeing session first. Leave the lane optional in wet weather or if the slope is unsuitable. The workshop is worthwhile on its own.',
+    stops: [
+      {
+        catalogueId: 'okinawa-009',
+        note: 'Anchor the outing with a reserved coral-dyeing session at Shuri Ryusen; arrive 15 minutes before its start.',
+      },
+      {
+        catalogueId: 'okinawa-003',
+        note: 'Continue to Kinjo Stone Road at a comfortable pace. Plan transport from the finish rather than retracing the slope automatically.',
+      },
+    ],
+    sources: [
+      {
+        url: 'https://www.shuri-ryusen.com/course/sango-en.html',
+        label: 'Shuri Ryusen · coral-dyeing workshop',
+      },
+      {
+        url: 'https://visitokinawajapan.com/destinations/okinawa-main-island/southern-okinawa-main-island/shuri/',
+        label: 'Okinawa tourism · Shuri',
+      },
+    ],
+    readAt: '2026-09-09',
+  },
+  {
+    id: 'naha-forest-to-shore',
+    region: 'okinawa',
+    title: 'Banyan roots, then a table beside the sea',
+    pitch:
+      'A guided limestone-forest walk in Nanjo, followed by a slow drink at Hamabe no Chaya. Give southern Okinawa room to breathe.',
+    duration: '5–6 hours from Naha · planning estimate',
+    transport:
+      'Road transport needed between Naha, Gangala and the café; arrange the return in advance.',
+    bestFor: 'Nature · a deliberate half-day escape',
+    planning:
+      'Reserve Gangala first, then confirm the café’s opening and your transport. This is an editorial pairing, not a verified route or bundled tour. Traffic and café waiting can extend the day.',
+    stops: [
+      {
+        catalogueId: 'okinawa-011',
+        note: 'Take the guided Gangala forest-and-cave route; confirm the tour language and allow the full session.',
+      },
+      {
+        catalogueId: 'okinawa-043',
+        note: 'Head to the Tamagusuku shore for a drink and the changing waterline. Seating and the view depend on the queue, weather and tide.',
+      },
+    ],
+    sources: [
+      {
+        url: 'https://gangala.com/en/',
+        label: 'Valley of Gangala · official tours',
+      },
+      {
+        url: 'https://sachibaru.jp/en/hamacha/',
+        label: 'Hamabe no Chaya · official café guide',
+      },
+    ],
+    readAt: '2026-09-09',
+  },
+];

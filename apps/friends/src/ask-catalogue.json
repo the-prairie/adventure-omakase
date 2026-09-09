@@ -2450,14 +2450,26 @@
     "mood": "Architecture",
     "minutes": 150,
     "flags": "",
-    "why": "Rivers, civic buildings and commercial streets explain an Osaka beyond neon and nightlife.",
+    "why": "Read Osaka in brick, bronze and river light; cross the lion bridge into Kitahama.",
     "source": "https://osaka-info.jp/en/modelcourse/course-retro-architecture/",
     "featured": true,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Nakanoshima Kitahama Osaka Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Follow the eastern part of Nakanoshima past the library and red-brick Central Public Hall, then cross Naniwa Bridge into Kitahama. The city’s merchant wealth becomes visible in a compact sequence of public buildings, bridges and exchange façades.",
+      "highlights": [
+        "Look for the four stone lions at Naniwa Bridge.",
+        "Make the buildings the route: pause to compare their entrances and materials rather than aiming for a distant attraction."
+      ],
+      "planning": "An exterior walk works without building admission. Interior tours and exhibitions have separate access rules; the Bank of Japan is not a spontaneous walk-in stop. The route and pauses are an editorial suggestion.",
+      "source": "https://osaka-info.jp/en/modelcourse/course-retro-architecture/",
+      "sourceLabel": "Osaka tourism · architecture walk",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "osaka-012",
@@ -2596,14 +2608,26 @@
     "mood": "Food",
     "minutes": 180,
     "flags": "",
-    "why": "Watch a practical shopping district shift into a sociable dinner neighborhood.",
+    "why": "Let one covered shopping street turn into a choose-as-you-go food evening.",
     "source": "https://osaka-info.jp/experience/en/osaka/spot/237",
     "featured": false,
     "indoor": false,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Tenjinbashisuji into Tenma Tenma Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Tenjinbashisuji is a long shopping arcade of everyday shops and places to eat. Pick a section around Tenma and browse until a menu catches your attention; this works best with room for an unplanned second stop.",
+      "highlights": [
+        "Give the arcade a small mission: everyone chooses one thing they would like to taste.",
+        "Keep dinner flexible instead of collecting a list of full meals."
+      ],
+      "planning": "This is an area outing, not a reserved restaurant crawl. Each business has its own hours and capacity. Confirm prices and what is included before ordering; the catalogue does not promise any particular counter will be open.",
+      "source": "https://osaka-info.jp/experience/en/osaka/spot/237",
+      "sourceLabel": "Osaka tourism · Tenjinbashisuji",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "osaka-019",
@@ -2725,14 +2749,26 @@
     "mood": "Culture",
     "minutes": 150,
     "flags": "b",
-    "why": "One storyteller creates a cast of characters. Expect Japanese-language performance and humor.",
+    "why": "A small stage, one storyteller and Osaka’s live comic tradition.",
     "source": "https://osaka-info.jp/en/spot/rakugo-theater-temma-tenjin-hanjo-tei/",
     "featured": false,
     "indoor": true,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Rakugo at Tenma Tenjin Hanjotei Tenma Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Tenma Tenjin Hanjotei is a theatre beside Osaka Tenmangu devoted to Kamigata rakugo. A performance can anchor an afternoon before eating along Tenjinbashisuji.",
+      "highlights": [
+        "The attraction is the performer’s voice, timing and gestures in a room built for live storytelling.",
+        "Choose a named performance before building the rest of the day around it."
+      ],
+      "planning": "Check the theatre’s programme, language and ticket availability. Do not assume English interpretation: this is a language-dependent choice. The tourism page gives inconsistent start times, so use the theatre’s current listing. Allow the full advertised performance length; this is not a drop-in show.",
+      "source": "https://osaka-info.jp/en/spot/rakugo-theater-temma-tenjin-hanjo-tei/",
+      "sourceLabel": "Osaka tourism · Hanjotei",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "osaka-025",
@@ -3389,14 +3425,26 @@
     "mood": "Food",
     "minutes": 60,
     "flags": "",
-    "why": "An especially pleasant reward after a commercial-architecture walk. Confirm café service.",
+    "why": "Finish the river walk with a Japanese rice-flour cake at GOKAN.",
     "source": "https://osaka-info.jp/en/special/dc/specialtrip/?category=nakanoshima",
     "featured": false,
     "indoor": true,
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Cake at GOKAN Nakanoshima & Kitahama Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "GOKAN gives a Kitahama wander a specific sweet finish. Its rice-flour roll cake combines domestic black soybeans and cream; choose from what the shop actually has that day.",
+      "highlights": [
+        "Try sharing a cake rather than committing the afternoon to a full meal.",
+        "Use the Kitahama main shop for this outing; a station concession is a different setting."
+      ],
+      "planning": "Check the Kitahama shop’s current service and seating before relying on a café stop. Product availability, queues and seats have not been checked; takeaway is a possible alternative, not a guaranteed fallback.",
+      "source": "https://osaka-info.jp/en/special/dc/specialtrip/?category=nakanoshima",
+      "sourceLabel": "Osaka tourism · GOKAN and Nakanoshima",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "osaka-057",
@@ -4285,14 +4333,26 @@
     "mood": "Slow",
     "minutes": 90,
     "flags": "",
-    "why": "Sloping residential streets offer a quieter encounter with the former royal capital.",
-    "source": "https://visitokinawajapan.com/travel-inspiration/get-to-know-naha/",
+    "why": "Follow old limestone paving downhill through Shuri’s lived-in streets.",
+    "source": "https://visitokinawajapan.com/destinations/okinawa-main-island/southern-okinawa-main-island/shuri/",
     "featured": false,
     "indoor": false,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Kinjo stone-paved lanes Naha: Shuri Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Kinjo Stone Road preserves part of a historic route from Shuri towards Naha Port. Its irregular Ryukyu limestone paving, slopes and surrounding traditional architecture reward an unhurried look.",
+      "highlights": [
+        "Make the texture of the road and the changing views the reason to walk.",
+        "Stay on public paths and give homes and residents space."
+      ],
+      "planning": "This is a steep walk on uneven stone, not a flat promenade. Skip the lane if wet surfaces or the slope do not suit your group; the craft workshop can stand alone. Arrange the onward journey from where you finish rather than assuming the station is at the bottom.",
+      "source": "https://visitokinawajapan.com/destinations/okinawa-main-island/southern-okinawa-main-island/shuri/",
+      "sourceLabel": "Okinawa tourism · Shuri",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-004",
@@ -4435,14 +4495,26 @@
     "mood": "Make",
     "minutes": 90,
     "flags": "b",
-    "why": "Create a cloth using provided forms. Do not collect or damage living coral for any souvenir.",
-    "source": "https://visitokinawajapan.com/travel-inspiration/must-try-traditional-experiences/",
+    "why": "Make a tote or cloth patterned with fossil-coral textures, then carry it home.",
+    "source": "https://www.shuri-ryusen.com/course/sango-en.html",
     "featured": false,
     "indoor": true,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Coral-pattern dyeing at Shuri Ryusen Naha: Shuri Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "At Shuri Ryusen, use the workshop’s supplied coral fossils to print colour and texture onto fabric. Choose a cloth, tote or T-shirt and build your own pattern during the guided session.",
+      "highlights": [
+        "The operator lists an approximately 50-minute coral-dyeing session.",
+        "Take the piece away the same day, with instructions for setting the colour at home."
+      ],
+      "planning": "Reservations are required and the operator requests arrival at least 15 minutes early. Check the live booking calendar and chosen workshop type; coral dyeing and bingata are separate experiences. No seat is reserved by saving this idea.",
+      "source": "https://www.shuri-ryusen.com/course/sango-en.html",
+      "sourceLabel": "Shuri Ryusen · coral-dyeing workshop",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-010",
@@ -5305,14 +5377,26 @@
     "mood": "Food",
     "minutes": 90,
     "flags": "",
-    "why": "Select ingredients and discuss preparation; agree on the total cost before ordering.",
-    "source": "https://visitokinawajapan.com/destinations/okinawa-main-island/southern-okinawa-main-island/naha/",
+    "why": "Turn the fish market into lunch, with the cooking and price agreed first.",
+    "source": "https://www.makishi-public-market.jp/about/howto/",
     "featured": false,
     "indoor": true,
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Makishi Public Market meal Naha Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
+    "experience": {
+      "summary": "Makishi Public Market combines ingredient shopping with upstairs places to eat. Browse the seafood counters, then decide whether to eat at a restaurant or ask a participating vendor about having your purchase cooked upstairs.",
+      "highlights": [
+        "Look beyond the busiest aisle and compare what is being sold before choosing lunch.",
+        "Ask how the purchase-and-cook arrangement works before buying seafood."
+      ],
+      "planning": "Confirm the total food and cooking cost, participating restaurant and serving style before paying. Shops set their own hours. This is a meal idea, not a prepaid market tour or a confirmed booking.",
+      "source": "https://www.makishi-public-market.jp/about/howto/",
+      "sourceLabel": "Makishi Public Market · purchase-and-cook guide",
+      "readAt": "2026-09-09"
+    },
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-049",

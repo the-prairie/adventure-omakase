@@ -273,7 +273,7 @@ test('catalogue photographs retain unique local files, credits and source-linked
     assert.match(photo.licenseUrl, /^https:\/\/creativecommons\.org\//);
     assert.ok(photo.author && photo.caption && photo.license);
   }
-  assert.equal(catalogue.filter((entry) => entry.experience).length, 36);
+  assert.equal(catalogue.filter((entry) => entry.experience).length, 43);
   for (const region of ['osaka', 'okinawa']) {
     assert.ok(
       catalogue.filter(
@@ -284,9 +284,9 @@ test('catalogue photographs retain unique local files, credits and source-linked
   for (const { experience } of catalogue.filter((entry) => entry.experience)) {
     assert.match(
       experience.source,
-      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com|taiyounotou-expo70\.jp|www\.cupnoodles-museum\.jp|www\.minpaku\.ac\.jp|katsuo-ji-temple\.or\.jp|himeji-kanko\.jp|www\.otagiji\.com|visitokinawajapan\.com|gangala\.com|www\.gyokusendo\.co\.jp|okimu\.jp|cruise\.visitokinawa\.jp|sachibaru\.jp|www\.japan\.travel)\//,
+      /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com|taiyounotou-expo70\.jp|www\.cupnoodles-museum\.jp|www\.minpaku\.ac\.jp|katsuo-ji-temple\.or\.jp|himeji-kanko\.jp|www\.otagiji\.com|visitokinawajapan\.com|gangala\.com|www\.gyokusendo\.co\.jp|okimu\.jp|cruise\.visitokinawa\.jp|sachibaru\.jp|www\.japan\.travel|www\.shuri-ryusen\.com|www\.makishi-public-market\.jp)\//,
     );
-    assert.match(experience.readAt, /^2026-09-0[78]$/);
+    assert.match(experience.readAt, /^2026-09-0[789]$/);
     assert.ok(
       experience.summary && experience.planning && experience.highlights.length,
     );
@@ -332,4 +332,76 @@ test('area references preserve provenance, geographic bounds and unlocated entri
     ),
   );
   assert.ok(areas.find((p) => p.area === 'Namba').lng < 135.52);
+});
+
+test('curated outings resolve to source-backed local stops and retain catalogue parity', async () => {
+  const { runInNewContext } = await import('node:vm');
+  const sandbox = { window: {} };
+  runInNewContext(
+    await readFile(join(ROOT, 'public/data.js'), 'utf8'),
+    sandbox,
+  );
+  const { catalogue, collections } = sandbox.window.OMAKASE;
+  assert.equal(collections.length, 6);
+  assert.equal(
+    new Set(collections.map((item) => item.id)).size,
+    collections.length,
+  );
+  for (const region of ['osaka', 'okinawa']) {
+    assert.equal(
+      collections.filter((item) => item.region === region).length,
+      3,
+    );
+  }
+  const byId = new Map(catalogue.map((item) => [item.id, item]));
+  for (const outing of collections) {
+    for (const key of [
+      'title',
+      'pitch',
+      'duration',
+      'transport',
+      'bestFor',
+      'planning',
+    ]) {
+      assert.ok(
+        typeof outing[key] === 'string' && outing[key].trim(),
+        `${outing.id}: ${key}`,
+      );
+    }
+    assert.match(outing.duration, /planning estimate/);
+    assert.equal(outing.readAt, '2026-09-09');
+    assert.ok(outing.sources.length >= 2);
+    for (const source of outing.sources) {
+      assert.equal(new URL(source.url).protocol, 'https:');
+      assert.ok(source.label);
+    }
+    assert.ok(outing.stops.length >= 2);
+    assert.equal(
+      new Set(outing.stops.map((stop) => stop.catalogueId)).size,
+      outing.stops.length,
+    );
+    for (const stop of outing.stops) {
+      const entry = byId.get(stop.catalogueId);
+      assert.ok(entry, `${outing.id}: unknown stop ${stop.catalogueId}`);
+      assert.equal(entry.region, outing.region);
+      assert.ok(entry.experience?.planning && entry.experience?.source);
+      assert.ok(stop.note);
+      assert.ok(
+        !entry.start && !entry.end,
+        'evergreen outings must not depend on dated events',
+      );
+      assert.ok(
+        !entry.flags.includes('o'),
+        'short outings must not silently require an overnight stay',
+      );
+    }
+  }
+  // The browser and the read-only assistant must describe exactly the same discoveries.
+  const serialized = JSON.stringify(catalogue);
+  for (const file of ['public/catalogue.json', 'src/ask-catalogue.json']) {
+    assert.equal(
+      JSON.stringify(JSON.parse(await readFile(join(ROOT, file), 'utf8'))),
+      serialized,
+    );
+  }
 });
