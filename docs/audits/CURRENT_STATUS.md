@@ -236,3 +236,22 @@ Release proof: `a1dfa3901e7bcb25ac5feee31af10c4c5048d8a4` is live on preview, Wo
 The public export and companion catalogue are synchronized with browser content. No catalogue IDs, excursion/booking flags or selection rules changed. Initial narrow provenance/parity checks passed 2/2, and discovery browser checks passed 6/6 across Chromium and WebKit. Desktop and phone-width screenshots were captured and inspected. `pnpm check` passed all 12 tasks, including 103 friends tests. The extended public-export parity assertion passed separately. Release proof: implementation `0d8c43634faacbdc6ea79d426746807b237079f5` is live on the isolated preview, Worker `dd9c1327-f5f6-4bb6-9cb9-1fdf54ea2637`. At 2026-09-09 01:53:32 UTC, Worker health, manifest and all 67 checked asset bodies matched the local build, including all discovery photographs. The hosted Gangala guide displayed its photograph, source link, experience description and booking/access context; its screenshot was inspected. Exact-release evidence is under `apps/friends/evidence/content-expansion/`.
 
 [Deployment run 34300236189](https://github.com/the-prairie/adventure-omakase/actions/runs/34300236189) and [friends CI 34300236236](https://github.com/the-prairie/adventure-omakase/actions/runs/34300236236) both passed 103 friends tests, 11 native checks and all 52 browser cases. Main CI and Security also passed at this implementation commit. This evidence follow-up changes documentation only. No merge, production deployment or physical-device acceptance is claimed.
+
+## September 9: fresh curation pass
+
+Implementation `c9cb57e` adds six source-linked outings and seven detailed guides
+(43 expanded guides; all 300 catalogue IDs and existing 51 photographs retained).
+Collections provide ordered stops, audience fit and explicit transport/booking
+context. They preserve ordinary discovery, private saving and invitations and
+make no date-specific availability claim.
+
+Observed local checks: final `pnpm check` passed all 12 tasks, including 104
+friends tests. Focused discovery/Map browser suites passed 14/14 across Chromium
+and WebKit. After the mobile spacing correction, both curation cases passed
+again, including first-outing visibility above the bottom dock. Desktop/mobile
+screenshots were inspected; an independent reviewer marked its mobile hierarchy
+finding resolved. No additional provider calls, data writes or migrations occur.
+
+The equivalent Sites source is `fc827c2eda87a8a3a4041cbbf69f408d29e1a5f4`, saved
+as version 2; publication is pending shared-audience approval. Cloudflare remote
+checks and publication for this commit remain separate from local validation.

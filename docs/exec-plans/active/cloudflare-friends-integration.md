@@ -134,3 +134,14 @@ Implemented and exact-verified on preview at `a1dfa39`. Hosted Himeji recovery a
 The user requested enough context and relevant imagery to understand each recommendation’s atmosphere and actual experience. This slice expands 24 Osaka/Kansai and Okinawa entries with source-linked descriptions, things to do and practical arrangements, and adds 23 licensed photographs. It preserves all 300 identities and their selection constraints. Coverage is now 36 expanded guides and 50 photographed entries (51 photographs); the rest retain their existing research depth. The public JSON export and companion catalogue match the browser catalogue, including three previously missing public-export enrichments. Tower of the Sun links the operator’s illustrated guide because no suitable reusable photo was established. Exact verification and release identity are recorded in CURRENT_STATUS.
 
 Implementation `0d8c436` is live and exact-verified on preview, including all 67 checked assets. Hosted guide content and imagery were inspected; deployment and friends CI both passed 103 tests, 11 native checks and all 52 browser cases. Detailed evidence and coverage limits are recorded in CURRENT_STATUS.
+
+## September 9: curated outings
+
+The user requested a fresh agent to improve experience selection and curation.
+Six Osaka/Okinawa outings now connect twelve existing catalogue entries, with
+source-linked sequencing, transport, booking and language guidance. Seven new
+expanded guides bring coverage to 43 of 300 retained IDs; image coverage is
+unchanged. Fieldbook collections lead to the ordinary guide/save/invite flow
+and do not create canonical plans. Date-specific availability and field-tested
+journey times remain unverified. Implementation and checks are recorded in
+CURRENT_STATUS; the separate Sites evaluation has its own saved release.

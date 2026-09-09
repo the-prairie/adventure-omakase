@@ -155,3 +155,13 @@ The friends discovery index uses a self-hosted Leaflet distribution, static attr
 ### Discovery view and browser Maps boundary
 
 Map and Fieldbook share the local curated catalogue, filters and selected discovery. Google Maps JavaScript is a lazy, persistent browser presentation; view switches do not recreate it. Site coordinates retain provenance separately from broader area anchors. A public configuration endpoint exposes only the dedicated website/API-restricted browser key; existing provider secrets remain server-only. Origin-only referrers support Google's restriction. The existing Leaflet area presentation remains the unavailable-provider fallback and dice renderer. See [discovery geography](docs/product/discovery-map.md).
+
+### Curated discovery outings
+
+The Fieldbook also presents static, source-linked collections of existing
+catalogue IDs. Ordered stops, audience fit and transport context are editorial
+suggestions; they do not create canonical plans, bookings or verified routes.
+Region filtering applies to collections, while search, Saved, area/mood/time
+filters and Map retain their existing discovery scope. Opening a stop uses the
+ordinary guide, private-save and invitation flow. Browser and companion catalogue
+exports remain identical; collection metadata is browser editorial content.
