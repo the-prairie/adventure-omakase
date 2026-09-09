@@ -255,3 +255,29 @@ finding resolved. No additional provider calls, data writes or migrations occur.
 The equivalent Sites source is `fc827c2eda87a8a3a4041cbbf69f408d29e1a5f4`, saved
 as version 2; publication is pending shared-audience approval. Cloudflare remote
 checks and publication for this commit remain separate from local validation.
+
+## September 9: islands and onward travel
+
+Implementation `a1540d5` adds four island collections and eight expanded guides:
+51 expanded guides, ten collections, 300 unchanged catalogue IDs. Tokashiki is
+a full-day excursion; Zamami, Ishigaki/Taketomi and Miyako/Irabu/Shimoji require
+separate stays. Kagoshima/Yakushima is an onward editorial direction outside
+the catalogue. Existing excursion flags, save and invitation actions remain.
+October Taiwan flight operation and seats are unconfirmed.
+
+Observed local acceptance: `pnpm check` passed all 12 tasks, including 105 friends
+tests. The expanded curation and design suites passed all four Chromium/WebKit
+cases. Desktop/mobile screenshots were inspected. The design test now selects
+a visible guide rather than a button inside a collapsed collection.
+
+Sites publication was explicitly approved for its existing shared audience.
+Version 3, source `c88abe36f3fc62f21a0da090bf3de0eae397a946`, succeeded at
+18:34:28 UTC. At 18:35:04 UTC health and all 12 checked release assets matched
+the local build; setup remained complete. No trip records or bookings changed.
+URL: https://adventure-omakase-evaluation.thelaurenzary.chatgpt.site.
+
+The prior GitHub head `0d8e31e` failed two design cases due to the hidden-button
+selector and one Linux WebKit first-viewport assertion (818 px versus 780 px).
+The shorter heading and current suite pass locally; new-head remote verification
+is pending. Prior CodeQL also reported a failure that has not been diagnosed.
+These do not establish the current Cloudflare preview outcome. No merge occurred.

@@ -145,7 +145,7 @@ test('traveler surfaces retain readable controls across desktop and mobile', asy
   );
   await capture('18-discover-empty');
   await action('clear-filters').click();
-  await page.locator('[data-action=discovery]').first().click();
+  await page.locator('[data-action=discovery]:visible').first().click();
   await capture('19-discovery-detail');
   await capture('20-discovery-source', true);
   await close();
