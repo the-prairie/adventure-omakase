@@ -281,3 +281,23 @@ selector and one Linux WebKit first-viewport assertion (818 px versus 780 px).
 The shorter heading and current suite pass locally; new-head remote verification
 is pending. Prior CodeQL also reported a failure that has not been diagnosed.
 These do not establish the current Cloudflare preview outcome. No merge occurred.
+
+## September 9: balanced tastes and unhurried evenings
+
+Implementation `7b8af79` adds Shinsekai play/dinner and Urizun/Sakaemachi
+evenings, expands three guides (54 total), and adds a main focus plus optional
+breathing room to all twelve collections. Tenma includes optional small-bar
+wandering. Existing culture, outdoors and separate-island choices remain.
+All 300 IDs and existing transfer flags are retained. No schedule is generated.
+
+Observed: repository `pnpm check` passed all 12 tasks, including 105 friends
+tests. Both expanded Chromium/WebKit curation cases passed. Desktop and mobile
+screenshots were inspected; new-guide identity and pacing copy were exercised.
+The source checkout had been switched to main outside this task, so the mirror
+was prepared in a separate worktree without changing that checkout.
+
+Sites version 4, source `ad09eaa7c738428d5afb87551fa93ff6a47c60cb`, published
+successfully at 21:40:09 UTC to the unchanged shared audience. Runtime health
+and asset verification are recorded in the task. No trip data, bookings or
+provider settings changed. Date-specific availability remains unverified.
+The GitHub PR is updated separately; no merge or Cloudflare release is claimed.
