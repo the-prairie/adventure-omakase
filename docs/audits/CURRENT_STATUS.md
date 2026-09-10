@@ -17,6 +17,12 @@ compatibility tests and 11 workerd tests passed. Independent review inspected
 desktop/phone landing and story screenshots and found no material issues.
 Physical iPhone, Home Screen and native keyboard acceptance remain manual.
 
+Published as Sites version 8, source
+`60680b9be0cb1e8297f946a7c9b9dca70235fecf`. At 2026-09-10 08:33:50 UTC,
+authenticated health and all 13 release assets matched; setup remained complete.
+The existing two-person audience remains at policy revision 2. Repository
+implementation commit: `02a9e7c`. No separate Cloudflare promotion was performed.
+
 ## September 10 — compact phone agenda
 
 Implemented locally: daily agenda home, My day and Everyone’s plans scopes,

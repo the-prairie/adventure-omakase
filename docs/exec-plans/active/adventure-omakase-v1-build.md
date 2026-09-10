@@ -52,14 +52,16 @@ Physical-device acceptance remains manual.
 
 ## Discovery-first experience repair
 
-Status: **Implemented and locally verified; publication pending.** The user rejected the agenda
+Status: **Implemented, verified and published as Sites version 8.** The user rejected the agenda
 as the front door and delegated the product direction. The selected slice makes
 the discovery fieldbook the landing surface, with an immediate playable local
 die, photographed curated stories, source inspection before planning, and the
 compact agenda under Your day. All existing research and planning contracts
 remain required. Relevant source: `public/app.js`, `app.css`, `dice-atlas.js`;
 acceptance: `tests/native/explore-home.spec.mjs` plus the full browser regression.
-The release evidence belongs in current status; publication is still pending.
+Implementation: `02a9e7c`; Sites source: `60680b9be0cb1e8297f946a7c9b9dca70235fecf`.
+Authenticated health and 13 assets matched at 2026-09-10 08:33:50 UTC.
+Detailed observed checks and physical-device limits are in current status.
 
 ## Purpose
 
