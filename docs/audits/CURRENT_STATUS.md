@@ -12,6 +12,12 @@ section-action overflow. Root `pnpm check` passed all 12 tasks, including 112
 application tests. Both Sites compatibility checks and 11 actual local workerd
 checks passed. Phone screenshots were inspected in both browser engines.
 
+Published as Sites version 6, source
+`e453751fcfcc4069c2d9ce70ecb1f046507ac8d1`. At 2026-09-10 03:24:00 UTC,
+authenticated health and all 13 release assets matched the build; setup remained
+complete. The existing two-person audience is unchanged. Repository implementation
+commit: `1caedfc049e83c7edd7654abffd5aa4031cbfced`.
+
 The phone browser test uses touch emulation at 375/390px widths, a shortened
 viewport and landscape. It checks reachable actions, draft preservation and
 validation focus. This is not physical-iPhone or actual-keyboard evidence.

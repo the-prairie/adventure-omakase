@@ -22,6 +22,11 @@ This slice does not claim completion of the native compiler or offline runtime.
 
 ## iPhone refinement
 
+Status: **Complete for the browser refinement.** Implementation
+`1caedfc049e83c7edd7654abffd5aa4031cbfced`; Sites version 6
+`e453751fcfcc4069c2d9ce70ecb1f046507ac8d1` published and exact-verified
+2026-09-10 at 03:24:00 UTC. All 60 browser cases and root checks passed.
+
 Acceptance: readable touch controls, full-width phone forms, reachable review
 and publish actions, preserved drafts after viewport changes, visible validation
 focus and no horizontal overflow at small widths. Implementation is in
