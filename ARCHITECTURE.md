@@ -22,6 +22,16 @@ touch targets are CSS concerns; phone drafts use the same canonical publication
 path. Touch emulation does not establish physical-device or installed-web-app
 acceptance.
 
+At widths up to 850px, Today renders a compact daily agenda from canonical
+invitations. My day includes hosted and joined plans and uses the chosen part's
+time and meeting; Everyone's plans uses invitation times and retains personal
+participation labels. Interested and waitlisted replies do not become personal
+commitments. Removed parts and changed revisions remain explicit review states.
+Agenda/map switches retain the selected day; maps use the host's supplied meeting
+search, with no inferred route or location. Phone invitation details put meeting
+and participation first, with maps, descriptions and source context expandable.
+The four phone navigation items are Today, Discover, Friends and Memories.
+
 ## Current friends release
 
 The September 6 assignment and [ADR 0006](docs/decisions/0006-cloudflare-friends-edition.md) supersede the native-first deployment scope for this release. One browser app in `apps/friends` calls its same-origin Worker; D1 is canonical metadata and private R2 holds selected, resized photos. SQL triggers and D1 batches enforce revisions and capacity. Polling only refreshes committed state; it is never a second state authority.

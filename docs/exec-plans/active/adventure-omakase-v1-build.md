@@ -35,6 +35,18 @@ focus and no horizontal overflow at small widths. Implementation is in
 viewport. Publication and observed checks are tracked in current status. Actual
 iPhone keyboard, sign-in and Home Screen behavior remain device acceptance work.
 
+## Compact phone agenda
+
+Status: **Locally verified; publication pending.** The agreed daily agenda is implemented in
+`apps/friends/public/app.js` and `app.css`, with focused browser cases in
+`tests/native/compact-agenda.spec.mjs`. Observed checks and screenshot evidence are recorded in current status.
+
+Acceptance: four ordinary invitations fit above the phone dock, personal and
+group scopes preserve participation semantics, agenda/map retain the chosen day,
+meeting and RSVP precede expandable detail, and all four phone navigation routes
+work. Existing shared-trip, planning and responsive browser checks remain gates.
+Physical-device acceptance remains manual.
+
 ## Purpose
 
 This is the durable plan-to-product map for the canonical blueprint at [`docs/product/adventure-omakase-v1.md`](../../product/adventure-omakase-v1.md).

@@ -92,8 +92,9 @@ test('fixture AI cards confirm an ordinary invitation with lunch-only participat
     await expect(b.locator('#dialog')).toContainText('Update my part');
     await close(b);
     await b.locator('[data-nav=day]:visible').first().click();
+    await b.locator('.agenda-date-picker > summary').click();
     await b.locator('[data-action=day][data-id="2026-09-28"]').click();
-    await expect(b.locator('#main')).toContainText('12:30–13:30');
+    await expect(b.locator('#main')).toContainText(/12:30\s*–13:30/);
     await expect(b.locator('#main')).toContainText(
       'Synthetic lunch front door',
     );

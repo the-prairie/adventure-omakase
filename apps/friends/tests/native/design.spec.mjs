@@ -118,6 +118,7 @@ test('traveler surfaces retain readable controls across desktop and mobile', asy
   await nav('plans');
   await capture('10-home-populated');
   await nav('day');
+  await page.locator('.agenda-date-picker > summary').click();
   await page.locator('[data-action=day][data-id="2026-09-29"]').click();
   await capture('11-my-day');
   await nav('people');

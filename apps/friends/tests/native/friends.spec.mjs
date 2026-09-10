@@ -223,6 +223,9 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       );
       pid = (await state(a)).plans[0].id;
       await fresh(b);
+      await b.locator('.agenda-date-picker > summary').click();
+      await b.locator('[data-action=day][data-id="2026-10-04"]').click();
+      await b.locator('.agenda-scope [data-id=group]').click();
       await b
         .locator(`[data-action=plan-detail][data-id="${pid}"]`)
         .first()
@@ -265,12 +268,15 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
         await b.unroute('**/api/plans/*/rsvp');
       }
       await nav(b, 'plans');
-      await expect(b.locator('.next-plan')).toContainText('09:00–10:00 JST');
-      await expect(b.locator('.next-plan')).toContainText('Just coffee');
-      await expect(b.locator('.next-plan')).toContainText(
+      await b.locator('.agenda-scope [data-id=mine]').click();
+      await expect(b.locator('.agenda-entry')).toContainText(
+        /09:00\s*–10:00 JST/,
+      );
+      await expect(b.locator('.agenda-entry')).toContainText('Just coffee');
+      await expect(b.locator('.agenda-entry')).toContainText(
         'Synthetic coffee meeting',
       );
-      await expect(b.locator('.next-plan')).not.toContainText(
+      await expect(b.locator('.agenda-entry')).not.toContainText(
         'Synthetic running start',
       );
       await b.screenshot({
@@ -281,7 +287,9 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       await expect(
         b.locator('[data-action=day][data-id="2026-10-04"]'),
       ).toHaveAttribute('aria-pressed', 'true');
-      await expect(b.locator('.commitment')).toContainText('09:00–10:00 JST');
+      await expect(b.locator('.commitment')).toContainText(
+        /09:00\s*–10:00 JST/,
+      );
       await expect(b.locator('.commitment')).toContainText(
         'Synthetic coffee meeting',
       );
@@ -312,6 +320,8 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       await a.locator('#plan-form [type=submit]').click();
       await fresh(b);
       await nav(b, 'plans');
+      await b.locator('.agenda-date-picker > summary').click();
+      await b.locator('[data-action=day][data-id="2026-10-04"]').click();
       await b
         .locator(`[data-action=plan-detail][data-id="${pid}"]`)
         .first()
@@ -634,7 +644,7 @@ test('unavailable research offers a working fieldbook fallback', async ({
   await page.goto(runtime.url + '/#setup=' + TEST_KEY);
   await page.locator('#f-name').fill('Fallback tester');
   await page.locator('#auth-form [type=submit]').click();
-  await action(page, 'discover-nav').click();
+  await nav(page, 'discover');
   await action(page, 'ask-find').click();
   await page.locator('#ask-area').fill('Namba');
   await page.locator('#ask-form [type=submit]').click();
@@ -664,7 +674,7 @@ test('opening a new dialog starts at its title after a long form', async ({
     await page.locator('#dialog').evaluate((d) => d.scrollTop),
   ).toBeGreaterThan(0);
   await close(page);
-  await action(page, 'discover-nav').click();
+  await nav(page, 'discover');
   await page.locator('.discovery-grid [data-action=discovery]').first().click();
   await expect
     .poll(() => page.locator('#dialog').evaluate((d) => d.scrollTop))

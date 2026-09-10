@@ -153,6 +153,8 @@
             : DAYS[0],
       boardDay: 'all',
       calendarScope: 'mine',
+      agendaView: 'list',
+      agendaMapPlan: null,
       mine: false,
       q: '',
       mood: 'all',
@@ -178,6 +180,10 @@
     confirmation = null;
   const app = document.getElementById('app'),
     dialog = document.getElementById('dialog');
+  const phoneLayout = window.matchMedia('(max-width: 850px)');
+  phoneLayout.addEventListener('change', () => {
+    if (S) render();
+  });
   const person = (id) =>
     S?.members.find((m) => m.id === id) || {
       id,
@@ -489,19 +495,27 @@
   });
   function header() {
     const unread = countUpdates();
-    return `<div class="tagbar ${mode === 'shared' ? 'shared-tagbar' : ''}"><span>${mode === 'demo' ? 'EXAMPLE TRIP <span class="tag-demo-description">· FICTIONAL PEOPLE · LOCAL ONLY</span>' : 'DIFFERENT PLANS. SAME FRIENDS.'}</span>${mode === 'demo' ? `<div class="demo-controls"><label class="screenreader" for="demo-person">Example traveler</label><span>Try as</span><select id="demo-person">${S.members.map((m) => `<option value="${E(m.id)}" ${m.id === S.me.id ? 'selected' : ''}>${E(m.name)}</option>`).join('')}</select><button data-action="live-info">Go live</button></div>` : '<span class="tag-second">JAPAN · OUR OWN DAYS</span>'}</div><header class="header"><div class="header-inner"><button class="brand" data-nav="plans" aria-label="Adventure Omakase home"><span class="brand-art"><img src="/assets/brand/omakase-together-apart.png" alt="Omakase — the together, apart edition" width="1774" height="887" fetchpriority="high"></span></button><nav class="nav" aria-label="Main navigation">${navButtons(false)}</nav><div class="header-actions">${btn(I('plus') + '<span class="invite-label">Open a plan</span>', 'plan-new', '', 'primary')}<button class="icon-btn" data-action="updates" aria-label="Trip updates${unread ? `, ${unread} unread` : ''}">${I('bell')}${unread ? `<span class="dot-count">${Math.min(unread, 9)}</span>` : ''}</button><button data-action="profile" aria-label="Your profile and travel dates" style="padding:0">${avatar(S.me.id)}</button></div></div></header>${!online && mode === 'shared' ? '<div class="offline">Offline · last loaded view only. Joining and plan changes are disabled. <button class="text-btn" data-action="reconnect">Reconnect</button></div>' : ''}${mode === 'demo' && !S.storageOkay ? '<div class="offline">This browser cannot keep the example between visits. Export anything you wish to retain.</div>' : ''}`;
+    return `<div class="tagbar ${mode === 'shared' ? 'shared-tagbar' : ''}"><span>${mode === 'demo' ? 'EXAMPLE TRIP <span class="tag-demo-description">· FICTIONAL PEOPLE · LOCAL ONLY</span>' : 'DIFFERENT PLANS. SAME FRIENDS.'}</span>${mode === 'demo' ? `<div class="demo-controls"><label class="screenreader" for="demo-person">Example traveler</label><span>Try as</span><select id="demo-person">${S.members.map((m) => `<option value="${E(m.id)}" ${m.id === S.me.id ? 'selected' : ''}>${E(m.name)}</option>`).join('')}</select><button data-action="live-info">Go live</button></div>` : '<span class="tag-second">JAPAN · OUR OWN DAYS</span>'}</div><header class="header"><div class="header-inner"><button class="brand" data-nav="plans" aria-label="Adventure Omakase home"><span class="phone-trip-title">${E(S.trip.name)}</span><span class="brand-art"><img src="/assets/brand/omakase-together-apart.png" alt="Omakase — the together, apart edition" width="1774" height="887" fetchpriority="high"></span></button><nav class="nav" aria-label="Main navigation">${navButtons(false)}</nav><div class="header-actions">${btn(I('plus') + '<span class="invite-label">Open a plan</span>', 'plan-new', '', 'primary')}<button class="icon-btn" data-action="updates" aria-label="Trip updates${unread ? `, ${unread} unread` : ''}">${I('bell')}${unread ? `<span class="dot-count">${Math.min(unread, 9)}</span>` : ''}</button><button data-action="profile" aria-label="Your profile and travel dates" style="padding:0">${avatar(S.me.id)}</button></div></div></header>${!online && mode === 'shared' ? '<div class="offline">Offline · last loaded view only. Joining and plan changes are disabled. <button class="text-btn" data-action="reconnect">Reconnect</button></div>' : ''}${mode === 'demo' && !S.storageOkay ? '<div class="offline">This browser cannot keep the example between visits. Export anything you wish to retain.</div>' : ''}`;
   }
   function navButtons(mobile) {
-    return [
-      ['plans', 'Open plans', 'route', 'Plans'],
-      ['day', 'Calendar', 'calendar', 'Calendar'],
-      ['discover', 'Discover', 'search', 'Discover'],
-      ['people', 'People', 'people', 'People'],
-      ['story', 'Our story', 'book', 'Story'],
-    ]
+    const entries = mobile
+      ? [
+          ['day', 'Today', 'calendar', 'Today'],
+          ['discover', 'Discover', 'search', 'Discover'],
+          ['people', 'Friends', 'people', 'Friends'],
+          ['story', 'Memories', 'book', 'Memories'],
+        ]
+      : [
+          ['plans', 'Open plans', 'route', 'Plans'],
+          ['day', 'Calendar', 'calendar', 'Calendar'],
+          ['discover', 'Discover', 'search', 'Discover'],
+          ['people', 'People', 'people', 'People'],
+          ['story', 'Our story', 'book', 'Story'],
+        ];
+    return entries
       .map(
         ([v, n, i, short]) =>
-          `<button data-nav="${v}" class="${ui.view === v ? 'active' : ''}" ${ui.view === v ? 'aria-current="page"' : ''}>${mobile ? I(i) : ''}<span>${mobile ? short : n}</span></button>`,
+          `<button data-nav="${v}" class="${ui.view === v || (mobile && v === 'day' && ui.view === 'plans') ? 'active' : ''}" ${ui.view === v || (mobile && v === 'day' && ui.view === 'plans') ? 'aria-current="page"' : ''}>${mobile ? I(i) : ''}<span>${mobile ? short : n}</span></button>`,
       )
       .join('');
   }
@@ -514,9 +528,13 @@
       renderLogin();
       return;
     }
+    app.classList.toggle(
+      'phone-agenda-open',
+      phoneLayout.matches && ['plans', 'day'].includes(ui.view),
+    );
     app.innerHTML =
       header() +
-      `<div class="container"><div class="meta-line"><span class="trip-context"><span>${E(S.trip.name)}</span><span class="connection-label">${mode === 'demo' ? 'Local example' : `<i class="live-dot"></i>${online ? 'Shared trip' : 'Offline copy'}`} · JST</span></span><span class="row"><span class="meta-date">${dateText(S.trip.start)} — ${dateText(S.trip.end)}</span>${mode === 'shared' ? `<button class="text-btn companion-entry" data-action="companion">${I('star')} Travel companion</button>` : ''}</span></div><main id="main" tabindex="-1">${({ plans: board, day: myDay, discover: discover, people: peoplePage, story: storyPage }[ui.view] || board)()}</main>${footer()}</div><nav class="nav-dock" aria-label="Quick navigation">${navButtons(true)}</nav>`;
+      `<div class="container"><div class="meta-line"><span class="trip-context"><span>${E(S.trip.name)}</span><span class="connection-label">${mode === 'demo' ? 'Local example' : `<i class="live-dot"></i>${online ? 'Shared trip' : 'Offline copy'}`} · JST</span></span><span class="row"><span class="meta-date">${dateText(S.trip.start)} — ${dateText(S.trip.end)}</span>${mode === 'shared' ? `<button class="text-btn companion-entry" data-action="companion">${I('star')} Travel companion</button>` : ''}</span></div><main id="main" tabindex="-1">${phoneLayout.matches && ['plans', 'day'].includes(ui.view) ? compactDay() : ({ plans: board, day: myDay, discover: discover, people: peoplePage, story: storyPage }[ui.view] || board)()}</main>${footer()}</div><nav class="nav-dock" aria-label="Quick navigation">${navButtons(true)}</nav>`;
     if (ui.view === 'discover')
       window.OmakaseMap?.mount({
         catalogue: discoverMatches(),
@@ -648,6 +666,121 @@
   function empty(title, message, label = '', action = '') {
     return `<div class="empty">${I('sun')}<h3>${E(title)}</h3><p>${E(message)}</p>${label ? btn(E(label) + ' ' + I('arrow'), action, '', 'primary') : ''}</div>`;
   }
+  function agendaItem(p) {
+    const r = myR(p);
+    const personal = p.hostId === S.me.id || r?.status === 'joined';
+    const chosen = r?.choice !== 'all' ? segment(p, r) : null;
+    const missing =
+      personal && p.hostId !== S.me.id && r?.choice !== 'all' && !chosen;
+    const part = ui.calendarScope === 'mine' && !missing ? chosen : null;
+    const needs =
+      r?.status === 'joined' &&
+      r.acceptedRevision !== p.revision &&
+      p.status === 'open';
+    let status =
+      p.hostId === S.me.id
+        ? 'You’re hosting'
+        : r?.status === 'joined'
+          ? chosen
+            ? `You: ${chosen.label}`
+            : 'You’re joining'
+          : r?.status === 'interested'
+            ? 'Interested · not committed'
+            : r?.status === 'waitlist'
+              ? 'On the waitlist'
+              : `${1 + joined(p).length} going · company welcome`;
+    if (chosen && ui.calendarScope === 'group' && r?.status === 'joined')
+      status += ` · ${chosen.start}–${chosen.end}`;
+    if (needs) status = `Reconfirm · ${status}`;
+    if (missing) status = 'Selected part removed · choose again';
+    if (p.status !== 'open')
+      status = p.status === 'cancelled' ? 'Cancelled' : p.status;
+    const image = BY.get(p.catalogueId)?.photo;
+    return {
+      p,
+      r,
+      part,
+      missing,
+      needs,
+      status,
+      start: missing ? '' : (part || p).start,
+      image: image?.path?.startsWith('/assets/discovery/photos/')
+        ? image
+        : null,
+    };
+  }
+  function compactDay() {
+    const items = S.plans
+      .filter(
+        (p) => p.date === ui.day && (ui.calendarScope === 'group' || myPlan(p)),
+      )
+      .map(agendaItem)
+      .sort(
+        (a, b) =>
+          a.start.localeCompare(b.start) || a.p.title.localeCompare(b.p.title),
+      );
+    const selected =
+      items.find((item) => item.p.id === ui.agendaMapPlan) || items[0];
+    const current = DAYS.indexOf(ui.day);
+    const today = todayJP();
+    const overlaps = items.filter(
+      (item) => myPlan(item.p) && item.p.status === 'open' && !item.missing,
+    );
+    const hasOverlap = overlaps.some((a, i) =>
+      overlaps.slice(i + 1).some((b) => {
+        const first = segment(a.p, a.r) || a.p,
+          second = segment(b.p, b.r) || b.p;
+        return first.start < second.end && second.start < first.end;
+      }),
+    );
+    const rows = items
+      .map((item) => {
+        const { p, part, missing, needs, image } = item;
+        return `<article class="commitment agenda-entry ${p.status === 'cancelled' ? 'cancelled' : ''}"><button class="agenda-row" data-action="plan-detail" data-id="${E(p.id)}"><time>${missing ? 'Review' : `<strong>${E((part || p).start)}</strong><span>–${E((part || p).end)} JST</span>`}</time><span class="agenda-copy"><strong class="invite-title">${E(p.title)}</strong><span class="agenda-place">${E(missing ? 'Choose a new meeting option' : part?.meeting || p.area)}</span><span class="agenda-participation ${needs || missing ? 'needs-review' : ''}">${E(item.status)}</span></span>${image ? `<img src="${E(image.path)}" width="64" height="64" loading="lazy" alt="${E(image.caption)}; photo credits below">` : `<span class="agenda-row-icon" aria-hidden="true">${I('arrow')}</span>`}</button></article>`;
+      })
+      .join('');
+    const credits = [
+      ...new Map(
+        items
+          .filter((item) => item.image)
+          .map((item) => [item.image.path, item]),
+      ).values(),
+    ];
+    const mapPlan = selected && {
+      ...selected.p,
+      meeting: selected.part?.meeting || selected.p.meeting,
+      mapLink: selected.part ? '' : selected.p.mapLink,
+    };
+    return `<section class="phone-agenda"><div class="agenda-day-heading"><details class="agenda-date-picker"><summary>${I('calendar')}<h1>${dateText(ui.day, { weekday: 'short', day: 'numeric', month: 'short' })}</h1></summary><div class="agenda-date-list" aria-label="Choose a trip day">${DAYS.map((day) => `<button class="date-btn ${day === ui.day ? 'active' : ''}" data-action="day" data-id="${day}" aria-pressed="${day === ui.day}">${dateText(day, { weekday: 'short', day: 'numeric', month: 'short' })}</button>`).join('')}</div></details><div class="agenda-day-step">${btn(DAYS.includes(today) ? 'Today' : 'Trip start', 'agenda-today', '', 'subtle')}<button class="icon-btn" data-action="agenda-step" data-id="-1" aria-label="Previous day" ${current <= 0 ? 'disabled' : ''}>${I('arrow')}</button><button class="icon-btn" data-action="agenda-step" data-id="1" aria-label="Next day" ${current >= DAYS.length - 1 ? 'disabled' : ''}>${I('arrow')}</button></div></div><div class="calendar-controls agenda-scope"><button data-action="calendar-scope" data-id="mine" aria-pressed="${ui.calendarScope === 'mine'}">My day</button><button data-action="calendar-scope" data-id="group" aria-pressed="${ui.calendarScope === 'group'}">Everyone’s plans</button></div><div class="agenda-tools"><span>${items.length} ${items.length === 1 ? 'plan' : 'plans'} · Japan time</span><div><button class="text-btn" data-action="agenda-view" data-id="list" aria-pressed="${ui.agendaView !== 'map'}">${I('route')} Agenda</button><button class="text-btn" data-action="agenda-view" data-id="map" aria-pressed="${ui.agendaView === 'map'}">${I('map')} Map</button></div></div>${hasOverlap ? '<p class="notice warn">Your joined plans overlap. Check meeting times and travel before committing.</p>' : ''}${!items.length ? `<div class="agenda-empty"><h2>${ui.calendarScope === 'mine' ? 'The day is yours.' : 'An open day.'}</h2><p>${ui.calendarScope === 'mine' ? 'Hosted and joined plans appear here. Interested isn’t a commitment.' : 'Nobody has posted an invitation for this day.'}</p>${ui.calendarScope === 'mine' ? btn('Browse everyone’s plans', 'calendar-scope', 'group', 'primary') : btn('Find an idea', 'discover-nav', '', 'primary')}</div>` : ui.agendaView === 'map' ? `<section class="agenda-map" aria-label="Meeting point for selected plan"><label for="agenda-map-plan">Show a meeting point</label><select id="agenda-map-plan">${items.map((item) => `<option value="${E(item.p.id)}" ${item === selected ? 'selected' : ''}>${E(item.p.title)}</option>`).join('')}</select><p class="agenda-participation ${selected.needs || selected.missing ? 'needs-review' : ''}">${E(selected.status)}</p>${selected.missing ? '<p class="notice warn">Your selected part was removed. Review the invitation and choose again before travelling.</p>' : meetingMap(mapPlan)}${btn('Open invitation', 'plan-detail', selected.p.id, 'primary')}</section>` : `<div class="agenda-list">${rows}</div>${credits.length ? `<details class="agenda-credits"><summary>Photo credits</summary>${credits.map(({ p, image }) => `<p>${E(p.title)} · <a href="${E(safeURL(image.source))}" target="_blank" rel="noopener noreferrer">${E(image.author)}</a> · <a href="${E(safeURL(image.licenseUrl))}" target="_blank" rel="noopener noreferrer">${E(image.license)}</a><br>${E(image.caption)}</p>`).join('')}</details>` : ''}`}<div class="agenda-add">${btn(I('plus') + 'Add a plan', 'plan-new', '', 'subtle')}</div><details class="agenda-extras"><summary>Travel dates & tools</summary>${sharedDaySummary(ui.day)}<div class="row wrap">${btn('Who’s around?', 'overlap-day', ui.day, 'subtle')}${btn('Export my day (.ics)', 'calendar-day', '', 'subtle')}${mode === 'shared' ? btn('Travel companion', 'companion', '', 'subtle') : ''}</div></details></section>`;
+  }
+  function compactPlanDetails() {
+    if (!phoneLayout.matches) return;
+    const view = dialog.querySelector('.plan-view');
+    if (!view) return;
+    const decision = view.querySelector('.plan-decision');
+    const meeting = view.querySelector('.meeting-box');
+    if (meeting && decision) {
+      const map = meeting.querySelector('.embedded-map');
+      if (map) {
+        const details = document.createElement('details');
+        details.className = 'plan-map-details';
+        details.innerHTML = '<summary>Map & directions</summary>';
+        details.append(map);
+        meeting.append(details);
+      }
+      decision.before(meeting);
+    }
+    const details = document.createElement('details');
+    details.className = 'plan-background';
+    details.innerHTML =
+      '<summary>About this outing, booking & sources</summary>';
+    for (const part of view.querySelectorAll(
+      ':scope > .plan-description, :scope > .fact-grid, :scope > .outing-context',
+    ))
+      details.append(part);
+    decision?.after(details);
+  }
+
   function myDay() {
     const plans = S.plans
       .filter(
@@ -1231,6 +1364,7 @@
       id,
       true,
     );
+    compactPlanDetails();
   }
   function regionOptions(value) {
     return Object.entries(R)
@@ -2621,6 +2755,20 @@
           window.scrollTo(0, 0);
           break;
         }
+        case 'agenda-view':
+          ui.agendaView = id === 'map' ? 'map' : 'list';
+          render();
+          break;
+        case 'agenda-today':
+          ui.day = DAYS.includes(todayJP()) ? todayJP() : DAYS[0];
+          render();
+          break;
+        case 'agenda-step': {
+          const next = DAYS[DAYS.indexOf(ui.day) + Number(id)];
+          if (next) ui.day = next;
+          render();
+          break;
+        }
         case 'calendar-scope':
           ui.calendarScope = id === 'group' ? 'group' : 'mine';
           render();
@@ -3016,6 +3164,10 @@
   document.addEventListener('change', async (e) => {
     const el = e.target;
     switch (el.id) {
+      case 'agenda-map-plan':
+        ui.agendaMapPlan = el.value;
+        render();
+        break;
       case 'demo-person':
         acceptState(OmakaseDemo.switchTo(el.value), false);
         closeModal();

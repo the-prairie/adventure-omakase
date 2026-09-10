@@ -1,5 +1,21 @@
 # Current release status
 
+## September 10 — compact phone agenda
+
+Implemented locally: daily agenda home, My day and Everyone’s plans scopes,
+compact time/place/participation rows, meeting-point maps that retain the day,
+and Today/Discover/Friends/Memories navigation. Phone invitation detail places
+meeting and participation before expandable maps and background/source context.
+Observed: the complete Chromium/WebKit run passed 62 cases; the two remaining
+cases used the old always-expanded guide expectation. After updating that test
+to open background and map details, both passed in a focused rerun (13.4s).
+All 64 scenarios therefore have passing evidence on this application code;
+this was not a single zero-failure suite run. Root `pnpm check` passed all 12
+tasks, including 112 application tests. Both Sites compatibility tests and
+11 local workerd checks passed. Agenda and invitation screenshots were inspected;
+the design scan reported zero primary findings. Physical iPhone testing remains
+manual. Publication is pending.
+
 ## September 9 — iPhone optimization
 
 Implementation complete and locally verified: full-screen phone task sheets, safe-area padding,
