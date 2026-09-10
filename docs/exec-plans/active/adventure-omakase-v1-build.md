@@ -6,6 +6,12 @@ The September 9 user direction makes the existing ChatGPT Site the delivery
 target. The native requirement history below remains a future blueprint, not a
 requirement to rebuild the app before improving this surface.
 
+Status: **Complete for the selected browser slice.** Implementation commit
+`37ff27ba53e4d96fc6f57f312ff398a82b496ac5`; Sites version 5 source
+`b53c63bb129d7ab085e5a5c354ca23708fa9f0a5`. Published and exact-verified
+September 10 at 01:17:24 UTC (September 9 locally): health and all 13 release
+assets matched. Real-device and availability checks remain manual.
+
 Acceptance: turn a curated outing into an editable daily schedule, preserve
 source and manual-check context, publish through canonical invitations, allow
 part-only participation and reconfirmation, and download a clearly stale offline

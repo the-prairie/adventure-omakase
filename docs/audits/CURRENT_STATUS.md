@@ -24,7 +24,12 @@ reported no primary findings; existing token advisories remain advisory.
 Transport time, opening, capacity, weather and bookings require current checks.
 Physical-phone testing and a real second visitor walkthrough remain unverified.
 Website watches remain disabled on Sites; no scheduled execution is claimed.
-Release identity and exact deployed asset verification are recorded in the task.
+Sites version 5 source `b53c63bb129d7ab085e5a5c354ca23708fa9f0a5` published
+successfully. At 2026-09-10 01:17:24 UTC, authenticated health and all 13 release
+assets matched the build; setup remained complete. The existing custom audience
+retains two allowed users and no groups (policy revision 2). Source implementation
+commit: `37ff27ba53e4d96fc6f57f312ff398a82b496ac5`. No Cloudflare production
+promotion or PR merge is claimed.
 
 ## Historical Cloudflare checkpoint
 
