@@ -30,7 +30,19 @@ commitments. Removed parts and changed revisions remain explicit review states.
 Agenda/map switches retain the selected day; maps use the host's supplied meeting
 search, with no inferred route or location. Phone invitation details put meeting
 and participation first, with maps, descriptions and source context expandable.
-The four phone navigation items are Today, Discover, Friends and Memories.
+The four phone navigation items are Explore, Your day, Friends and Memories.
+
+New visits and successful joining open the discovery fieldbook. Its opening
+combines an immediate local catalogue draw with photographed curated outings.
+The compact die reuses the animated dice presentation without a map request;
+its visible regional defaults restrict suggestions to a named area, at most
+three hours on site, and no advance-arrangement, excursion, separate-stay or
+water flags. It is a research suggestion, not an availability or routing check.
+The complete configurable map/dice experience remains available. Draw completion
+is cancelled when its surface changes, and results retain canonical catalogue
+IDs through saving, guide inspection and invitation creation. Curated stories
+place source context before planning. Explicit agenda and invitation links keep
+their existing routes.
 
 ## Current friends release
 

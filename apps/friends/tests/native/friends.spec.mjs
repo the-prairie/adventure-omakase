@@ -223,6 +223,7 @@ test('friends use real navigation, cookies, D1 and R2 independently', async ({
       );
       pid = (await state(a)).plans[0].id;
       await fresh(b);
+      await nav(b, 'day');
       await b.locator('.agenda-date-picker > summary').click();
       await b.locator('[data-action=day][data-id="2026-10-04"]').click();
       await b.locator('.agenda-scope [data-id=group]').click();

@@ -33,7 +33,7 @@ test('discoveries have distinct credited photos, prominent moods and a findable 
     'Imagined scene',
   );
   await expect(
-    page.locator('.experience-photo figcaption').first(),
+    page.locator('.discovery-grid .experience-photo figcaption').first(),
   ).toContainText('CC BY-SA');
   await results.scrollIntoViewIfNeeded();
   await page.screenshot({

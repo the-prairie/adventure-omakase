@@ -20,9 +20,9 @@ test('compact agenda keeps personal participation, selected day and meeting maps
       body: '<p>Synthetic map fixture</p>',
     }),
   );
-  await page.goto(runtime.url + '/example.html');
+  await page.goto(runtime.url + '/example.html#demo/day');
   await expect(page.locator('.nav-dock button')).toHaveCount(4);
-  await expect(page.locator('.nav-dock')).toContainText('Today');
+  await expect(page.locator('.nav-dock')).toContainText('Your day');
   await expect(page.locator('.phone-agenda')).toContainText('The day is yours');
   await page.locator('.agenda-scope [data-id=group]').click();
   await expect(page.locator('.agenda-entry')).toHaveCount(2);
@@ -78,6 +78,7 @@ test('four real synthetic invitations fit the compact phone agenda without a her
   await page.locator('#f-name').fill('Example Host');
   await page.locator('#f-title').fill('Synthetic compact trip');
   await page.locator('#auth-form button[type=submit]').click();
+  await nav(page, 'day');
   await expect(page.locator('.phone-agenda')).toBeVisible();
   const state = await (
     await page.request.get(runtime.url + '/api/state')

@@ -26,6 +26,15 @@ Preserve the 300 supplied discoveries, source labels, illustrations, independent
 
 The canonical brief calls for a warm, editorial Japanese travel journal: calm and trustworthy before a decision, with the interface receding during travel. No casino mechanics, neon gaming, or kawaii mascot direction. The current request rejects cheap-looking dropdowns, cards and incomplete visual walkthroughs, and authorizes research and implementation across the friends app.
 
+## Discovery hierarchy
+
+The September 10 direction rejects a schedule or blank form as the front door.
+Lead with researched experiences and playable decision dice; let reading and
+choosing lead naturally to planning. The compact agenda supports a trip already
+in motion and remains one action away. Preserve the existing warm editorial
+identity and all research provenance. Do not treat mere feature retention as
+proof that the experience makes those features findable.
+
 ## Source of Truth
 
 This is a compact design context, not a replacement product plan. Authority remains in `docs/product/adventure-omakase-v1.md`, the current friends amendment in `docs/exec-plans/active/cloudflare-friends-integration.md`, and ADRs 0006–0008. All facts above come from those accepted documents and the current user request.

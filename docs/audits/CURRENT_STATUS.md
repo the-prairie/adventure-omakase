@@ -1,5 +1,22 @@
 # Current release status
 
+## September 10 — discovery-first repair
+
+Implemented locally: discovery is the landing surface, with a playable die,
+photographed curated outings, regional choices and a direct route into the
+complete research fieldbook. Curated story inspection precedes planning; Your
+day retains the compact agenda. The home die uses named-area defaults and does
+not load map tiles. Full map-based dice configuration remains available.
+The 66-case browser run passed 65; one WebKit footer tap failed while a lazy
+photo changed a card height. Pointer-event and geometry traces reproduced the
+movement. Reserving the image wrapper fixed five consecutive reproductions;
+a delayed-photo height regression now covers that behavior. The final focused
+browser rerun passed all 16 cases in both engines, including the failed dialog
+path. Root `pnpm check` passed all 12 tasks (112 application tests); both Sites
+compatibility tests and 11 workerd tests passed. Independent review inspected
+desktop/phone landing and story screenshots and found no material issues.
+Physical iPhone, Home Screen and native keyboard acceptance remain manual.
+
 ## September 10 — compact phone agenda
 
 Implemented locally: daily agenda home, My day and Everyone’s plans scopes,

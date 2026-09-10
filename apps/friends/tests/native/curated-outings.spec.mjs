@@ -102,7 +102,7 @@ test('curated outings lead to existing guides and preserve discovery filters', a
   await page.setViewportSize({ width: 390, height: 844 });
   await page.evaluate(() => scrollTo(0, 0));
   await page.screenshot({ path: info.outputPath('curation-mobile-top.png') });
-  const preview = await section.locator('summary').first().boundingBox();
+  const preview = await page.locator('.explore-lead h2').boundingBox();
   expect(preview.y + preview.height).toBeLessThan(780);
   await section.locator('summary').first().click();
   await section.scrollIntoViewIfNeeded();

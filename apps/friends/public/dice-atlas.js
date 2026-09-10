@@ -8,7 +8,7 @@ window.OmakaseDice = (() => {
     active?.dispose();
     active = null;
   }
-  function mount(root, roll) {
+  function mount(root, roll, options = {}) {
     destroy();
     const stage = root.querySelector('.dice-atlas');
     const target = root.querySelector('.dice-table');
@@ -30,8 +30,8 @@ window.OmakaseDice = (() => {
       ry = 18,
       draggedUntil = 0;
     const limits = () => ({
-      x: stage.clientWidth / 2 - 62,
-      y: stage.clientHeight / 2 - 85,
+      x: Math.max(0, stage.clientWidth / 2 - 62),
+      y: Math.max(0, stage.clientHeight / 2 - 85),
     });
     function paint(height = 0) {
       body.style.transform = `translate3d(${x}px,${y - height}px,0)`;
@@ -39,7 +39,7 @@ window.OmakaseDice = (() => {
       shadow.style.transform = `translate(${x}px,${y}px) scale(${1 - Math.min(height, 90) / 180})`;
       shadow.style.opacity = String(0.3 - Math.min(height, 90) / 500);
     }
-    if (window.L) {
+    if (window.L && !options.noMap) {
       const L = window.L;
       map = L.map(mapNode, {
         zoomControl: false,
@@ -67,7 +67,7 @@ window.OmakaseDice = (() => {
         })
         .addTo(map);
       map.setView([35, 135.5], 5);
-    } else
+    } else if (!options.noMap)
       root.querySelector('.dice-map-note').textContent =
         'Map unavailable. Your draw still works; open the result for directions.';
     const points = () => window.OMAKASE.areas || [];

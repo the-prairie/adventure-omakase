@@ -175,7 +175,7 @@ test('unavailable research, cancellation, offline and stale edits remain explici
       runtime.url + '/#setup=' + TEST_KEY,
       'Synthetic error traveler',
     );
-    await action(page, 'discover-nav').click();
+    await page.locator('[data-nav=discover]:visible').first().click();
     await action(page, 'ask-find').click();
     await page.locator('#ask-area').fill('Namba');
     // Hold transport before workerd receives the task. The real cancellation

@@ -87,6 +87,10 @@ Page titles use the display role; section and dialog headings use the headline s
 
 ## Layout
 
+The discovery opening pairs a photographic story with an inline dice panel on
+desktop. At 850px and below, the dice panel comes first and the lead story
+becomes a compact image-and-text row; its page title reduces to 32px.
+
 The desktop header is capped at 1408px with horizontal padding. Content uses a broad centered reading surface, with columns where related content benefits from comparison. Separators organize discovery, invitation and memory entries without boxing each paragraph.
 
 The principal redesigned mobile transition is 700px: discovery becomes a single column, decorative introductory artwork hides, field text becomes 16px and dialog padding contracts. The existing navigation also changes at 850px; its dock carries the same paper background. Preserve both responsive layers when extending this app rather than assuming one universal breakpoint.
@@ -104,6 +108,11 @@ Content surfaces are predominantly flat. Tonal shifts and fine dividers establis
 Controls have gently curved corners using the control token. Emphasized supporting panels use the surface token. Ordinary reading rows and memories use square, unboxed geometry; photographs may retain subtle rounding. Circular avatars remain appropriate for people. This is a mixed functional shape vocabulary, not a universal radius applied to every element.
 
 ## Components
+
+The inline dice panel uses the existing light-green supporting surface and
+compact green action. Keep it playable without a map; retain the full dice
+chooser for adjustable limits. Photograph credits remain readable beside the
+image, outside its story-opening button.
 
 Buttons use compact sans-serif text, a minimum 44px height and a fine border. Primary actions use green with white text; secondary buttons use near-white with ink, and subtle actions use transparent backgrounds. Hover changes fill and border rather than shifting layout. Disabled buttons reduce opacity and suppress the pointer affordance.
 
@@ -128,7 +137,7 @@ Booking import is an optional disclosure inside the profile form, open for a new
 
 ## Interactive travel surfaces
 
-The home introduction is a compact welcome and next-plan row. Invitation detail places joining or host editing/sharing above secondary logistics. Effort, cost and booking information remain readable without separate enclosing cards. The editor leads with essential fields; additional descriptions, participation rules and logistics stay in a disclosure with their values preserved. Native validation opens a collapsed group when a field needs attention.
+The home introduction leads with discovery and an inline playable die; the next-plan row supports the separate Your day surface. Invitation detail places joining or host editing/sharing above secondary logistics. Effort, cost and booking information remain readable without separate enclosing cards. The editor leads with essential fields; additional descriptions, participation rules and logistics stay in a disclosure with their values preserved. Native validation opens a collapsed group when a field needs attention.
 
 Calendar replaces the primary file-download journey. A Monday-first date grid exposes personal hosted/joined plans or all shared invitations; desktop cells preview plan titles, while small screens retain counts and the selected-day agenda. Personal entries preserve the selected part's time and changed/cancelled state. The People date strip is keyboard-operable and leads to shared areas, existing invitations and a date/region-prefilled invitation. Shared stretches describe declared regional overlap, never proximity or availability.
 

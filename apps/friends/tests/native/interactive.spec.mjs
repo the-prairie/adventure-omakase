@@ -11,7 +11,7 @@ test('calendar and shared dates lead to native plans, with preserved invitation 
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto(runtime.url + '/example.html');
+  await page.goto(runtime.url + '/example.html#demo/plans');
   await expect(page.locator('.trip-home')).toBeVisible();
   expect((await page.locator('.trip-home').boundingBox()).height).toBeLessThan(
     220,
@@ -112,7 +112,7 @@ test('visual discoveries roll real dice, recover empty filters and reshuffle an 
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto(runtime.url + '/example.html');
+  await page.goto(runtime.url + '/example.html#demo/plans');
   await page.locator('[data-nav=discover]:visible').first().click();
   await expect(page.locator('.discovery-image').first()).toBeVisible();
   await page.screenshot({ path: info.outputPath('discover-desktop.png') });

@@ -50,7 +50,7 @@ test('fixture AI cards confirm an ordinary invitation with lunch-only participat
     await c.locator('[data-w=to]').fill('2026-10-14');
     await c.locator('#profile-form [type=submit]').click();
     await a.reload();
-    await action(a, 'discover-nav').click();
+    await a.locator('[data-nav=discover]:visible').first().click();
     await action(a, 'ask-find').click();
     await a
       .locator('#ask-prompt')
@@ -127,7 +127,7 @@ test('fixture UI keeps cancellation and offline confirmation honest', async ({
   await page.goto(runtime.url + '/#setup=' + TEST_KEY);
   await page.locator('#f-name').fill('Cancel test');
   await page.locator('#auth-form [type=submit]').click();
-  await action(page, 'discover-nav').click();
+  await page.locator('[data-nav=discover]:visible').first().click();
   await action(page, 'ask-find').click();
   await page.locator('#ask-area').fill('Umeda');
   await page.locator('#ask-date').fill('2026-10-03');
