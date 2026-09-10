@@ -37,7 +37,10 @@ iPhone keyboard, sign-in and Home Screen behavior remain device acceptance work.
 
 ## Compact phone agenda
 
-Status: **Locally verified; publication pending.** The agreed daily agenda is implemented in
+Status: **Complete for the browser slice.** Implementation commit
+`9dc6b90d4b284ddf12fbfe670bca82317bdf7231`; Sites version 7 source
+`adf5831990e5dece2aa5579dc99bf737013cbcbb` published and exact-verified
+2026-09-10 at 07:15:06 UTC. The agreed daily agenda is implemented in
 `apps/friends/public/app.js` and `app.css`, with focused browser cases in
 `tests/native/compact-agenda.spec.mjs`. Observed checks and screenshot evidence are recorded in current status.
 

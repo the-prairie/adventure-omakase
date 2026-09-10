@@ -14,7 +14,13 @@ this was not a single zero-failure suite run. Root `pnpm check` passed all 12
 tasks, including 112 application tests. Both Sites compatibility tests and
 11 local workerd checks passed. Agenda and invitation screenshots were inspected;
 the design scan reported zero primary findings. Physical iPhone testing remains
-manual. Publication is pending.
+manual.
+
+Published as Sites version 7, source
+`adf5831990e5dece2aa5579dc99bf737013cbcbb`. At 2026-09-10 07:15:06 UTC,
+authenticated health and all 13 release assets matched; setup remained complete.
+The existing two-person audience remains at policy revision 2. Repository
+implementation commit: `9dc6b90d4b284ddf12fbfe670bca82317bdf7231`.
 
 ## September 9 — iPhone optimization
 
