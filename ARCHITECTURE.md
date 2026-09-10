@@ -15,6 +15,13 @@ exact meetings and availability require review. Downloaded HTML day sheets are
 explicitly dated snapshots, contain no participant list or tokens, and never
 queue offline mutations.
 
+The phone layout uses full-screen task dialogs and the browser visual viewport
+for keyboard-aware sizing at normal zoom. Sticky actions stay in their original
+forms, preserving validation and submission semantics. Safe-area spacing and
+touch targets are CSS concerns; phone drafts use the same canonical publication
+path. Touch emulation does not establish physical-device or installed-web-app
+acceptance.
+
 ## Current friends release
 
 The September 6 assignment and [ADR 0006](docs/decisions/0006-cloudflare-friends-edition.md) supersede the native-first deployment scope for this release. One browser app in `apps/friends` calls its same-origin Worker; D1 is canonical metadata and private R2 holds selected, resized photos. SQL triggers and D1 batches enforce revisions and capacity. Polling only refreshes committed state; it is never a second state authority.

@@ -153,6 +153,7 @@ test('a curated Naha evening becomes a shared plan, a friend joins dinner only, 
       'Synthetic revised dinner entrance',
     );
     await friend.locator('#rsvp-form button[value=joined]').click();
+    await expect(friend.locator('#rsvp-form')).toContainText('Update my part');
     friendPlan = (await state(friend)).plans.find(
       (item) => item.id === plan.id,
     );

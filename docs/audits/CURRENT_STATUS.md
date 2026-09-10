@@ -1,5 +1,21 @@
 # Current release status
 
+## September 9 — iPhone optimization
+
+Implementation complete and locally verified: full-screen phone task sheets, safe-area padding,
+visible-viewport sizing for Safari keyboard changes, persistent form actions,
+compact invitation labels, and larger navigation, timing and reorder targets.
+The existing desktop layout, plan contracts and zoom remain available.
+
+Observed: all 60 Chromium/WebKit browser cases passed after fixing a 320px
+section-action overflow. Root `pnpm check` passed all 12 tasks, including 112
+application tests. Both Sites compatibility checks and 11 actual local workerd
+checks passed. Phone screenshots were inspected in both browser engines.
+
+The phone browser test uses touch emulation at 375/390px widths, a shortened
+viewport and landscape. It checks reachable actions, draft preservation and
+validation focus. This is not physical-iPhone or actual-keyboard evidence.
+
 ## September 9 — ChatGPT Sites outing planner
 
 The user selected the existing ChatGPT Site as the delivery surface. This

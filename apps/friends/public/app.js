@@ -1147,6 +1147,31 @@
           )
     }`;
   }
+  // Follow Safari's visible viewport when its keyboard reduces the task sheet.
+  // Never constrain pinch zoom; these dimensions apply only at normal scale.
+  let phoneViewportFrame;
+  function updatePhoneViewport() {
+    cancelAnimationFrame(phoneViewportFrame);
+    phoneViewportFrame = requestAnimationFrame(() => {
+      const viewport = window.visualViewport;
+      if (!viewport || viewport.scale !== 1) return;
+      const style = document.documentElement.style;
+      style.setProperty('--phone-viewport-height', `${viewport.height}px`);
+      style.setProperty('--phone-viewport-top', `${viewport.offsetTop}px`);
+      const editing = document.activeElement?.matches(
+        'input, textarea, [contenteditable="true"]',
+      );
+      document.body.classList.toggle(
+        'phone-keyboard',
+        Boolean(editing && window.innerHeight - viewport.height > 120),
+      );
+    });
+  }
+  window.visualViewport?.addEventListener('resize', updatePhoneViewport);
+  window.visualViewport?.addEventListener('scroll', updatePhoneViewport);
+  document.addEventListener('focusin', updatePhoneViewport);
+  document.addEventListener('focusout', updatePhoneViewport);
+  updatePhoneViewport();
   let diceAtlas;
   function openModal(title, html, type = 'generic', id = '', wide = false) {
     window.OmakaseDice?.destroy();
@@ -1322,7 +1347,7 @@
         )
         .join(
           '',
-        )}</select><small>A friend’s RSVP never buys a ticket. Confirm each person’s booking separately.</small></div>${field('mapLink', 'Optional exact map link', p.mapLink, 'url', 'maxlength="2000" placeholder="https://…"')}<p class="small muted">Capacity applies across the whole invitation, not separately to each part. Overnight trips need separate daily invitations.</p></details></details><div class="notice">${I('people')} Visible to members of this private trip. Nothing is sent to your contacts, calendars or booking sites automatically.</div><div class="form-error" role="alert"></div><div class="form-actions"><button type="button" class="btn subtle" data-action="close">${old ? 'Cancel edit' : 'Keep draft in this tab'}</button><button type="submit" class="btn primary">${old ? 'Save & ask friends to reconfirm' : 'Put the invitation out there'} ${I('arrow')}</button></div></form>`,
+        )}</select><small>A friend’s RSVP never buys a ticket. Confirm each person’s booking separately.</small></div>${field('mapLink', 'Optional exact map link', p.mapLink, 'url', 'maxlength="2000" placeholder="https://…"')}<p class="small muted">Capacity applies across the whole invitation, not separately to each part. Overnight trips need separate daily invitations.</p></details></details><div class="notice">${I('people')} Visible to members of this private trip. Nothing is sent to your contacts, calendars or booking sites automatically.</div><div class="form-error" role="alert"></div><div class="form-actions"><button type="button" class="btn subtle" data-action="close">${old ? 'Cancel edit' : 'Keep draft'}</button><button type="submit" class="btn primary">${old ? 'Save changes' : 'Publish invitation'} ${I('arrow')}</button></div></form>`,
       'plan-form',
       id,
       true,

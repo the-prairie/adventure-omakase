@@ -20,6 +20,16 @@ form, and `tests/outings.test.mjs` / `tests/native/outing-planner.spec.mjs`.
 Local and deployment evidence is recorded in `docs/audits/CURRENT_STATUS.md`.
 This slice does not claim completion of the native compiler or offline runtime.
 
+## iPhone refinement
+
+Acceptance: readable touch controls, full-width phone forms, reachable review
+and publish actions, preserved drafts after viewport changes, visible validation
+focus and no horizontal overflow at small widths. Implementation is in
+`apps/friends/public/app.css` and `public/app.js`; the new
+`tests/native/iphone.spec.mjs` uses touch emulation, including a shortened
+viewport. Publication and observed checks are tracked in current status. Actual
+iPhone keyboard, sign-in and Home Screen behavior remain device acceptance work.
+
 ## Purpose
 
 This is the durable plan-to-product map for the canonical blueprint at [`docs/product/adventure-omakase-v1.md`](../../product/adventure-omakase-v1.md).

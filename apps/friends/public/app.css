@@ -5675,3 +5675,142 @@ input[type='file']::file-selector-button {
     width: 100%;
   }
 }
+
+/* Phone-first controls and full-height task sheets. Keep browser zoom available. */
+@media (max-width: 700px) {
+  html {
+    scroll-padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+  input:not([type='checkbox']):not([type='radio']),
+  select,
+  textarea,
+  .choice-trigger {
+    font-size: 16px;
+    min-height: 48px;
+  }
+  .btn,
+  .icon-btn,
+  .text-btn,
+  .outing-reorder .icon-btn,
+  .timing-shortcuts .filter,
+  .header-actions > button {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  .section-heading {
+    flex-wrap: wrap;
+  }
+  .section-heading > div {
+    min-width: 0;
+  }
+  .section-heading > .text-btn {
+    flex-shrink: 0;
+  }
+  .nav-dock {
+    padding-inline: max(8px, env(safe-area-inset-left))
+      max(8px, env(safe-area-inset-right));
+    background: var(--paper);
+    backdrop-filter: none;
+  }
+  .nav-dock button {
+    flex: 1;
+    min-height: 48px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .container {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+  dialog,
+  dialog.wide,
+  dialog.reader {
+    position: fixed;
+    inset: var(--phone-viewport-top, 0px) 0 auto;
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    height: var(--phone-viewport-height, 100dvh);
+    max-height: var(--phone-viewport-height, 100dvh);
+    border-radius: 0;
+    box-shadow: none;
+    overscroll-behavior: contain;
+    scroll-padding-block: calc(80px + env(safe-area-inset-top))
+      calc(110px + env(safe-area-inset-bottom));
+  }
+  .dialog-top {
+    padding: max(8px, env(safe-area-inset-top))
+      max(16px, env(safe-area-inset-right)) 8px
+      max(20px, env(safe-area-inset-left));
+  }
+  .dialog-body {
+    padding: 20px max(20px, env(safe-area-inset-right))
+      calc(24px + env(safe-area-inset-bottom))
+      max(20px, env(safe-area-inset-left));
+  }
+  .dialog-body h2 {
+    font-size: 28px;
+  }
+  .dialog-body input,
+  .dialog-body textarea,
+  .dialog-body .choice-trigger {
+    scroll-margin-block: calc(80px + env(safe-area-inset-top))
+      calc(110px + env(safe-area-inset-bottom));
+  }
+  .form-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+  }
+  .form-actions > .primary {
+    flex: 1;
+  }
+  .outing-preview {
+    grid-row: 2;
+    position: sticky;
+    top: auto;
+    bottom: 0;
+    z-index: 1;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: var(--paper);
+    padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+  }
+  .outing-preview h3,
+  .outing-preview [data-outing-preview-body] > p:not(.outing-preview-time),
+  .outing-preview > p {
+    display: none;
+  }
+  .outing-preview-time {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .outing-preview .notice {
+    max-height: 100px;
+    overflow: auto;
+    margin-block: 8px;
+  }
+  .outing-editor-layout {
+    margin-top: 20px;
+    gap: 12px;
+  }
+  .outing-reorder {
+    flex-direction: row;
+  }
+  .outing-include strong {
+    font-size: 21px;
+  }
+  .outing-meeting summary,
+  .outing-sources summary,
+  .form-detail summary {
+    min-height: 44px;
+    align-content: center;
+  }
+  .phone-keyboard .nav-dock {
+    display: none;
+  }
+}
