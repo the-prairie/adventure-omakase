@@ -1,5 +1,19 @@
 # Adventure Omakase V1 Build Ledger
 
+## Current selected slice — ChatGPT Sites outing planning
+
+The September 9 user direction makes the existing ChatGPT Site the delivery
+target. The native requirement history below remains a future blueprint, not a
+requirement to rebuild the app before improving this surface.
+
+Acceptance: turn a curated outing into an editable daily schedule, preserve
+source and manual-check context, publish through canonical invitations, allow
+part-only participation and reconfirmation, and download a clearly stale offline
+day sheet. Implementation: `apps/friends/public/outings.js`, the existing plan
+form, and `tests/outings.test.mjs` / `tests/native/outing-planner.spec.mjs`.
+Local and deployment evidence is recorded in `docs/audits/CURRENT_STATUS.md`.
+This slice does not claim completion of the native compiler or offline runtime.
+
 ## Purpose
 
 This is the durable plan-to-product map for the canonical blueprint at [`docs/product/adventure-omakase-v1.md`](../../product/adventure-omakase-v1.md).

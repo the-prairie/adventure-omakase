@@ -1,5 +1,33 @@
 # Current release status
 
+## September 9 — ChatGPT Sites outing planner
+
+The user selected the existing ChatGPT Site as the delivery surface. This
+checkpoint supersedes the historical deployment summary below for new browser
+work; it does not claim a Cloudflare production release or native completion.
+
+Curated collections now become private editable daily drafts, then canonical
+invitations. Stop inclusion/order, durations, travel allowances, finish-by checks,
+meeting points, fallback notes and source links are retained through review.
+Part-only RSVP and material-edit reconfirmation use existing server contracts.
+A standalone downloadable HTML day sheet works offline and identifies its saved
+revision; it contains no generated access token or participant list.
+
+Observed locally: root `pnpm check` passed all 12 tasks, the Site application
+suite passed 112 tests, both Sites compatibility tests passed, and actual local
+workerd passed 11 checks. All 58 Chromium/WebKit browser tests passed. Synthetic browser tests exercise Naha evening and
+Osaka afternoon publication, dinner-only participation, host edits and
+reconfirmation, private-draft recovery, invalid schedules, and offline export.
+Desktop and mobile editor/export screenshots were inspected. The design scan
+reported no primary findings; existing token advisories remain advisory.
+
+Transport time, opening, capacity, weather and bookings require current checks.
+Physical-phone testing and a real second visitor walkthrough remain unverified.
+Website watches remain disabled on Sites; no scheduled execution is claimed.
+Release identity and exact deployed asset verification are recorded in the task.
+
+## Historical Cloudflare checkpoint
+
 Checkpoint: September 6, 2026. Branch `codex/cloudflare-friends-integration`; draft [PR #1](https://github.com/the-prairie/adventure-omakase/pull/1). The original history was preserved and joined with the recreated remote main. No merge or production deployment has been performed.
 
 The shared app and travel companion are implemented on the isolated HTTPS preview. **Full live companion acceptance remains incomplete.** Successful direct Google setup tests and deterministic provider fixtures do not complete the deployed journey.

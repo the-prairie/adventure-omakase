@@ -7892,3 +7892,11 @@ window.OMAKASE.onwardIdeas = [
     label: 'Osaka Metro · Tenma and Ura-Tenma',
   });
 }
+
+// Editable starting points for evening drafts; not verified opening times.
+for (const collection of window.OMAKASE.collections) {
+  if (
+    ['naha-sakaemachi-evening', 'osaka-shinsekai-play'].includes(collection.id)
+  )
+    collection.startSuggestion = '18:00';
+}

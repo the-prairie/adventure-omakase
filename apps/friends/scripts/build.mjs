@@ -24,6 +24,7 @@ export async function buildAssets(release) {
   const names = {};
   for (const name of [
     'app.js',
+    'outings.js',
     'area-data.js',
     'discovery-map.js',
     'dice-atlas.js',
