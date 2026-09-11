@@ -71,7 +71,9 @@ test('Map and Fieldbook preserve preferences, place context and one map instance
     '1',
   );
   expect(loads).toBe(1);
-  await page.locator('#discovery-filters summary').click();
+  if (!(await page.locator('#discovery-filters').evaluate((el) => el.open)))
+    await page.locator('#discovery-filters summary').click();
+  await expect(page.locator('#discovery-filters')).toHaveAttribute('open', '');
   await page.locator('[data-action=clear-filters]').click();
   await page.locator('#search').fill('Nezu Shrine');
   await expect(page.locator('.fixture-map-marker')).toHaveCount(1);

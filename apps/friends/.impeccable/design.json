@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-11T07:35:40.786295+00:00",
+  "generatedAt": "2026-09-11T08:28:54.949611+00:00",
   "title": "Design System: Adventure Omakase Friends",
   "extensions": {
     "shadows": [
@@ -23,6 +23,26 @@
         "name": "map-feedback",
         "value": "0 4px 20px #18191b24",
         "purpose": "Map failure status in a dedicated normal-flow row above the map."
+      },
+      {
+        "name": "chance-photo-print",
+        "value": "0 20px 40px #30213620",
+        "purpose": "Diffuse shadow beneath photographic possibilities inside the fullscreen draw."
+      },
+      {
+        "name": "chance-preferences",
+        "value": "0 20px 65px #2b1c4436",
+        "purpose": "Preferences overlay above the persistent action form."
+      },
+      {
+        "name": "chance-credits",
+        "value": "0 12px 40px #2b1c4436",
+        "purpose": "Ready-state photographic credit disclosure."
+      },
+      {
+        "name": "chance-die-edge",
+        "value": "inset 0 3px 4px #fff, inset 0 -3px 5px #b49f7530",
+        "purpose": "Ivory die edge lighting; cast-shadow scale and opacity vary with simulated height."
       }
     ],
     "motion": [
@@ -45,6 +65,31 @@
         "name": "place-arrive",
         "value": "180ms cubic-bezier(.16,1,.3,1)",
         "purpose": "Sheet enters from translateY(18px) to zero only with prefers-reduced-motion:no-preference."
+      },
+      {
+        "name": "chance-throw",
+        "value": "1250ms",
+        "purpose": "Gravity, bounce, decaying velocity and rotation; gesture impulse changes presentation only."
+      },
+      {
+        "name": "chance-settle",
+        "value": "280ms",
+        "purpose": "Quartic ease-out returns the die to the centre and a face orientation."
+      },
+      {
+        "name": "chance-photo-shift",
+        "value": "700ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Photographic possibilities shift during held and rolling states."
+      },
+      {
+        "name": "chance-photo-opening",
+        "value": "720ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Selected photograph opens from inset(48% 48% round 24px) to inset(0 round 0); explicit reference label overlays neighbourhood imagery."
+      },
+      {
+        "name": "chance-reduced-motion",
+        "value": "none",
+        "purpose": "Skip frame waits and pointer lift/rotation; remove photo and die transitions. Reveal the same selected place. Backgrounding releases pending frame waits."
       }
     ],
     "breakpoints": [
@@ -71,6 +116,14 @@
       {
         "name": "compact-discovery-controls",
         "value": "360px"
+      },
+      {
+        "name": "chance-result-two-columns",
+        "value": "760px"
+      },
+      {
+        "name": "chance-short-viewport-height",
+        "value": "680px"
       }
     ],
     "colorMeta": {
@@ -315,6 +368,118 @@
           "oklch(0.836 0.0164 298.41)",
           "oklch(0.950 0.0164 298.41)"
         ]
+      },
+      "chance-paper": {
+        "role": "neutral",
+        "displayName": "Lavender chance paper",
+        "tonalRamp": [
+          "oklch(0.150 0.0111 303.11)",
+          "oklch(0.264 0.0111 303.11)",
+          "oklch(0.379 0.0111 303.11)",
+          "oklch(0.493 0.0111 303.11)",
+          "oklch(0.607 0.0111 303.11)",
+          "oklch(0.721 0.0111 303.11)",
+          "oklch(0.836 0.0111 303.11)",
+          "oklch(0.950 0.0111 303.11)"
+        ]
+      },
+      "chance-ink": {
+        "role": "neutral",
+        "displayName": "Plum chance ink",
+        "tonalRamp": [
+          "oklch(0.150 0.0190 298.80)",
+          "oklch(0.264 0.0190 298.80)",
+          "oklch(0.379 0.0190 298.80)",
+          "oklch(0.493 0.0190 298.80)",
+          "oklch(0.607 0.0190 298.80)",
+          "oklch(0.721 0.0190 298.80)",
+          "oklch(0.836 0.0190 298.80)",
+          "oklch(0.950 0.0190 298.80)"
+        ]
+      },
+      "chance-muted": {
+        "role": "neutral",
+        "displayName": "Muted plum",
+        "tonalRamp": [
+          "oklch(0.150 0.0320 306.59)",
+          "oklch(0.264 0.0320 306.59)",
+          "oklch(0.379 0.0320 306.59)",
+          "oklch(0.493 0.0320 306.59)",
+          "oklch(0.607 0.0320 306.59)",
+          "oklch(0.721 0.0320 306.59)",
+          "oklch(0.836 0.0320 306.59)",
+          "oklch(0.950 0.0320 306.59)"
+        ]
+      },
+      "chance-surface": {
+        "role": "neutral",
+        "displayName": "Photo and result paper",
+        "tonalRamp": [
+          "oklch(0.150 0.0057 84.57)",
+          "oklch(0.264 0.0057 84.57)",
+          "oklch(0.379 0.0057 84.57)",
+          "oklch(0.493 0.0057 84.57)",
+          "oklch(0.607 0.0057 84.57)",
+          "oklch(0.721 0.0057 84.57)",
+          "oklch(0.836 0.0057 84.57)",
+          "oklch(0.950 0.0057 84.57)"
+        ]
+      },
+      "chance-primary": {
+        "role": "primary",
+        "displayName": "Deep plum action",
+        "tonalRamp": [
+          "oklch(0.150 0.0235 307.49)",
+          "oklch(0.264 0.0235 307.49)",
+          "oklch(0.379 0.0235 307.49)",
+          "oklch(0.493 0.0235 307.49)",
+          "oklch(0.607 0.0235 307.49)",
+          "oklch(0.721 0.0235 307.49)",
+          "oklch(0.836 0.0235 307.49)",
+          "oklch(0.950 0.0235 307.49)"
+        ]
+      },
+      "chance-action-text": {
+        "role": "neutral",
+        "displayName": "Warm white action text",
+        "tonalRamp": [
+          "oklch(0.150 0.0082 91.48)",
+          "oklch(0.264 0.0082 91.48)",
+          "oklch(0.379 0.0082 91.48)",
+          "oklch(0.493 0.0082 91.48)",
+          "oklch(0.607 0.0082 91.48)",
+          "oklch(0.721 0.0082 91.48)",
+          "oklch(0.836 0.0082 91.48)",
+          "oklch(0.950 0.0082 91.48)"
+        ]
+      },
+      "chance-emphasis": {
+        "role": "secondary",
+        "displayName": "Plum italic emphasis",
+        "tonalRamp": [
+          "oklch(0.150 0.0612 311.95)",
+          "oklch(0.264 0.0612 311.95)",
+          "oklch(0.379 0.0612 311.95)",
+          "oklch(0.493 0.0612 311.95)",
+          "oklch(0.607 0.0612 311.95)",
+          "oklch(0.721 0.0612 311.95)",
+          "oklch(0.836 0.0612 311.95)",
+          "oklch(0.950 0.0612 311.95)"
+        ]
+      },
+      "chance-pip": {
+        "role": "neutral",
+        "displayName": "Recessed plum pip",
+        "tonalRamp": [
+          "oklch(0.150 0.0250 312.41)",
+          "oklch(0.264 0.0250 312.41)",
+          "oklch(0.379 0.0250 312.41)",
+          "oklch(0.493 0.0250 312.41)",
+          "oklch(0.607 0.0250 312.41)",
+          "oklch(0.721 0.0250 312.41)",
+          "oklch(0.836 0.0250 312.41)",
+          "oklch(0.950 0.0250 312.41)"
+        ]
       }
     },
     "typographyMeta": {
@@ -377,6 +542,18 @@
       "mobile-section-title": {
         "displayName": "Mobile section title",
         "purpose": "Shared 26px heading role for Friends and Memories at <=850px."
+      },
+      "chance-display": {
+        "displayName": "Chance opening",
+        "purpose": "Main opening line explicitly uses Source Serif Display at all widths; 52px at <=700px and 38px at viewport heights <=680px. The italic line retains global emphasis-family inheritance, becoming Inter on phones."
+      },
+      "chance-result-title": {
+        "displayName": "Chance result title",
+        "purpose": "Revealed place title. The global <=850px serif stack becomes Inter; <=700px uses the mobile role."
+      },
+      "mobile-chance-result-title": {
+        "displayName": "Mobile chance result title",
+        "purpose": "34px at <=700px; 30px when the same phone viewport is <=680px high."
       }
     },
     "responsiveOverrides": [
@@ -529,17 +706,24 @@
       "description": "Dedicated normal-flow status above the map. Browse places remains available without covering region labels; marker keyboard zoom restores focus separately in the map.",
       "html": "<div class=\"ds-map-feedback\" role=\"status\"><span>Map tiles could not load. Choose an area or browse places.</span><button class=\"ds-map-recovery\">Browse places<svg aria-hidden=\"true\" width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\"><path d=\"M4 12h16m-6-6 6 6-6 6\"/></svg></button></div>",
       "css": ".ds-map-feedback{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;padding:10px 14px;background:var(--white,#fff);color:var(--ink,#18191b);border-radius:12px;box-shadow:0 4px 20px #18191b24;font:12px/1.4 var(--sans,sans-serif)}.ds-map-recovery{display:inline-flex;align-items:center;gap:8px;flex-shrink:0;min-height:44px;padding:4px 0;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer}.ds-map-recovery:hover{text-decoration:underline}.ds-map-recovery:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(max-width:850px){.ds-map-feedback{flex-wrap:wrap;gap:0}}"
+    },
+    {
+      "name": "Dice Throw Control",
+      "kind": "custom",
+      "description": "Ready-state die appearance with native button focus. Runtime pointer physics, the same-result reduced-motion path and opt-in synthesized sound belong to dice-atlas.js; this isolated style preview does not simulate a draw.",
+      "html": "<div class=\"ds-chance-field\"><button type=\"button\" class=\"ds-chance-die\" aria-label=\"Throw the dice\"><span class=\"ds-chance-body\"><span class=\"ds-chance-cube\" aria-hidden=\"true\"><span class=\"ds-chance-face ds-chance-face-1\"><i></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i></i></span><span class=\"ds-chance-face ds-chance-face-2\"><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i></span><span class=\"ds-chance-face ds-chance-face-3\"><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i></span><span class=\"ds-chance-face ds-chance-face-4\"><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i></span><span class=\"ds-chance-face ds-chance-face-5\"><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i></span><span class=\"ds-chance-face ds-chance-face-6\"><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i></span></span></span><span class=\"ds-chance-shadow\"></span></button></div>",
+      "css": ".ds-chance-field { padding: 40px; background: var(--chance-paper, #f0edf5); display: grid; place-items: center; } .ds-chance-die { position: relative; width: 160px; height: 170px; padding: 0; border: 0; background: transparent; cursor: grab; } .ds-chance-die:hover { cursor: grab; } .ds-chance-die:active { cursor: grabbing; } .ds-chance-die:focus-visible { outline: 2px solid var(--green, #244b3b); outline-offset: 3px; } .ds-chance-body { position: absolute; left: 25px; top: 15px; width: 110px; height: 110px; perspective: 900px; z-index: 1; } .ds-chance-cube { position: relative; display: block; width: 110px; height: 110px; transform-style: preserve-3d; transform: rotateX(-24deg) rotateY(32deg); } .ds-chance-face { box-sizing: border-box; position: absolute; inset: 0; width: 110px; height: 110px; display: grid; grid-template: repeat(3, 1fr) / repeat(3, 1fr); padding: 22px; gap: 8px; border-radius: 19px; border: 1px solid #d6cbb5; background: linear-gradient(145deg, #fffdf4, #efe2c8); box-shadow: inset 0 3px 4px #fff, inset 0 -3px 5px #b49f7530; backface-visibility: hidden; } .ds-chance-pip { width: 16px; height: 16px; border-radius: 50%; background: #39313e; box-shadow: inset 0 2px 2px #161019; } .ds-chance-face-1 { transform: translateZ(55px); } .ds-chance-face-2 { transform: rotateY(90deg) translateZ(55px); } .ds-chance-face-3 { transform: rotateX(90deg) translateZ(55px); } .ds-chance-face-4 { transform: rotateX(-90deg) translateZ(55px); } .ds-chance-face-5 { transform: rotateY(-90deg) translateZ(55px); } .ds-chance-face-6 { transform: rotateY(180deg) translateZ(55px); } .ds-chance-shadow { position: absolute; left: 17px; top: 140px; width: 130px; height: 28px; background: #393142; filter: blur(12px); opacity: .22; }"
     }
   ],
   "narrative": {
     "northStar": "Contemporary journey notebook",
-    "overview": "The contemporary journey notebook now has a clean mobile expression: white surfaces, near-black actions, pale lavender controls and compact place photography. Desktop retains warm paper and forest ink. Clear titles, continuous reading surfaces and explicit actions keep the interface calm before a decision and let it recede during travel; dice remain a contained moment of play inside an expandable outing choice.\n\nThis records the implemented friends browser app in this directory, using the current cascade in `public/app.css` and components in `public/app.js` and `public/outings.js`. The accepted Corner-led mobile adaptation and current discovery hierarchy are recorded in `docs/CORNER_MOBILE_RESEARCH.md` and `PRODUCT.md`. The future native application is a separate surface. This document records the current source, not a new product specification. Documentation of an implemented pattern is not evidence of production deployment or completed visual acceptance.",
+    "overview": "The contemporary journey notebook now has a clean mobile expression: white surfaces, near-black actions, pale lavender controls and compact place photography. Desktop retains warm paper and forest ink. Clear titles, continuous reading surfaces and explicit actions keep the interface calm before a decision and let it recede during travel. The expandable outing choice opens a fullscreen dice moment: a tactile ivory die among real photographs, followed by a photo opening and a concrete place to consider.\n\nThis records the implemented friends browser app in this directory, using the current cascade in `public/app.css` and components in `public/app.js`, `public/outings.js` and `public/dice-atlas.js`. The fullscreen dice treatment is a scoped extension of this incumbent fieldbook, not a replacement identity. The accepted Corner-led mobile adaptation and current discovery hierarchy are recorded in `docs/CORNER_MOBILE_RESEARCH.md` and `PRODUCT.md`. The future native application is a separate surface. This document records the current source, not a new product specification. Documentation of an implemented pattern is not evidence of production deployment or completed visual acceptance.",
     "keyCharacteristics": [
       "Continuous reading surfaces with separated entries.",
-      "Self-hosted Inter across mobile text and controls; Inter place headings and editorial serif titles on desktop.",
+      "Self-hosted Inter across ordinary mobile text and controls; Inter place headings and editorial serif titles on desktop, with a Source Serif opening for the fullscreen dice draw at every width.",
       "White mobile surfaces, near-black actions and pale lavender secondary controls.",
       "Restrained color with explicit interaction states.",
-      "Credited photographs, readable stories and a playable local draw.",
+      "Credited photographs, readable stories and a tactile draw whose visual theatre resolves to a source-qualified catalogue place.",
       "Audience before memory composition; map recovery beside the map without covering it."
     ],
     "rules": [
@@ -557,6 +741,11 @@
         "name": "The Reading Surface Rule",
         "body": "Keep repeated entries on one continuous surface; reserve enclosing treatments for a meaningful control, overlay or emphasized supporting panel.",
         "section": "elevation"
+      },
+      {
+        "name": "The Same Result Rule",
+        "body": "Motion and sound decorate the selected place; presentation failure, reduced motion or backgrounding must not replace or lose it.",
+        "section": "elevation"
       }
     ],
     "dos": [
@@ -569,7 +758,9 @@
       "Do ask for the memory audience before composition and repeat it in the save action.",
       "Do keep the first complete place name above the dock at 393×620 and the search prompt readable at 320px.",
       "Do cluster colliding overview labels honestly and keep map recovery in normal flow.",
-      "Do keep outing photographs and credit links outside disclosure summaries."
+      "Do keep outing photographs and credit links outside disclosure summaries.",
+      "Do preserve the same selected place through motion, reduced motion, sound failure and the photo reveal.",
+      "Do show neighbourhood-reference labels during the photo opening and result, and material activity qualifications before saving or starting an invitation."
     ],
     "donts": [
       "Don't turn repeated content into a wall of rounded cards.",

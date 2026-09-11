@@ -129,7 +129,8 @@ test('four friends make independent days, join selected stops, reconfirm changes
         [...document.images]
           .filter((img) => {
             const r = img.getBoundingClientRect();
-            return r.bottom > 0 && r.top < innerHeight;
+            // Closed details can retain bounds for transformed lazy photos.
+            return img.checkVisibility() && r.bottom > 0 && r.top < innerHeight;
           })
           .map((img) => img.decode().catch(() => undefined)),
       );
@@ -332,20 +333,22 @@ test('four friends make independent days, join selected stops, reconfirm changes
     if (!(await page.locator('.places-stories').evaluate((el) => el.open)))
       await click(page, '.places-stories > summary');
     await click(page, '.home-dice-actions [data-action=home-roll]');
-    await expect(page.locator('#home-dice-result h3')).toBeVisible();
-    const first = await page.locator('#home-dice-result h3').innerText();
+    await click(page, '#dice-form [type=submit]');
+    await expect(page.locator('#dice-result h3')).toBeVisible();
+    const first = await page.locator('#dice-result h3').innerText();
     await note(
       page,
       'OSAKA · A LITTLE SURPRISE',
       'A roll gives us a place to explore. We still check its source, opening and prices before setting out.',
     );
-    await click(page, '.home-dice-actions [data-action=home-roll]');
-    await expect(page.locator('#home-dice-result h3')).not.toHaveText(first);
-    await click(page, '[data-action=home-undo]');
-    await expect(page.locator('#home-dice-result h3')).toHaveText(first);
-    await click(page, '#home-dice-result [data-action=save]');
-    await expect(page.locator('#home-dice-result')).toContainText('Saved');
+    await click(page, '#dice-form [type=submit]');
+    await expect(page.locator('#dice-result h3')).not.toHaveText(first);
+    await click(page, '[data-action=dice-undo]');
+    await expect(page.locator('#dice-result h3')).toHaveText(first);
+    await click(page, '[data-action=dice-save]');
+    await expect(page.locator('#dice-result')).toContainText('Saved');
     await capture(page, '02-dice-reveal');
+    await page.locator('#dialog [data-action=close]').click();
     checks.push(
       'A second roll differs, undo restores the first, and saving keeps a private pick.',
     );

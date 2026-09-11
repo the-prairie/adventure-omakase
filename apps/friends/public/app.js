@@ -533,7 +533,6 @@
   function render() {
     window.OmakaseMap?.detach();
     if (!dialog.open) window.OmakaseDice?.destroy();
-    homeRollTicket++;
     if (!S) {
       renderLogin();
       return;
@@ -1157,8 +1156,7 @@
   function discoveryViewSwitch() {
     return `<div class="discovery-view-switch" role="group" aria-label="Discovery view"><button class="btn ${ui.discoveryView === 'fieldbook' ? 'primary' : 'subtle'}" data-action="discovery-view" data-id="fieldbook" aria-pressed="${ui.discoveryView === 'fieldbook'}">${I('book')} Fieldbook</button><button class="btn ${ui.discoveryView === 'map' ? 'primary' : 'subtle'}" data-action="discovery-view" data-id="map" aria-pressed="${ui.discoveryView === 'map'}">${I('pin')} Map</button><span class="small muted">${ui.discoveryView === 'map' ? 'Find an area. See what belongs together.' : 'Follow a story, a craving, a curiosity.'}</span></div>`;
   }
-  let homeDice = null,
-    homeRollTicket = 0;
+  let diceHistory = [];
   const homeArea = () =>
     ({
       osaka: 'Namba',
@@ -1223,71 +1221,33 @@
         reply?.status === 'joined' &&
         reply.acceptedRevision !== next.revision,
       part = next && (segment(next, reply) || next);
-    return `<section class="explore-opening"><div class="explore-heading"><h1>A few hours<br><em>worth remembering.</em></h1><p>Three good ways to spend them. Room to go your own way.</p></div><div class="explore-regions" aria-label="Explore a region">${['osaka', 'tokyo', 'okinawa'].map((r) => `<button data-action="home-region" data-id="${r}" aria-pressed="${ui.homeRegion === r}">${E(R[r])}</button>`).join('')}</div><section class="home-dice" aria-label="An immediate local adventure draw"><div class="home-dice-intro"><h2>Let the dice choose.</h2><p>${E(homeArea())} · a small detour</p><details class="home-refine"><summary>Up to ${ui.homeMinutes / 60} ${ui.homeMinutes === 60 ? 'hour' : 'hours'} · ${ui.homeMood === 'all' ? 'any mood' : E(ui.homeMood)}</summary><div class="home-refinements"><label>Time on site<select id="home-time"><option value="60" ${ui.homeMinutes === 60 ? 'selected' : ''}>Up to 1 hour</option><option value="120" ${ui.homeMinutes === 120 ? 'selected' : ''}>Up to 2 hours</option><option value="180" ${ui.homeMinutes === 180 ? 'selected' : ''}>Up to 3 hours</option></select></label><label>Mood<select id="home-mood">${['all', 'Food', 'Slow', 'Culture', 'Architecture', 'Strange'].map((m) => `<option value="${m}" ${ui.homeMood === m ? 'selected' : ''}>${m === 'all' ? 'Open to anything' : E(m)}</option>`).join('')}</select></label></div></details></div>${diceMarkup().replace('data-action="roll-table"', 'data-action="home-roll"')}<div class="home-dice-actions">${btn(ui.homePickId ? 'Roll another ' + I('dice') : 'Roll a little adventure ' + I('dice'), 'home-roll', '', 'primary')}${btn('Choose another area', 'dice', '', 'text-btn')}</div><p class="small muted">${homePool().length ? `${homePool().length} local ideas · check opening and travel before going.` : 'No ideas fit these limits. Try a different mood or allow more time.'}</p><section id="home-dice-result" aria-live="polite" tabindex="-1">${homeResult()}</section></section><div class="home-menu-heading"><h2>Or follow a good thread.</h2><p>${E(R[ui.homeRegion])} · ${menu.length} considered outings · editable timing</p></div><div class="home-menu">${menu.map((c, i) => `<article class="${i === 0 ? 'explore-lead' : 'home-menu-option'}">${collectionPhoto(c, true)}<div class="explore-lead-copy"><p>${E(collectionDuration(c))}</p><h2><button data-action="collection-story" data-id="${E(c.id)}">${E(c.title)} ${I('arrow')}</button></h2><p>${E(c.pitch)}</p><p class="home-fit">${E(c.bestFor)}</p></div></article>`).join('')}</div><div class="explore-day"><div>${next ? `<strong>${removed ? 'Choose your part again' : changed ? 'Review changed plan' : 'Your next plan'} · ${E(dateText(next.date))}${removed ? '' : ` · ${E(part.start)} JST`}</strong><button class="text-btn" data-action="plan-detail" data-id="${E(next.id)}">${E(next.title)} ${I('arrow')}</button>` : '<strong>Keep the day open.</strong><span>Save what catches your eye. Make a plan when you’re ready.</span>'}</div><button class="text-btn" data-nav="day">Your day ${I('calendar')}</button><button class="text-btn" data-nav="plans">Friends’ invitations ${I('arrow')}</button></div><div class="explore-research"><div><h2>Follow your own curiosity.</h2><p>A particular craving, an indoor afternoon, somewhere along your route.</p></div><div class="row wrap">${btn('Browse the full fieldbook ' + I('book'), 'home-library', '', 'subtle')}${btn('Travel tools ' + I('star'), 'companion', '', 'text-btn')}${mode === 'shared' ? btn('Find something for me ' + I('star'), 'ask-find', '', 'primary') : btn('Set up another draw ' + I('dice'), 'dice', '', 'subtle')}</div></div></section>`;
+    return `<section class="explore-opening"><div class="explore-heading"><h1>A few hours<br><em>worth remembering.</em></h1><p>Three good ways to spend them. Room to go your own way.</p></div><div class="explore-regions" aria-label="Explore a region">${['osaka', 'tokyo', 'okinawa'].map((r) => `<button data-action="home-region" data-id="${r}" aria-pressed="${ui.homeRegion === r}">${E(R[r])}</button>`).join('')}</div><section class="home-dice" aria-label="An immediate local adventure draw"><div class="home-dice-intro"><h2>Leave a little<br>to chance.</h2><p>${E(homeArea())} · a small detour</p><details class="home-refine"><summary>Up to ${ui.homeMinutes / 60} ${ui.homeMinutes === 60 ? 'hour' : 'hours'} · ${ui.homeMood === 'all' ? 'any mood' : E(ui.homeMood)}</summary><div class="home-refinements"><label>Time on site<select id="home-time"><option value="60" ${ui.homeMinutes === 60 ? 'selected' : ''}>Up to 1 hour</option><option value="120" ${ui.homeMinutes === 120 ? 'selected' : ''}>Up to 2 hours</option><option value="180" ${ui.homeMinutes === 180 ? 'selected' : ''}>Up to 3 hours</option></select></label><label>Mood<select id="home-mood">${['all', 'Food', 'Slow', 'Culture', 'Architecture', 'Strange'].map((m) => `<option value="${m}" ${ui.homeMood === m ? 'selected' : ''}>${m === 'all' ? 'Open to anything' : E(m)}</option>`).join('')}</select></label></div></details></div>${diceInvitation()}<div class="home-dice-actions">${btn('Pick up the dice ' + I('arrow'), 'home-roll', '', 'primary')}${btn('Choose another area', 'dice', '', 'text-btn')}</div><p class="small muted">${homePool().length ? `${homePool().length} local ideas · check opening and travel before going.` : 'No ideas fit these limits. Try a different mood or allow more time.'}</p><section id="home-dice-result" aria-live="polite" tabindex="-1">${homeResult()}</section></section><div class="home-menu-heading"><h2>Or follow a good thread.</h2><p>${E(R[ui.homeRegion])} · ${menu.length} considered outings · editable timing</p></div><div class="home-menu">${menu.map((c, i) => `<article class="${i === 0 ? 'explore-lead' : 'home-menu-option'}">${collectionPhoto(c, true)}<div class="explore-lead-copy"><p>${E(collectionDuration(c))}</p><h2><button data-action="collection-story" data-id="${E(c.id)}">${E(c.title)} ${I('arrow')}</button></h2><p>${E(c.pitch)}</p><p class="home-fit">${E(c.bestFor)}</p></div></article>`).join('')}</div><div class="explore-day"><div>${next ? `<strong>${removed ? 'Choose your part again' : changed ? 'Review changed plan' : 'Your next plan'} · ${E(dateText(next.date))}${removed ? '' : ` · ${E(part.start)} JST`}</strong><button class="text-btn" data-action="plan-detail" data-id="${E(next.id)}">${E(next.title)} ${I('arrow')}</button>` : '<strong>Keep the day open.</strong><span>Save what catches your eye. Make a plan when you’re ready.</span>'}</div><button class="text-btn" data-nav="day">Your day ${I('calendar')}</button><button class="text-btn" data-nav="plans">Friends’ invitations ${I('arrow')}</button></div><div class="explore-research"><div><h2>Follow your own curiosity.</h2><p>A particular craving, an indoor afternoon, somewhere along your route.</p></div><div class="row wrap">${btn('Browse the full fieldbook ' + I('book'), 'home-library', '', 'subtle')}${btn('Travel tools ' + I('star'), 'companion', '', 'text-btn')}${mode === 'shared' ? btn('Find something for me ' + I('star'), 'ask-find', '', 'primary') : btn('Set up another draw ' + I('dice'), 'dice', '', 'subtle')}</div></div></section>`;
   }
 
-  function mountHomeDice() {
-    homeRollTicket++;
-    homeDice = null;
-    const root = app.querySelector('.home-dice');
-    if (!root) return;
-    if (dialog.open) {
-      root.querySelector('.dice-atlas')?.remove();
-      root.querySelector('.dice-map-note')?.remove();
-      return;
-    }
-    if (!root.querySelector('.dice-atlas'))
-      root
-        .querySelector('.home-dice-actions')
-        .insertAdjacentHTML(
-          'beforebegin',
-          diceMarkup().replace(
-            'data-action="roll-table"',
-            'data-action="home-roll"',
-          ),
-        );
-    homeDice = window.OmakaseDice?.mount(root, rollHomeDice, { noMap: true });
-    homeDice?.scope(ui.homeRegion, homeArea());
-    for (const b of root.querySelectorAll('[data-action=home-roll]'))
-      b.disabled = !homePool().length;
+  function dicePhoto(a) {
+    const reference = a.photo
+      ? a
+      : C.find((p) => p.region === a.region && p.area === a.area && p.photo);
+    return reference
+      ? { photo: reference.photo, reference: reference.id !== a.id }
+      : null;
   }
-  async function rollHomeDice(impulse) {
-    const root = app.querySelector('.home-dice');
-    if (!root || root.dataset.rolling || dialog.open) return;
-    const pool = homePool();
-    if (!pool.length) return;
-    let options = pool.filter((a) => !diceSeen.has(a.id));
-    if (!options.length) {
-      for (const a of pool) diceSeen.delete(a.id);
-      options = pool;
-    }
-    const n = options.length,
-      bytes = new Uint32Array(1),
-      limit = 0x100000000 - (0x100000000 % n);
-    do {
-      crypto.getRandomValues(bytes);
-    } while (bytes[0] >= limit);
-    const pick = options[bytes[0] % n],
-      ticket = ++homeRollTicket;
-    root.dataset.rolling = 'true';
-    for (const b of root.querySelectorAll('button')) b.disabled = true;
-    try {
-      await homeDice?.animate(pick, impulse, bytes[0] % 6);
-      if (ticket !== homeRollTicket || !root.isConnected || dialog.open) return;
-      diceSeen.add(pick.id);
-      ui.homePickId = pick.id;
-      ui.homeHistory.push(pick.id);
+  function diceInvitation() {
+    const photos = homePool()
+      .filter((a) => a.photo)
+      .slice(0, 3);
+    return `<button class="chance-invitation" data-action="home-roll" aria-label="Pick up the dice">${photos.map((a) => `<img src="${E(a.photo.path)}" alt="" loading="lazy" width="160" height="200">`).join('')}<span class="chance-invitation-die" aria-hidden="true">${I('dice')}</span></button>`;
+  }
+  function mountHomeDice() {
+    for (const b of app.querySelectorAll('[data-action=home-roll]'))
+      b.disabled = !homePool().length;
+    if (!dialog.open) {
       const result = app.querySelector('#home-dice-result');
-      result.innerHTML = homeResult();
-      root.querySelector(
-        '.home-dice-actions [data-action=home-roll]',
-      ).innerHTML = 'Roll another ' + I('dice');
-      result.focus({ preventScroll: true });
-      result.scrollIntoView({ block: 'nearest', behavior: 'instant' });
-    } finally {
-      delete root.dataset.rolling;
-      for (const b of root.querySelectorAll('button')) b.disabled = false;
+      if (result) result.innerHTML = homeResult();
     }
+  }
+  function rollHomeDice() {
+    drawModal(ui.homeMood, true);
   }
   function collectionStory(id) {
     const c = (window.OMAKASE.collections || []).find((c) => c.id === id);
@@ -1552,9 +1512,6 @@
   function openModal(title, html, type = 'generic', id = '', wide = false) {
     window.OmakaseDice?.destroy();
     diceAtlas = null;
-    homeRollTicket++;
-    app.querySelector('.home-dice .dice-atlas')?.remove();
-    app.querySelector('.home-dice .dice-map-note')?.remove();
     if (!dialog.open) {
       lastFocus = modalTrigger?.isConnected
         ? modalTrigger
@@ -1564,6 +1521,7 @@
     }
     modal = { type, id, revision: S?.plans.find((p) => p.id === id)?.revision };
     dialog.className = wide ? 'wide' : '';
+    delete dialog.dataset.chance;
     dialog.innerHTML = `<div class="dialog-top"><span class="eyebrow" id="dialog-title">${E(title)}</span><button class="icon-btn" data-action="close" aria-label="Close dialog">${I('close')}</button></div><div class="dialog-body">${html}</div>`;
     if (!dialog.open) dialog.showModal();
     document.body.classList.add('no-scroll');
@@ -1925,12 +1883,64 @@
     );
   }
   function diceMarkup() {
-    return `<div class="dice-atlas" data-phase="ready"><div id="dice-map" role="region" aria-label="Map of the discovery draw"></div><p class="dice-map-caption"></p><button type="button" class="dice-table" data-action="roll-table" aria-label="Roll the dice"><span class="dice-body"><span class="dice-cube" aria-hidden="true">${[1, 2, 3, 4, 5, 6].map((n) => `<div class="dice-face face-${n}">${Array.from({ length: 9 }, (_, i) => `<i class="${{ 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] }[n].includes(i) ? 'pip' : ''}"></i>`).join('')}</div>`).join('')}</span></span><span class="dice-shadow"></span><span class="dice-hint">Drag and fling · or tap to roll</span></button><div class="dice-empty" hidden role="status"></div></div><p class="dice-map-note small muted"></p>`;
+    return `<div class="dice-atlas" data-phase="ready"><div class="chance-portals" aria-hidden="true"></div><div class="chance-destination" aria-hidden="true"></div><p class="chance-reference"></p><button type="button" class="dice-table" data-action="roll-table" aria-label="Throw the dice"><span class="dice-body"><span class="dice-cube" aria-hidden="true">${[1, 2, 3, 4, 5, 6].map((n) => `<span class="dice-face face-${n}">${Array.from({ length: 9 }, (_, i) => `<i class="${{ 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] }[n].includes(i) ? 'pip' : ''}"></i>`).join('')}</span>`).join('')}</span></span><span class="dice-shadow"></span></button><p class="dice-hint">Pick it up. Give it a throw.</p><p class="chance-motion-copy" aria-live="polite"></p><details class="chance-credits"><summary>Photo credits</summary><div></div></details><div class="dice-empty" hidden role="status"></div></div>`;
   }
-  function drawModal(mood = 'all') {
+  function diceQualifications(a) {
+    const notes = [];
+    if (a.flags.includes('d'))
+      notes.push('Regional excursion · allow for travel.');
+    if (a.flags.includes('o'))
+      notes.push('Separate stay or island transfer required.');
+    if (a.flags.includes('b')) notes.push('Book or arrange ahead.');
+    if (a.flags.includes('w'))
+      notes.push(
+        'Water activity · confirm the operator, conditions and your suitability separately.',
+      );
+    if (a.start)
+      notes.push(
+        `Listed event window: ${dateText(a.start)}–${dateText(a.end)} 2026. Recheck with the organizer.`,
+      );
+    return notes.length
+      ? `<p class="chance-qualifications">${notes.map(E).join(' ')}</p>`
+      : '';
+  }
+  function diceReveal(a, freshRound = false) {
+    const visual = dicePhoto(a);
+    const image = visual
+      ? `<figure class="chance-photo"><img src="${E(visual.photo.path)}" alt="${E(visual.photo.caption)}" width="960" height="640"><figcaption>${visual.reference ? `Around ${E(a.area)} · neighbourhood reference, not this venue` : E(visual.photo.caption)} <a href="${E(safeURL(visual.photo.source))}" target="_blank" rel="noopener noreferrer">${E(visual.photo.author)}</a> · <a href="${E(safeURL(visual.photo.licenseUrl))}" target="_blank" rel="noopener noreferrer">${E(visual.photo.license)}</a></figcaption></figure>`
+      : `<div class="chance-no-photo"><span>${I('pin')}</span><p>A little mystery in ${E(a.area)}.</p><p class="small">No verified photo of this place yet.</p></div>`;
+    return `${image}<article class="discovery dice-pick"><h3>${E(a.title)}</h3><p class="chance-fit">${E(a.area)} · ${E(a.mood)} · about ${a.minutes} min on site</p><p>${E(a.experience?.summary || a.why)}</p>${a.experience?.highlights?.[0] ? `<p class="chance-detail">${E(a.experience.highlights[0])}</p>` : ''}${diceQualifications(a)}<div class="chance-result-actions">${btn(saved(a.id) ? 'Saved ' + I('check') : 'Save for later ' + I('save'), 'dice-save', a.id, 'subtle')}${btn('Invite friends ' + I('plus'), 'plan-from', a.id, 'text-btn')}</div><details class="chance-practical"><summary>Before you go & directions</summary><p>${E(a.experience?.planning || a.practical)}</p>${journeyContext(a)}<a class="text-btn" href="${E(safeURL(a.experience?.source || a.source))}" target="_blank" rel="noopener noreferrer">Read the source ${I('external')}</a></details><div class="chance-secondary">${diceHistory.length > 1 ? btn('Previous roll', 'dice-undo', '', 'text-btn') : ''}</div>${freshRound ? '<p class="small muted">Fresh round: you’ve explored this shortlist before.</p>' : ''}</article>`;
+  }
+  function showDiceReveal(a, freshRound = false) {
+    ui.homePickId = a.id;
+    ui.homeHistory = [...diceHistory];
+    const result = dialog.querySelector('#dice-result');
+    result.innerHTML = diceReveal(a, freshRound);
+    const go = dialog.querySelector('.chance-go');
+    go.dataset.id = a.id;
+    const img = result.querySelector('.chance-photo img');
+    if (img)
+      img.addEventListener(
+        'error',
+        () => {
+          img.hidden = true;
+          img.closest('figure').classList.add('chance-photo-missing');
+        },
+        { once: true },
+      );
+    dialog.dataset.chance = 'revealed';
+    dialog.querySelector('#dice-preferences').hidden = true;
+    dialog
+      .querySelector('[data-action=dice-preferences]')
+      .setAttribute('aria-expanded', 'false');
+    result.focus({ preventScroll: true });
+    dialog.scrollTop = 0;
+    dialog.querySelector('.chance-scroll').scrollTop = 0;
+  }
+  function drawModal(mood = 'all', fromHome = false) {
     openModal(
       'Roll a little adventure',
-      `<h2>Where will the dice take you?</h2><p class="lede">Choose your patch of Japan. Let chance find the detour.</p>${diceMarkup()}<div id="dice-result" aria-live="polite" tabindex="-1"></div><form id="dice-form"><div id="dice-preferences"><div class="field-row"><div class="field"><label for="dice-region">Where are you exploring?</label><select id="dice-region">${Object.entries(
+      `<div class="chance-scroll"><div class="chance-heading"><h2>Your next little<br><em>plot twist.</em></h2><p class="chance-scope"></p></div>${diceMarkup()}<section id="dice-result" aria-live="polite" tabindex="-1"></section></div><form id="dice-form"><div id="dice-preferences" hidden><div class="chance-preferences-title"><h3>Set your possibilities.</h3>${btn('Done ' + I('check'), 'dice-preferences-done', '', 'subtle')}</div><div class="field-row"><div class="field"><label for="dice-region">Where are you exploring?</label><select id="dice-region">${Object.entries(
         R,
       )
         .filter(([k]) => k !== 'elsewhere')
@@ -1946,14 +1956,23 @@
         .map((k) => `<option ${k === mood ? 'selected' : ''}>${k}</option>`)
         .join(
           '',
-        )}</select></div><div class="field"><label for="dice-time">Time on site</label><select id="dice-time"><option value="90">Up to 90 minutes</option><option value="180" selected>Up to 3 hours</option><option value="600">Up to a day</option></select></div></div><details class="form-detail"><summary>More adventurous options</summary><label class="check-row"><input id="dice-arranged" type="checkbox">Include advance arrangements, separate stays or regional excursions.</label><label class="check-row"><input id="dice-water" type="checkbox">Include operator-led water activities; I’ll check conditions independently.</label></details><p id="dice-count" role="status"></p><div id="dice-alternatives"></div></div><div class="form-error" role="alert"></div><button type="button" class="btn subtle" data-action="dice-preferences" aria-controls="dice-preferences" aria-expanded="false" hidden>Change preferences</button><button type="submit" class="btn primary full">Roll the dice ${I('dice')}</button></form>`,
+        )}</select></div><div class="field"><label for="dice-time">Time on site</label><select id="dice-time"><option value="60">Up to 1 hour</option><option value="90">Up to 90 minutes</option><option value="120">Up to 2 hours</option><option value="180" selected>Up to 3 hours</option><option value="600">Up to a day</option></select></div></div><details class="form-detail"><summary>More adventurous options</summary><label class="check-row"><input id="dice-arranged" type="checkbox">Include advance arrangements, separate stays or regional excursions.</label><label class="check-row"><input id="dice-water" type="checkbox">Include operator-led water activities; I’ll check conditions independently.</label></details><p id="dice-count" role="status"></p><div id="dice-alternatives"></div></div><div class="form-error" role="alert"></div><div class="chance-controls"><button type="button" class="text-btn" data-action="dice-preferences" aria-controls="dice-preferences" aria-expanded="false">Change preferences</button><button type="button" class="text-btn chance-sound" data-action="dice-sound" aria-pressed="false">Sound off</button><button type="submit" class="btn primary full">Throw the dice ${I('dice')}</button><button type="button" class="btn primary full chance-go" data-action="discovery">Take a closer look ${I('arrow')}</button></div></form>`,
       'dice',
       '',
       true,
     );
-    dialog.classList.add('atlas-dialog');
+    dialog.classList.add('chance-dialog');
+    dialog.dataset.chance = 'ready';
+    diceHistory = [];
     diceAtlas = window.OmakaseDice?.mount(dialog, drawDiscovery);
+    if (fromHome) dialog.querySelector('#dice-region').value = ui.homeRegion;
     updateDiceAreas();
+    if (fromHome) {
+      dialog.querySelector('#dice-area').value = homeArea();
+      dialog.querySelector('#dice-time').value = String(ui.homeMinutes);
+      updateDiceCount(true);
+    }
+    dialog.querySelector('.dice-table').focus({ preventScroll: true });
   }
   function updateDiceAreas() {
     const region = dialog.querySelector('#dice-region').value;
@@ -2013,12 +2032,17 @@
     if (!form) return;
     if (clearResult) {
       dialog.querySelector('#dice-result').replaceChildren();
-      diceAtlas?.scope(
-        dialog.querySelector('#dice-region').value,
-        dialog.querySelector('#dice-area').value,
-      );
+      dialog.dataset.chance = 'ready';
+      dialog.querySelector('.chance-heading h2').innerHTML =
+        'Your next little<br><em>plot twist.</em>';
+      diceHistory = [];
+      diceAtlas?.scope(dicePool().map((a) => ({ ...a, visual: dicePhoto(a) })));
+      form.querySelector('[type=submit]').innerHTML =
+        'Throw the dice ' + I('dice');
     }
     const pool = dicePool();
+    dialog.querySelector('.chance-scope').textContent =
+      `${dialog.querySelector('#dice-area').value} · ${pool.length} possibilities`;
     dialog.querySelector('.dice-table').disabled = !pool.length;
     const empty = dialog.querySelector('.dice-empty');
     const canInclude = !pool.length && dicePool({ arranged: true }).length;
@@ -2113,7 +2137,12 @@
     button.disabled = true;
     form.querySelector('[data-action=dice-preferences]').disabled = true;
     dialog.querySelector('.dice-table').disabled = true;
-    button.textContent = 'Rolling…';
+    button.textContent = 'A little chance…';
+    dialog.dataset.chance = 'rolling';
+    dialog.querySelector('#dice-preferences').hidden = true;
+    dialog.querySelector('.chance-heading h2').innerHTML =
+      'Here goes<br><em>nothing.</em>';
+    dialog.querySelector('.chance-scroll').scrollTop = 0;
     for (const field of form.querySelectorAll('select,input'))
       field.disabled = true;
     dialog.querySelector('#dice-count').textContent = freshRound
@@ -2122,29 +2151,26 @@
     result.replaceChildren();
     const atlas = diceAtlas;
     try {
-      dialog
-        .querySelector('.dice-atlas')
-        ?.scrollIntoView({ block: 'center', behavior: 'instant' });
-      await atlas?.animate(a, impulse, uniform(6));
+      try {
+        await atlas?.animate(
+          { ...a, visual: dicePhoto(a) },
+          impulse,
+          uniform(6),
+        );
+      } catch {
+        // A presentation failure must never lose an already selected catalogue idea.
+      }
       if (!form.isConnected || !dialog.open) return;
       diceSeen.add(a.id);
-      result.innerHTML = `${freshRound ? '<p class="small muted">Fresh round: you’ve explored this shortlist before.</p>' : ''}<article class="discovery dice-pick"><h3>${E(a.title)}</h3><p>${E(a.why)}</p><div class="dice-visuals">${discoveryPhoto(a)}</div></article>${journeyContext(a)}<div class="card-actions">${btn('Explore this idea ' + I('arrow'), 'discovery', a.id, 'subtle')}${btn('Invite friends ' + I('plus'), 'plan-from', a.id, 'primary')}</div>`;
-      form.querySelector('#dice-preferences').hidden = true;
-      const preferences = form.querySelector('[data-action=dice-preferences]');
-      preferences.hidden = false;
-      preferences.setAttribute('aria-expanded', 'false');
-      result.focus({ preventScroll: true });
-      (dialog.querySelector('.dice-atlas') || result).scrollIntoView({
-        block: 'start',
-        behavior: 'instant',
-      });
+      diceHistory.push(a.id);
+      showDiceReveal(a, freshRound);
     } finally {
       if (form.isConnected) {
         delete form.dataset.rolling;
         for (const field of form.querySelectorAll('select,input'))
           field.disabled = false;
         form.querySelector('[data-action=dice-preferences]').disabled = false;
-        button.textContent = 'Roll again';
+        button.innerHTML = 'Throw again ' + I('dice');
         updateDiceCount();
       }
     }
@@ -2839,16 +2865,60 @@
           await drawDiscovery();
           break;
         case 'dice-change-filters': {
+          dialog.querySelector('#dice-preferences').hidden = false;
+          dialog
+            .querySelector('[data-action=dice-preferences]')
+            .setAttribute('aria-expanded', 'true');
           const area = dialog.querySelector('#dice-area');
           (area.parentElement.querySelector('.choice-trigger') || area).focus();
           break;
         }
+        case 'dice-save': {
+          const was = saved(id);
+          await mutate(
+            '/picks',
+            'POST',
+            { catalogueId: id, remove: !!was },
+            () => {
+              if (modal?.type !== 'dice') return;
+              const control = dialog.querySelector('[data-action=dice-save]');
+              if (control?.dataset.id === id)
+                control.innerHTML = saved(id)
+                  ? 'Saved ' + I('check')
+                  : 'Save for later ' + I('save');
+              toast(
+                was
+                  ? 'Removed from saved places.'
+                  : 'Saved to your private places.',
+              );
+            },
+          );
+          break;
+        }
+        case 'dice-undo':
+          if (
+            diceHistory.length > 1 &&
+            !dialog.querySelector('#dice-form').dataset.rolling
+          ) {
+            diceHistory.pop();
+            showDiceReveal(BY.get(diceHistory.at(-1)));
+          }
+          break;
+        case 'dice-sound':
+          diceAtlas?.sound();
+          break;
+        case 'dice-preferences-done':
+          dialog.querySelector('#dice-preferences').hidden = true;
+          dialog
+            .querySelector('[data-action=dice-preferences]')
+            .setAttribute('aria-expanded', 'false');
+          dialog.querySelector('[data-action=dice-preferences]').focus();
+          break;
         case 'dice-preferences': {
           const form = dialog.querySelector('#dice-form');
           if (form.dataset.rolling) break;
           form.querySelector('#dice-preferences').hidden = false;
           el.setAttribute('aria-expanded', 'true');
-          el.hidden = true;
           const region = form.querySelector('#dice-region');
           (
             region.parentElement.querySelector('.choice-trigger') || region

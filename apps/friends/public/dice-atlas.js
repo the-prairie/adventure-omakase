@@ -1,107 +1,146 @@
 'use strict';
-// Presentation only: the existing catalogue draw owns eligibility and randomness.
+// A physical presentation of a catalogue draw. Eligibility and randomness live in app.js.
 window.OmakaseDice = (() => {
-  let active;
+  let active,
+    soundEnabled = false;
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
   function destroy() {
     active?.dispose();
     active = null;
   }
-  function mount(root, roll, options = {}) {
+  function mount(root, roll) {
     destroy();
-    const stage = root.querySelector('.dice-atlas');
-    const target = root.querySelector('.dice-table');
-    const body = root.querySelector('.dice-body');
-    const cube = root.querySelector('.dice-cube');
-    const shadow = root.querySelector('.dice-shadow');
-    const caption = root.querySelector('.dice-map-caption');
-    const mapNode = root.querySelector('#dice-map');
-    const abort = new AbortController();
-    let map,
-      marker,
+    const stage = root.querySelector('.dice-atlas'),
+      target = root.querySelector('.dice-table'),
+      body = root.querySelector('.dice-body'),
+      cube = root.querySelector('.dice-cube'),
+      shadow = root.querySelector('.dice-shadow'),
+      portals = root.querySelector('.chance-portals'),
+      destination = root.querySelector('.chance-destination'),
+      copy = root.querySelector('.chance-motion-copy'),
+      reference = root.querySelector('.chance-reference'),
+      soundControl = root.querySelector('.chance-sound'),
+      abort = new AbortController();
+    let cancelled = false,
       frame,
-      finishFrame,
+      finish,
       gesture,
-      cancelled = false;
+      audio,
+      draggedUntil = 0;
     let x = 0,
       y = 0,
-      rx = -18,
-      ry = 18,
-      draggedUntil = 0;
-    const limits = () => ({
-      x: Math.max(0, stage.clientWidth / 2 - 62),
-      y: Math.max(0, stage.clientHeight / 2 - 85),
+      rx = -24,
+      ry = 32;
+    const bounds = () => ({
+      x: Math.max(20, stage.clientWidth / 2 - 85),
+      y: Math.max(20, stage.clientHeight / 2 - 85),
     });
-    function paint(height = 0) {
-      body.style.transform = `translate3d(${x}px,${y - height}px,0)`;
+    function paint(height = 0, scale = 1) {
+      body.style.transform = `translate3d(${x}px,${y - height}px,0) scale(${scale})`;
       cube.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-      shadow.style.transform = `translate(${x}px,${y}px) scale(${1 - Math.min(height, 90) / 180})`;
-      shadow.style.opacity = String(0.3 - Math.min(height, 90) / 500);
+      shadow.style.transform = `translate(${x}px,${y}px) scale(${1 - Math.min(height, 120) / 220})`;
+      shadow.style.opacity = String(0.22 - Math.min(height, 120) / 800);
     }
-    if (window.L && !options.noMap) {
-      const L = window.L;
-      map = L.map(mapNode, {
-        zoomControl: false,
-        scrollWheelZoom: false,
-        dragging: false,
-        touchZoom: false,
-        doubleClickZoom: false,
-        boxZoom: false,
-        keyboard: false,
-        minZoom: 4,
-        maxZoom: 14,
-      });
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 16,
-        keepBuffer: 0,
-        updateWhenIdle: true,
-        referrerPolicy: 'strict-origin-when-cross-origin',
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
-      })
-        .on('tileerror', () => {
-          if (!cancelled)
-            root.querySelector('.dice-map-note').textContent =
-              'Map tiles unavailable. Your draw still works; open the result for directions.';
-        })
-        .addTo(map);
-      map.setView([35, 135.5], 5);
-    } else if (!options.noMap)
-      root.querySelector('.dice-map-note').textContent =
-        'Map unavailable. Your draw still works; open the result for directions.';
-    const points = () => window.OMAKASE.areas || [];
-    const find = (region, area) =>
-      points().find((p) => p.region === region && p.area === area);
-    function scope(region, area) {
+    function soundLabel() {
+      soundControl.textContent = soundEnabled ? 'Sound on' : 'Sound off';
+      soundControl.setAttribute('aria-pressed', String(soundEnabled));
+    }
+    function enableAudio() {
+      if (!soundEnabled) return;
+      try {
+        const Context = window.AudioContext || window.webkitAudioContext;
+        audio ||= Context ? new Context() : null;
+        audio?.resume()?.catch(() => undefined);
+      } catch {
+        soundEnabled = false;
+        soundLabel();
+      }
+    }
+    function knock(strength = 1) {
+      if (!soundEnabled || !audio || audio.state !== 'running') return;
+      const length = Math.floor(audio.sampleRate * 0.07),
+        buffer = audio.createBuffer(1, length, audio.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < length; i++)
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (length * 0.12));
+      const source = audio.createBufferSource(),
+        filter = audio.createBiquadFilter(),
+        gain = audio.createGain();
+      source.buffer = buffer;
+      filter.type = 'lowpass';
+      filter.frequency.value = 900 + strength * 700;
+      gain.gain.value = 0.16 * strength;
+      source.connect(filter).connect(gain).connect(audio.destination);
+      source.start();
+    }
+    function photo(node, visual) {
+      node.replaceChildren();
+      if (!visual?.photo?.path?.startsWith('/assets/discovery/photos/')) return;
+      const img = document.createElement('img');
+      img.src = visual.photo.path;
+      img.alt = '';
+      img.width = 960;
+      img.height = 640;
+      img.addEventListener(
+        'error',
+        () => {
+          img.hidden = true;
+        },
+        { once: true },
+      );
+      node.append(img);
+    }
+    function scope(picks) {
       if (cancelled) return;
-      stage.classList.remove('has-landed');
       stage.dataset.phase = 'ready';
-      if (marker) {
-        marker.remove();
-        marker = null;
-      }
+      copy.textContent = '';
+      reference.textContent = '';
       x = y = 0;
-      rx = -18;
-      ry = 18;
+      rx = -24;
+      ry = 32;
       paint();
-      caption.textContent =
-        area === 'all'
-          ? 'Let chance find your corner of Japan.'
-          : `A detour around ${area}`;
-      const p = find(region, area);
-      if (map) {
-        map.stop();
-        if (p) map.setView([p.lat, p.lng], 10, { animate: false });
-        else {
-          const rows = points().filter((a) => a.region === region);
-          if (rows.length)
-            map.fitBounds(
-              rows.map((a) => [a.lat, a.lng]),
-              { padding: [30, 30], maxZoom: 8, animate: false },
-            );
+      const seen = new Set();
+      portals.replaceChildren();
+      const credits = root.querySelector('.chance-credits div');
+      credits.replaceChildren();
+      root.querySelector('.chance-credits').open = false;
+      for (const pick of picks) {
+        const path = pick.visual?.photo?.path;
+        if (!path || seen.has(path)) continue;
+        seen.add(path);
+        const card = document.createElement('figure');
+        card.className = 'chance-portal';
+        photo(card, pick.visual);
+        const label = document.createElement('figcaption');
+        label.textContent = pick.visual.reference
+          ? `Around ${pick.area}`
+          : pick.title;
+        card.append(label);
+        portals.append(card);
+        const credit = document.createElement('p'),
+          source = document.createElement('a'),
+          license = document.createElement('a');
+        source.textContent = pick.visual.photo.author;
+        source.href = pick.visual.photo.source;
+        license.textContent = pick.visual.photo.license;
+        license.href = pick.visual.photo.licenseUrl;
+        for (const link of [source, license]) {
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
         }
+        credit.append(
+          `${pick.visual.photo.caption} · `,
+          source,
+          ' · ',
+          license,
+        );
+        credits.append(credit);
+        if (seen.size === 4) break;
       }
+      destination.replaceChildren();
+      root.querySelector('.chance-credits').hidden = !seen.size;
+      soundLabel();
     }
     target.addEventListener(
       'pointerdown',
@@ -111,10 +150,11 @@ window.OmakaseDice = (() => {
           (event.pointerType === 'mouse' && event.button !== 0)
         )
           return;
+        enableAudio();
         gesture = {
           id: event.pointerId,
-          startX: event.clientX,
-          startY: event.clientY,
+          sx: event.clientX,
+          sy: event.clientY,
           lastX: event.clientX,
           lastY: event.clientY,
           time: performance.now(),
@@ -123,7 +163,9 @@ window.OmakaseDice = (() => {
           moved: false,
         };
         target.setPointerCapture(event.pointerId);
+        stage.dataset.phase = 'held';
         target.classList.add('grabbing');
+        if (!reduced()) paint(26, 1.06);
       },
       { signal: abort.signal },
     );
@@ -133,26 +175,28 @@ window.OmakaseDice = (() => {
         if (!gesture || gesture.id !== event.pointerId) return;
         const now = performance.now(),
           dt = Math.max(8, now - gesture.time),
-          bounds = limits();
+          limits = bounds();
         gesture.vx = clamp(
           ((event.clientX - gesture.lastX) / dt) * 1000,
-          -1600,
-          1600,
+          -1800,
+          1800,
         );
         gesture.vy = clamp(
           ((event.clientY - gesture.lastY) / dt) * 1000,
-          -1600,
-          1600,
+          -1800,
+          1800,
         );
-        x = clamp(event.clientX - gesture.startX, -bounds.x, bounds.x);
-        y = clamp(event.clientY - gesture.startY, -bounds.y, bounds.y);
+        x = clamp(event.clientX - gesture.sx, -limits.x, limits.x);
+        y = clamp(event.clientY - gesture.sy, -limits.y, limits.y);
         gesture.moved ||= Math.hypot(x, y) > 7;
         gesture.lastX = event.clientX;
         gesture.lastY = event.clientY;
         gesture.time = now;
-        rx = -18 - y * 0.65;
-        ry = 18 + x * 0.65;
-        paint(reduced() ? 0 : 22);
+        if (!reduced()) {
+          rx = -24 - y * 0.5;
+          ry = 32 + x * 0.5;
+          paint(26, 1.06);
+        }
       },
       { signal: abort.signal },
     );
@@ -163,6 +207,7 @@ window.OmakaseDice = (() => {
       target.classList.remove('grabbing');
       if (target.hasPointerCapture(event.pointerId))
         target.releasePointerCapture(event.pointerId);
+      stage.dataset.phase = 'ready';
       if (event.type === 'pointercancel' || !g.moved) {
         x = y = 0;
         paint();
@@ -184,144 +229,140 @@ window.OmakaseDice = (() => {
       },
       { signal: abort.signal },
     );
-    async function animate(pick, impulse, face = 0) {
-      stage.dataset.phase = 'rolling';
-      stage.classList.remove('has-landed');
-      if (marker) {
-        marker.remove();
-        marker = null;
-      }
-      caption.textContent = 'A little momentum. A new detour.';
-      if (!reduced())
-        await new Promise((resolve) => {
-          finishFrame = resolve;
-          let vx = impulse?.vx || 620,
-            vy = impulse?.vy || -170;
-          let height = 50,
-            vz = 340,
-            previous = performance.now(),
-            elapsed = 0;
-          const step = (now) => {
-            if (cancelled) return resolve();
-            const dt = Math.min((now - previous) / 1000, 0.032);
-            previous = now;
-            elapsed += dt;
-            const bounds = limits();
-            x += vx * dt;
-            y += vy * dt;
-            height += vz * dt;
-            vz -= 1900 * dt;
-            if (Math.abs(x) > bounds.x) {
-              x = clamp(x, -bounds.x, bounds.x);
-              vx *= -0.62;
-            }
-            if (Math.abs(y) > bounds.y) {
-              y = clamp(y, -bounds.y, bounds.y);
-              vy *= -0.62;
-            }
-            if (height < 0) {
-              height = 0;
-              vz = Math.abs(vz) > 75 ? -vz * 0.43 : 0;
-              vx *= 0.74;
-              vy *= 0.74;
-            }
-            const drag = Math.exp(-1.35 * dt);
-            vx *= drag;
-            vy *= drag;
-            rx += (vy * 0.8 + vz * 0.28) * dt;
-            ry += vx * 0.95 * dt;
-            paint(height);
-            if (elapsed < 1.45 && !reduced())
-              frame = requestAnimationFrame(step);
-            else {
-              finishFrame = null;
-              resolve();
-            }
-          };
-          frame = requestAnimationFrame(step);
-        });
-      if (cancelled) return;
-      const previousBody = body.style.transform;
-      const previousCube = cube.style.transform;
-      const [finishX, finishY] = [
-        [-18, 18],
-        [-18, -72],
-        [-108, 18],
-        [72, 18],
-        [-18, 108],
-        [-18, 198],
-      ][face];
-      rx = finishX + Math.round((rx - finishX) / 360) * 360;
-      ry = finishY + Math.round((ry - finishY) / 360) * 360;
-      x = y = 0;
-      paint();
-      if (!reduced()) {
-        const settling = [
-          body.animate(
-            [{ transform: previousBody }, { transform: body.style.transform }],
-            { duration: 220, easing: 'ease-out' },
-          ),
-          cube.animate(
-            [{ transform: previousCube }, { transform: cube.style.transform }],
-            { duration: 220, easing: 'ease-out' },
-          ),
-        ];
-        await Promise.all(
-          settling.map((animation) =>
-            animation.finished.catch(() => undefined),
-          ),
-        );
-        if (cancelled) return;
-      }
-      stage.dataset.phase = 'travelling';
-      const p = find(pick.region, pick.area);
-      if (p && map) {
-        caption.textContent = `Next stop: ${pick.area}`;
-        if (reduced()) map.setView([p.lat, p.lng], 14, { animate: false });
-        else
-          await new Promise((resolve) => {
-            const done = () => {
-              clearTimeout(timer);
-              map?.off('moveend', done);
-              finishFrame = null;
-              resolve();
-            };
-            const timer = setTimeout(done, 1500);
-            finishFrame = done;
-            map.once('moveend', done);
-            map.flyTo([p.lat, p.lng], 14, { duration: 1.15 });
-          });
-        if (cancelled) return;
-        marker = window.L.circleMarker([p.lat, p.lng], {
-          radius: 9,
-          color: '#fff8eb',
-          weight: 3,
-          fillColor: '#953f2d',
-          fillOpacity: 1,
-        }).addTo(map);
-        caption.textContent = `${pick.area} · approximate area, not the venue entrance`;
-      } else
-        caption.textContent = `${pick.area} · ${p ? 'map unavailable' : 'no verified map position'}. Check directions in the idea.`;
-      stage.dataset.phase = 'landed';
-      stage.classList.add('has-landed');
+    async function frames(duration, tick) {
+      if (cancelled || reduced() || document.hidden) return;
+      await new Promise((resolve) => {
+        finish = resolve;
+        const start = performance.now();
+        let previous = start;
+        const step = (now) => {
+          if (cancelled || reduced() || document.hidden) {
+            finish = null;
+            resolve();
+            return;
+          }
+          const elapsed = now - start,
+            dt = Math.min((now - previous) / 1000, 0.032);
+          previous = now;
+          tick(Math.min(1, elapsed / duration), dt);
+          if (elapsed < duration) frame = requestAnimationFrame(step);
+          else {
+            finish = null;
+            resolve();
+          }
+        };
+        frame = requestAnimationFrame(step);
+      });
     }
-    const resize = new ResizeObserver(() =>
-      map?.invalidateSize({ animate: false }),
+    async function animate(pick, impulse, face = 0) {
+      enableAudio();
+      root.querySelector('.chance-credits').open = false;
+      stage.dataset.phase = 'rolling';
+      copy.textContent = 'A small detour is taking shape.';
+      photo(destination, pick.visual);
+      reference.textContent = pick.visual?.reference
+        ? `Around ${pick.area} · neighbourhood reference, not this venue`
+        : '';
+      let vx = impulse?.vx || 560,
+        vy = impulse?.vy || -120,
+        height = 40,
+        vz = 430;
+      let lastKnock = 0;
+      await frames(1250, (t, dt) => {
+        const limits = bounds();
+        x += vx * dt;
+        y += vy * dt;
+        height += vz * dt;
+        vz -= 2000 * dt;
+        if (Math.abs(x) > limits.x) {
+          x = clamp(x, -limits.x, limits.x);
+          vx *= -0.65;
+          knock(0.5);
+        }
+        if (Math.abs(y) > limits.y) {
+          y = clamp(y, -limits.y, limits.y);
+          vy *= -0.65;
+        }
+        if (height < 0) {
+          height = 0;
+          vz = Math.abs(vz) > 80 ? -vz * 0.48 : 0;
+          vx *= 0.76;
+          vy *= 0.76;
+          if (t - lastKnock > 0.09 && t < 0.85) {
+            knock(1 - t * 0.8);
+            lastKnock = t;
+          }
+        }
+        const drag = Math.exp(-1.3 * dt);
+        vx *= drag;
+        vy *= drag;
+        rx += (vy * 0.9 + vz * 0.65) * dt;
+        ry += vx * 1.6 * dt;
+        paint(height);
+      });
+      if (cancelled) return;
+      const start = { x, y, rx, ry };
+      const [ax, ay] = [
+        [-24, 32],
+        [-24, -58],
+        [-114, 32],
+        [66, 32],
+        [-24, 122],
+        [-24, 212],
+      ][face];
+      const endX = ax + Math.round((rx - ax) / 360) * 360,
+        endY = ay + Math.round((ry - ay) / 360) * 360;
+      await frames(280, (t) => {
+        const k = 1 - Math.pow(1 - t, 4);
+        x = start.x * (1 - k);
+        y = start.y * (1 - k);
+        rx = start.rx + (endX - start.rx) * k;
+        ry = start.ry + (endY - start.ry) * k;
+        paint();
+      });
+      if (cancelled) return;
+      x = y = 0;
+      rx = endX;
+      ry = endY;
+      paint();
+      stage.dataset.phase = 'travelling';
+      copy.textContent = `There you are. ${pick.area}.`;
+      await frames(720, () => undefined);
+      if (cancelled) return;
+      stage.dataset.phase = 'landed';
+      copy.textContent = '';
+    }
+    // Backgrounding must not strand a pending draw on a paused animation frame.
+    document.addEventListener(
+      'visibilitychange',
+      () => {
+        if (document.hidden && finish) {
+          cancelAnimationFrame(frame);
+          const done = finish;
+          finish = null;
+          done();
+        }
+      },
+      { signal: abort.signal },
     );
-    resize.observe(stage);
+    soundLabel();
     active = {
       scope,
       animate,
+      sound() {
+        soundEnabled = !soundEnabled;
+        enableAudio();
+        soundLabel();
+        if (soundEnabled) knock(0.5);
+      },
       dispose() {
         cancelled = true;
         abort.abort();
         cancelAnimationFrame(frame);
-        for (const element of [body, cube])
-          for (const animation of element.getAnimations()) animation.cancel();
-        finishFrame?.();
-        resize.disconnect();
-        map?.remove();
-        map = null;
+        finish?.();
+        finish = null;
+        if (audio) void audio.close().catch(() => undefined);
+        audio = null;
       },
     };
     return active;

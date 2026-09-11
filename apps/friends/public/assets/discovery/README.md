@@ -115,3 +115,11 @@ Karahori and Kyu Yamutei expanded descriptions cite the linked Osaka tourism and
 - okinawa-043: [Hamabe no Chaya · official café guide](https://sachibaru.jp/en/hamacha/)
 - okinawa-091: [Japan National Tourism Organization · Taketomi](https://www.japan.travel/en/spot/566/)
 - okinawa-098: [Okinawa official tourism guide](https://visitokinawajapan.com/destinations/yaeyama-islands/hateruma-island/)
+
+## Namba dice photographs, September 11, 2026
+
+These three Commons thumbnails are served as JPEG at 960 pixels wide. The UI crops framing; pixels have not been retouched. Original licenses remain in effect. Sources and subjects were read and inspected before inclusion. Photo dates describe historical images, not current appearance or availability.
+
+- `osaka-053.jpg`: [Jiyuken's curry at the Namba main restaurant · 2005](https://commons.wikimedia.org/wiki/File:Jiyuken_curry_rice_by_nozawana_in_Osaka.jpg) · nozawana · [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
+- `osaka-027.jpg`: [Kizu Wholesale Market entrance · 2018](<https://commons.wikimedia.org/wiki/File:Osaka_Kizu_Wholesale_Market_2018-01-07_(41186542061).jpg>) · m-louis .® · [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
+- `osaka-047.jpg`: [Kitsune udon at Dotonbori Imai · 2009](https://commons.wikimedia.org/wiki/File:%E9%81%93%E9%A0%93%E5%A0%80%E4%BB%8A%E4%BA%95%E3%81%AE%E3%81%8D%E3%81%A4%E3%81%AD%E3%81%86%E3%81%A9%E3%82%93_%283739321692%29.jpg) · Kiyonobu Ito · [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).

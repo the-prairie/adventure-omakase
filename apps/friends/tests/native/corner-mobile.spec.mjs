@@ -77,12 +77,17 @@ test('compact discovery keeps search, saves, sources, map and invitations connec
   ).toBeInViewport();
   await page.screenshot({ path: '.impeccable/review/mobile-map.png' });
   await page.getByRole('button', { name: 'Fieldbook', exact: true }).click();
-  await page.locator('#discovery-filters summary').click();
+  if (!(await page.locator('#discovery-filters').evaluate((el) => el.open)))
+    await page.locator('#discovery-filters summary').click();
+  await expect(page.locator('#discovery-filters')).toHaveAttribute('open', '');
   await page.locator('[data-action=clear-filters]').click();
   await page.locator('#discovery-filters summary').click();
   await page.locator('.places-stories > summary').click();
   await expect(page.locator('.home-dice')).toBeVisible();
-  await page.locator('.home-dice .dice-table').click();
+  await page.locator('.home-dice-actions [data-action=home-roll]').click();
+  await page.locator('#dice-form [type=submit]').click();
+  await expect(page.locator('#dice-result h3')).toBeVisible();
+  await page.locator('#dialog [data-action=close]').click();
   await expect(page.locator('#home-dice-result h3')).toBeVisible();
   await page.locator('.places-stories > summary').click();
   for (const width of [320, 393, 430, 1440]) {

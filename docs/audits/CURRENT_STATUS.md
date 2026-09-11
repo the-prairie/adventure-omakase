@@ -1,5 +1,44 @@
 # Current release status
 
+## September 11 — immersive dice discovery
+
+The former small inline die now opens a full-screen physical throw among
+source-credited catalogue photographs. Drag velocity controls the visible throw;
+an unbiased local catalogue draw still selects the eligible idea. A photo opening
+leads to the place, area, time estimate, private save, invitation and closer-look
+paths. Another throw and previous-roll recovery stay in the same experience.
+Sound is opt-in. Reduced motion, image failure, animation failure, cancellation
+and exhausted/empty shortlists preserve a usable result or recovery action.
+
+The short-phone layout reserves an independent opaque header and a persistent
+primary action. Travel, arrangement, transfer, water and event qualifications
+appear before save/invite. Neighbourhood reference photographs remain labelled
+during expansion and the result. Three licensed venue photographs are added;
+browser, public and companion catalogue records agree. DESIGN.md and architecture
+now describe the implemented DOM/CSS presentation rather than the former atlas.
+
+Observed: root `pnpm check` passed all 12 tasks, including 115 friends
+tests; Sites syntax/type and both compatibility tests passed. The 12-case affected
+browser run passed in Chromium and WebKit. An independent finish reviewer closed
+all UI findings after refreshed 320×620, 393×620, 393×852 and 1440×1000
+captures, motion frames and an actual gesture recording. Axe reported no
+violations in 16 sampled states; this is not WCAG certification. The three new
+rasters carry embedded origins and visible credits. The source scan also reports
+51 older rasters without embedded origin metadata; their existing documented
+licensing is outside this change.
+
+The 88-case browser regression passed 84. Two tests incorrectly toggled an
+already-open Filters disclosure closed; the simulation's screenshot helper also
+waited on transformed lazy images inside closed details in both engines. Those
+helpers were corrected after reproducing the hidden-image bounds, without
+changing application behavior. The six-case rerun passed in Chromium and WebKit,
+including both complete multi-person trip simulations. All 88 current browser
+scenarios have passing evidence across these runs, not one zero-failure full run.
+All 11 native workerd checks passed. The source is ready for publication;
+release identity and live verification follow below.
+Physical iPhone feel, hardware sound, VoiceOver and in-field use remain manual
+acceptance; this change introduces no live provider or location claim.
+
 ## September 11 — interface quality repair
 
 The rejected version 10 phone opening has been repaired. Compact controls put

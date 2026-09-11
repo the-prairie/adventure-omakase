@@ -120,6 +120,9 @@ test('visual discoveries roll real dice, recover empty filters and reshuffle an 
   await page.locator('.places-stories > summary').click();
   await action(page, 'dice').click();
   await expect(page.locator('.dice-face')).toHaveCount(6);
+  await page
+    .getByRole('button', { name: 'Change preferences', exact: true })
+    .click();
   await page.locator('#dice-region').selectOption('tokyo');
   const areaShortcut = page.locator('[data-action=dice-area-quick]').first();
   const shortcutArea = await areaShortcut.getAttribute('data-id');
@@ -128,6 +131,7 @@ test('visual discoveries roll real dice, recover empty filters and reshuffle an 
   await page.locator('#dice-area').selectOption('Yanaka & Nezu');
   await page.locator('#dice-mood').selectOption('Food');
   await expect(page.locator('#dice-form [type=submit]')).toBeEnabled();
+  await page.getByRole('button', { name: 'Done', exact: false }).click();
   await page.locator('[data-action=roll-table]').focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('#dice-form')).toHaveAttribute(
@@ -149,12 +153,7 @@ test('visual discoveries roll real dice, recover empty filters and reshuffle an 
     'data-phase',
     'landed',
   );
-  await expect(page.locator('.dice-map-caption')).toContainText(
-    'Yanaka & Nezu',
-  );
-  await expect(
-    page.locator('#dice-map .leaflet-overlay-pane path'),
-  ).toHaveCount(1);
+  await page.locator('.chance-practical summary').click();
   await expect(page.locator('#dice-result .journey-context')).toContainText(
     'plus travel',
   );

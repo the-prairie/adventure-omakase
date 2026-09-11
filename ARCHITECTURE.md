@@ -66,7 +66,7 @@ Ask Omakase uses the same Worker with bounded read-only research and an environm
 
 The in-app friends calendar and interactive shared-date views derive from canonical invitation, RSVP and profile state; they introduce no second event store or external calendar dependency. Personal agenda times use the chosen participation segment. Discovery dice are a local catalogue suggestion, not a canonical group Fate Contract or a booking. Their animated cube does not change the selection constraints.
 
-Discovery detail uses static, source-linked context and licensed local photographs. Opening a discovery or invitation includes a lazy Google Maps search iframe from its discovery or meeting query; it does not call the paid server Maps adapter or expose its key. Only the search is sent to Google, with no automatic geolocation. Dice use a disposable Leaflet atlas and local physical animation; the existing catalogue draw still owns eligibility and randomness. Its area marker is not a venue entrance. Derived date/time presets still submit ordinary canonical plans.
+Discovery detail uses static, source-linked context and licensed local photographs. Opening a discovery or invitation includes a lazy Google Maps search iframe from its discovery or meeting query; it does not call the paid server Maps adapter or expose its key. Only the search is sent to Google, with no automatic geolocation. Dice use a disposable DOM/CSS 3D presentation with local pointer physics and source-credited photographs; the existing catalogue draw owns eligibility and unbiased randomness without replacement. A neighbourhood reference remains labelled during photo expansion and the result. Reduced motion and presentation failure still resolve the selected idea; dialog dismissal disposes animation and opt-in audio. This interaction makes no map or provider request. Derived date/time presets still submit ordinary canonical plans.
 
 ## Preserved native architecture
 
@@ -206,7 +206,7 @@ The friends discovery index uses a self-hosted Leaflet distribution, static attr
 
 ### Discovery view and browser Maps boundary
 
-Map and Fieldbook share the local curated catalogue, filters and selected discovery. Google Maps JavaScript is a lazy, persistent browser presentation; view switches do not recreate it. Site coordinates retain provenance separately from broader area anchors. A public configuration endpoint exposes only the dedicated website/API-restricted browser key; existing provider secrets remain server-only. Origin-only referrers support Google's restriction. The existing Leaflet area presentation remains the unavailable-provider fallback and dice renderer. See [discovery geography](docs/product/discovery-map.md).
+Map and Fieldbook share the local curated catalogue, filters and selected discovery. Google Maps JavaScript is a lazy, persistent browser presentation; view switches do not recreate it. Site coordinates retain provenance separately from broader area anchors. A public configuration endpoint exposes only the dedicated website/API-restricted browser key; existing provider secrets remain server-only. Origin-only referrers support Google's restriction. The existing Leaflet area presentation remains the unavailable-provider fallback for the discovery map. See [discovery geography](docs/product/discovery-map.md).
 
 ### Curated discovery outings
 

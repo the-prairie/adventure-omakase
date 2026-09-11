@@ -186,3 +186,23 @@ Implementation: `3883c09`. Sites source: `0b8de968095210d3c1557e2083a5161de431c1
 Authenticated health and 13 assets matched at 2026-09-11 07:41:07 UTC; the live
 phone example also passed first-place and memory-audience assertions.
 The existing two-person audience remains at policy revision 2.
+
+## September 11: immersive dice discovery
+
+The user delegated the most ambitious useful replacement for the underwhelming
+inline die. The implementation opens a full-screen throw among licensed catalogue
+photographs, responds to drag velocity with bounded local physics, opens the
+selected photograph and reveals a real eligible place. Region, area, time, mood,
+advance-arrangement, transfer, water and event-date limits retain their original
+meaning. Rolls avoid repeats until the shortlist is exhausted. Save remains
+private; an invitation still requires its ordinary review and publication.
+
+The result offers closer inspection, another throw and previous-roll recovery.
+Travel qualifications appear before save/invite; neighbourhood references are
+labelled during expansion and on the result. Keyboard and reduced-motion paths,
+missing images, presentation failure, empty shortlists and cancellation have
+explicit recovery. Sound is opt-in and its context is disposed on close.
+Three new source-credited venue photographs bring the catalogue to 55 illustrated
+entries; companion and public catalogue snapshots remain equal. Acceptance and
+release evidence are recorded in CURRENT_STATUS. Physical-device feel remains
+separate from browser evidence. The existing shared Sites audience is preserved.

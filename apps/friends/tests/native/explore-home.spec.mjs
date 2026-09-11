@@ -10,7 +10,7 @@ test('discovery offers playable dice and researched outings, and keeps the day a
   );
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(runtime.url + '/example.html');
-  if (!(await page.locator('.places-stories').getAttribute('open')))
+  if (!(await page.locator('.places-stories').evaluate((el) => el.open)))
     await page.locator('.places-stories > summary').click();
   await expect(page.locator('.explore-opening')).toBeVisible();
   await expect(page.locator('.explore-lead img')).toBeVisible();
@@ -18,26 +18,32 @@ test('discovery offers playable dice and researched outings, and keeps the day a
   await expect(page.locator('.home-dice')).toContainText('Namba');
   await page.screenshot({ path: info.outputPath('explore-desktop.png') });
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.locator('.home-dice .dice-table').scrollIntoViewIfNeeded();
-  await expect(page.locator('.home-dice .dice-table')).toBeInViewport();
+  await page
+    .locator('.home-dice-actions [data-action=home-roll]')
+    .scrollIntoViewIfNeeded();
+  await expect(
+    page.locator('.home-dice-actions [data-action=home-roll]'),
+  ).toBeInViewport();
   await page.screenshot({ path: info.outputPath('explore-mobile.png') });
-  await page.locator('.home-dice .dice-table').focus();
+  await page.locator('.home-dice-actions [data-action=home-roll]').focus();
   await page.keyboard.press('Enter');
-  await expect(page.locator('#home-dice-result h3')).toBeVisible();
-  await expect(page.locator('#home-dice-result')).toBeFocused();
-  const picked = await page
-    .locator('#home-dice-result [data-action=discovery]')
-    .getAttribute('data-id');
-  await expect(page.locator('#home-dice-result')).toContainText('Namba');
-  await page.locator('#home-dice-result [data-action=save]').click();
-  await expect(page.locator('#home-dice-result')).toContainText('Saved');
-  await page.locator('#home-dice-result [data-action=discovery]').click();
+  await page.locator('.dice-table').focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#dice-result h3')).toBeVisible();
+  await expect(page.locator('#dice-result')).toBeFocused();
+  const picked = await page.locator('.chance-go').getAttribute('data-id');
+  await expect(page.locator('#dice-result')).toContainText('Namba');
+  await page.locator('[data-action=dice-save]').click();
+  await expect(page.locator('#dice-result')).toContainText('Saved');
+  await page.locator('.chance-go').click();
   await expect(page.locator('#dialog [data-action=plan-from]')).toHaveAttribute(
     'data-id',
     picked,
   );
   await page.locator('#dialog [data-action=close]').click();
-  await expect(page.locator('.home-dice .dice-table')).toBeVisible();
+  await expect(
+    page.locator('.home-dice-actions [data-action=home-roll]'),
+  ).toBeVisible();
   await page.locator('[data-action=home-region][data-id=okinawa]').click();
   await expect(page.locator('.home-dice')).toContainText('Naha');
   await expect(page.locator('#home-dice-result h3')).toHaveCount(0);

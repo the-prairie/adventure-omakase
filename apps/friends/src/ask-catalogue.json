@@ -2838,6 +2838,14 @@
   },
   {
     "id": "osaka-027",
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-027.jpg",
+      "caption": "Kizu Wholesale Market entrance · 2018",
+      "author": "m-louis .®",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Kizu_Wholesale_Market_2018-01-07_(41186542061).jpg"
+    },
     "n": 27,
     "region": "osaka",
     "title": "Kizu Wholesale Market breakfast",
@@ -3286,6 +3294,14 @@
   },
   {
     "id": "osaka-047",
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-047.jpg",
+      "caption": "Kitsune udon at Dotonbori Imai · 2009",
+      "author": "Kiyonobu Ito",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:%E9%81%93%E9%A0%93%E5%A0%80%E4%BB%8A%E4%BA%95%E3%81%AE%E3%81%8D%E3%81%A4%E3%81%AD%E3%81%86%E3%81%A9%E3%82%93_%283739321692%29.jpg"
+    },
     "n": 47,
     "region": "osaka",
     "title": "Udon at Dotonbori Imai",
@@ -3394,6 +3410,14 @@
   },
   {
     "id": "osaka-053",
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-053.jpg",
+      "caption": "Jiyuken's curry at the Namba main restaurant · 2005",
+      "author": "nozawana",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Jiyuken_curry_rice_by_nozawana_in_Osaka.jpg"
+    },
     "n": 53,
     "region": "osaka",
     "title": "Jiyuken's curry",

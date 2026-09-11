@@ -2,143 +2,254 @@ import { test, expect } from './runtime.mjs';
 
 test.use({ hasTouch: true });
 
-test('atlas dice fling, land, survive cancellation and work without map tiles', async ({
+async function openDice(page, url) {
+  await page.goto(url + '/example.html#demo/discover');
+  if (!(await page.locator('.places-stories').evaluate((el) => el.open)))
+    await page.locator('.places-stories > summary').click();
+  await page.locator('.home-dice-actions [data-action=home-roll]').click();
+  await expect(page.locator('#dialog')).toHaveClass(/chance-dialog/);
+}
+async function preferences(page, region, area) {
+  await page
+    .getByRole('button', { name: 'Change preferences', exact: true })
+    .click();
+  await page.locator('#dice-region').selectOption(region);
+  await page.locator('#dice-area').selectOption(area);
+}
+
+test('chance room accepts a fling, reveals a real eligible place and can save, undo and inspect it', async ({
   page,
   runtime,
 }, info) => {
-  page.setDefaultTimeout(10000);
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.setViewportSize({ width: 1344, height: 960 });
-  await page.goto(runtime.url + '/example.html#demo/discover');
-  const open = async () => {
-    if (!(await page.locator('.places-stories').evaluate((el) => el.open)))
-      await page.locator('.places-stories > summary').click();
-    await page.locator('[data-action=dice]:visible').first().click();
-    await page.locator('#dice-region').selectOption('osaka');
-    await page.locator('#dice-area').selectOption('Karahori & Tanimachi');
-  };
-  await open();
-  await expect(page.locator('#dice-map')).toBeVisible();
-  await expect(page.locator('#dice-map .leaflet-tile-pane')).toBeAttached();
-  await page.screenshot({ path: info.outputPath('atlas-ready-desktop.png') });
+  await openDice(page, runtime.url);
+  await expect(page.locator('.chance-portal')).toHaveCount(4);
+  await expect(page.locator('.chance-sound')).toHaveAttribute(
+    'aria-pressed',
+    'false',
+  );
   const die = await page.locator('.dice-table').boundingBox();
-  await page.mouse.move(die.x + die.width / 2, die.y + 50);
+  await page.mouse.move(die.x + 80, die.y + 60);
   await page.mouse.down();
-  await page.mouse.move(die.x + die.width / 2 + 100, die.y + 5, { steps: 8 });
+  await page.mouse.move(die.x + 180, die.y + 20, { steps: 8 });
+  await expect(page.locator('.dice-atlas')).toHaveAttribute(
+    'data-phase',
+    'held',
+  );
   await page.mouse.up();
   await expect(page.locator('#dice-form')).toHaveAttribute(
     'data-rolling',
     'true',
   );
-  await page.screenshot({ path: info.outputPath('atlas-fling-desktop.png') });
-  await expect(page.locator('.dice-atlas')).toHaveAttribute(
-    'data-phase',
-    'landed',
-  );
-  await expect(page.locator('#dice-result')).not.toBeEmpty();
-  await expect(page.locator('#dice-preferences')).toBeHidden();
-  await expect(
-    page.getByRole('button', { name: 'Change preferences' }),
-  ).toBeVisible();
-  await expect(page.locator('.dice-map-caption')).toContainText('Karahori');
-  await page.screenshot({
-    path: info.outputPath('atlas-landed-desktop.png'),
-    animations: 'disabled',
-  });
-  const attribution = page.locator(
-    '#dice-map a[href="https://www.openstreetmap.org/copyright"]',
-  );
-  expect(
-    await attribution.evaluate((link) => {
-      const r = link.getBoundingClientRect();
-      return link.contains(
-        document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2),
-      );
-    }),
-  ).toBe(true);
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.getByRole('button', { name: 'Change preferences' }).click();
-  await expect(
-    page.getByRole('combobox', { name: 'Where are you exploring?' }),
-  ).toBeFocused();
-  await expect(page.locator('#dice-area')).toHaveValue('Karahori & Tanimachi');
-  await page.locator('#dice-region').selectOption('tokyo');
-  await page.locator('#dice-area').selectOption('Yanaka & Nezu');
-  await page.locator('.dice-table').scrollIntoViewIfNeeded();
-  await page.screenshot({ path: info.outputPath('atlas-ready-mobile.png') });
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.locator('.dice-table').focus();
-  await page.keyboard.press('Enter');
-  await expect(page.locator('.dice-atlas')).toHaveAttribute(
-    'data-phase',
-    'landed',
+  await expect(page.locator('#dice-form [type=submit]')).toBeDisabled();
+  await expect(page.locator('#dialog')).toHaveAttribute(
+    'data-chance',
+    'revealed',
   );
   await expect(page.locator('#dice-result')).toBeFocused();
-  await expect(page.locator('.dice-map-caption')).toContainText(
-    'Yanaka & Nezu',
+  const first = await page.locator('#dice-result h3').innerText();
+  const picked = await page.locator('.chance-go').getAttribute('data-id');
+  const record = await page.evaluate(
+    (id) => window.OMAKASE.catalogue.find((a) => a.id === id),
+    picked,
   );
+  expect(record.area).toBe('Namba');
+  expect(record.minutes).toBeLessThanOrEqual(180);
+  expect(record.flags).not.toMatch(/[bodw]/);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.locator('#dice-form [type=submit]').click();
+  await expect(page.locator('#dice-result h3')).not.toHaveText(first);
+  await page
+    .getByRole('button', { name: 'Previous roll', exact: true })
+    .click();
+  await expect(page.locator('#dice-result h3')).toHaveText(first);
+  await page
+    .getByRole('button', { name: 'Save for later', exact: false })
+    .click();
+  await expect(page.locator('[data-action=dice-save]')).toContainText('Saved');
+  await page.setViewportSize({ width: 393, height: 852 });
+  await page.screenshot({ path: info.outputPath('chance-result-phone.png') });
+  await expect(page.locator('.chance-go')).toBeInViewport();
+  await page.locator('.chance-go').click();
+  await expect(page.locator('#dialog')).not.toHaveClass(/chance-dialog/);
+  await expect(page.locator('#dialog [data-action=plan-from]')).toHaveAttribute(
+    'data-id',
+    picked,
+  );
+  expect(errors).toEqual([]);
+});
+
+test('chance room recovers from cancellation and photo failure, and keyboard draws work with reduced motion', async ({
+  page,
+  runtime,
+}, info) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.setViewportSize({ width: 320, height: 620 });
+  await openDice(page, runtime.url);
+  await page.locator('.dice-table').focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#dice-form')).toHaveAttribute(
+    'data-rolling',
+    'true',
+  );
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#dialog')).not.toHaveAttribute('open');
+  await expect(
+    page.locator('.home-dice-actions [data-action=home-roll]'),
+  ).toBeFocused();
+  await page.route('**/assets/discovery/photos/**', (r) => r.abort());
+  await page.route('https://tile.openstreetmap.org/**', (r) => r.abort());
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await openDice(page, runtime.url);
+  await preferences(page, 'osaka', 'Namba');
+  await page.locator('#dice-mood').selectOption('Architecture');
+  await page.getByRole('button', { name: 'Done', exact: false }).click();
+  await page.locator('.dice-table').focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#dialog')).toHaveAttribute(
+    'data-chance',
+    'revealed',
+  );
+  await expect(page.locator('#dice-result h3')).toHaveText(
+    'Namba Yasaka lion-head stage',
+  );
+  await expect(page.locator('.chance-photo')).toHaveClass(
+    /chance-photo-missing/,
+  );
+  await expect(page.locator('.chance-go')).toBeInViewport();
   await page.screenshot({
-    path: info.outputPath('atlas-landed-mobile.png'),
-    animations: 'disabled',
+    path: info.outputPath('chance-missing-photo-short-phone.png'),
   });
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await page.locator('#dice-form [type=submit]').click();
-  await page.locator('[data-action=close]:visible').click();
-  let failedTiles = 0;
-  await page.route('https://tile.openstreetmap.org/**', (route) => {
-    failedTiles++;
-    return route.abort();
-  });
-  await open();
-  // Use an unvisited area: a reopened map may reuse decoded image tiles.
-  await page.locator('#dice-region').selectOption('okinawa');
-  await expect.poll(() => failedTiles).toBeGreaterThan(0);
-  await expect(page.locator('.dice-map-note')).toContainText(
-    'Map tiles unavailable',
+  await page.locator('.chance-practical summary').click();
+  await expect(page.locator('#dice-result .journey-context')).toContainText(
+    'plus travel',
   );
-  await page.locator('.dice-table').tap();
-  await expect(page.locator('#dice-result')).not.toBeEmpty();
-  await page.locator('#dice-result [data-action=discovery]').click();
-  await expect(page.locator('#dialog')).not.toHaveClass(/atlas-dialog/);
   expect(errors).toEqual([]);
 });
 
-test('Himeji empty shortlist explains the disabled die and offers an explicit recovery', async ({
+test('empty shortlist keeps adventurous opt-ins explicit and recovers without stranding the die', async ({
   page,
   runtime,
 }, info) => {
-  await page.goto(runtime.url + '/example.html#demo/discover');
-  await page.locator('.places-stories > summary').click();
-  await page.locator('[data-action=dice]:visible').first().click();
-  await page.locator('#dice-region').selectOption('osaka');
-  await page.locator('#dice-area').selectOption('Hyogo: Himeji');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.setViewportSize({ width: 393, height: 852 });
+  await openDice(page, runtime.url);
+  await preferences(page, 'osaka', 'Hyogo: Himeji');
+  await page.getByRole('button', { name: 'Done', exact: false }).click();
   await expect(page.locator('.dice-table')).toBeDisabled();
-  await expect(page.locator('.dice-empty')).toBeVisible();
   await expect(page.locator('.dice-empty')).toContainText(
     'regional excursions',
   );
   await expect(page.locator('#dice-arranged')).not.toBeChecked();
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.locator('.dice-empty').scrollIntoViewIfNeeded();
-  await page.screenshot({ path: info.outputPath('himeji-empty-mobile.png') });
+  await page.screenshot({ path: info.outputPath('chance-empty-phone.png') });
   await page
     .getByRole('button', { name: 'Include these ideas and roll' })
     .click();
   await expect(page.locator('#dice-result')).toContainText(
     'Himeji almond-butter toast',
   );
-  await expect(page.locator('.dice-empty')).toBeHidden();
   await expect(page.locator('#dice-arranged')).toBeChecked();
-  await expect(page.locator('#dice-preferences')).toBeHidden();
-  await page.screenshot({ path: info.outputPath('himeji-result-mobile.png') });
-  await page.getByRole('button', { name: 'Roll again', exact: true }).click();
-  await expect(page.locator('#dice-result')).toContainText(
-    'Himeji almond-butter toast',
+  await expect(page.locator('.chance-qualifications')).toBeVisible();
+  await expect(page.locator('.chance-qualifications')).toContainText(
+    'Regional excursion',
   );
+  await expect(page.locator('.chance-practical')).not.toHaveAttribute('open');
+  await page.locator('#dice-form [type=submit]').click();
+  await expect(page.locator('#dice-result')).toContainText('Fresh round');
+  await expect(page.locator('#dice-preferences')).toBeHidden();
+});
+
+test('sound requires explicit opt-in and its audio context closes with the chance room', async ({
+  page,
+  runtime,
+}) => {
+  await page.addInitScript(() => {
+    window.__chanceAudio = { created: 0, closed: 0 };
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (Audio)
+      window.AudioContext = class extends Audio {
+        constructor(...args) {
+          super(...args);
+          window.__chanceAudio.created++;
+        }
+        close() {
+          window.__chanceAudio.closed++;
+          return super.close();
+        }
+      };
+  });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await openDice(page, runtime.url);
+  await page.locator('.dice-table').tap();
+  expect((await page.evaluate(() => window.__chanceAudio)).created).toBe(0);
+  await page.locator('#dice-form [type=submit]').click();
+  await page.getByRole('button', { name: 'Change preferences' }).click();
+  await page.locator('#dice-area').selectOption('Karahori & Tanimachi');
+  await page.getByRole('button', { name: 'Done', exact: false }).click();
+  await page.getByRole('button', { name: 'Sound off', exact: true }).click();
+  await expect(page.locator('.chance-sound')).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  expect((await page.evaluate(() => window.__chanceAudio)).created).toBe(1);
+  await page.keyboard.press('Escape');
+  expect((await page.evaluate(() => window.__chanceAudio)).closed).toBe(1);
+});
+
+test('reference photographs stay labelled during the opening and presentation failure still reveals the draw', async ({
+  page,
+  runtime,
+}) => {
+  await page.setViewportSize({ width: 320, height: 620 });
+  await openDice(page, runtime.url);
+  // Leave exactly one eligible, deliberately unillustrated real Namba record.
+  const title = await page.evaluate(() => {
+    const records = window.OMAKASE.catalogue.filter(
+      (a) => a.region === 'osaka' && a.area === 'Namba',
+    );
+    const target = records.find((a) => !a.photo && !/[bodw]/.test(a.flags));
+    for (const a of records) if (a !== target) a.minutes = 999;
+    return target.title;
+  });
+  await preferences(page, 'osaka', 'Namba');
+  await page.getByRole('button', { name: 'Done', exact: false }).click();
+  await page.locator('#dice-form [type=submit]').click();
+  await expect(page.locator('.dice-atlas')).toHaveAttribute(
+    'data-phase',
+    'travelling',
+  );
+  await expect(page.locator('.chance-reference')).toBeVisible();
+  await expect(page.locator('.chance-reference')).toContainText(
+    'neighbourhood reference, not this venue',
+  );
+  await expect(page.locator('#dice-result h3')).toHaveText(title);
+  await expect(page.locator('.chance-fit')).toBeInViewport();
+  await expect(page.locator('.chance-go')).toBeInViewport();
+  await page.locator('.chance-practical summary').click();
+  await page.locator('.chance-practical').scrollIntoViewIfNeeded();
+  const header = await page.locator('.dialog-top').boundingBox();
+  const scroll = await page.locator('.chance-scroll').boundingBox();
+  expect(scroll.y).toBeGreaterThanOrEqual(header.y + header.height - 1);
+  await page.keyboard.press('Escape');
+  await page.evaluate(() => {
+    const mount = window.OmakaseDice.mount;
+    window.OmakaseDice.mount = (...args) => ({
+      ...mount(...args),
+      animate: async () => {
+        throw new Error('Synthetic presentation failure');
+      },
+    });
+  });
+  await page.locator('.home-dice-actions [data-action=home-roll]').click();
+  await page.locator('#dice-form [type=submit]').click();
+  await expect(page.locator('#dice-result h3')).toHaveText(title);
+  await expect(page.locator('#dice-form [type=submit]')).toBeEnabled();
 });

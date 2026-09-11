@@ -49,7 +49,7 @@ This is a compact design context, not a replacement product plan. Authority rema
 
 ## Coherent outing journey
 
-Within “Let Omakase choose,” Explore presents three considered outings for each region—Osaka, Tokyo and Okinawa—beside an immediate local dice draw. Time and mood refinement, another roll, previous-result recovery and saving stay within that journey; the full fieldbook and other-area chooser remain available.
+Within “Let Omakase choose,” Explore presents three considered outings for each region—Osaka, Tokyo and Okinawa—beside an invitation to pick up the dice. The dice open a full-screen gesture surface with source-credited photographs, a physical throw and a place reveal. Time and mood refinement, another roll, previous-result recovery and private saving stay within that journey; the full fieldbook and other-area chooser remain available.
 
 An outing story and its starting draft share the same stop durations and travel allowances. Those are editable planning estimates, not verified opening hours or route feasibility. One visual editor leads to a distinct invitation review, then an explicit publish action. Friends may join all or one offered stop.
 
