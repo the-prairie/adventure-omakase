@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-06T23:38:21.686002+00:00",
+  "generatedAt": "2026-09-11T01:51:00.964574+00:00",
   "title": "Design System: Adventure Omakase Friends",
   "extensions": {
     "shadows": [
@@ -29,18 +29,26 @@
     ],
     "breakpoints": [
       {
-        "name": "navigation",
+        "name": "navigation-and-explore",
         "value": "850px"
       },
       {
-        "name": "compact",
+        "name": "compact-forms-and-friends",
         "value": "700px"
+      },
+      {
+        "name": "discovery-grid",
+        "value": "900px"
+      },
+      {
+        "name": "header-density",
+        "value": "1100px"
       }
     ],
     "colorMeta": {
       "paper": {
         "role": "neutral",
-        "displayName": "Paper",
+        "displayName": "Warm paper",
         "tonalRamp": [
           "oklch(0.150 0.0082 91.48)",
           "oklch(0.264 0.0082 91.48)",
@@ -54,7 +62,7 @@
       },
       "white": {
         "role": "neutral",
-        "displayName": "White",
+        "displayName": "Near-white surface",
         "tonalRamp": [
           "oklch(0.150 0.0054 95.10)",
           "oklch(0.264 0.0054 95.10)",
@@ -68,7 +76,7 @@
       },
       "ink": {
         "role": "neutral",
-        "displayName": "Ink",
+        "displayName": "Forest ink",
         "tonalRamp": [
           "oklch(0.150 0.0235 164.67)",
           "oklch(0.264 0.0235 164.67)",
@@ -82,7 +90,7 @@
       },
       "muted": {
         "role": "neutral",
-        "displayName": "Muted",
+        "displayName": "Muted olive",
         "tonalRamp": [
           "oklch(0.150 0.0164 138.72)",
           "oklch(0.264 0.0164 138.72)",
@@ -96,7 +104,7 @@
       },
       "line": {
         "role": "neutral",
-        "displayName": "Line",
+        "displayName": "Quiet divider",
         "tonalRamp": [
           "oklch(0.150 0.0152 119.14)",
           "oklch(0.264 0.0152 119.14)",
@@ -110,7 +118,7 @@
       },
       "green": {
         "role": "primary",
-        "displayName": "Green",
+        "displayName": "Forest green",
         "tonalRamp": [
           "oklch(0.150 0.0528 165.02)",
           "oklch(0.264 0.0528 165.02)",
@@ -124,7 +132,7 @@
       },
       "lightgreen": {
         "role": "neutral",
-        "displayName": "Lightgreen",
+        "displayName": "Light green",
         "tonalRamp": [
           "oklch(0.150 0.0135 134.90)",
           "oklch(0.264 0.0135 134.90)",
@@ -138,7 +146,7 @@
       },
       "rust": {
         "role": "secondary",
-        "displayName": "Rust",
+        "displayName": "Warm rust",
         "tonalRamp": [
           "oklch(0.150 0.1091 38.14)",
           "oklch(0.264 0.1091 38.14)",
@@ -152,7 +160,7 @@
       },
       "pale": {
         "role": "neutral",
-        "displayName": "Pale",
+        "displayName": "Pale parchment",
         "tonalRamp": [
           "oklch(0.150 0.0222 74.09)",
           "oklch(0.264 0.0222 74.09)",
@@ -166,7 +174,7 @@
       },
       "blue": {
         "role": "secondary",
-        "displayName": "Blue",
+        "displayName": "Slate blue",
         "tonalRamp": [
           "oklch(0.150 0.0443 221.40)",
           "oklch(0.264 0.0443 221.40)",
@@ -180,7 +188,7 @@
       },
       "gold": {
         "role": "secondary",
-        "displayName": "Gold",
+        "displayName": "Muted gold",
         "tonalRamp": [
           "oklch(0.150 0.0872 82.14)",
           "oklch(0.264 0.0872 82.14)",
@@ -191,6 +199,70 @@
           "oklch(0.836 0.0872 82.14)",
           "oklch(0.950 0.0872 82.14)"
         ]
+      },
+      "action-text": {
+        "role": "neutral",
+        "displayName": "Pure white action text",
+        "tonalRamp": [
+          "oklch(0.150 0.0000 89.88)",
+          "oklch(0.264 0.0000 89.88)",
+          "oklch(0.379 0.0000 89.88)",
+          "oklch(0.493 0.0000 89.88)",
+          "oklch(0.607 0.0000 89.88)",
+          "oklch(0.721 0.0000 89.88)",
+          "oklch(0.836 0.0000 89.88)",
+          "oklch(0.950 0.0000 89.88)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Primary hover",
+        "tonalRamp": [
+          "oklch(0.150 0.0573 155.90)",
+          "oklch(0.264 0.0573 155.90)",
+          "oklch(0.379 0.0573 155.90)",
+          "oklch(0.493 0.0573 155.90)",
+          "oklch(0.607 0.0573 155.90)",
+          "oklch(0.721 0.0573 155.90)",
+          "oklch(0.836 0.0573 155.90)",
+          "oklch(0.950 0.0573 155.90)"
+        ]
+      },
+      "control-hover": {
+        "role": "neutral",
+        "displayName": "Control hover",
+        "tonalRamp": [
+          "oklch(0.150 0.0120 111.76)",
+          "oklch(0.264 0.0120 111.76)",
+          "oklch(0.379 0.0120 111.76)",
+          "oklch(0.493 0.0120 111.76)",
+          "oklch(0.607 0.0120 111.76)",
+          "oklch(0.721 0.0120 111.76)",
+          "oklch(0.836 0.0120 111.76)",
+          "oklch(0.950 0.0120 111.76)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Explore display",
+        "purpose": "Explore opening; 32px at 850px and below."
+      },
+      "page-title": {
+        "displayName": "Page title",
+        "purpose": "Ordinary page headings; 32px on mobile. Friends has its own 42px/32px role."
+      },
+      "headline": {
+        "displayName": "Dialog headline",
+        "purpose": "General dialog headings; individual task surfaces use documented overrides."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Readable system sans-serif prose."
+      },
+      "label": {
+        "displayName": "Field label",
+        "purpose": "Persistent labels with compact task scale."
       }
     }
   },
@@ -200,35 +272,40 @@
       "kind": "button",
       "description": "Shared primary action treatment.",
       "html": "<button class=\"ds-primary\">Open a plan</button>",
-      "css": ".ds-primary{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--green);color:white;}.ds-primary:hover{background:#375c45}.ds-primary:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+      "css": ".ds-primary{padding:10px 17px;min-height:44px;border:1px solid var(--green);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--green);color:white;cursor:pointer}.ds-primary:hover{background:#375c45;border-color:var(--green)}.ds-primary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-primary:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}",
+      "refersTo": "button-primary"
     },
     {
       "name": "Secondary Button",
       "kind": "button",
       "description": "Shared secondary action treatment.",
       "html": "<button class=\"ds-secondary\">Open a plan</button>",
-      "css": ".ds-secondary{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--white);color:var(--ink);}.ds-secondary:hover{background:#eff0e7}.ds-secondary:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+      "css": ".ds-secondary{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--white);color:var(--ink);cursor:pointer}.ds-secondary:hover{background:#eff0e7;border-color:#95a58e}.ds-secondary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-secondary:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}",
+      "refersTo": "button-secondary"
     },
     {
       "name": "Subtle Button",
       "kind": "button",
       "description": "Shared subtle action treatment.",
       "html": "<button class=\"ds-subtle\">Open a plan</button>",
-      "css": ".ds-subtle{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:transparent;color:var(--ink);}.ds-subtle:hover{background:#eff0e7}.ds-subtle:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+      "css": ".ds-subtle{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:transparent;color:var(--ink);cursor:pointer}.ds-subtle:hover{background:transparent;border-color:#95a58e}.ds-subtle:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-subtle:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-subtle{transition:none}}",
+      "refersTo": "button-subtle"
     },
     {
       "name": "Rust Button",
       "kind": "button",
       "description": "Shared rust action treatment.",
-      "html": "<button class=\"ds-rust\">Open a plan</button>",
-      "css": ".ds-rust{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--rust);color:white;}.ds-rust:hover{background:#eff0e7}.ds-rust:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+      "html": "<button class=\"ds-rust\">Review the change</button>",
+      "css": ".ds-rust{padding:10px 17px;min-height:44px;border:1px solid var(--rust);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--rust);color:white;cursor:pointer}.ds-rust:hover{background:var(--rust);border-color:var(--rust)}.ds-rust:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-rust:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-rust{transition:none}}",
+      "refersTo": "button-rust"
     },
     {
       "name": "Danger Button",
       "kind": "button",
       "description": "Shared danger action treatment.",
-      "html": "<button class=\"ds-danger\">Open a plan</button>",
-      "css": ".ds-danger{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--white);color:#9c392d;border-color:#dfb4a7;}.ds-danger:hover{background:#eff0e7}.ds-danger:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+      "html": "<button class=\"ds-danger\">Remove memory</button>",
+      "css": ".ds-danger{padding:10px 17px;min-height:44px;border:1px solid #dfb4a7;border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--white);color:#9c392d;cursor:pointer}.ds-danger:hover{background:#eff0e7;border-color:#dfb4a7}.ds-danger:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-danger:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-danger{transition:none}}",
+      "refersTo": "button-danger"
     },
     {
       "name": "Text Field",
@@ -242,15 +319,16 @@
       "name": "Navigation",
       "kind": "nav",
       "description": "Active location uses an underline.",
-      "html": "<nav class=\"ds-nav\"><button aria-current=\"page\">My day</button><button>Discover</button></nav>",
-      "css": ".ds-nav{display:flex;gap:4px}.ds-nav button{padding:10px 14px;background:transparent;border:0;font:500 12px var(--sans);color:var(--muted)}.ds-nav button[aria-current]{color:var(--green);box-shadow:inset 0 -2px var(--green)}.ds-nav button:hover{background:var(--lightgreen)}.ds-nav button:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><button aria-current=\"page\">Explore</button><button>Your day</button><button>Friends</button><button>Memories</button></nav>",
+      "css": ".ds-nav{display:flex;gap:4px}.ds-nav button{min-height:44px;padding:10px 14px;background:transparent;border:0;border-radius:24px;font:500 12px var(--sans);color:#676e61}.ds-nav button[aria-current]{color:var(--green);border-radius:0;box-shadow:inset 0 -2px var(--green)}.ds-nav button:not([aria-current]):hover{background:var(--lightgreen)}.ds-nav button:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
     },
     {
       "name": "Selected Filter",
       "kind": "chip",
       "description": "Selected choices remain recognizably interactive.",
       "html": "<button class=\"ds-filter\" aria-pressed=\"true\">Quiet</button>",
-      "css": ".ds-filter{padding:8px 13px;border:1px solid var(--green);border-radius:var(--control-radius);background:var(--green);color:var(--white);font:13px var(--sans)}.ds-filter:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+      "css": ".ds-filter{min-height:44px;padding:8px 13px;border:1px solid var(--green);border-radius:var(--control-radius);background:var(--green);color:var(--white);font:13px var(--sans)}.ds-filter:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-filter:hover{background:var(--green);color:var(--white)}",
+      "refersTo": "selected-filter"
     },
     {
       "name": "Reading Entry",
@@ -262,38 +340,26 @@
   ],
   "narrative": {
     "northStar": "Contemporary journey notebook",
-    "overview": "Warm paper, forest ink, editorial titles, flat reading surfaces and compact controls make travel information readable and actions immediate. The interface is calm and trustworthy before a decision and recedes during travel.\n\nThis records the implemented friends app, scoped to this directory. The direction comes from the accepted product brief and the contract in `public/index.html`; values come from the final cascade in `public/app.css`. It does not prescribe the future native application. The bounded browser review is recorded in `docs/design-review-2026-09-06.md`.",
+    "overview": "Warm paper, forest ink, editorial titles, flat reading surfaces and compact controls make travel information readable and actions immediate. The interface is calm and trustworthy before a decision and recedes during travel. A tactile die supplies a small moment of play within that same world.\n\nThis records the implemented friends browser app in this directory, using the current cascade in `public/app.css` and components in `public/app.js` and `public/outings.js`. The direction remains the accepted editorial brief and the contract in `public/index.html`; the future native application is a separate surface. Documentation of an implemented pattern is not evidence of production deployment or completed visual acceptance.",
     "keyCharacteristics": [
       "Continuous reading surfaces with separated entries.",
       "Editorial serif titles and practical sans-serif controls.",
-      "Restrained color with explicit interaction states."
+      "Restrained color with explicit interaction states.",
+      "Credited photographs, readable stories and a playable local draw."
     ],
-    "rules": [
-      {
-        "name": "State Clarity",
-        "body": "Pair color with text, selection markers or underlines so the action or state remains explicit.",
-        "section": "colors"
-      },
-      {
-        "name": "Task Scale",
-        "body": "Keep forms compact: use sans-serif labels and readable controls beneath a restrained serif heading. Do not enlarge form labels into editorial headlines.",
-        "section": "typography"
-      },
-      {
-        "name": "Reading Surface",
-        "body": "Keep repeated entries on one continuous surface; reserve enclosing treatments for a meaningful control, overlay or emphasized supporting panel.",
-        "section": "elevation"
-      }
-    ],
+    "rules": [],
     "dos": [
       "Do keep labels visible and interaction states explicit.",
       "Do preserve native form values and keyboard behavior when styling selection controls.",
-      "Do use supplied illustrations with truthful provenance and distinct treatment from shared memory photographs."
+      "Do keep photo credits, reference-image labels and planning uncertainty beside the content they qualify.",
+      "Do preserve the distinction between reading, editing, reviewing and publishing an invitation.",
+      "Do make private and trip-shared memory choices explicit."
     ],
     "donts": [
       "Don't turn repeated content into a wall of rounded cards.",
       "Don't introduce casino mechanics, neon gaming or a kawaii mascot direction.",
-      "Don't inherit legacy decorative eyebrows or text-glyph icons as rules for new surfaces; those exceptions are not part of the recorded system."
+      "Don't inherit legacy decorative eyebrows, text-glyph icons or tiny metadata as rules for new surfaces.",
+      "Don't turn declared regional overlap into a proximity or availability claim."
     ]
   }
 }

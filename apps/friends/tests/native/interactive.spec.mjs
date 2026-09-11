@@ -44,6 +44,7 @@ test('calendar and shared dates lead to native plans, with preserved invitation 
   await page.locator('[data-action=calendar-scope][data-id=group]').click();
   await expect(page.locator('.commitment')).toHaveCount(2);
   await page.locator('[data-nav=people]:visible').first().click();
+  await page.locator('.friends-calendar > summary').click();
   await expect(page.locator('.overlap-opportunity').first()).toBeVisible();
   await page.locator('.window-timeline .head[data-id="2026-10-04"]').click();
   await expect(page.locator('.overlap-day')).toContainText('Theo · Osaka');

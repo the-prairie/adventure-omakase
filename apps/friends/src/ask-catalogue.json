@@ -623,6 +623,17 @@
       "source": "https://commons.wikimedia.org/wiki/File:Yanaka_Ginza_2.jpg",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
       "caption": "Yanaka Ginza shopping street · 2018"
+    },
+    "experience": {
+      "summary": "Yanaka Ginza and the surrounding lanes reward an unhurried look at small shops, local snacks and older streets.",
+      "highlights": [
+        "Browse Yanaka Ginza and choose a snack or a small shop that interests you.",
+        "Leave room to wander instead of treating every lane as a stop to complete."
+      ],
+      "planning": "Shop hours differ. This is a neighbourhood walk, not a booked tour; check current service before relying on a specific food or shop stop.",
+      "source": "https://www.gotokyo.org/en/destinations/northern-tokyo/yanaka-and-nezu/index.html",
+      "sourceLabel": "GO TOKYO · Yanaka and Nezu",
+      "readAt": "2026-09-10"
     }
   },
   {
@@ -675,6 +686,17 @@
       "source": "https://commons.wikimedia.org/wiki/File:Nezu_Shrine_2010.jpg",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
       "caption": "Nezu Shrine · 2010"
+    },
+    "experience": {
+      "summary": "Nezu Shrine gives the neighbourhood walk a quieter finish among shrine buildings, red torii and ponds.",
+      "highlights": [
+        "Follow the public shrine paths at a comfortable pace.",
+        "Use the shrine as an optional meeting point for friends who skip the shopping."
+      ],
+      "planning": "Check the shrine’s current access and any seasonal garden arrangements. This proposal does not promise an open garden, step-free route or crowd level.",
+      "source": "https://www.gotokyo.org/en/destinations/northern-tokyo/yanaka-and-nezu/index.html",
+      "sourceLabel": "GO TOKYO · Yanaka and Nezu",
+      "readAt": "2026-09-10"
     }
   },
   {
@@ -3414,6 +3436,14 @@
       "source": "https://osaka-info.jp/en/modelcourse/course-shinsekai/",
       "sourceLabel": "Osaka tourism · Shinsekai",
       "readAt": "2026-09-09"
+    },
+    "photo": {
+      "path": "/assets/discovery/photos/osaka-054.jpg",
+      "caption": "Kushikatsu in Shinsekai · 2018 · reference dish photograph",
+      "author": "Ajay Suresh",
+      "source": "https://commons.wikimedia.org/wiki/File:Kushikatsu_-_Shinsekai_(28289215848).jpg",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
     }
   },
   {
@@ -4370,7 +4400,15 @@
       "sourceLabel": "Okinawa tourism · Shuri",
       "readAt": "2026-09-09"
     },
-    "checked": "2026-09-09"
+    "checked": "2026-09-09",
+    "photo": {
+      "path": "/assets/discovery/photos/okinawa-003.jpg",
+      "caption": "Shuri Kinjo stone road · 2011",
+      "author": "663highland",
+      "source": "https://commons.wikimedia.org/wiki/File:Kinjocho_ishidatami-michi_Shuri_Naha11bs5s4500.jpg",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5/"
+    }
   },
   {
     "id": "okinawa-004",

@@ -46,6 +46,7 @@
       start: collection.startSuggestion || '10:00',
       finishBy: '',
       notes: '',
+      cost: '',
       fallback: '',
       stops: collection.stops.map((stop, index) => {
         const place = byId.get(stop.catalogueId);
@@ -56,8 +57,12 @@
           segmentId: `outing-${place.id}`,
           label: place.title.slice(0, 100),
           included: collection.travelScale !== 'separate-stay' || index === 0,
-          minutes: Math.max(15, Math.min(360, place.minutes || 60)),
-          gap: 20,
+          minutes: integer(stop.plannedMinutes, 5, 720)
+            ? Number(stop.plannedMinutes)
+            : Math.max(15, Math.min(360, place.minutes || 60)),
+          gap: integer(stop.travelMinutes, 0, 360)
+            ? Number(stop.travelMinutes)
+            : 20,
           meeting: '',
         };
       }),
@@ -96,6 +101,7 @@
       start: clock(saved.start) !== null ? saved.start : fresh.start,
       finishBy: clock(saved.finishBy) !== null ? saved.finishBy : '',
       notes: text(saved.notes, 500),
+      cost: text(saved.cost, 160),
       fallback: text(saved.fallback, 300),
       stops: [...restored, ...known.values()],
     };
@@ -239,7 +245,7 @@
       meeting: result.timeline[0].meeting,
       description,
       mapLink: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(first.mapQuery || `${first.title} ${first.area} Japan`)}`,
-      cost: '',
+      cost: text(draft.cost, 160).trim(),
       booking: 'check',
       kind: 'idea',
       joinStyle: 'open',
@@ -304,7 +310,7 @@
     escape: E,
     icon,
     openModal,
-    openPlanForm,
+    publishInvitation,
     toast,
   }) {
     const dialog = document.getElementById('dialog');
@@ -312,7 +318,9 @@
       collection = null,
       currentScope = '',
       restored = false,
-      storageOkay = true;
+      storageOkay = true,
+      publishing = false,
+      publicationId = '';
     const scope = () =>
       `${getMode()}-${getState()?.trip?.id || 'example'}-${getState()?.me?.id || 'guest'}`;
     const key = (id) => `omakase-outing-draft-${scope()}-${id}`;
@@ -379,7 +387,7 @@
             )
           : null;
       const query = place.mapQuery || `${place.title} ${place.area} Japan`;
-      return `<section class="outing-stop ${stop.included ? '' : 'outing-stop-skipped'}" data-outing-stop="${E(stop.id)}"><div class="outing-stop-heading"><label class="outing-include"><input type="checkbox" data-stop-field="included" ${stop.included ? 'checked' : ''} aria-label="Include ${E(place.title)}"><span><strong>${E(place.title)}</strong><small>${E(place.area)} · ${stop.included ? 'Included' : 'Leave for another day'}</small></span></label><div class="outing-reorder">${button(icon('arrow'), 'earlier', stop.id, 'icon-btn', `aria-label="Move ${E(place.title)} earlier" ${index === 0 ? 'disabled' : ''}`)}${button(icon('arrow'), 'later', stop.id, 'icon-btn', `aria-label="Move ${E(place.title)} later" ${index === draft.stops.length - 1 ? 'disabled' : ''}`)}</div></div><p>${E(collection.stops.find((item) => item.catalogueId === stop.id)?.note || place.why)}</p>${stop.included ? `<div class="outing-time-row"><div class="field"><label for="outing-minutes-${E(stop.id)}">Time here · minutes</label><input id="outing-minutes-${E(stop.id)}" type="number" min="5" max="720" step="5" value="${E(stop.minutes)}" data-stop-field="minutes" inputmode="numeric"></div>${previous ? `<div class="field"><label for="outing-gap-${E(stop.id)}">Time to get here · minutes</label><input id="outing-gap-${E(stop.id)}" type="number" min="0" max="360" step="5" value="${E(stop.gap)}" data-stop-field="gap" inputmode="numeric"></div>` : ''}</div>${previous ? `<p class="small">${link(directionURL(previous.mapQuery || `${previous.title} ${previous.area} Japan`, query), 'Check journey from previous stop')}<br>Time allowed is your estimate. Check the mode, route and conditions in Maps.</p>` : ''}<details class="outing-meeting"><summary>Meeting point & source</summary><div class="field"><label for="outing-meeting-${E(stop.id)}">Where can friends meet you?</label><input id="outing-meeting-${E(stop.id)}" maxlength="500" data-stop-field="meeting" value="${E(stop.meeting)}" placeholder="A public entrance, landmark or station exit"><small>Confirm a precise place. Do not include room numbers or access codes.</small></div><div class="row wrap">${link(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`, 'Find this place in Maps')}${link(place.experience?.source || place.source, 'Read the place guide')}</div><p class="small">${E(place.experience?.planning || place.practical)}</p></details>${selected.length > 1 ? button('Make this the only stop', 'only', stop.id, 'text-btn') : ''}` : ''}</section>`;
+      return `<section class="outing-stop ${stop.included ? '' : 'outing-stop-skipped'}" data-outing-stop="${E(stop.id)}">${place.photo?.path ? `<img class="outing-stop-photo" src="${E(place.photo.path)}" alt="${E(place.title)}"><small class="small muted outing-photo-credit">${E(place.photo.author || 'Fieldbook reference photograph')} · ${E(place.photo.license || '')} · <a href="${E(safeURL(place.photo.source || place.source))}" target="_blank" rel="noopener noreferrer">Photo source</a>${place.photo.licenseUrl ? ` · <a href="${E(safeURL(place.photo.licenseUrl))}" target="_blank" rel="noopener noreferrer">License</a>` : ''}</small>` : ''}<div class="outing-stop-heading"><label class="outing-include"><input type="checkbox" data-stop-field="included" ${stop.included ? 'checked' : ''} aria-label="Include ${E(place.title)}"><span><strong>${E(place.title)}</strong><small>${E(place.area)} · ${stop.included ? 'Included' : 'Leave for another day'}</small></span></label><div class="outing-reorder">${button(icon('arrow'), 'earlier', stop.id, 'icon-btn', `aria-label="Move ${E(place.title)} earlier" ${index === 0 ? 'disabled' : ''}`)}${button(icon('arrow'), 'later', stop.id, 'icon-btn', `aria-label="Move ${E(place.title)} later" ${index === draft.stops.length - 1 ? 'disabled' : ''}`)}</div></div><p>${E(collection.stops.find((item) => item.catalogueId === stop.id)?.note || place.why)}</p>${stop.included ? `<div class="outing-time-row"><div class="field"><label for="outing-minutes-${E(stop.id)}">Time here · minutes</label><input id="outing-minutes-${E(stop.id)}" type="number" min="5" max="720" step="5" value="${E(stop.minutes)}" data-stop-field="minutes" inputmode="numeric"></div>${previous ? `<div class="field"><label for="outing-gap-${E(stop.id)}">Time to get here · minutes</label><input id="outing-gap-${E(stop.id)}" type="number" min="0" max="360" step="5" value="${E(stop.gap)}" data-stop-field="gap" inputmode="numeric"></div>` : ''}</div>${previous ? `<p class="small">${link(directionURL(previous.mapQuery || `${previous.title} ${previous.area} Japan`, query), 'Check journey from previous stop')}<br>Time allowed is your estimate. Check the mode, route and conditions in Maps.</p>` : ''}<details class="outing-meeting"><summary>Meeting point & source</summary><div class="field"><label for="outing-meeting-${E(stop.id)}">Where can friends meet you?</label><input id="outing-meeting-${E(stop.id)}" maxlength="500" data-stop-field="meeting" value="${E(stop.meeting)}" placeholder="A public entrance, landmark or station exit"><small>Confirm a precise place. Do not include room numbers or access codes.</small></div><div class="row wrap">${link(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`, 'Find this place in Maps')}${link(place.experience?.source || place.source, 'Read the place guide')}</div><p class="small">${E(place.experience?.planning || place.practical)}</p></details>${selected.length > 1 ? button('Make this the only stop', 'only', stop.id, 'text-btn') : ''}` : ''}</section>`;
     }
     function paint(focusSelector) {
       const panel = root();
@@ -400,6 +408,8 @@
         return;
       }
       currentScope = scope();
+      publicationId = '';
+      publishing = false;
       let saved = null;
       try {
         saved = JSON.parse(sessionStorage.getItem(key(id)));
@@ -408,16 +418,82 @@
       }
       restored = saved?.version === 1 && saved.collectionId === id;
       draft = restoreDraft(saved, collection, getCatalogue(), getDay());
+      publicationId = saved?.publicationId || crypto.randomUUID();
+      draft.publicationId = publicationId;
       const trip = getState().trip || {};
       openModal(
         'Make this a plan',
-        `<div id="outing-planner"><div class="outing-editor-intro"><h2>${collection.travelScale === 'separate-stay' ? 'Make one day of it.' : 'Make it your kind of day.'}</h2><p>${E(collection.pitch)}</p><p data-draft-status class="small muted"></p>${restored ? `<p class="small">Your unfinished outing was restored. ${button('Start again', 'reset', '', 'text-btn')}</p>` : ''}</div>${collection.travelScale === 'separate-stay' ? '<div class="notice">This collection spans a separate stay. Start with one day; choose only the stops that fit that day. Flights, ferries and accommodation still need their own arrangements.</div>' : ''}<div class="field"><label for="outing-title">Name this plan</label><input id="outing-title" data-draft-field="title" maxlength="150" value="${E(draft.title)}"></div><div class="outing-when"><div class="field"><label for="outing-date">Day in Japan</label><input id="outing-date" data-draft-field="date" type="date" min="${E(trip.start || '')}" max="${E(trip.end || '')}" value="${E(draft.date)}"></div><div class="field"><label for="outing-start">Start · JST</label><input id="outing-start" data-draft-field="start" type="time" value="${E(draft.start)}"></div><div class="field"><label for="outing-finish">Finish by · optional</label><input id="outing-finish" data-draft-field="finishBy" type="time" value="${E(draft.finishBy)}"></div></div><p class="small muted">These are editable planning times, not checked opening hours.</p><div class="outing-editor-layout"><div class="outing-editor-main"><h3>Keep what feels right.</h3><p>Choose, reorder or shorten the stops. Friends can join the whole plan or just one part.</p><div data-outing-stops></div><div class="field"><label for="outing-note">A note for friends · optional</label><textarea id="outing-note" data-draft-field="notes" maxlength="500" rows="3" placeholder="The pace, the occasion, why this sounds good…">${E(draft.notes)}</textarea></div><div class="field"><label for="outing-fallback">If plans change · optional</label><textarea id="outing-fallback" data-draft-field="fallback" maxlength="300" rows="2" placeholder="For example: if it rains, just meet for dinner. Confirm any alternative separately.">${E(draft.fallback)}</textarea></div><details class="outing-sources"><summary>What still needs checking</summary><p>${E(collection.planning)}</p><p>Confirm opening, meeting points and any reservations. A travel allowance does not verify a route. Source links will travel with your invitation.</p><div class="curated-sources">${collection.sources.map((source) => link(source.url, source.label)).join('')}</div></details></div><aside class="outing-preview" aria-label="Your planned day" data-outing-preview></aside></div><div class="form-error" role="alert" data-outing-error></div></div>`,
+        `<div id="outing-planner"><div class="field"><label for="outing-title">Name this plan</label><input id="outing-title" data-draft-field="title" maxlength="150" value="${E(draft.title)}"></div><div class="outing-editor-intro"><p>${E(collection.pitch)}</p><p data-draft-status class="small muted"></p>${restored ? `<p class="small">Your unfinished outing was restored. ${button('Start again', 'reset', '', 'text-btn')}</p>` : ''}</div>${collection.travelScale === 'separate-stay' ? '<div class="notice">This collection spans a separate stay. Start with one day; choose only the stops that fit that day. Flights, ferries and accommodation still need their own arrangements.</div>' : ''}<div class="outing-when"><div class="field"><label for="outing-date">Day in Japan</label><input id="outing-date" data-draft-field="date" type="date" min="${E(trip.start || '')}" max="${E(trip.end || '')}" value="${E(draft.date)}"></div><div class="field"><label for="outing-start">Start · JST</label><input id="outing-start" data-draft-field="start" type="time" value="${E(draft.start)}"></div><div class="field"><label for="outing-finish">Finish by · optional</label><input id="outing-finish" data-draft-field="finishBy" type="time" value="${E(draft.finishBy)}"></div></div><p class="small muted">These are editable planning times, not checked opening hours.</p><div class="outing-editor-layout"><div class="outing-editor-main"><p class="small muted">Keep, shorten or reorder the stops. Friends can join just one part.</p><div data-outing-stops></div><div class="field"><label for="outing-cost">Spending plan · optional</label><input id="outing-cost" data-draft-field="cost" maxlength="160" value="${E(draft.cost)}" placeholder="Your budget, or checked prices with their date"><small>A budget is your choice; confirm menu, admission and booking prices separately.</small></div><div class="field"><label for="outing-note">A note for friends · optional</label><textarea id="outing-note" data-draft-field="notes" maxlength="500" rows="3" placeholder="The pace, the occasion, why this sounds good…">${E(draft.notes)}</textarea></div><div class="field"><label for="outing-fallback">If plans change · optional</label><textarea id="outing-fallback" data-draft-field="fallback" maxlength="300" rows="2" placeholder="For example: if it rains, just meet for dinner. Confirm any alternative separately.">${E(draft.fallback)}</textarea></div><details class="outing-sources"><summary>What still needs checking</summary><p>${E(collection.planning)}</p><p>Confirm opening, meeting points and any reservations. A travel allowance does not verify a route. Source links will travel with your invitation.</p><div class="curated-sources">${collection.sources.map((source) => link(source.url, source.label)).join('')}</div></details></div><aside class="outing-preview" aria-label="Your planned day" data-outing-preview></aside></div><div class="form-error" role="alert" data-outing-error></div></div>`,
         'outing-draft',
         id,
         true,
       );
       paint();
     }
+    function review() {
+      const value = result();
+      if (value.errors.length) throw Error(value.errors[0]);
+      openModal(
+        'Review your outing',
+        `<div id="outing-review"><h2>${E(draft.title)}</h2><p>${E(draft.date)} · ${E(draft.start)}–${E(value.end)} JST · ${E(duration(value.totalMinutes))}</p><p>${E(draft.notes || collection.pitch)}</p><p class="small"><strong>Spending plan</strong> · ${E(draft.cost || 'Not supplied. Check current prices before going.')}</p><ol class="invitation-preview-stops">${value.timeline.map((stop) => `<li><time>${E(stop.start)}–${E(stop.end)}</time><div><h3>${E(stop.label)}</h3>${stop.meeting ? `<p>${E(stop.meeting)}</p>` : `<label for="review-meeting-${E(stop.id)}">Exact public meeting point</label><input id="review-meeting-${E(stop.id)}" data-review-meeting="${E(stop.id)}" maxlength="500" required placeholder="Entrance, landmark or station exit">`}</div></li>`).join('')}</ol>${draft.fallback ? `<p><strong>If plans change</strong><br>${E(draft.fallback)}</p>` : ''}<div class="notice">Friends can join everything or just one stop. This invitation does not reserve tickets or tables.</div><details class="outing-sources"><summary>Checks and sources carried with the invitation</summary><p>${E(collection.planning)}</p><p>${E(collection.leaveRoom)}</p><p>${value.travelMinutes} minutes allowed between stops; confirm the journey.</p>${sourceLinks(
+          collection,
+          value.timeline,
+          getCatalogue(),
+        )
+          .map((source) => link(source.url, source.label))
+          .join(
+            '',
+          )}</details><div class="form-error" role="alert" data-review-error></div><div class="outing-review-actions">${button('Back to edit', 'back', '', 'subtle')}${button('Publish invitation ' + icon('arrow'), 'publish', '', 'primary')}</div><p class="small muted">Shared with ${E(getState().trip.name)} only after publishing.</p></div>`,
+        'outing-review',
+        collection.id,
+        true,
+      );
+    }
+    dialog.addEventListener('click', async (event) => {
+      const action = event.target.closest('#outing-review [data-outing]');
+      if (!action) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (publishing) return;
+      if (scope() !== currentScope)
+        return toast('Your session changed. Reopen the outing.');
+      const panel = action.closest('#outing-review');
+      for (const field of panel.querySelectorAll('[data-review-meeting]')) {
+        draft.stops.find(
+          (stop) => stop.id === field.dataset.reviewMeeting,
+        ).meeting = field.value;
+      }
+      save();
+      if (action.dataset.outing === 'back') return open(collection.id);
+      if (action.dataset.outing !== 'publish') return;
+      const invalid = [...panel.querySelectorAll('input')].find(
+        (field) => !field.value.trim(),
+      );
+      if (invalid) {
+        invalid.reportValidity();
+        invalid.focus();
+        return;
+      }
+      publishing = true;
+      for (const b of panel.querySelectorAll('button')) b.disabled = true;
+      try {
+        await publishInvitation(
+          {
+            ...toInvitation(draft, collection, getCatalogue(), getState().trip),
+            requestId: publicationId,
+          },
+          panel,
+          currentScope,
+        );
+      } catch (error) {
+        if (panel.isConnected)
+          panel.querySelector('[data-review-error]').textContent =
+            error.message;
+      } finally {
+        publishing = false;
+        for (const b of panel.querySelectorAll('button')) b.disabled = false;
+      }
+    });
     dialog.addEventListener('input', (event) => {
       if (!event.target.closest('#outing-planner')) return;
       read();
@@ -469,14 +545,8 @@
           break;
         case 'review':
           try {
-            const invitation = toInvitation(
-              draft,
-              collection,
-              getCatalogue(),
-              getState().trip,
-            );
             save();
-            openPlanForm('', '', invitation);
+            review();
           } catch (error) {
             root().querySelector('[data-outing-error]').textContent =
               error.message;

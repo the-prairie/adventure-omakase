@@ -15,7 +15,7 @@ test('curated outings lead to existing guides and preserve discovery filters', a
   await expect(
     section.locator('[data-travel-scale=separate-stay]'),
   ).toHaveCount(0);
-  await expect(section.locator('details')).toHaveCount(9);
+  await expect(section.locator('details')).toHaveCount(12);
   await section.locator('summary').first().click();
   await expect(section.locator('details').first()).toHaveAttribute('open', '');
   const firstStop = section

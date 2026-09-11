@@ -1,5 +1,13 @@
 # Current release status
 
+## September 11 — coherent outings and a fictional friends trip
+
+Explore now offers three considered outings in each region and an inline local dice result with refinement, reroll, undo and saving. Editorial stop durations seed the same editable plan shown by the outing story. A single visual editor leads to a read-only invitation review, including meeting points and the traveller's own spending context. Friends opens on the selected day, people and actual invitations; detailed travel dates remain available. Memories have an explicit private or shared choice. Two credited photos and three Tokyo outings retain the full 300-record catalogue and matching companion snapshots.
+
+Observed: root `pnpm check` passed all 12 tasks, including 115 friends tests. Both Sites compatibility tests and all 11 local workerd checks passed. The full browser regression initially passed 63/68; it exposed a hidden travel-tools entry and selectors for the newly collapsed calendar. After correction, all 12 affected Chromium/WebKit cases passed. The 13-scene trip passed in isolated local workerd with four accounts, D1 and R2; its 5:10 recording includes partial joining, reconfirmation, independent Tokyo plans and private/shared memories. Screenshots and actual video frames were inspected; independent finish review cleared the bounded design fixes and persisted design documentation.
+
+The simulation uses Ariel Mercer, Mei, Jules and Priya, with authored travel, preferences and budgets. JINS and MOD remain tentative ideas: no real booking, payment, treatment, measurement or journey occurred. The separate owner-private publication, The Extra Stop, carries five complete fictional articles, reusable personas, the shared event log and actual recordings. This does not establish live-provider, physical-phone or field acceptance. Release and implementation identity follow after publication.
+
 ## September 10 — discovery-first repair
 
 Implemented locally: discovery is the landing surface, with a playable die,

@@ -222,3 +222,59 @@ test('day sheets escape hostile content and omit identities, access credentials 
   assert.match(html, /href="https:\/\/example.com\/guide"/);
   assert.equal((html.match(/<script/g) || []).length, 0);
 });
+
+test('editorial stop timing drives the same duration shown by the day draft', () => {
+  const c = plain(collection('osaka-river-and-cake'));
+  c.stops[0].plannedMinutes = 90;
+  c.stops[1].plannedMinutes = 45;
+  c.stops[1].travelMinutes = 15;
+  const d = model.createDraft(c, catalogue, '2026-10-06');
+  assert.equal(model.evaluate(d, trip).totalMinutes, 150);
+  assert.equal(
+    model.duration(model.evaluate(d, trip).totalMinutes),
+    '2 hr 30 min',
+  );
+  assert.equal(d.stops[0].meeting, '');
+  const restored = model.restoreDraft(
+    { ...d, stops: d.stops.map((s) => ({ ...s, minutes: 30 })) },
+    c,
+    catalogue,
+    '2026-10-06',
+  );
+  assert.equal(
+    restored.stops[0].minutes,
+    30,
+    'a later editorial update must not overwrite a traveler edit',
+  );
+});
+
+test('each region opens with three coherent, source-backed outings', () => {
+  for (const region of ['osaka', 'tokyo', 'okinawa']) {
+    const ids = sandbox.window.OMAKASE.homeMenu[region];
+    assert.equal(new Set(ids).size, 3);
+    for (const id of ids) {
+      const c = collection(id);
+      assert.equal(c.region, region);
+      assert.equal(c.travelScale, 'local');
+      assert.ok(
+        c.stops.some(
+          (s) => catalogue.find((a) => a.id === s.catalogueId).photo,
+        ),
+      );
+      assert.ok(model.evaluate(make(id), trip).totalMinutes <= 240);
+      assert.ok(c.stops.every((s) => s.plannedMinutes >= 5));
+      assert.ok(c.sources.every((source) => source.url.startsWith('https://')));
+    }
+  }
+});
+
+test('a traveler’s spending plan survives restoration and invitation review', () => {
+  const d = make();
+  d.cost = 'Up to ¥2,000 each — personal budget, not a quote';
+  const restored = model.restoreDraft(d, collection(), catalogue, '2026-10-06');
+  assert.equal(restored.cost, d.cost);
+  assert.equal(
+    model.toInvitation(restored, collection(), catalogue, trip).cost,
+    d.cost,
+  );
+});

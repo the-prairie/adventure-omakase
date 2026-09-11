@@ -38,3 +38,13 @@ proof that the experience makes those features findable.
 ## Source of Truth
 
 This is a compact design context, not a replacement product plan. Authority remains in `docs/product/adventure-omakase-v1.md`, the current friends amendment in `docs/exec-plans/active/cloudflare-friends-integration.md`, and ADRs 0006–0008. All facts above come from those accepted documents and the current user request.
+
+## Coherent outing journey
+
+The accepted ambitious direction retains the warm editorial identity. Explore presents three considered outings for each region—Osaka, Tokyo and Okinawa—beside an immediate local dice draw. Time and mood refinement, another roll, previous-result recovery and saving stay within that journey; the full fieldbook and other-area chooser remain available.
+
+An outing story and its starting draft share the same stop durations and travel allowances. Those are editable planning estimates, not verified opening hours or route feasibility. One visual editor leads to a distinct invitation review, then an explicit publish action. Friends may join all or one offered stop.
+
+Friends opens on a chosen day and actual invitations. Travel-window overlap is supporting context and never implies availability or proximity. Primary navigation remains Explore, Your day, Friends and Memories. Memory creation is voluntary, with an explicit private or trip-shared choice; a completed plan creates neither attendance nor a memory automatically.
+
+Implementation does not establish deployment, live-provider behavior or completed visual acceptance. Preserve the existing acceptance gates and record their observed evidence separately.

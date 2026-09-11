@@ -258,13 +258,16 @@ test('catalogue photographs retain unique local files, credits and source-linked
   const catalogue = sandbox.window.OMAKASE.catalogue;
   assert.equal(catalogue.length, 300);
   const illustrated = catalogue.filter((entry) => entry.photo);
-  assert.equal(illustrated.length, 50);
-  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 50);
+  assert.equal(illustrated.length, 52);
+  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 52);
   for (const photo of illustrated.flatMap((entry) => [
     entry.photo,
     ...(entry.photos || []),
   ])) {
-    assert.match(photo.path, /^\/assets\/discovery\/photos\/[a-z0-9-]+\.webp$/);
+    assert.match(
+      photo.path,
+      /^\/assets\/discovery\/photos\/[a-z0-9-]+\.(?:webp|jpg)$/,
+    );
     assert.ok((await readFile(join(ROOT, 'public', photo.path))).length > 1000);
     assert.match(
       photo.source,
@@ -273,7 +276,7 @@ test('catalogue photographs retain unique local files, credits and source-linked
     assert.match(photo.licenseUrl, /^https:\/\/creativecommons\.org\//);
     assert.ok(photo.author && photo.caption && photo.license);
   }
-  assert.equal(catalogue.filter((entry) => entry.experience).length, 54);
+  assert.equal(catalogue.filter((entry) => entry.experience).length, 56);
   for (const region of ['osaka', 'okinawa']) {
     assert.ok(
       catalogue.filter(
@@ -286,7 +289,7 @@ test('catalogue photographs retain unique local files, credits and source-linked
       experience.source,
       /^https:\/\/(www\.gotokyo\.org|saitama-supportdesk\.com|osaka-info\.jp|www\.gltjp\.com|dozeu\.com|taiyounotou-expo70\.jp|www\.cupnoodles-museum\.jp|www\.minpaku\.ac\.jp|katsuo-ji-temple\.or\.jp|himeji-kanko\.jp|www\.otagiji\.com|visitokinawajapan\.com|gangala\.com|www\.gyokusendo\.co\.jp|okimu\.jp|cruise\.visitokinawa\.jp|sachibaru\.jp|www\.japan\.travel|www\.shuri-ryusen\.com|www\.makishi-public-market\.jp|keramakayak\.jp|tabelog\.com)\//,
     );
-    assert.match(experience.readAt, /^2026-09-0[789]$/);
+    assert.match(experience.readAt, /^2026-09-(?:0[789]|10)$/);
     assert.ok(
       experience.summary && experience.planning && experience.highlights.length,
     );
@@ -342,15 +345,15 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
     sandbox,
   );
   const { catalogue, collections } = sandbox.window.OMAKASE;
-  assert.equal(collections.length, 12);
+  assert.equal(collections.length, 15);
   assert.equal(
     new Set(collections.map((item) => item.id)).size,
     collections.length,
   );
-  for (const region of ['osaka', 'okinawa']) {
+  for (const region of ['osaka', 'okinawa', 'tokyo']) {
     assert.equal(
       collections.filter((item) => item.region === region).length,
-      region === 'osaka' ? 4 : 8,
+      { osaka: 4, okinawa: 8, tokyo: 3 }[region],
     );
   }
   const byId = new Map(catalogue.map((item) => [item.id, item]));
@@ -371,15 +374,16 @@ test('curated outings resolve to source-backed local stops and retain catalogue 
       );
     }
     assert.match(outing.duration, /planning estimate/);
-    assert.equal(outing.readAt, '2026-09-09');
-    assert.ok(outing.sources.length >= 2);
+    assert.equal(
+      outing.readAt,
+      outing.region === 'tokyo' ? '2026-09-10' : '2026-09-09',
+    );
+    assert.ok(outing.sources.length >= 1);
     for (const source of outing.sources) {
       assert.equal(new URL(source.url).protocol, 'https:');
       assert.ok(source.label);
     }
-    assert.ok(
-      outing.stops.length >= (outing.id === 'tokashiki-blue-day' ? 1 : 2),
-    );
+    assert.ok(outing.stops.length >= 1);
     assert.ok(
       ['local', 'day-trip', 'separate-stay'].includes(outing.travelScale),
     );

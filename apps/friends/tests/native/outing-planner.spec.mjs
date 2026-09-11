@@ -28,7 +28,8 @@ async function publish(page) {
     if (error) throw new Error('Outing review failed: ' + error);
   }
   await expect(page.locator('#dialog-title')).toHaveText('Review your outing');
-  await page.locator('#plan-form button[type=submit]').click();
+  await expect(page.locator('#plan-form')).toHaveCount(0);
+  await page.locator('[data-outing=publish]').click();
   await expect(page.locator('.host-actions')).toBeVisible();
 }
 

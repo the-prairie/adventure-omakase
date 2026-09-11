@@ -46,3 +46,21 @@ The upstream SIL Open Font License 1.1 and copyright notice are bundled verbatim
 | `source-serif-display-regular.woff2`    | [WOFF2/OTF/SourceSerif4Display-Regular.otf.woff2](https://raw.githubusercontent.com/adobe-fonts/source-serif/5f220b17d27ed64873f22cde0dd593685387bd19/WOFF2/OTF/SourceSerif4Display-Regular.otf.woff2) | 107172 | `653abcd4b389bf856b0dc4bb186237a80e9fdbcad6522dcaed5f0f38b9e2ba2a` |
 | `source-serif-display-italic.woff2`     | [WOFF2/OTF/SourceSerif4Display-It.otf.woff2](https://raw.githubusercontent.com/adobe-fonts/source-serif/5f220b17d27ed64873f22cde0dd593685387bd19/WOFF2/OTF/SourceSerif4Display-It.otf.woff2)           |  80796 | `16753dff76c8daa65e42af357856c91d9093b9ccc99136b4142e7165b09b1705` |
 | `OFL.txt`                               | [LICENSE.md](https://raw.githubusercontent.com/adobe-fonts/source-serif/5f220b17d27ed64873f22cde0dd593685387bd19/LICENSE.md)                                                                           |   4491 | `c21d7293d87b6d7ab1d0229a2f55b77f33a7613a6a4e66f6693d68d7d8d09464` |
+
+### September 10 curated menu addition
+
+`public/assets/discovery/photos/osaka-054.jpg` is the Wikimedia-served 960px
+thumbnail of [Kushikatsu – Shinsekai](<https://commons.wikimedia.org/wiki/File:Kushikatsu_-_Shinsekai_(28289215848).jpg>),
+photographed by Ajay Suresh on April 9, 2018; [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
+Retrieved September 10, 2026. The asset is a historical dish reference, with no
+claim about the current restaurant, menu, price or availability. The image is
+unchanged apart from the upstream thumbnail size and embedded origin metadata;
+responsive layouts crop its display. Attribution and the license link accompany
+it in the fieldbook and outing editor.
+
+`public/assets/discovery/photos/okinawa-003.jpg` is the Wikimedia-served 960px
+thumbnail of [Shuri Kinjo stone road](https://commons.wikimedia.org/wiki/File:Kinjocho_ishidatami-michi_Shuri_Naha11bs5s4500.jpg),
+by 663highland, July 23, 2011. We use its offered [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/)
+license. Retrieved September 10, 2026; unchanged apart from upstream thumbnail
+sizing and origin metadata, with a responsive display crop. It illustrates the
+stone-road stop, not the coral-dyeing workshop or current accessibility.

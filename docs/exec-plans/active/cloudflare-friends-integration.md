@@ -158,3 +158,9 @@ and culture/outdoors. Two additional evening collections and three expanded
 guides cover Shinsekai play and dinner plus Urizun/Sakaemachi. Tenma includes
 optional small-bar wandering. All twelve collections now name their main focus
 and what to leave optional. No automatic itinerary or preference record is made.
+
+## September 11 amendment: coherent outings and trip publication
+
+The user requested the complete assessed UI improvement slice, a recorded simulation with four distinct fictional travellers, and a separate owner-private ChatGPT Sites journal. The coherent outing journey is implemented and locally verified: nine regional opening choices, inline recoverable dice, shared story/draft timing, one editor and read-only publication review, prominent day-specific invitations, and voluntary private/shared memories. Existing partial joins and reconfirmation remain canonical.
+
+Acceptance evidence: root `pnpm check` passed 12 tasks and 115 friends tests; Sites compatibility 2/2, local workerd 11/11; the affected browser rerun passed 12/12 after the full regression exposed and corrected travel-tool access and outdated collapsed-calendar selectors. The 13-scene isolated trip passed and was recorded. The final design disposition is ship. Source identities, deployed acceptance and the separate publication are recorded in CURRENT_STATUS; physical-device and live-provider gates remain separate.

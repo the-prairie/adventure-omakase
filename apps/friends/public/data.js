@@ -7900,3 +7900,223 @@ for (const collection of window.OMAKASE.collections) {
   )
     collection.startSuggestion = '18:00';
 }
+
+// The invitation and its editorial preview share these editable allowances.
+// They cover the selected stops; journeys to and from the outing are extra.
+{
+  const timing = {
+    'osaka-river-and-cake': [
+      [90, 0],
+      [45, 15],
+    ],
+    'osaka-karahori-spice': [
+      [60, 0],
+      [75, 15],
+    ],
+    'osaka-tenma-live': [
+      [150, 0],
+      [90, 20],
+    ],
+    'naha-pottery-and-lunch': [
+      [105, 0],
+      [75, 15],
+    ],
+    'naha-make-and-wander': [
+      [90, 0],
+      [45, 25],
+    ],
+    'naha-forest-to-shore': [
+      [90, 0],
+      [75, 40],
+    ],
+    'osaka-shinsekai-play': [
+      [30, 0],
+      [75, 15],
+    ],
+    'naha-sakaemachi-evening': [
+      [90, 0],
+      [45, 15],
+    ],
+  };
+  for (const c of window.OMAKASE.collections) {
+    if (timing[c.id])
+      c.stops.forEach((stop, i) => {
+        [stop.plannedMinutes, stop.travelMinutes] = timing[c.id][i];
+      });
+  }
+  window.OMAKASE.collections.push(
+    {
+      id: 'tokyo-yanaka-slow',
+      region: 'tokyo',
+      travelScale: 'local',
+      title: 'Old lanes, red gates, nowhere to rush',
+      pitch:
+        'A small Tokyo afternoon: browse Yanaka’s snack shops, then wander towards Nezu Shrine’s red gates.',
+      duration: '2 hr 30 min · planning estimate',
+      startSuggestion: '13:00',
+      bestFor: 'A gentle afternoon · small shops · shrine grounds',
+      transport:
+        'Start around Yanaka, then walk towards Nezu. Confirm the route and entrances in Maps.',
+      anchor: 'A wander through Yanaka',
+      leaveRoom:
+        'Choose one snack that catches your eye. Skip the second stop if you would rather linger.',
+      planning:
+        'Individual shops keep their own hours. Check shrine access and the walk for your date. Food and shopping are extra; choose from current menus.',
+      stops: [
+        {
+          catalogueId: 'tokyo-021',
+          plannedMinutes: 75,
+          travelMinutes: 0,
+          note: 'Browse the narrow streets and Yanaka Ginza for sweets, snacks and small shops. Buy only what you actually fancy.',
+        },
+        {
+          catalogueId: 'tokyo-023',
+          plannedMinutes: 45,
+          travelMinutes: 30,
+          note: 'Finish among Nezu Shrine’s red torii and ponds. Friends can meet here without joining the shopping.',
+        },
+      ],
+      sources: [
+        {
+          url: 'https://www.gotokyo.org/en/destinations/northern-tokyo/yanaka-and-nezu/index.html',
+          label: 'GO TOKYO · Yanaka and Nezu',
+        },
+      ],
+      readAt: '2026-09-10',
+    },
+    {
+      id: 'tokyo-cabinet-curiosity',
+      region: 'tokyo',
+      travelScale: 'local',
+      title: 'An hour with wonderfully odd objects',
+      pitch:
+        'Follow your curiosity through the university collections at Intermediatheque, right beside Tokyo Station.',
+      duration: '1 hr 30 min · planning estimate',
+      startSuggestion: '13:00',
+      bestFor: 'A compact indoor detour · natural history · design',
+      transport: 'One museum inside KITTE. Travel to Tokyo Station is extra.',
+      anchor: 'The collections at Intermediatheque',
+      leaveRoom:
+        'Stop at the cabinets that interest you; there is no prescribed route.',
+      planning:
+        'Check the current museum calendar and exhibition information before going. Confirm admission conditions at the source.',
+      stops: [
+        {
+          catalogueId: 'tokyo-004',
+          plannedMinutes: 90,
+          travelMinutes: 0,
+          note: 'Explore academic specimens and scientific objects among historic display cabinets. Pick a favourite object to compare afterwards.',
+        },
+      ],
+      sources: [
+        {
+          url: 'https://www.gotokyo.org/en/spot/474/index.html',
+          label: 'GO TOKYO · Intermediatheque',
+        },
+      ],
+      readAt: '2026-09-10',
+    },
+    {
+      id: 'tokyo-shimokita-afternoon',
+      region: 'tokyo',
+      travelScale: 'local',
+      title: 'Vintage racks and a coffee detour',
+      pitch:
+        'Give Shimokitazawa an afternoon for secondhand shops, records and a café chosen on the way.',
+      duration: '2 hr · planning estimate',
+      startSuggestion: '13:00',
+      bestFor: 'An independent afternoon · vintage browsing · coffee',
+      transport:
+        'Explore the streets around Shimokitazawa Station on foot. Getting there is extra.',
+      anchor: 'An unhurried browse in Shimokitazawa',
+      leaveRoom: 'You can split up for different shops and agree a café later.',
+      planning:
+        'Start around lunchtime or later, when the neighbourhood gets going. Shops and cafés set their own hours and prices. Choose a precise meeting point before inviting friends.',
+      stops: [
+        {
+          catalogueId: 'tokyo-029',
+          plannedMinutes: 120,
+          travelMinutes: 0,
+          note: 'Browse vintage clothes and record shops, then choose a café that has room. There is no list to finish.',
+        },
+      ],
+      sources: [
+        {
+          url: 'https://www.gotokyo.org/en/destinations/western-tokyo/shimokitazawa/index.html',
+          label: 'GO TOKYO · Shimokitazawa',
+        },
+      ],
+      readAt: '2026-09-10',
+    },
+  );
+  window.OMAKASE.homeMenu = {
+    osaka: [
+      'osaka-river-and-cake',
+      'osaka-karahori-spice',
+      'osaka-shinsekai-play',
+    ],
+    tokyo: [
+      'tokyo-yanaka-slow',
+      'tokyo-cabinet-curiosity',
+      'tokyo-shimokita-afternoon',
+    ],
+    okinawa: [
+      'naha-pottery-and-lunch',
+      'naha-make-and-wander',
+      'naha-sakaemachi-evening',
+    ],
+  };
+}
+
+// A historical reference photograph of the dish, not a current menu or booking.
+window.OMAKASE.catalogue.find((a) => a.id === 'osaka-054').photo = {
+  path: '/assets/discovery/photos/osaka-054.jpg',
+  caption: 'Kushikatsu in Shinsekai · 2018 · reference dish photograph',
+  author: 'Ajay Suresh',
+  source:
+    'https://commons.wikimedia.org/wiki/File:Kushikatsu_-_Shinsekai_(28289215848).jpg',
+  license: 'CC BY 2.0',
+  licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+};
+window.OMAKASE.catalogue.find((a) => a.id === 'okinawa-003').photo = {
+  path: '/assets/discovery/photos/okinawa-003.jpg',
+  caption: 'Shuri Kinjo stone road · 2011',
+  author: '663highland',
+  source:
+    'https://commons.wikimedia.org/wiki/File:Kinjocho_ishidatami-michi_Shuri_Naha11bs5s4500.jpg',
+  license: 'CC BY 2.5',
+  licenseUrl: 'https://creativecommons.org/licenses/by/2.5/',
+};
+
+// GO TOKYO destination guide checked September 10, 2026. Planning allowances remain editable.
+for (const [id, summary, highlights, planning] of [
+  [
+    'tokyo-021',
+    'Yanaka Ginza and the surrounding lanes reward an unhurried look at small shops, local snacks and older streets.',
+    [
+      'Browse Yanaka Ginza and choose a snack or a small shop that interests you.',
+      'Leave room to wander instead of treating every lane as a stop to complete.',
+    ],
+    'Shop hours differ. This is a neighbourhood walk, not a booked tour; check current service before relying on a specific food or shop stop.',
+  ],
+  [
+    'tokyo-023',
+    'Nezu Shrine gives the neighbourhood walk a quieter finish among shrine buildings, red torii and ponds.',
+    [
+      'Follow the public shrine paths at a comfortable pace.',
+      'Use the shrine as an optional meeting point for friends who skip the shopping.',
+    ],
+    'Check the shrine’s current access and any seasonal garden arrangements. This proposal does not promise an open garden, step-free route or crowd level.',
+  ],
+]) {
+  const entry = window.OMAKASE.catalogue.find((item) => item.id === id);
+  entry.experience = {
+    summary,
+    highlights,
+    planning,
+    source:
+      'https://www.gotokyo.org/en/destinations/northern-tokyo/yanaka-and-nezu/index.html',
+    sourceLabel: 'GO TOKYO · Yanaka and Nezu',
+    readAt: '2026-09-10',
+  };
+}

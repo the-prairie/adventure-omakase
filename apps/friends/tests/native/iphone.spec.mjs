@@ -55,12 +55,12 @@ test('phone task sheets keep review reachable, fit small screens and preserve dr
     'Synthetic phone draft',
   );
   await review.click();
-  await expect(page.locator('#plan-form')).toBeVisible();
-  const publish = page.locator('#plan-form button[type=submit]');
+  await expect(page.locator('#outing-review')).toBeVisible();
+  const publish = page.locator('[data-outing=publish]');
   const box = await publish.boundingBox();
   expect(box.y + box.height).toBeLessThanOrEqual(844);
   await publish.click();
-  await expect(page.locator('#f-meeting')).toBeFocused();
+  await expect(page.locator('[data-review-meeting]').first()).toBeFocused();
   await page.screenshot({
     path: info.outputPath('iphone-invitation-review.png'),
   });
@@ -68,7 +68,7 @@ test('phone task sheets keep review reachable, fit small screens and preserve dr
     true,
   );
   await page.setViewportSize({ width: 844, height: 390 });
-  await expect(page.locator('#f-description')).toContainText(
+  await expect(page.locator('#outing-review')).toContainText(
     'Synthetic phone draft',
   );
   expect(await dialog.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(
