@@ -263,3 +263,5 @@ are preserved, and the affected desktop/phone live example views were inspected.
 The existing two-person audience is unchanged. This slice's live-web outcome is
 achieved; separate foundation products and physical-device/provider acceptance
 remain as described in CURRENT_STATUS.
+
+Root implementation: `1c1a88c0c3cf52b2482da0f6cfe996133c0e8030`.

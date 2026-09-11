@@ -34,6 +34,7 @@ scenarios have passing evidence across these runs, not a zero-failure full run.
 New spacing and selected-day cases passed both engines. Inspected synthetic
 captures are in `docs/assets/visual-completeness/`.
 
+Root implementation is `1c1a88c0c3cf52b2482da0f6cfe996133c0e8030`.
 Sites version 15 is live from `582e6f932bd8faa74a8771304570c97eae3085d2`.
 At 2026-09-11 20:11:04 UTC, authenticated health and all 14 release assets
 matched, as did all 399 primary/gallery/thumbnail photograph files. An initial
