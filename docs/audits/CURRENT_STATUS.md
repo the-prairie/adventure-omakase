@@ -25,7 +25,14 @@ updated and the full saving paths then passed in both engines. The final 26-case
 transport failure passed in isolation (1/1). Both multi-person trip simulations
 and all five new quality cases passed. All current browser scenarios have
 passing evidence through these runs, not one zero-failure full suite.
-Implementation SHA and publication identity follow in the release evidence update. Physical iPhone keyboard, Home Screen,
+Published as Sites version 11 from `0b8de968095210d3c1557e2083a5161de431c10c`.
+At 2026-09-11 07:41:07 UTC, authenticated health and all 13 release assets
+matched; entrypoints and the font matched separately, and anonymous access
+returned 401. The live 393×620 example placed the first complete discovery
+name at 535px above the 559px dock. The 320px search and private-memory
+action were inspected on the live example. Setup remained complete and the
+existing two-person audience stayed at policy revision 2. Repository
+implementation: `3883c09`. No separate Cloudflare production promotion occurred. Physical iPhone keyboard, Home Screen,
 VoiceOver, live providers and in-field use remain manual acceptance.
 
 ## September 11 — Corner-inspired mobile discovery

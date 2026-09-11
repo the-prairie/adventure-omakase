@@ -169,7 +169,7 @@ Implementation checkpoint `07543d5` is deployed as Sites version 9, source `07dc
 
 ## September 11: interface quality repair
 
-Status: implemented; final release verification in progress. The user's rejected
+Status: implemented, verified and published as Sites version 11. The user's rejected
 phone screenshot supersedes prior visual acceptance. Acceptance requires a
 complete first discovery name above the 393×620 dock, unclipped 320px search,
 consistent primary destinations, preserved keyboard/input context, explicit
@@ -182,4 +182,7 @@ Observed repository checks passed 12 tasks / 115 friends tests; both Sites tests
 passed. Independent visual review scored three findings resolved and 21 sampled
 Axe states reported zero violations. The quality audit and CURRENT_STATUS
 record the full regression history and remaining physical/provider limits.
-Commit and exact publication evidence are added after release verification.
+Implementation: `3883c09`. Sites source: `0b8de968095210d3c1557e2083a5161de431c10c`.
+Authenticated health and 13 assets matched at 2026-09-11 07:41:07 UTC; the live
+phone example also passed first-place and memory-audience assertions.
+The existing two-person audience remains at policy revision 2.
