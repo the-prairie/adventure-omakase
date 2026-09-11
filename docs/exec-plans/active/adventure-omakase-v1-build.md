@@ -2,7 +2,10 @@
 
 ## Corner-inspired mobile discovery
 
-Status: **Implementation and local regression complete; publication pending.**
+Status: **Implemented, verified and published as Sites version 10.**
+Implementation: `37b23a1`; Sites source:
+`003483cd764d08a4aba85671fac4a525808e441b`. Authenticated health, all 13
+release assets, font and license matched on September 11 at 06:00:10 UTC.
 The September 11 request selects Corner as the mobile reference. Acceptance:
 searchable places, private saved scope, persistent list/map selection, compact
 photo-led place sheets, inspectable sources and preserved invitation flows.

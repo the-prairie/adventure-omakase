@@ -27,7 +27,7 @@ Screenshots of list, place, loaded map and failed map were inspected; independen
 finish review cleared its font and map-recovery fixes. Actual iPhone keyboard,
 Home Screen and provider availability remain manual acceptance checks.
 
-Publication evidence will be recorded after exact release verification.
+Published as Sites version 10 from `003483cd764d08a4aba85671fac4a525808e441b`. Authenticated health and all 13 release assets matched at 2026-09-11 06:00:10 UTC; the font and license also matched. Setup remains complete and anonymous access returns 401. The existing two-person audience remains policy revision 2. Repository implementation: `37b23a1`. No separate Cloudflare production promotion occurred.
 
 ## September 11 — coherent outings and a fictional friends trip
 
