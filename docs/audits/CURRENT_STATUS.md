@@ -1,5 +1,56 @@
 # Current release status
 
+## September 11 — complete catalogue visuals and shared spacing
+
+The shared button helpers combined full-button and text-link styling, removing
+horizontal padding from outlined actions. They now choose one variant. Friends
+controls, the search/region gap, result rhythm and place-sheet insets were adjusted
+across desktop and phone. The incumbent desktop and Corner phone styling remains.
+
+Only 55 of 300 built-in discoveries previously had photographs. All 300 now have
+locally served, licensed images: 55 retain their original place photographs,
+226 use explicit area views and 19 use explicit activity references. There are
+200 distinct primary photographs. Captions, attribution and licenses remain
+visible in cards, sheets, outings and dice. Responsive 480-pixel variants and lazy
+loading reduce unnecessary image transfer; the browser and assistant snapshots
+match. Historical views do not establish current appearance, hours or access.
+
+The [runtime audit](live-runtime-completeness-2026-09-11.md) traced actual UI and
+service behavior. Travel tools now derive a default location from the selected
+day only when its area is known and unambiguous. Booking requests combine user
+cancellation with a deadline. Reads explicitly expire interrupted travel tasks,
+scoped to the current trip/member, while preserving completed work and uncertain
+spend. Labelled examples and isolated fixtures remain. The separate native app,
+Studio and API are unfinished foundation products outside this live-web scope.
+
+Observed: root `pnpm check` passed all 12 tasks, including 121 friends tests.
+All 11 native workerd checks and both Sites adapter tests passed. The full
+98-case Chromium/WebKit regression passed 94 and skipped two opt-in historical
+pilot cases. Two tests required correction: an old automatic-origin assumption,
+and a WebKit scroll that raced the responsive layout replacement. The travel
+scenario passed both engines after entering its location explicitly; the curation
+scenario passed WebKit after waiting for the replacement layout. All 96 enabled
+scenarios have passing evidence across these runs, not a zero-failure full run.
+New spacing and selected-day cases passed both engines. Inspected synthetic
+captures are in `docs/assets/visual-completeness/`.
+
+Sites version 15 is live from `582e6f932bd8faa74a8771304570c97eae3085d2`.
+At 2026-09-11 20:11:04 UTC, authenticated health and all 14 release assets
+matched, as did all 399 primary/gallery/thumbnail photograph files. An initial
+asset request returned HTTP 500; that file immediately rechecked as 200 with the
+correct hash, and the complete recheck passed without retries. The canonical
+schema-seven records and saved photo match the pre-update backup. Context and
+catalogue reads, unchanged 204 and missing-trip-session 401 checks passed.
+
+The live example was inspected at 393 × 852 and 1440 × 960: the reported controls
+have 17-pixel horizontal padding and 44-pixel targets, the desktop search/region
+gap is 20 pixels, place-sheet top insets are 14/20 pixels, and the photographed
+cards and GLION sheet loaded without horizontal overflow. These are isolated
+example views of the deployed assets, not fabricated real-trip activity. The
+existing two-person access policy remains revision 2. No separate Cloudflare
+production promotion or merge occurred. Physical-device feel and every possible
+live-provider response remain unverified.
+
 ## September 11 — explicit intentions and shared plan meaning
 
 The fictional pilot's full correspondence and independent review exposed intentions

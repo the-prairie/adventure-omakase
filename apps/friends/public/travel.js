@@ -3,6 +3,7 @@
 window.OmakaseTravel = function ({
   getState,
   getMode,
+  getDay,
   escape: E,
   openModal,
   openAsk,
@@ -67,7 +68,25 @@ window.OmakaseTravel = function ({
     media = '';
     result = null;
     const state = getState(),
-      area = state.me.profile?.windows?.[0]?.area || 'Namba, Osaka';
+      day = getDay(),
+      locations = (state.me.profile?.windows || [])
+        .filter(
+          (window) =>
+            window.from && window.to && window.from <= day && day <= window.to,
+        )
+        .map((window) => ({
+          region: window.region,
+          area: window.area?.trim() || '',
+        })),
+      area =
+        locations.length &&
+        locations.every(
+          (location) =>
+            location.region === locations[0].region &&
+            location.area === locations[0].area,
+        )
+          ? locations[0].area
+          : '';
     if (kind === 'watches') {
       void watches();
       return;
@@ -88,7 +107,8 @@ window.OmakaseTravel = function ({
         field(
           'query',
           kind === 'places' ? 'What and where?' : 'A venue question and area',
-          values.query || (kind === 'places' ? 'Lunch near ' + area : ''),
+          values.query ||
+            (kind === 'places' && area ? 'Lunch near ' + area : ''),
           'maxlength="500" required',
         ) +
         `<p class="small muted">${kind === 'places' ? 'Live Google Maps place information. Hours are published information, not a reservation.' : 'Find up to three venue websites and read their public text. Keep personal trip details out of this search.'}</p>`;
@@ -230,7 +250,7 @@ window.OmakaseTravel = function ({
         recent
           .map(
             (t, i) =>
-              `<article class="ask-option"><h3>${E(t.kind)} · ${E(t.status)}</h3><p class="small">${E(t.created)}</p>${t.status === 'complete' ? button('Open result', 'history-open', i) : ''}</article>`,
+              `<article class="ask-option"><h3>${E(t.kind)} · ${E(t.status)}</h3><p class="small">${E(t.created)}</p>${t.result?.message ? `<p>${E(t.result.message)}</p>` : ''}${t.status === 'complete' ? button('Open result', 'history-open', i) : ''}</article>`,
           )
           .join('') +
         button('Refresh', 'history'),

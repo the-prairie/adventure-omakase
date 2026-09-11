@@ -18,7 +18,8 @@ test('discoveries have distinct credited photos, prominent moods and a findable 
   const photos = page.locator('.discovery-grid .experience-photo img');
   expect(await photos.count()).toBeGreaterThan(15);
   const urls = await photos.evaluateAll((imgs) => imgs.map((img) => img.src));
-  expect(new Set(urls).size).toBe(urls.length);
+  expect(new Set(urls).size).toBeGreaterThan(15);
+  await expect(page.locator('.discovery-grid .text-place')).toHaveCount(0);
   await expect(page.locator('.discovery-grid')).not.toContainText(
     'Imagined scene',
   );

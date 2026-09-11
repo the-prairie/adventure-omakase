@@ -66,6 +66,101 @@ after(async () => {
   }
 });
 const signal = () => new AbortController().signal;
+test('interrupted travel requests expire privately without releasing unknown spend or expiring fresh work', async () => {
+  const { env, call, owner } = await setup();
+  const invitation = await call('/invite', 'GET', undefined, owner.cookie);
+  const friend = await call('/join', 'POST', {
+    name: 'Other traveler',
+    token: invitation.data.token,
+  });
+  const old = new Date(Date.now() - 120000).toISOString();
+  const fresh = new Date().toISOString();
+  const ids = Array.from({ length: 4 }, () => crypto.randomUUID());
+  const insert = env.DB.db.prepare(
+    'INSERT INTO travel_tasks(id,member_id,trip_id,kind,status,result,created,updated) VALUES(?,?,?,?,?,?,?,?)',
+  );
+  insert.run(
+    ids[0],
+    owner.data.me.id,
+    owner.data.trip.id,
+    'translate',
+    'running',
+    '{}',
+    old,
+    old,
+  );
+  insert.run(
+    ids[1],
+    owner.data.me.id,
+    owner.data.trip.id,
+    'profile-import',
+    'running',
+    '{}',
+    fresh,
+    fresh,
+  );
+  insert.run(
+    ids[2],
+    friend.data.me.id,
+    friend.data.trip.id,
+    'translate',
+    'running',
+    '{}',
+    old,
+    old,
+  );
+  insert.run(
+    ids[3],
+    owner.data.me.id,
+    owner.data.trip.id,
+    'translate',
+    'complete',
+    '{"original":"Already complete"}',
+    old,
+    old,
+  );
+  env.DB.db
+    .prepare("INSERT INTO service_budget VALUES('companion',100,200)")
+    .run();
+  const expired = await call(
+    '/travel/tasks/' + ids[0],
+    'GET',
+    undefined,
+    owner.cookie,
+  );
+  assert.equal(expired.data.status, 'failed');
+  assert.match(expired.data.result.message, /expired.*Start a new request/);
+  const repeated = await call(
+    '/travel/tasks',
+    'POST',
+    { requestId: ids[0], kind: 'translate', text: 'Do not run again' },
+    owner.cookie,
+  );
+  assert.equal(repeated.data.status, 'failed');
+  assert.equal(repeated.data.duplicate, true);
+  const history = await call('/travel/tasks', 'GET', undefined, owner.cookie);
+  assert.equal(
+    history.data.tasks.find((task) => task.id === ids[1]).status,
+    'running',
+  );
+  assert.equal(
+    history.data.tasks.find((task) => task.id === ids[3]).result.original,
+    'Already complete',
+  );
+  assert.equal(
+    history.data.tasks.some((task) => task.id === ids[2]),
+    false,
+  );
+  assert.equal(
+    env.DB.db.prepare('SELECT status FROM travel_tasks WHERE id=?').get(ids[2])
+      .status,
+    'running',
+  );
+  assert.deepEqual(
+    { ...env.DB.db.prepare('SELECT used,reserved FROM service_budget').get() },
+    { used: 100, reserved: 200 },
+  );
+});
 const modelData = (parts) => ({
   candidates: [{ finishReason: 'STOP', content: { parts } }],
   usageMetadata: {

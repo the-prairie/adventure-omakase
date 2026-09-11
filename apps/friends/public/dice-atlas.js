@@ -79,6 +79,11 @@ window.OmakaseDice = (() => {
       if (!visual?.photo?.path?.startsWith('/assets/discovery/photos/')) return;
       const img = document.createElement('img');
       img.src = visual.photo.path;
+      if (visual.photo.smallPath) {
+        img.srcset = `${visual.photo.smallPath} 480w, ${visual.photo.path} ${visual.photo.width || 960}w`;
+        img.sizes = '(max-width: 850px) 70vw, 480px';
+      }
+      img.decoding = 'async';
       img.alt = '';
       img.width = 960;
       img.height = 640;
@@ -115,7 +120,9 @@ window.OmakaseDice = (() => {
         const label = document.createElement('figcaption');
         label.textContent = pick.visual.reference
           ? `Around ${pick.area}`
-          : pick.title;
+          : pick.visual.photo.kind && pick.visual.photo.kind !== 'place'
+            ? pick.visual.photo.caption
+            : pick.title;
         card.append(label);
         portals.append(card);
         const credit = document.createElement('p'),
@@ -262,7 +269,9 @@ window.OmakaseDice = (() => {
       photo(destination, pick.visual);
       reference.textContent = pick.visual?.reference
         ? `Around ${pick.area} · neighbourhood reference, not this venue`
-        : '';
+        : pick.visual?.photo.kind && pick.visual.photo.kind !== 'place'
+          ? pick.visual.photo.caption
+          : '';
       let vx = impulse?.vx || 560,
         vy = impulse?.vy || -120,
         height = 40,

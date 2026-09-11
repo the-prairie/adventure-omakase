@@ -248,7 +248,7 @@ test('booking migration preserves populated helper rows and version-six backups 
   }
 });
 
-test('catalogue photographs retain unique local files, credits and source-linked guide provenance', async () => {
+test('every catalogue entry has a local credited photograph with explicit reference scope', async () => {
   const { runInNewContext } = await import('node:vm');
   const sandbox = { window: {} };
   runInNewContext(
@@ -258,8 +258,27 @@ test('catalogue photographs retain unique local files, credits and source-linked
   const catalogue = sandbox.window.OMAKASE.catalogue;
   assert.equal(catalogue.length, 300);
   const illustrated = catalogue.filter((entry) => entry.photo);
-  assert.equal(illustrated.length, 55);
-  assert.equal(new Set(illustrated.map((entry) => entry.photo.path)).size, 55);
+  assert.equal(illustrated.length, 300);
+  const references = JSON.parse(
+    await readFile(
+      join(ROOT, 'public/assets/discovery/photographs.json'),
+      'utf8',
+    ),
+  );
+  assert.equal(
+    new Set(references.flatMap((photo) => photo.catalogueIds)).size,
+    245,
+  );
+  for (const reference of references) {
+    assert.ok(
+      reference.originalDate && reference.originalURL && reference.subject,
+    );
+    for (const id of reference.catalogueIds) {
+      const photo = catalogue.find((entry) => entry.id === id).photo;
+      assert.equal(photo.path, reference.path);
+      assert.equal(photo.kind, reference.kind);
+    }
+  }
   for (const photo of illustrated.flatMap((entry) => [
     entry.photo,
     ...(entry.photos || []),
@@ -275,6 +294,20 @@ test('catalogue photographs retain unique local files, credits and source-linked
     );
     assert.match(photo.licenseUrl, /^https:\/\/creativecommons\.org\//);
     assert.ok(photo.author && photo.caption && photo.license);
+    assert.ok(['place', 'area', 'activity'].includes(photo.kind));
+    if (photo.kind === 'area') assert.match(photo.caption, /^Area view · /);
+    if (photo.kind === 'activity')
+      assert.match(photo.caption, /^Activity reference · /);
+    assert.ok(photo.width > 0 && photo.width <= 960 && photo.height > 0);
+    if (photo.smallPath) {
+      const thumbnail = await readFile(join(ROOT, 'public', photo.smallPath));
+      assert.ok(thumbnail.length > 1000);
+      assert.equal(thumbnail.toString('ascii', 8, 12), 'WEBP');
+      assert.ok(
+        thumbnail.length <
+          (await readFile(join(ROOT, 'public', photo.path))).length,
+      );
+    }
   }
   assert.equal(catalogue.filter((entry) => entry.experience).length, 56);
   for (const region of ['osaka', 'okinawa']) {

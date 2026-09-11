@@ -228,7 +228,7 @@
   const countUpdates = () =>
     S.changes.filter((c) => c.seq > S.readSeq && c.actor !== S.me.id).length;
   const btn = (label, action, id = '', cls = '') =>
-    `<button type="button" class="btn ${cls}" data-action="${action}" ${id ? `data-id="${E(id)}"` : ''}>${label}</button>`;
+    `<button type="button" class="${cls.split(/\s+/).includes('text-btn') ? cls : `btn ${cls}`}" data-action="${action}" ${id ? `data-id="${E(id)}"` : ''}>${label}</button>`;
   function toast(message, error = false) {
     const t = document.getElementById('toast');
     t.textContent = message;
@@ -768,7 +768,7 @@
     const rows = items
       .map((item) => {
         const { p, part, missing, needs, image } = item;
-        return `<article class="commitment agenda-entry ${p.status === 'cancelled' ? 'cancelled' : ''}"><button class="agenda-row" data-action="plan-detail" data-id="${E(p.id)}"><time>${missing ? 'Review' : `<strong>${E((part || p).start)}</strong><span>–${E((part || p).end)} JST</span>`}</time><span class="agenda-copy"><strong class="invite-title">${E(p.title)}</strong><span class="agenda-place">${E(missing ? 'Choose a new meeting option' : part?.meeting || p.area)}</span><span class="agenda-participation ${needs || missing ? 'needs-review' : ''}">${E(item.status)}</span></span>${image ? `<img src="${E(image.path)}" width="64" height="64" loading="lazy" alt="${E(image.caption)}; photo credits below">` : `<span class="agenda-row-icon" aria-hidden="true">${I('arrow')}</span>`}</button></article>`;
+        return `<article class="commitment agenda-entry ${p.status === 'cancelled' ? 'cancelled' : ''}"><button class="agenda-row" data-action="plan-detail" data-id="${E(p.id)}"><time>${missing ? 'Review' : `<strong>${E((part || p).start)}</strong><span>–${E((part || p).end)} JST</span>`}</time><span class="agenda-copy"><strong class="invite-title">${E(p.title)}</strong><span class="agenda-place">${E(missing ? 'Choose a new meeting option' : part?.meeting || p.area)}</span><span class="agenda-participation ${needs || missing ? 'needs-review' : ''}">${E(item.status)}</span></span>${image ? `<img src="${E(image.smallPath || image.path)}" width="64" height="64" loading="lazy" alt="${E(image.caption)}; photo credits below">` : `<span class="agenda-row-icon" aria-hidden="true">${I('arrow')}</span>`}</button></article>`;
       })
       .join('');
     const credits = [
@@ -926,7 +926,7 @@
     const figures = photos
       .filter((photo) => photo?.path?.startsWith('/assets/discovery/photos/'))
       .map((photo) => {
-        const img = `<img src="${E(photo.path)}" alt="${E(photo.caption)}" width="960" height="640" loading="lazy">`;
+        const img = `<img src="${E(photo.path)}" ${photo.smallPath ? `srcset="${E(photo.smallPath)} 480w, ${E(photo.path)} ${photo.width || 960}w" sizes="${interactive ? '(max-width: 850px) calc(100vw - 48px), (max-width: 1100px) 45vw, 360px' : '(max-width: 850px) calc(100vw - 48px), 700px'}"` : ''} alt="${E(photo.caption)}" width="${photo.width || 960}" height="${photo.height || 640}" loading="lazy" decoding="async">`;
         return `<figure class="experience-photo ${interactive ? 'card-photo' : ''}">${interactive ? `<button class="discovery-image" data-action="discovery" data-id="${E(a.id)}" aria-label="Explore ${E(a.title)}">${img}</button>` : img}<figcaption>${E(photo.caption)} · <a href="${E(safeURL(photo.source))}" target="_blank" rel="noopener noreferrer">${E(photo.author)}</a> · <a href="${E(safeURL(photo.licenseUrl))}" target="_blank" rel="noopener noreferrer">${E(photo.license)}</a></figcaption></figure>`;
       })
       .join('');
@@ -1238,7 +1238,7 @@
     const photos = homePool()
       .filter((a) => a.photo)
       .slice(0, 3);
-    return `<button class="chance-invitation" data-action="home-roll" aria-label="Pick up the dice">${photos.map((a) => `<img src="${E(a.photo.path)}" alt="" loading="lazy" width="160" height="200">`).join('')}<span class="chance-invitation-die" aria-hidden="true">${I('dice')}</span></button>`;
+    return `<button class="chance-invitation" data-action="home-roll" aria-label="Pick up the dice">${photos.map((a) => `<img src="${E(a.photo.smallPath || a.photo.path)}" alt="" loading="lazy" width="160" height="200">`).join('')}<span class="chance-invitation-die" aria-hidden="true">${I('dice')}</span></button>`;
   }
   function mountHomeDice() {
     for (const b of app.querySelectorAll('[data-action=home-roll]'))
@@ -1407,7 +1407,7 @@
   }
   function peoplePage() {
     const members = S.members.filter((m) => m.active);
-    return `<section class="friends-heading"><h1>Friends</h1><div class="friends-day-picker"><label for="friends-day">Day</label><select id="friends-day">${DAYS.map((day) => `<option value="${day}" ${day === ui.day ? 'selected' : ''}>${E(dateText(day, { weekday: 'short', day: 'numeric', month: 'short' }))}</option>`).join('')}</select>${btn('View calendar ' + I('calendar'), 'calendar-open', ui.day, 'text-btn')}</div></section>${overlapDay()}<p class="friends-proximity small muted">Shared dates do not show live location or availability. Check neighborhood, island and travel before meeting.</p><div class="row wrap friends-secondary"><button class="text-btn" data-action="profile">Edit my dates ${I('edit')}</button>${btn(I('plus') + 'Invite a friend', 'invite', '', 'text-btn')}</div><details class="friends-calendar"><summary>See everyone’s travel dates</summary><h3 class="overlap-heading">Days to cross paths</h3><p class="small muted">Select a shared stretch, then choose a day below.</p>${overlapOpportunities()}<div class="scroll-hint">Select a day to see shared areas and invitations. Scroll the date strip on smaller screens.</div><div class="timeline-wrap"><div class="window-timeline"><div></div>${DAYS.map((d) => `<button class="head" data-action="overlap-day" data-id="${d}" aria-label="${dateText(d, { month: 'long', day: 'numeric' })}" aria-pressed="${ui.day === d}">${E(d.slice(-2))}<br>${dateText(d, { month: 'short' })}</button>`).join('')}${members
+    return `<section class="friends-heading"><h1>Friends</h1><div class="friends-day-picker"><label for="friends-day">Day</label><select id="friends-day">${DAYS.map((day) => `<option value="${day}" ${day === ui.day ? 'selected' : ''}>${E(dateText(day, { weekday: 'short', day: 'numeric', month: 'short' }))}</option>`).join('')}</select>${btn('View calendar ' + I('calendar'), 'calendar-open', ui.day, 'subtle')}</div></section>${overlapDay()}<p class="friends-proximity small muted">Shared dates do not show live location or availability. Check neighborhood, island and travel before meeting.</p><div class="row wrap friends-secondary"><button class="text-btn" data-action="profile">Edit my dates ${I('edit')}</button>${btn(I('plus') + 'Invite a friend', 'invite', '', 'subtle')}</div><details class="friends-calendar"><summary>See everyone’s travel dates</summary><h3 class="overlap-heading">Days to cross paths</h3><p class="small muted">Select a shared stretch, then choose a day below.</p>${overlapOpportunities()}<div class="scroll-hint">Select a day to see shared areas and invitations. Scroll the date strip on smaller screens.</div><div class="timeline-wrap"><div class="window-timeline"><div></div>${DAYS.map((d) => `<button class="head" data-action="overlap-day" data-id="${d}" aria-label="${dateText(d, { month: 'long', day: 'numeric' })}" aria-pressed="${ui.day === d}">${E(d.slice(-2))}<br>${dateText(d, { month: 'short' })}</button>`).join('')}${members
       .map(
         (m) =>
           `<div class="name">${avatar(m.id)} ${E(m.name)}</div>${DAYS.map(
@@ -1814,7 +1814,7 @@
       <details class="place-section"><summary>What makes it worth a stop ${I('plus')}</summary>${experienceContext(a)}</details>
       <details class="place-section"><summary>Before you go ${I('plus')}</summary>${journeyContext(a)}<section class="experience-practical"><p>${E(a.practical)}</p></section></details>
       <details class="place-section place-research"><summary>Research & sources ${I('plus')}</summary><section class="source-box"><h3>Research status</h3><strong>${a.custom ? 'A friend’s recommendation' : a.checked ? 'Narrow source check · ' + E(a.checked) : 'Research lead · not reverified for your visit'}</strong><p>${E(a.sourceScope || (a.custom ? 'Added by ' + person(a.memberId).name + '. Confirm details with the place before going.' : 'This catalogue preserves earlier research. A regional overview or third-party link is not confirmation of exact venue identity, operation, access or availability.'))}</p>${safeURL(a.source) ? `<a class="text-btn" href="${E(safeURL(a.source))}" target="_blank" rel="noopener noreferrer">Read the research source ${I('external')}</a>` : ''}<p>A map search is not a verified pin or navigation route. Joining a friend does not remove any of these checks.</p></section><div class="place-checked-sources"></div></details>
-      <div class="place-personal-actions">${btn(I('people') + (pick?.shared ? 'Stop sharing this pick' : 'Recommend to the group'), 'recommend', a.id, 'text-btn')}${pick ? btn('View saved ideas ' + I('arrow'), 'view-saved', '', 'text-btn') : ''}${mode === 'shared' ? btn('Check this for my dates', 'ask-check', a.id, 'text-btn') : ''}</div><p class="small muted place-private-note">${pick?.shared ? 'Recommended with your name to this private trip.' : 'Saves are private. Recommendations are visible to your trip.'}</p>
+      <div class="place-personal-actions">${btn(I('people') + (pick?.shared ? 'Stop sharing this pick' : 'Recommend to the group'), 'recommend', a.id, 'subtle')}${pick ? btn('View saved ideas ' + I('arrow'), 'view-saved', '', 'text-btn') : ''}${mode === 'shared' ? btn('Check this for my dates', 'ask-check', a.id, 'text-btn') : ''}</div><p class="small muted place-private-note">${pick?.shared ? 'Recommended with your name to this private trip.' : 'Saves are private. Recommendations are visible to your trip.'}</p>
       <div class="place-action-bar">${btn(I('plus') + 'Invite friends to this', 'plan-from', a.id, 'primary')}<span class="small muted">Choose a day & meeting point</span></div>`,
       'discovery',
       id,
@@ -3841,6 +3841,7 @@
     },
   });
   window.OmakaseTravel({
+    getDay: () => ui.day,
     getState: () => S,
     getMode: () => mode,
     escape: E,

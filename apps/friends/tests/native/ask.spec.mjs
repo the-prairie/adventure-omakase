@@ -197,10 +197,12 @@ test('travel helpers show results, recover private drafts and require memory rev
   expect((await state(page)).moments).toHaveLength(0);
   await close(page);
   await open('places');
+  await page.locator('#travel-query').fill('Lunch near Namba, Osaka');
   await page.locator('#travel-form [type=submit]').click();
   await expect(page.locator('#dialog')).toContainText('Synthetic venue');
   await expect(page.locator('.maps-attribution')).toBeVisible();
   await page.locator('[data-travel=place-route]').click();
+  await page.locator('#travel-origin').fill('Namba Station, Osaka');
   await page.locator('#travel-form [type=submit]').click();
   await expect(page.locator('#dialog')).toContainText('10 minutes');
   await expect(

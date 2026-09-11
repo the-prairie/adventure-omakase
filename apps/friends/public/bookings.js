@@ -52,7 +52,9 @@ window.OmakaseBookings = function ({
       const response = await fetch('/api/travel' + path, {
         method,
         credentials: 'same-origin',
-        signal: signal || AbortSignal.timeout(65000),
+        signal: signal
+          ? AbortSignal.any([signal, AbortSignal.timeout(65000)])
+          : AbortSignal.timeout(65000),
         headers: {
           'Content-Type': 'application/json',
           'X-Omakase': '1',

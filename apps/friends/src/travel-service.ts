@@ -27,6 +27,25 @@ export async function travelRoutes(
         model: !!env.GEMINI_API_KEY,
         maps: !!env.GOOGLE_MAPS_API_KEY,
       });
+    if (path === '/api/travel/tasks' || path.startsWith('/api/travel/tasks/')) {
+      // The provider has a 60-second deadline. An interrupted worker may never
+      // settle its row; retain any unknown spend and make the timeout explicit.
+      await db
+        .prepare(
+          "UPDATE travel_tasks SET status='failed',result=?,updated=? WHERE trip_id=? AND member_id=? AND status='running' AND created<?",
+        )
+        .bind(
+          JSON.stringify({
+            message:
+              'This request expired before it finished. Start a new request; no trip changes were published.',
+          }),
+          new Date().toISOString(),
+          member.trip_id,
+          member.id,
+          new Date(Date.now() - 75000).toISOString(),
+        )
+        .run();
+    }
     const idMatch = path.match(
       /^\/api\/travel\/tasks\/([\w-]{12,80})(?:\/(cancel))?$/,
     );

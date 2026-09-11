@@ -215,7 +215,8 @@ test('reference photographs stay labelled during the opening and presentation fa
     const records = window.OMAKASE.catalogue.filter(
       (a) => a.region === 'osaka' && a.area === 'Namba',
     );
-    const target = records.find((a) => !a.photo && !/[bodw]/.test(a.flags));
+    const target = records.find((a) => !/[bodw]/.test(a.flags));
+    delete target.photo;
     for (const a of records) if (a !== target) a.minutes = 999;
     return target.title;
   });

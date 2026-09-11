@@ -4,6 +4,13 @@ test('curated outings lead to existing guides and preserve discovery filters', a
   page,
   runtime,
 }, info) => {
+  const scrollIntoView = async (locator) => {
+    // A viewport change can replace the section while WebKit starts scrolling.
+    await expect(async () => {
+      await locator.scrollIntoViewIfNeeded();
+      await expect(locator).toBeInViewport();
+    }).toPass({ timeout: 10000 });
+  };
   await page.goto(runtime.url + '/example.html#demo/discover');
   await page.locator('.places-stories > summary').click();
   const section = page.getByRole('region', {
@@ -49,12 +56,12 @@ test('curated outings lead to existing guides and preserve discovery filters', a
     page.locator('#dialog [data-action=save-detail]'),
   ).toHaveAttribute('data-id', 'okinawa-042');
   await page.locator('#dialog [data-action=close]').click();
-  await evening.scrollIntoViewIfNeeded();
+  await scrollIntoView(evening);
   await page.screenshot({
     path: info.outputPath('balanced-evening-desktop.png'),
   });
   await page.setViewportSize({ width: 390, height: 844 });
-  await evening.scrollIntoViewIfNeeded();
+  await scrollIntoView(evening);
   await page.screenshot({
     path: info.outputPath('balanced-evening-mobile.png'),
   });
@@ -76,10 +83,10 @@ test('curated outings lead to existing guides and preserve discovery filters', a
   await expect(longerStay).toContainText(
     'October operating dates and seats are unconfirmed',
   );
-  await stays.scrollIntoViewIfNeeded();
+  await scrollIntoView(stays);
   await page.screenshot({ path: info.outputPath('island-stays-desktop.png') });
   await page.setViewportSize({ width: 390, height: 844 });
-  await stays.scrollIntoViewIfNeeded();
+  await scrollIntoView(stays);
   await page.screenshot({ path: info.outputPath('island-stays-mobile.png') });
   await page.setViewportSize({ width: 1440, height: 1000 });
   await longerStay.locator('summary').click();

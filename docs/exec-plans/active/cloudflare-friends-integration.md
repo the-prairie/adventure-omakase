@@ -234,3 +234,32 @@ historical pilot cases remain skipped. Implementation `9a4f48e`; Sites source
 all 14 release assets, prior canonical records and the existing photo; context,
 catalogue, unchanged reads and session authorization passed. The existing
 two-person audience is unchanged. Full release evidence is in CURRENT_STATUS.
+
+## September 11: spacing, photographs and live runtime completeness
+
+Scope: fix the reported Explore, Friends and place-sheet crowding, complete the
+built-in catalogue visuals, and replace unfinished live application behavior.
+Retain labelled examples and isolated fixtures; report the separate native app,
+Studio and API instead of implementing those future products.
+
+Implementation addresses the shared button variant collision, control/section
+spacing and all 300 catalogue entries with licensed, explicitly scoped imagery.
+Travel location defaults follow the selected day, booking requests have bounded
+cancellation, and interrupted travel tasks recover without changing another
+member's work or inventing a cost result. The source audit is
+`docs/audits/live-runtime-completeness-2026-09-11.md`.
+
+Acceptance: inspect the affected desktop and phone journeys, exercise shared
+controls and provider-failure recovery, pass the repository/native gates, publish
+to the existing Site audience and verify matching assets and preserved trip data.
+Checks and final deployment identity are recorded in CURRENT_STATUS.
+
+Observed: all 12 repository tasks (121 friends tests), 11 native workerd checks
+and both Sites adapter tests passed. All 96 enabled browser scenarios have passing
+evidence across the complete regression and corrected focused reruns. Sites
+version 15 is live from `582e6f932bd8faa74a8771304570c97eae3085d2`; all 14 release
+assets and 399 photograph files match, canonical trip records and the saved photo
+are preserved, and the affected desktop/phone live example views were inspected.
+The existing two-person audience is unchanged. This slice's live-web outcome is
+achieved; separate foundation products and physical-device/provider acceptance
+remain as described in CURRENT_STATUS.
