@@ -34,6 +34,7 @@ export const COLUMNS = {
     'updated',
   ],
   rsvps: [
+    'accepted_body',
     'plan_id',
     'member_id',
     'choice',
@@ -162,12 +163,12 @@ export const COLUMNS = {
 };
 export function validateBackup(b) {
   if (
-    ![3, 4, 5, 6].includes(b.schemaVersion) ||
+    ![3, 4, 5, 6, 7].includes(b.schemaVersion) ||
     !b.tables ||
     !Array.isArray(b.tables.trips) ||
     b.tables.trips.length !== 1
   )
-    throw Error('Use a version 3, 4, 5 or 6 full backup with one trip.');
+    throw Error('Use a version 3–7 full backup with one trip.');
   if (b.schemaVersion === 3)
     for (const t of ['ask_tasks', 'ask_budget', 'place_research'])
       b.tables[t] ||= [];

@@ -9056,3 +9056,82 @@ input[type='file']::file-selector-button {
     margin-bottom: 10px;
   }
 }
+
+/* Decision facts remain visible before a reply, including on a short phone. */
+.plan-terms {
+  margin-block: 22px 18px;
+  padding-block: 16px;
+  border-block: 1px solid var(--line);
+}
+.plan-terms h3,
+.plan-reconfirmation h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+.plan-terms p + p {
+  margin-top: 7px;
+}
+.plan-reply-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+.plan-changes {
+  margin-top: 14px;
+}
+.plan-changes > div {
+  display: grid;
+  grid-template-columns: minmax(85px, 0.3fr) 1fr;
+  gap: 12px;
+  padding-block: 10px;
+  border-top: 1px solid currentColor;
+}
+.plan-changes dt {
+  font-weight: 600;
+}
+.plan-changes dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.plan-changes dd span,
+.plan-changes dd strong {
+  display: block;
+}
+.plan-unanswered {
+  margin-block: 18px;
+}
+.plan-unanswered summary {
+  cursor: pointer;
+  padding-block: 10px;
+}
+.solo-heads-up {
+  padding-block: 16px;
+  line-height: 1.65;
+}
+.solo-heads-up strong {
+  display: block;
+}
+@media (max-width: 700px) {
+  .plan-reply-actions .btn {
+    flex: 1 1 100%;
+  }
+  .plan-changes > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+.plan-reconfirmation {
+  padding: 16px;
+}
+.plan-reconfirmation > p {
+  margin: 0;
+}
+.plan-reconfirmation .plan-changes {
+  margin-bottom: 0;
+}
+.reply-adjust summary {
+  padding-block: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}

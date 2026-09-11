@@ -68,6 +68,16 @@ The in-app friends calendar and interactive shared-date views derive from canoni
 
 Discovery detail uses static, source-linked context and licensed local photographs. Opening a discovery or invitation includes a lazy Google Maps search iframe from its discovery or meeting query; it does not call the paid server Maps adapter or expose its key. Only the search is sent to Google, with no automatic geolocation. Dice use a disposable DOM/CSS 3D presentation with local pointer physics and source-credited photographs; the existing catalogue draw owns eligibility and unbiased randomness without replacement. A neighbourhood reference remains labelled during photo expansion and the result. Reduced motion and presentation failure still resolve the selected idea; dialog dismissal disposes animation and opt-in audio. This interaction makes no map or provider request. Derived date/time presets still submit ordinary canonical plans.
 
+### Shared plan meaning
+
+[ADR 0010](docs/decisions/0010-explicit-plan-intent.md) defines the friends plan
+projection in `public/plan-context.js`: one pure interpretation of participation,
+replies, limits, accepted revisions and permitted actions for the browser,
+companion and authenticated day view. D1 owns canonical records and atomic
+acceptance receipts; the projection never grants write authority. Day observations
+and bounded catalogue reads reuse existing sessions and guarded plan commands,
+with a sequence check for unchanged state. See the [agent planning contract](apps/friends/docs/agent-planning.md).
+
 ## Preserved native architecture
 
 The sections below describe the earlier native foundation; their deployment targets are not used for the friends release.

@@ -1,3 +1,4 @@
+import '../public/plan-context.js';
 import researchCatalogue from './ask-catalogue.json' with { type: 'json' };
 import { AskError, type Place } from './ask-contract.js';
 import { askRoutes } from './ask-service.js';
@@ -350,6 +351,7 @@ async function snapshot(env: Env, m: Row): Promise<Row> {
         choice: r.choice,
         status: r.status,
         acceptedRevision: r.accepted_revision,
+        acceptedPlan: r.accepted_body ? JSON.parse(r.accepted_body) : null,
         updated: r.updated,
       })),
     comments: res[4]
@@ -441,7 +443,10 @@ async function cleanPlan(env: Env, m: Row, d: Row): Promise<Row> {
     kind: choice(d, 'kind', ['going', 'idea'], 'going'),
     effort: choice(d, 'effort', ['easy', 'active', 'demanding'], 'easy'),
     catalogueId: txt(d, 'catalogueId', 60),
-    joinStyle: choice(d, 'joinStyle', ['open', 'reunion'], 'open'),
+    joinStyle: choice(d, 'joinStyle', ['open', 'reunion', 'solo'], 'open'),
+    costLimit: [null, undefined, ''].includes(d.costLimit)
+      ? null
+      : integer(d, 'costLimit', 0, 1000000),
   };
   if (p.end <= p.start)
     fail(
@@ -477,6 +482,11 @@ async function cleanPlan(env: Env, m: Row, d: Row): Promise<Row> {
       fail(422, 'Meeting options must fit inside the outing’s time.');
     return seg;
   });
+  if (p.joinStyle === 'solo' && (p.segments.length || p.capacity !== null))
+    fail(
+      422,
+      'Solo time has no joinable parts or capacity. Remove them before publishing.',
+    );
   if (p.joinStyle === 'reunion' && !p.segments.length)
     fail(422, 'Add a meet-afterward option for a solo-first plan.');
   return p;
@@ -731,7 +741,7 @@ async function routes(
   if (path === '/api/health' && method === 'GET') {
     const meta = await one(db, "SELECT value FROM app_meta WHERE key='schema'");
     return json({
-      ok: meta?.value === '3',
+      ok: meta?.value === '7',
       version: VERSION,
       release: env.RELEASE_SHA || 'development',
       workerVersion: env.CF_VERSION?.id || null,
@@ -925,6 +935,172 @@ async function routes(
       },
       method === 'POST' ? await body(request, 24000) : undefined,
     );
+  if (method === 'GET' && path === '/api/catalogue') {
+    const exactId = u.searchParams.get('id') || '';
+    const region = u.searchParams.get('region') || '';
+    if (region && !REGIONS.includes(region))
+      fail(422, 'Choose a known region.');
+    const query = (u.searchParams.get('q') || '')
+      .trim()
+      .toLowerCase()
+      .slice(0, 150);
+    const limit = integer(
+      { limit: Number(u.searchParams.get('limit') || 12) },
+      'limit',
+      1,
+      30,
+    );
+    const offset = integer(
+      { offset: Number(u.searchParams.get('offset') || 0) },
+      'offset',
+      0,
+      10000,
+    );
+    const custom = (
+      await rows(
+        db,
+        'SELECT id,body FROM discoveries WHERE trip_id=? AND deleted=0 ORDER BY created,id',
+        m.trip_id,
+      )
+    ).map((r) => ({ ...JSON.parse(r.body), id: r.id, custom: true }));
+    const matches = [...researchCatalogue, ...custom].filter(
+      (p) =>
+        (!exactId || p.id === exactId) &&
+        (!region || p.region === region) &&
+        (!query ||
+          [p.title, p.area, p.why, p.practical]
+            .join(' ')
+            .toLowerCase()
+            .includes(query)),
+    );
+    return json({
+      total: matches.length,
+      offset,
+      nextOffset: offset + limit < matches.length ? offset + limit : null,
+      places: matches.slice(offset, offset + limit).map((p) => ({
+        id: p.id,
+        title: p.title,
+        region: p.region,
+        area: p.area,
+        summary: p.why,
+        source: p.source,
+        start: p.start || null,
+        end: p.end || null,
+        checked: p.checked || null,
+        sourceScope:
+          p.sourceScope || 'Research lead. Verify details for the visit.',
+        custom: !!p.custom,
+      })),
+    });
+  }
+  if (method === 'GET' && path === '/api/context') {
+    const trip = (await one(db, 'SELECT * FROM trips WHERE id=?', m.trip_id))!;
+    const day = date(u.searchParams.get('date'), trip);
+    const seq = (await one(
+      db,
+      'SELECT coalesce(max(seq),0) AS seq FROM changes WHERE trip_id=?',
+      m.trip_id,
+    ))!.seq;
+    if (String(seq) === u.searchParams.get('after'))
+      return new Response(null, {
+        status: 204,
+        headers: { 'Cache-Control': 'no-store' },
+      });
+    const state = await snapshot(env, m);
+    return json({
+      version: 1,
+      release: env.RELEASE_SHA || 'development',
+      seq: state.seq,
+      observedAt: state.serverTime,
+      date: day,
+      timeZone: 'Asia/Tokyo',
+      viewer: { id: m.id, name: m.name },
+      trip: state.trip,
+      plans: state.plans
+        .filter((p: Row) => p.date === day)
+        .map((p: Row) => {
+          const perspective = OmakasePlanContext.project(p, m.id);
+          const statuses = perspective.actions
+            .map(
+              (action: string) =>
+                (
+                  ({
+                    join: 'joined',
+                    reconfirm: 'joined',
+                    decline: 'declined',
+                    'clear-reply': 'leave',
+                    interested: 'interested',
+                    waitlist: 'waitlist',
+                  }) as Record<string, string>
+                )[action],
+            )
+            .filter(Boolean);
+          return {
+            id: p.id,
+            title: p.title,
+            hostId: p.hostId,
+            revision: p.revision,
+            status: p.status,
+            kind: p.kind,
+            source: p.catalogueId
+              ? {
+                  catalogueId: p.catalogueId,
+                  href:
+                    '/api/catalogue?id=' + encodeURIComponent(p.catalogueId),
+                }
+              : null,
+            ...perspective,
+            unansweredMemberIds:
+              p.joinStyle === 'solo'
+                ? []
+                : state.members
+                    .filter(
+                      (x: Row) =>
+                        x.active &&
+                        x.id !== p.hostId &&
+                        !p.rsvps.some((r: Row) => r.memberId === x.id),
+                    )
+                    .map((x: Row) => x.id),
+            detail: '/api/plans/' + p.id,
+            reply: statuses.length
+              ? {
+                  method: 'POST',
+                  path: '/api/plans/' + p.id + '/rsvp',
+                  revision: p.revision,
+                  statuses,
+                }
+              : null,
+          };
+        }),
+      members: state.members
+        .filter((x: Row) => x.active)
+        .map((x: Row) => ({ id: x.id, name: x.name })),
+      writeHeaders: {
+        'Content-Type': 'application/json',
+        'X-Omakase': '1',
+        'X-Omakase-Release': env.RELEASE_SHA || 'development',
+      },
+      read: {
+        state: '/api/state',
+        catalogue: '/api/catalogue',
+        next: '/api/context?date=' + day + '&after=' + state.seq,
+      },
+      meaning: {
+        costLimit:
+          'JPY per person for this plan; a proposed ceiling, not an estimate, payment or enforced daily budget.',
+        scheduleHold:
+          'Includes tentative host ideas and joins awaiting reconfirmation for conflict checks; never evidence of attendance.',
+        emptyTime: 'No recorded plan does not imply availability.',
+        source:
+          'A linked research lead does not verify operation, booking, travel or a visit.',
+      },
+    });
+  }
+  if (method === 'GET' && /^\/api\/plans\/([-\w]+)$/.test(path)) {
+    const id = path.split('/')[3];
+    await plan(env, id, m);
+    return json(await planValue(env, id, m));
+  }
   if (method === 'GET' && path === '/api/state')
     return json(await snapshot(env, m));
   if (method === 'GET' && path === '/api/sync') {
@@ -1173,7 +1349,7 @@ async function routes(
       status = choice(
         d,
         'status',
-        ['joined', 'interested', 'waitlist', 'leave'],
+        ['joined', 'interested', 'waitlist', 'declined', 'leave'],
         'joined',
       );
     if (p.host_id === m.id) fail(409, 'You are already hosting this outing.');
@@ -1184,18 +1360,19 @@ async function routes(
         stmt(db, 'DELETE FROM rsvps WHERE plan_id=? AND member_id=?', id, m.id),
         'rsvp-left',
         id,
-        'left an invitation',
+        'cleared their reply to ' + JSON.parse(p.body).title,
       );
       return json({ ok: true });
     }
-    const ch = txt(d, 'choice', 60, false, 'all'),
+    const ch =
+        status === 'declined' ? 'all' : txt(d, 'choice', 60, false, 'all'),
       revision = integer(d, 'revision', 1, 100000);
     await write(
       env,
       m,
       stmt(
         db,
-        'INSERT INTO rsvps(plan_id,member_id,choice,status,accepted_revision,acknowledge_conflict,updated) VALUES(?,?,?,?,?,?,?) ON CONFLICT(plan_id,member_id) DO UPDATE SET choice=excluded.choice,status=excluded.status,accepted_revision=excluded.accepted_revision,acknowledge_conflict=excluded.acknowledge_conflict,updated=excluded.updated',
+        'INSERT INTO rsvps(plan_id,member_id,choice,status,accepted_revision,acknowledge_conflict,updated) VALUES(?,?,?,?,?,?,?) ON CONFLICT(plan_id,member_id) DO UPDATE SET choice=excluded.choice,status=excluded.status,accepted_revision=excluded.accepted_revision,acknowledge_conflict=excluded.acknowledge_conflict,updated=excluded.updated,accepted_body=NULL',
         id,
         m.id,
         ch,
@@ -1210,7 +1387,9 @@ async function routes(
         ? 'joined '
         : status === 'interested'
           ? 'is interested in '
-          : 'is waiting for ') + JSON.parse(p.body).title,
+          : status === 'declined'
+            ? 'is sitting out '
+            : 'is waiting for ') + JSON.parse(p.body).title,
     );
     return json({ ok: true });
   }
@@ -1628,7 +1807,7 @@ async function admin(request: Request, env: Env): Promise<Response> {
       BACKUP_TABLES.map((t) => db.prepare(`SELECT * FROM ${t}`)),
     );
     return json({
-      schemaVersion: 6,
+      schemaVersion: 7,
       created: now(),
       tables: Object.fromEntries(
         BACKUP_TABLES.map((t, i) => [t, values[i].results]),
@@ -1669,12 +1848,12 @@ async function admin(request: Request, env: Env): Promise<Response> {
       );
     const d = await body(request, 10_000_000);
     if (
-      ![3, 4, 5, 6].includes(d.schemaVersion) ||
+      ![3, 4, 5, 6, 7].includes(d.schemaVersion) ||
       !d.tables ||
       !Array.isArray(d.tables.trips) ||
       d.tables.trips.length !== 1
     )
-      fail(422, 'Use a version 3, 4, 5 or 6 full backup.');
+      fail(422, 'Use a version 3–7 full backup.');
     // Column names come from the migration, never from untrusted JSON.
     const batch: Statement[] = [
       stmt(db, "INSERT OR REPLACE INTO app_meta VALUES('restoring','1')"),
@@ -1810,6 +1989,16 @@ function mappedError(e: unknown): Response {
         'That name is already in the trip. Add an initial, or ask the owner for a device link.',
       ],
       ['trip_full', 409, 'This trip has reached its 60-friend limit.'],
+      [
+        'solo_plan',
+        409,
+        'This is solo time. The host shared a heads-up, not an invitation to join.',
+      ],
+      [
+        'solo_with_replies',
+        409,
+        'Friends have already replied. Keep their invitation, or cancel it before sharing a separate solo plan.',
+      ],
       [
         'stale_plan',
         409,

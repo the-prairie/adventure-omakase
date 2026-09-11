@@ -210,3 +210,23 @@ separate from browser evidence. The existing shared Sites audience is preserved.
 ## Fictional pilot evidence — September 11, 2026
 
 Added the opt-in `tests/native/pilot-completed.spec.mjs` operator-mediated scenario and replay instructions in `tests/native/PILOT.md`. Four independent fictional actors supplied decisions to isolated browser accounts. A fresh retained-harness replay passed (1 Chromium case, 47 seconds); root `pnpm check` passed. The scenario demonstrated separate afternoon ideas and explicit dinner RSVPs, with comments carrying sitting-out intent. This is scenario evidence, not real customer research or reconfirmation coverage. Application baseline was `0073c2134a5b8c227722ca3de770cbbaaff5df9c`; no app runtime change or deployment is implied. Journal publication is separate.
+
+## September 11: explicit intention and coherent agent control
+
+Status: implementation and local acceptance complete; publication pending. The user requested a thorough reading of the pilot feedback
+and the changes needed to make the system accurately observable and controllable
+with less repeated interpretation. ADR 0010 defines one shared plan projection
+across human UI, local example, companion and authenticated agent observation.
+
+Acceptance requires persisted declines distinct from silence, enforced solo
+heads-ups, an explicit per-person yen ceiling, preserved manual discovery links,
+previous-versus-current acceptance details and a compact day/catalogue read path
+that uses the existing guarded mutations. Companion rework must preserve settings
+its review does not expose. Older replies retain unknown historical receipts;
+version-seven backups preserve new decisions. No new trip simulation is implied.
+
+Observed checks: root `pnpm check` (12 tasks, 120 friends tests), populated
+migration/backup round trip, both Sites adapter tests and the two-person phone
+flow in Chromium and WebKit. All 11 native workerd checks passed. All 90 enabled browser scenarios have passing
+evidence across the full regression and six corrected-copy reruns; two opt-in
+historical pilot cases remain skipped. Exact release evidence belongs in CURRENT_STATUS.

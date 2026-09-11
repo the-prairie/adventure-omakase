@@ -55,8 +55,9 @@ export interface InvitationDraft {
   kind: 'going' | 'idea';
   effort: 'easy' | 'active' | 'demanding';
   catalogueId: string;
-  joinStyle: 'open';
-  capacity: null;
+  joinStyle: 'open' | 'reunion' | 'solo';
+  capacity: number | null;
+  costLimit?: number | null;
   segments: {
     id: string;
     label: string;
@@ -98,6 +99,9 @@ export interface Usage {
 }
 export interface MemberContext {
   referencePlan?: {
+    costLimit?: number | null;
+    joinStyle?: string;
+    capacity?: number | null;
     title: string;
     description: string;
     date: string;
@@ -123,6 +127,9 @@ export interface MemberContext {
     end: string;
     meeting: string;
     reconfirm: boolean;
+    status?: string;
+    costLimit?: number | null;
+    participation?: string;
   }[];
 }
 export class AskError extends Error {

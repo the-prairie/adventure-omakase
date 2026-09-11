@@ -650,7 +650,15 @@ test('host replanning edits once, preserves part responses and requests reconfir
     { option: 0, draft: first.data.result.options[0].draft },
     f.owner.cookie,
   );
-  const plan = made.data.plan;
+  let plan = made.data.plan;
+  const configured = await f.call(
+    '/plans/' + plan.id,
+    'PUT',
+    { ...plan, joinStyle: 'reunion', capacity: 4, costLimit: 1500 },
+    f.owner.cookie,
+  );
+  assert.equal(configured.status, 200);
+  plan = configured.data;
   await f.call(
     '/plans/' + plan.id + '/rsvp',
     'POST',
@@ -681,6 +689,7 @@ test('host replanning edits once, preserves part responses and requests reconfir
     plan.segments.map((s) => s.id),
   );
   draft.segments[1].meeting = 'Revised lunch entrance';
+  draft.kind = 'idea';
   const payload = { option: 0, draft };
   const changed = await f.call(
     '/ask/tasks/' + revised.data.id + '/confirm',
@@ -690,6 +699,10 @@ test('host replanning edits once, preserves part responses and requests reconfir
   );
   assert.ok([200, 201].includes(changed.status), JSON.stringify(changed.data));
   assert.equal(changed.data.plan.id, plan.id);
+  assert.equal(changed.data.plan.costLimit, 1500);
+  assert.equal(changed.data.plan.capacity, 4);
+  assert.equal(changed.data.plan.joinStyle, 'reunion');
+  assert.equal(changed.data.plan.kind, 'idea');
   assert.equal(changed.data.plan.revision, plan.revision + 1);
   const again = await f.call(
     '/ask/tasks/' + revised.data.id + '/confirm',

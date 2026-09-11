@@ -472,3 +472,106 @@ test('island chapters preserve existing transfer flags and keep onward direction
       assert.equal(new URL(source.url).protocol, 'https:');
   }
 });
+
+test('plan-intent migration preserves prior replies as unknown receipts and round-trips version-seven decisions', async () => {
+  const old = new LocalD1(),
+    fresh = new LocalD1();
+  try {
+    for (const name of [
+      '0001_friends.sql',
+      '0002_ask_omakase.sql',
+      '0003_travel_companion.sql',
+      '0004_profile_import.sql',
+    ]) {
+      const sql = await readFile(join(ROOT, 'migrations', name), 'utf8');
+      old.db.exec(sql);
+      fresh.db.exec(sql);
+    }
+    old.db.exec(restoreSQL(sample()));
+    old.db.exec(
+      "INSERT INTO members(id,trip_id,name,role,profile,active,read_seq,created) VALUES('guest','trip','Guest','member','{}',1,0,'2026-09-06')",
+    );
+    const body = JSON.stringify({
+      title: 'Lunch',
+      date: '2026-10-04',
+      start: '12:00',
+      end: '13:00',
+      meeting: 'West entrance',
+      joinStyle: 'open',
+      segments: [],
+      costLimit: 1500,
+    });
+    old.db
+      .prepare(
+        "INSERT INTO plans(id,trip_id,host_id,body,revision,status,created,updated) VALUES('plan','trip','m',?,1,'open','2026-09-06','2026-09-06')",
+      )
+      .run(body);
+    old.db.exec(
+      "INSERT INTO rsvps(plan_id,member_id,choice,status,accepted_revision,updated) VALUES('plan','guest','all','joined',1,'2026-09-06')",
+    );
+    const before = { ...old.db.prepare('SELECT * FROM rsvps').get() };
+    const migration = await readFile(
+      join(ROOT, 'migrations/0005_plan_intent.sql'),
+      'utf8',
+    );
+    old.db.exec(migration);
+    fresh.db.exec(migration);
+    assert.deepEqual(
+      { ...old.db.prepare('SELECT * FROM rsvps').get() },
+      { ...before, accepted_body: null },
+    );
+    assert.equal(old.db.prepare('PRAGMA foreign_key_check').all().length, 0);
+    old.db.exec(
+      "UPDATE rsvps SET status='declined',accepted_body=NULL WHERE member_id='guest'",
+    );
+    assert.equal(
+      old.db.prepare('SELECT accepted_body FROM rsvps').get().accepted_body,
+      null,
+    );
+    old.db.exec(
+      "UPDATE rsvps SET status='joined',accepted_body=NULL WHERE member_id='guest'",
+    );
+    assert.equal(
+      old.db.prepare('SELECT accepted_body FROM rsvps').get().accepted_body,
+      body,
+    );
+    old.db.exec(
+      "UPDATE plans SET revision=2,status='cancelled' WHERE id='plan'",
+    );
+    const backup = {
+      schemaVersion: 7,
+      tables: Object.fromEntries(
+        Object.keys(COLUMNS).map((t) => [
+          t,
+          old.db
+            .prepare('SELECT * FROM ' + t)
+            .all()
+            .map((row) => ({ ...row })),
+        ]),
+      ),
+    };
+    fresh.db.exec(restoreSQL(validateBackup(backup)));
+    const restored = Object.fromEntries(
+      Object.keys(COLUMNS).map((t) => [
+        t,
+        fresh.db
+          .prepare('SELECT * FROM ' + t)
+          .all()
+          .map((row) => ({ ...row })),
+      ]),
+    );
+    assert.deepEqual(
+      comparableTables(restored),
+      comparableTables(backup.tables),
+    );
+    assert.equal(
+      fresh.db.prepare('SELECT accepted_revision FROM rsvps').get()
+        .accepted_revision,
+      1,
+    );
+    assert.equal(fresh.db.prepare('PRAGMA foreign_key_check').all().length, 0);
+  } finally {
+    old.close();
+    fresh.close();
+  }
+});

@@ -377,6 +377,15 @@ window.OmakaseDemo = (() => {
           'Meeting options must have a name, meeting point and valid times within the plan.',
           422,
         );
+    if (
+      p.costLimit != null &&
+      (!Number.isInteger(p.costLimit) ||
+        p.costLimit < 0 ||
+        p.costLimit > 1000000)
+    )
+      fail('Use a whole-yen limit from 0 to 1,000,000, or leave it open.', 422);
+    if (p.joinStyle === 'solo' && (p.segments?.length || p.capacity != null))
+      fail('Solo time has no joinable parts or capacity.', 422);
     if (p.joinStyle === 'reunion' && !p.segments?.length)
       fail('Add a meet-afterward option.', 422);
     const a = window.OMAKASE.catalogue.find((a) => a.id === p.catalogueId);
@@ -429,6 +438,15 @@ window.OmakaseDemo = (() => {
         d.capacity < 1 + p.rsvps.filter((r) => r.status === 'joined').length
       )
         fail('Capacity cannot exclude people already joined.');
+      if (
+        d.joinStyle === 'solo' &&
+        p.rsvps.some((r) =>
+          ['joined', 'interested', 'waitlist'].includes(r.status),
+        )
+      )
+        fail(
+          'Friends have already replied. Keep their invitation or cancel it before sharing a separate solo plan.',
+        );
       Object.assign(p, d, { revision: p.revision + 1, updated: now() });
       event(
         'plan-changed',
@@ -451,15 +469,26 @@ window.OmakaseDemo = (() => {
       if (p.hostId === db.active) fail('You are already hosting.');
       if (d.status === 'leave') {
         p.rsvps = p.rsvps.filter((r) => r.memberId !== db.active);
-        event('rsvp-left', p.id, 'left an invitation');
+        event('rsvp-left', p.id, 'cleared their reply to ' + p.title);
         return { ok: true };
       }
       if (p.status !== 'open') fail('This invitation is closed.');
       if (d.revision !== p.revision)
         fail('The host changed this invitation. Read the latest details.');
-      if (d.choice === 'all' && p.joinStyle === 'reunion')
+      if (p.joinStyle === 'solo')
+        fail('This is solo time, with joining turned off.');
+      if (d.status === 'declined') d.choice = 'all';
+      if (
+        d.status !== 'declined' &&
+        d.choice === 'all' &&
+        p.joinStyle === 'reunion'
+      )
         fail('Choose a meet-afterward option.', 422);
-      if (d.choice !== 'all' && !p.segments.find((s) => s.id === d.choice))
+      if (
+        d.status !== 'declined' &&
+        d.choice !== 'all' &&
+        !p.segments.find((s) => s.id === d.choice)
+      )
         fail('Choose an available part.', 422);
       if (d.status === 'joined') {
         if (
@@ -495,6 +524,16 @@ window.OmakaseDemo = (() => {
         choice: d.choice,
         status: d.status,
         acceptedRevision: p.revision,
+        acceptedPlan:
+          d.status === 'joined'
+            ? structuredClone(
+                Object.fromEntries(
+                  Object.entries(p).filter(
+                    ([key]) => !['rsvps', 'comments'].includes(key),
+                  ),
+                ),
+              )
+            : null,
         updated: now(),
       });
       event(

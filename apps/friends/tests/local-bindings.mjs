@@ -154,6 +154,15 @@ export function makeEnv(dir, { maintenance = false } = {}) {
     db.db.exec(
       readFileSync(join(ROOT, 'migrations/0004_profile_import.sql'), 'utf8'),
     );
+  if (
+    !db.db
+      .prepare('PRAGMA table_info(rsvps)')
+      .all()
+      .some((c) => c.name === 'accepted_body')
+  )
+    db.db.exec(
+      readFileSync(join(ROOT, 'migrations/0005_plan_intent.sql'), 'utf8'),
+    );
   return {
     DB: db,
     PHOTOS: new LocalR2(join(dir, 'r2')),

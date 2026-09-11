@@ -1,5 +1,43 @@
 # Current release status
 
+## September 11 — explicit intentions and shared plan meaning
+
+The fictional pilot's full correspondence and independent review exposed intentions
+that lived only in comments: sitting out, keeping an afternoon solo, a spending
+ceiling and the identity of a chosen place. Those facts now have explicit fields
+and controls. Declined replies persist separately from silence; solo heads-ups
+disable joining; per-person yen ceilings retain zero versus unknown; the manual
+plan form can retain a fieldbook source. Previously accepted meeting points,
+times and settings can be compared with the current plan before reconfirming.
+Historical joins have unknown receipts rather than invented earlier details.
+
+One deterministic plan projection serves the browser, example, companion and
+authenticated day context. The compact read path provides IDs, revisions,
+participation and permitted replies; place research is paginated separately.
+An unchanged day observation returns 204, without an AI or provider call.
+Existing guarded writes remain authoritative. Companion rework preserves settings
+its review cannot edit and honors the decision status the host explicitly changes.
+ADR 0010 and `apps/friends/docs/agent-planning.md` describe these contracts.
+
+Observed: root `pnpm check` passed all 12 tasks, including 120 friends
+tests; Sites syntax/types and both adapter tests passed. The focused two-person
+phone scenario passed Chromium and WebKit. A populated schema migration and
+version-seven backup/restore passed. Five sampled Axe states had zero violations;
+this is not accessibility certification. Fresh independent visual and documentation
+assessments used available default-agent roles because the named Impeccable roles
+were unavailable. Both material wording findings were resolved; the Corner design
+system remains intact. Synthetic captures are in `docs/assets/plan-intent/`.
+
+The 92-case native regression passed 84 with two opt-in historical pilot cases
+skipped. Six cases still expected the old reconfirmation/waitlist wording (three
+scenarios in each engine); after updating those assertions, all six passed,
+including both full multi-person trip simulations. All 90 enabled scenarios have
+passing evidence across these runs, not one zero-failure full suite.
+
+All 11 native workerd checks passed. Publication evidence is pending. The historical pilot
+and journal remain unchanged; no autonomous week-long run or in-field travel is
+claimed. Physical-device and live-provider acceptance remain separate.
+
 ## September 11 — immersive dice discovery
 
 The former small inline die now opens a full-screen physical throw among

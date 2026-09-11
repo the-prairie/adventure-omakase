@@ -1,6 +1,8 @@
 'use strict';
 (() => {
   const CLIENT_RELEASE = 'development';
+  const planMeaning = (p) => window.OmakasePlanContext.project(p, S.me.id);
+  const yen = (value) => '¥' + Number(value).toLocaleString('en-US');
   let C = [...window.OMAKASE.catalogue];
   const A = window.OMAKASE.assets,
     BY = new Map(C.map((x) => [x.id, x]));
@@ -662,6 +664,7 @@
         r?.status === 'joined' &&
         r.acceptedRevision !== p.revision &&
         p.status === 'open';
+    const context = planMeaning(p);
     let tag = mine
       ? 'Your invitation'
       : r?.status === 'joined'
@@ -672,15 +675,19 @@
           ? 'You’re interested'
           : r?.status === 'waitlist'
             ? 'On waitlist'
-            : p.kind === 'idea'
-              ? 'Who’s keen?'
-              : 'I’m going';
-    return `<article class="invitation ${p.status === 'cancelled' ? 'cancelled' : ''} ${needs ? 'changed' : ''}" data-plan-card="${E(p.id)}"><div class="date-column"><small>${dateText(p.date, { month: 'short' })}</small><b>${E(p.date.slice(-2))}</b><small>${dateText(p.date, { weekday: 'short' })}</small><span class="vertical">${p.region === 'osaka' ? 'Osaka' : R[p.region]}</span></div><div class="invitation-content">${needs ? '<div class="tiny-banner">Details changed since you joined. Take another look.</div>' : ''}<div class="row invitation-header">${avatar(p.hostId)}<div class="host-name grow">${E(host.name)} <span>· ${mine ? 'hosting' : 'an open invitation'}</span></div><span class="pill ${p.status !== 'open' ? '' : needs || p.kind === 'idea' ? 'rust' : 'green'}">${p.status !== 'open' ? E(p.status) : tag}</span></div><button class="invite-title" data-action="plan-detail" data-id="${E(p.id)}">${E(p.title)}</button><p class="invite-description">${E(p.description.length > 185 ? p.description.slice(0, 182) + '…' : p.description)}</p><div class="invite-meta"><span>${I('clock')}${formatTime(p)} JST</span><span>${I('pin')}${E(p.area)}</span>${p.capacity ? `<span>${I('people')}${1 + members.length}/${E(p.capacity)} places incl. host</span>` : ''}</div><div class="invite-footer"><div><div class="row" style="gap:8px"><span class="avatar-stack">${avatar(p.hostId)}${members
+            : r?.status === 'declined'
+              ? 'Sitting this out'
+              : p.joinStyle === 'solo'
+                ? 'Solo time'
+                : p.kind === 'idea'
+                  ? 'Who’s keen?'
+                  : 'I’m going';
+    return `<article class="invitation ${p.status === 'cancelled' ? 'cancelled' : ''} ${needs ? 'changed' : ''}" data-plan-card="${E(p.id)}"><div class="date-column"><small>${dateText(p.date, { month: 'short' })}</small><b>${E(p.date.slice(-2))}</b><small>${dateText(p.date, { weekday: 'short' })}</small><span class="vertical">${p.region === 'osaka' ? 'Osaka' : R[p.region]}</span></div><div class="invitation-content">${needs ? '<div class="tiny-banner">Details changed since you joined. Take another look.</div>' : ''}<div class="row invitation-header">${avatar(p.hostId)}<div class="host-name grow">${E(host.name)} <span>· ${mine ? 'hosting' : p.joinStyle === 'solo' ? 'a shared heads-up' : 'an open invitation'}</span></div><span class="pill ${p.status !== 'open' ? '' : needs || p.kind === 'idea' ? 'rust' : 'green'}">${p.status !== 'open' ? E(p.status) : tag}</span></div><button class="invite-title" data-action="plan-detail" data-id="${E(p.id)}">${E(p.title)}</button><p class="invite-description">${E(p.description.length > 185 ? p.description.slice(0, 182) + '…' : p.description)}</p><div class="invite-meta"><span>${I('clock')}${formatTime(p)} JST</span><span>${I('pin')}${E(p.area)}</span>${p.capacity ? `<span>${I('people')}${1 + members.length}/${E(p.capacity)} places incl. host</span>` : ''}</div><div class="invite-footer"><div><div class="row" style="gap:8px"><span class="avatar-stack">${avatar(p.hostId)}${members
       .slice(0, 3)
       .map((r) => avatar(r.memberId))
       .join(
         '',
-      )}</span><span class="small">${members.length ? `${1 + members.length} going${members.some((r) => r.choice !== 'all') ? ' · some just for part' : ''}` : 'Company welcome'}</span></div>${p.joinStyle === 'reunion' ? `<div class="reunion-ribbon">${I('coffee')} Solo first. Meet afterward.</div>` : p.segments.length ? `<div class="reunion-ribbon">${I('route')} Join all of it, or choose a part.</div>` : ''}</div>${btn(p.status !== 'open' ? 'View plan' : mine ? 'Your plan ' + I('arrow') : needs ? 'Reconfirm ' + I('arrow') : 'View invitation ' + I('arrow'), 'plan-detail', p.id, mine ? 'subtle' : '')}</div></div></article>`;
+      )}</span><span class="small">${p.joinStyle === 'solo' ? 'Solo time · joining off' : members.length ? `${1 + members.length} ${p.kind === 'idea' ? 'considering' : 'going'}${members.some((r) => r.choice !== 'all') ? ' · some just for part' : ''}` : E(context.participationLabel)}</span></div>${p.joinStyle === 'reunion' ? `<div class="reunion-ribbon">${I('coffee')} Solo first. Meet afterward.</div>` : p.segments.length ? `<div class="reunion-ribbon">${I('route')} Join all of it, or choose a part.</div>` : ''}</div>${btn(p.status !== 'open' ? 'View plan' : mine ? 'Your plan ' + I('arrow') : needs ? 'Reconfirm ' + I('arrow') : 'View invitation ' + I('arrow'), 'plan-detail', p.id, mine ? 'subtle' : '')}</div></div></article>`;
   }
   function empty(title, message, label = '', action = '') {
     return `<div class="empty">${I('sun')}<h2>${E(title)}</h2><p>${E(message)}</p>${label ? btn(E(label) + ' ' + I('arrow'), action, '', 'primary') : ''}</div>`;
@@ -696,18 +703,13 @@
       r?.status === 'joined' &&
       r.acceptedRevision !== p.revision &&
       p.status === 'open';
+    const meaning = planMeaning(p);
     let status =
-      p.hostId === S.me.id
-        ? 'You’re hosting'
-        : r?.status === 'joined'
-          ? chosen
-            ? `You: ${chosen.label}`
-            : 'You’re joining'
-          : r?.status === 'interested'
-            ? 'Interested · not committed'
-            : r?.status === 'waitlist'
-              ? 'On the waitlist'
-              : `${1 + joined(p).length} going · company welcome`;
+      meaning.response === 'unanswered'
+        ? meaning.participationLabel
+        : meaning.responseLabel +
+          (meaning.participation === 'solo' ? ' · solo time' : '');
+    if (r?.status === 'joined' && chosen) status = `You: ${chosen.label}`;
     if (chosen && ui.calendarScope === 'group' && r?.status === 'joined')
       status += ` · ${chosen.start}–${chosen.end}`;
     if (needs) status = `Reconfirm · ${status}`;
@@ -1557,25 +1559,97 @@
     });
     mountHomeDice();
   }
+  function reconfirmationDetails(context) {
+    if (!context.needsReconfirmation) return '';
+    const names = {
+      title: 'Title',
+      area: 'Area',
+      region: 'Region',
+      effort: 'Physical commitment',
+      capacity: 'Total places',
+      mapLink: 'Map link',
+      date: 'Date',
+      start: 'Start',
+      end: 'End',
+      meeting: 'Meeting point',
+      part: 'Your part',
+      kind: 'How decided',
+      joinStyle: 'Ways to join',
+      catalogueId: 'Linked discovery',
+      cost: 'Cost note',
+      costLimit: 'Per-person limit',
+      booking: 'Booking',
+    };
+    const value = (field, v) => {
+      const labels = {
+        kind: { going: 'I’m going', idea: 'An idea · not yet decided' },
+        joinStyle: {
+          open: 'All of it, or a smaller part',
+          reunion: 'Solo first · meet afterward only',
+          solo: 'Just me · a shared heads-up',
+        },
+        booking: {
+          check: 'Needs checking / not arranged',
+          'not-needed': 'Host says no booking needed',
+          'host-booked': 'Host has booked for themselves',
+        },
+        effort: {
+          easy: 'Easy pace',
+          active: 'Active outing',
+          demanding: 'Demanding outing',
+        },
+        region: R,
+      };
+      if (v == null)
+        return field === 'capacity'
+          ? 'No fixed limit'
+          : field === 'costLimit'
+            ? 'No limit supplied'
+            : 'Not supplied';
+      if (field === 'costLimit') return yen(v);
+      if (field === 'catalogueId')
+        return E(BY.get(v)?.title || 'Linked discovery unavailable');
+      return E(labels[field]?.[v] || v);
+    };
+    return `<section class="plan-reconfirmation notice warn"><h3>Review what changed</h3><p>Your previous reply is saved. Reconfirm the current details or sit this one out.</p>${context.accepted ? (context.changes.length ? `<dl class="plan-changes">${context.changes.map((c) => `<div><dt>${names[c.field]}</dt><dd><span>Previously: ${value(c.field, c.before)}</span><strong>Now: ${value(c.field, c.after)}</strong></dd></div>`).join('')}</dl>` : '<p>The host edited this plan. Your selected time, meeting point and recorded terms are unchanged; read the updated notes before reconfirming.</p>') : '<p>Your earlier reply predates saved acceptance details. Compare with what you remember; the app cannot reconstruct what you saw.</p>'}</section>`;
+  }
+  function planDecision(p, context) {
+    if (p.status !== 'open') return '';
+    if (p.hostId === S.me.id)
+      return `<section class="host-actions"><p>${p.joinStyle === 'solo' ? 'This is a shared heads-up. Friends cannot join it.' : 'You’re hosting this invitation. Edit it or send it to friends.'}</p><div class="row wrap">${btn(I('edit') + 'Edit plan', 'plan-edit', p.id, 'primary')}${btn(I('arrow') + 'Share a link', 'share-plan', p.id, 'subtle')}</div></section>`;
+    const r = myR(p);
+    if (context.participation === 'solo')
+      return `<p class="solo-heads-up"><strong>Time for themselves.</strong> This plan keeps friends in the picture. There’s no invitation to join and no reply is needed.</p>${r ? `<form id="rsvp-form" data-plan="${E(p.id)}" data-revision="${p.revision}"><p class="small muted">Your earlier reply is still saved.</p><button type="submit" name="status" value="leave" class="text-btn">Clear my reply</button><div class="form-error" role="alert"></div></form>` : ''}`;
+    const chosen = context.options.some((o) => o.id === r?.choice)
+      ? r.choice
+      : context.options[0]?.id;
+    return `<form id="rsvp-form" data-plan="${E(p.id)}" data-revision="${p.revision}"><h3>${r?.status === 'declined' ? 'You’re sitting this out' : context.options.length === 1 && context.options[0].id === 'all' ? 'Would you like to join?' : 'Choose what you’ll join'}</h3>${r?.status === 'declined' ? '<p class="small muted">Your reply is saved. You can change your mind.</p><details class="reply-adjust"><summary>Change my reply</summary>' : ''}${context.options.length === 1 && context.options[0].id === 'all' ? '<input type="hidden" name="choice" value="all">' : context.options.map((o) => `<label class="choose-part"><input type="radio" name="choice" value="${E(o.id)}" ${chosen === o.id ? 'checked' : ''}><span><strong>${E(o.label)}</strong><small>${formatTime(o)} JST</small><small>${E(o.meeting)}</small></span></label>`).join('')}<div class="form-error" role="alert"></div><div id="overlap-choice"></div><div class="plan-reply-actions"><button type="submit" name="status" value="${context.full ? 'waitlist' : 'joined'}" class="btn primary">${context.full ? 'Join the waitlist' : context.needsReconfirmation ? 'Reconfirm my part' : r?.status === 'joined' ? 'Update my part' : 'I’m coming'} ${I('arrow')}</button><button type="submit" name="status" value="interested" class="btn">Interested, not committed</button><button type="submit" name="status" value="declined" class="btn subtle">Sit this one out</button>${r ? '<button type="submit" name="status" value="leave" class="text-btn">Clear my reply</button>' : ''}</div><p class="time-note">${p.capacity ? `${1 + context.joinedCount} of ${E(p.capacity)} places including the host. ` : ''}Joining never purchases a ticket. A waitlist is not a place. Sitting this out is visible to your trip; no explanation is needed.</p>${r?.status === 'declined' ? '</details>' : ''}</form>`;
+  }
+  function planResponses(p, context) {
+    const replies = context.responses
+      .map(
+        (r) =>
+          `<div class="person-rsvp">${avatar(r.memberId)}<span>${E(person(r.memberId).name)}<small>${E(r.label)}${r.choice ? ' · ' + E(r.choice === 'all' ? 'all of it' : p.segments.find((s) => s.id === r.choice)?.label || 'option changed') : ''}${r.needsReconfirmation ? ' · needs to reconfirm' : ''}</small></span></div>`,
+      )
+      .join('');
+    const unanswered = S.members.filter(
+      (m) =>
+        m.active &&
+        m.id !== p.hostId &&
+        !p.rsvps.some((r) => r.memberId === m.id),
+    );
+    return `${replies}${p.joinStyle !== 'solo' && unanswered.length ? `<details class="plan-unanswered"><summary>${unanswered.length} ${unanswered.length === 1 ? 'friend has' : 'friends have'} not replied</summary><p>${unanswered.map((m) => E(m.name)).join(', ')}.</p><p class="small muted">No reply does not imply interest or availability.</p></details>` : ''}`;
+  }
   function showPlan(id) {
     const p = S.plans.find((p) => p.id === id);
     if (!p) return;
     const mine = p.hostId === S.me.id,
-      r = myR(p),
-      members = joined(p),
-      full =
-        !!p.capacity &&
-        1 + members.length >= p.capacity &&
-        r?.status !== 'joined',
-      needs =
-        r?.status === 'joined' &&
-        r.acceptedRevision !== p.revision &&
-        p.status === 'open';
+      context = planMeaning(p);
     const a = BY.get(p.catalogueId);
     const introduction = (a?.why || p.description || '').split('\n')[0];
     openModal(
-      'An open invitation',
-      `<div class="plan-view"><div class="row wrap plan-status"><span class="pill ${p.kind === 'idea' ? 'rust' : 'green'}">${p.status !== 'open' ? E(p.status) : p.kind === 'idea' ? 'An idea · not yet decided' : 'I’m going · company welcome'}</span>${p.joinStyle === 'reunion' ? '<span class="pill blue">Solo first · meet afterward</span>' : ''}</div><h2 style="margin-top:17px">${E(p.title)}</h2><div class="detail-date">${I('calendar')}${dateText(p.date, { weekday: 'long', month: 'long', day: 'numeric' })} <span>·</span>${formatTime(p)} JST</div><div class="detail-host">${avatar(p.hostId)}<div>${E(person(p.hostId).name)} is hosting<small>You’re welcome for the parts that suit you.</small></div></div>${mode === 'demo' ? '<p class="plan-example small muted">Example plan with fictional people. Meeting points and availability are not verified. Nothing here is booked.</p>' : ''}${needs ? '<div class="notice warn"><strong>This changed since you joined.</strong><br>Review the current time, meeting point and selected part, then reconfirm. A changed plan does not silently change your commitment.</div>' : ''}<p class="plan-description">${E(introduction)}</p><div class="fact-grid"><div class="fact"><small>Effort</small><strong>${{ easy: 'Easy pace', active: 'Active outing', demanding: 'Demanding outing' }[p.effort]}</strong></div><div class="fact"><small>Expected cost</small><strong>${E(p.cost || 'Not supplied · ask the host')}</strong></div><div class="fact"><small>Booking</small><strong>${{ check: 'Still needs checking', 'not-needed': 'Host says no booking needed', 'host-booked': 'Host has booked for themselves' }[p.booking]}</strong></div></div>${p.booking === 'host-booked' ? '<div class="notice warn">The host’s booking does not include you automatically. Confirm your own place or ask the host before paying or traveling.</div>' : ''}${a && (a.flags.includes('w') || a.flags.includes('o')) ? `<div class="notice warn">${a.flags.includes('w') ? 'Water activity: operator approval, conditions and safety must be confirmed separately. ' : ''}${a.flags.includes('o') ? 'A separate stay or island transfer may be needed.' : ''}</div>` : ''}<section class="plan-decision">${p.status === 'open' && !mine ? `<form id="rsvp-form" data-plan="${E(p.id)}" data-revision="${E(p.revision)}"><h3>Choose what you’ll join</h3>${p.joinStyle === 'open' ? `<label class="choose-part"><input type="radio" name="choice" value="all" ${!r || r.choice === 'all' ? 'checked' : ''}><span><strong>All of it</strong><small>${formatTime(p)} JST</small><small>${E(p.meeting)}</small></span></label>` : ''}${p.segments.map((s, i) => `<label class="choose-part"><input type="radio" name="choice" value="${E(s.id)}" ${r?.choice === s.id || (!r && p.joinStyle === 'reunion' && i === 0) ? 'checked' : ''}><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></label>`).join('')}<div class="form-error" role="alert"></div><div id="overlap-choice"></div><div class="row wrap" style="margin-top:20px"><button type="submit" name="status" value="${full ? 'waitlist' : 'joined'}" class="btn primary">${full ? 'Join the waitlist' : needs ? 'Reconfirm my part' : r?.status === 'joined' ? 'Update my part' : 'I’m coming'} ${I('arrow')}</button><button type="submit" name="status" value="interested" class="btn">Interested, not committed</button>${r ? `<button type="submit" name="status" value="leave" class="text-btn">Leave this plan</button>` : ''}</div><p class="time-note">${p.capacity ? `${1 + members.length} of ${E(p.capacity)} places including the host. ` : ''}One group-wide capacity applies to all parts. Waitlists are not auto-promoted. Joining never purchases a ticket.</p></form>` : mine && p.status === 'open' ? `<section class="host-actions"><p>You’re hosting this invitation. Edit it or send it to friends.</p><div class="row wrap">${btn(I('edit') + 'Edit invitation', 'plan-edit', p.id, 'primary')}${btn(I('arrow') + 'Send this invitation', 'share-plan', p.id, 'subtle')}</div></section>` : ''}</section>${meetingMap(p)}${(mine || p.status !== 'open') && p.segments.length ? `<section class="meeting-parts"><div class="section-label">Smaller meet-up parts</div>${p.segments.map((s) => `<div class="choose-part"><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></div>`).join('')}</section>` : ''}<section class="outing-context"><h3>What the outing is</h3>${discoveryPhoto(a)}${experienceContext(a)}${a ? btn('Open the discovery guide ' + I('arrow'), 'discovery', a.id, 'subtle') : ''}<h3>A note from ${E(person(p.hostId).name)}</h3><p class="plan-notes">${window.OmakaseOutingModel.linksInText(p.description, E)}</p></section><div class="plan-share-row">${btn(I('book') + 'Save day sheet', 'download-day-sheet', p.id, 'subtle')}${!mine || p.status !== 'open' ? btn(I('arrow') + 'Send this invitation', 'share-plan', p.id, 'subtle') : ''}${mode === 'shared' ? btn('Check this idea ✳', 'ask-plan', p.id, 'subtle') + (mine && p.status === 'open' && p.segments.length && new Set(p.segments.map((s) => s.label)).size === p.segments.length ? btn('Help me rework this', 'ask-replan', p.id, 'subtle') : '') : ''}</div>${mine && p.status === 'open' ? `<div class="row wrap plan-management">${btn(I('check') + 'Mark completed', 'plan-complete', p.id, 'subtle')}${btn('Cancel plan', 'plan-cancel', p.id, 'danger subtle')}</div>` : ''}<div class="section-label">Who’s in the picture?</div><div class="person-rsvp">${avatar(p.hostId)}<span>${E(person(p.hostId).name)}<small>Hosting</small></span></div>${p.rsvps.map((r) => `<div class="person-rsvp">${avatar(r.memberId)}<span>${E(person(r.memberId).name)}<small>${E(r.status)}${r.choice !== 'all' ? ' · ' + E(p.segments.find((s) => s.id === r.choice)?.label || 'option changed') : ' · all of it'}${p.status === 'open' && r.status === 'joined' && r.acceptedRevision !== p.revision ? ' · needs to reconfirm' : ''}</small></span></div>`).join('') || '<p class="small muted" style="margin-top:14px">Nobody else has committed. That is absolutely fine.</p>'}<div class="row wrap" style="margin-top:16px">${btn(I('calendar') + 'View in calendar', 'calendar-plan', p.id, 'subtle')}${btn(I('camera') + 'Keep a memory', 'moment-plan', p.id, 'subtle')}</div><section class="conversation"><h3>Questions & updates.</h3><p class="small muted">Questions about meeting up, tickets or timing. Visible to this private trip.</p>${p.comments.map((c) => `<div class="comment">${avatar(c.memberId)}<div class="comment-body"><strong>${E(person(c.memberId).name)}</strong> <small>${when(c.created)} JST</small><p>${E(c.text)}</p>${c.memberId === S.me.id || S.me.role === 'owner' ? `<button class="text-btn" data-action="comment-delete" data-id="${E(c.id)}" data-plan="${E(p.id)}">Remove</button>` : ''}</div></div>`).join('')}<form id="comment-form" data-plan="${E(p.id)}" class="comment-form" style="margin-top:15px"><label for="comment-text" class="screenreader">Ask about this plan</label><textarea id="comment-text" name="text" maxlength="1200" placeholder="A question, a clearer exit, a tiny update…" required></textarea><button class="btn primary" type="submit">Send</button></form><div id="comment-error" class="form-error" role="alert"></div></section></div>`,
+      p.joinStyle === 'solo' ? 'A shared heads-up' : 'An open invitation',
+      `<div class="plan-view"><div class="row wrap plan-status"><span class="pill ${p.kind === 'idea' ? 'rust' : 'green'}">${p.status !== 'open' ? E(p.status) : p.kind === 'idea' ? 'An idea · not yet decided' : 'I’m going'}</span><span class="pill blue">${E(context.participationLabel)}</span></div><h2 style="margin-top:17px">${E(p.title)}</h2><div class="detail-date">${I('calendar')}${dateText(p.date, { weekday: 'long', month: 'long', day: 'numeric' })} <span>·</span>${formatTime(p)} JST</div><div class="detail-host">${avatar(p.hostId)}<div>${E(person(p.hostId).name)} is hosting<small>${p.joinStyle === 'solo' ? 'Shared with the trip, with joining turned off.' : 'You’re welcome for the parts that suit you.'}</small></div></div>${mode === 'demo' ? '<p class="plan-example small muted">Example plan with fictional people. Meeting points and availability are not verified. Nothing here is booked.</p>' : ''}${reconfirmationDetails(context)}<p class="plan-description">${E(introduction)}</p><div class="fact-grid"><div class="fact"><small>Effort</small><strong>${{ easy: 'Easy pace', active: 'Active outing', demanding: 'Demanding outing' }[p.effort]}</strong></div><div class="fact"><small>Expected cost</small><strong>${E(p.cost || 'Not supplied · ask the host')}</strong></div><div class="fact"><small>Booking</small><strong>${{ check: 'Still needs checking', 'not-needed': 'Host says no booking needed', 'host-booked': 'Host has booked for themselves' }[p.booking]}</strong></div></div>${p.booking === 'host-booked' ? '<div class="notice warn">The host’s booking does not include you automatically. Confirm your own place or ask the host before paying or traveling.</div>' : ''}${a && (a.flags.includes('w') || a.flags.includes('o')) ? `<div class="notice warn">${a.flags.includes('w') ? 'Water activity: operator approval, conditions and safety must be confirmed separately. ' : ''}${a.flags.includes('o') ? 'A separate stay or island transfer may be needed.' : ''}</div>` : ''}<section class="plan-terms"><p><strong>${p.costLimit != null ? yen(p.costLimit) + ' per person · proposed limit' : 'No per-person limit supplied'}</strong></p>${p.cost ? `<p>${E(p.cost)}</p>` : ''}<p class="small muted">${p.costLimit != null ? 'A planning ceiling; the price is unconfirmed. ' : ''}Confirm costs before paying.</p></section><section class="plan-decision">${planDecision(p, context)}</section>${meetingMap(p)}${(mine || p.status !== 'open') && p.segments.length ? `<section class="meeting-parts"><div class="section-label">Smaller meet-up parts</div>${p.segments.map((s) => `<div class="choose-part"><span><strong>${E(s.label)}</strong><small>${formatTime(s)} JST</small><small>${E(s.meeting)}</small></span></div>`).join('')}</section>` : ''}<section class="outing-context"><h3>What the outing is</h3>${discoveryPhoto(a)}${experienceContext(a)}${a ? btn('Open the discovery guide ' + I('arrow'), 'discovery', a.id, 'subtle') : ''}<h3>A note from ${E(person(p.hostId).name)}</h3><p class="plan-notes">${window.OmakaseOutingModel.linksInText(p.description, E)}</p></section><div class="plan-share-row">${btn(I('book') + 'Save day sheet', 'download-day-sheet', p.id, 'subtle')}${!mine || p.status !== 'open' ? btn(I('arrow') + 'Share a link', 'share-plan', p.id, 'subtle') : ''}${mode === 'shared' ? btn('Check this idea ✳', 'ask-plan', p.id, 'subtle') + (mine && p.status === 'open' && p.segments.length && new Set(p.segments.map((s) => s.label)).size === p.segments.length ? btn('Help me rework this', 'ask-replan', p.id, 'subtle') : '') : ''}</div>${mine && p.status === 'open' ? `<div class="row wrap plan-management">${btn(I('check') + 'Mark completed', 'plan-complete', p.id, 'subtle')}${btn('Cancel plan', 'plan-cancel', p.id, 'danger subtle')}</div>` : ''}<div class="section-label">Who’s in the picture?</div><div class="person-rsvp">${avatar(p.hostId)}<span>${E(person(p.hostId).name)}<small>Hosting</small></span></div>${planResponses(p, context)}<div class="row wrap" style="margin-top:16px">${btn(I('calendar') + 'View in calendar', 'calendar-plan', p.id, 'subtle')}${btn(I('camera') + 'Keep a memory', 'moment-plan', p.id, 'subtle')}</div><section class="conversation"><h3>Questions & updates.</h3><p class="small muted">Questions about meeting up, tickets or timing. Visible to this private trip.</p>${p.comments.map((c) => `<div class="comment">${avatar(c.memberId)}<div class="comment-body"><strong>${E(person(c.memberId).name)}</strong> <small>${when(c.created)} JST</small><p>${E(c.text)}</p>${c.memberId === S.me.id || S.me.role === 'owner' ? `<button class="text-btn" data-action="comment-delete" data-id="${E(c.id)}" data-plan="${E(p.id)}">Remove</button>` : ''}</div></div>`).join('')}<form id="comment-form" data-plan="${E(p.id)}" class="comment-form" style="margin-top:15px"><label for="comment-text" class="screenreader">Ask about this plan</label><textarea id="comment-text" name="text" maxlength="1200" placeholder="A question, a clearer exit, a tiny update…" required></textarea><button class="btn primary" type="submit">Send</button></form><div id="comment-error" class="form-error" role="alert"></div></section></div>`,
       'plan',
       id,
       true,
@@ -1610,6 +1684,17 @@
   function planData(form) {
     const d = Object.fromEntries(new FormData(form));
     d.capacity = d.capacity ? Number(d.capacity) : null;
+    d.costLimit = d.costLimit === '' ? null : Number(d.costLimit);
+    const source = String(d.catalogueSource || '').trim();
+    if (source) {
+      const found = C.find((a) => `${a.title} · ${a.id}` === source);
+      if (!found && source !== `Unavailable discovery · ${d.catalogueId}`)
+        throw new Error(
+          'Choose a discovery from the suggestions, or clear the linked discovery field.',
+        );
+      if (found) d.catalogueId = found.id;
+    } else d.catalogueId = '';
+    delete d.catalogueSource;
     d.segments = readSegments();
     if (form.dataset.id) d.revision = +form.dataset.revision;
     return d;
@@ -1659,6 +1744,7 @@
           : '',
         mapLink: '',
         cost: '',
+        costLimit: null,
         booking: 'check',
         kind: a ? 'idea' : 'going',
         joinStyle: 'open',
@@ -1671,11 +1757,11 @@
     draftSegments = structuredClone(p.segments || []);
     openModal(
       old
-        ? 'Edit your invitation'
+        ? 'Edit your plan'
         : p._collectionId
           ? 'Review your outing'
-          : 'Make an open invitation',
-      `<p class="lede">${old ? 'Change only what you need; the rest stays as it is.' : p._collectionId ? 'Your selected stops are ready. Check the meeting points, timing and details before sharing.' : 'Start with what, when and where. Add other details if you need them.'} Times are in Japan.</p>${draft && !old ? '<div class="notice">An unsent draft was restored in this tab. <button class="text-btn" data-action="discard-draft">Discard draft</button></div>' : ''}${old ? '<div class="notice warn">Editing asks everyone already joined to review and reconfirm—even when they joined only one part.</div>' : ''}<form id="plan-form" data-collection-id="${E(p._collectionId || '')}" data-id="${E(old?.id || '')}" data-revision="${E(old?.revision || '')}"><input type="hidden" name="catalogueId" value="${E(p.catalogueId)}"><input type="hidden" name="requestId" value="${E(p.requestId || uid())}"><div class="field"><label for="f-title">The invitation</label><input id="f-title" name="title" maxlength="150" required value="${E(p.title)}" placeholder="A river walk, then whatever smells good"></div><div class="field-row"><div class="field"><label for="f-region">Region</label><select id="f-region" name="region">${regionOptions(p.region)}</select></div>${field('area', 'Neighborhood / island', p.area, 'text', 'maxlength="100" required')}</div>${timingPicker(p)}<div class="field"><label for="f-meeting">The main meeting point</label><textarea id="f-meeting" name="meeting" maxlength="500" required placeholder="A named landmark, station exit or address. Add which side and how to spot you.">${E(p.meeting)}</textarea><small>A vague “meet in Osaka” is not enough. Avoid publishing hotel room numbers or private access codes.</small></div><details class="form-detail plan-extra" ${p._collectionId ? 'open' : ''}><summary>More details & ways to join${draftSegments.length ? ` · ${draftSegments.length} meet-up ${draftSegments.length === 1 ? 'part' : 'parts'}` : ''}</summary><div class="field-row"><div class="field"><label for="f-kind">How decided are you?</label><select id="f-kind" name="kind"><option value="going" ${p.kind === 'going' ? 'selected' : ''}>I’m going · company welcome</option><option value="idea" ${p.kind === 'idea' ? 'selected' : ''}>An idea · seeing who’s keen</option></select></div><div class="field"><label for="f-joinStyle">How can friends join?</label><select id="f-joinStyle" name="joinStyle"><option value="open" ${p.joinStyle === 'open' ? 'selected' : ''}>All of it, or a smaller part</option><option value="reunion" ${p.joinStyle === 'reunion' ? 'selected' : ''}>Solo first · meet afterward only</option></select></div></div><div class="field"><label for="f-description">The invitation in your words</label><textarea id="f-description" name="description" maxlength="3000" placeholder="The idea, the pace, what is and isn’t arranged. Permission to join just for the coffee.">${E(p.description)}</textarea></div><div class="section-label">Make it easy to join for a little</div><p class="small muted">Add an exact time and place for lunch, coffee, or meeting afterward. All parts must fit inside the invitation’s time window.</p><div id="segment-list">${draftSegments.map(segmentMarkup).join('')}</div>${btn(I('plus') + 'Add a meet-up part', 'add-segment', '', 'subtle')}<details class="form-detail"><summary>Cost, capacity, effort & booking</summary><div class="field-row">${field('capacity', 'Total places, including you', p.capacity || '', 'number', 'min="2" max="40" placeholder="No fixed limit"')}<div class="field"><label for="f-effort">Physical commitment</label><select id="f-effort" name="effort">${[
+          : 'Make a plan',
+      `<p class="lede">${old ? 'Change only what you need; the rest stays as it is.' : p._collectionId ? 'Your selected stops are ready. Check the meeting points, timing and details before sharing.' : 'Start with what, when and where. Add other details if you need them.'} Times are in Japan.</p>${draft && !old ? '<div class="notice">An unsent draft was restored in this tab. <button class="text-btn" data-action="discard-draft">Discard draft</button></div>' : ''}${old ? '<div class="notice warn">Editing asks everyone already joined to review and reconfirm—even when they joined only one part.</div>' : ''}<form id="plan-form" data-collection-id="${E(p._collectionId || '')}" data-id="${E(old?.id || '')}" data-revision="${E(old?.revision || '')}"><input type="hidden" name="catalogueId" value="${E(p.catalogueId)}"><input type="hidden" name="requestId" value="${E(p.requestId || uid())}"><div class="field"><label for="f-title">The invitation</label><input id="f-title" name="title" maxlength="150" required value="${E(p.title)}" placeholder="A river walk, then whatever smells good"></div><div class="field-row"><div class="field"><label for="f-region">Region</label><select id="f-region" name="region">${regionOptions(p.region)}</select></div>${field('area', 'Neighborhood / island', p.area, 'text', 'maxlength="100" required')}</div><div class="field plan-source-field"><label for="f-catalogueSource">Linked discovery · optional</label><input id="f-catalogueSource" name="catalogueSource" list="plan-source-options" value="${E(BY.get(p.catalogueId) ? `${BY.get(p.catalogueId).title} · ${p.catalogueId}` : p.catalogueId ? `Unavailable discovery · ${p.catalogueId}` : '')}" placeholder="Search a place from the fieldbook" autocomplete="off"><datalist id="plan-source-options">${C.map((a) => `<option value="${E(`${a.title} · ${a.id}`)}"></option>`).join('')}</datalist><small>Keep its guide and source attached to this plan. Linking a place does not verify a booking.</small></div><div class="field-row"><div class="field"><label for="f-kind">How decided are you?</label><select id="f-kind" name="kind"><option value="going" ${p.kind === 'going' ? 'selected' : ''}>I’m going</option><option value="idea" ${p.kind === 'idea' ? 'selected' : ''}>An idea · not yet decided</option></select></div><div class="field"><label for="f-joinStyle">How can friends join?</label><select id="f-joinStyle" name="joinStyle"><option value="open" ${p.joinStyle === 'open' ? 'selected' : ''}>All of it, or a smaller part</option><option value="solo" ${p.joinStyle === 'solo' ? 'selected' : ''}>Just me · a shared heads-up</option><option value="reunion" ${p.joinStyle === 'reunion' ? 'selected' : ''}>Solo first · meet afterward only</option></select></div></div>${timingPicker(p)}<div class="field"><label for="f-meeting">The main meeting point</label><textarea id="f-meeting" name="meeting" maxlength="500" required placeholder="A named landmark, station exit or address. Add which side and how to spot you.">${E(p.meeting)}</textarea><small>A vague “meet in Osaka” is not enough. Avoid publishing hotel room numbers or private access codes.</small></div>${field('costLimit', 'Proposed limit · JPY per person', p.costLimit ?? '', 'number', 'min="0" max="1000000" step="1" placeholder="No limit agreed"')}<p class="small muted">Optional. A planning ceiling for this outing; zero means no planned spend. It isn’t a price quote or a daily budget.</p><details class="form-detail plan-extra" ${p._collectionId ? 'open' : ''}><summary>Notes & meeting options${draftSegments.length ? ` · ${draftSegments.length} meet-up ${draftSegments.length === 1 ? 'part' : 'parts'}` : ''}</summary><div class="field"><label for="f-description">The plan in your words</label><textarea id="f-description" name="description" maxlength="3000" placeholder="The idea, the pace, what is and isn’t arranged. Permission to join just for the coffee.">${E(p.description)}</textarea></div><div class="section-label">Make it easy to join for a little</div><p class="small muted">Add an exact time and place for lunch, coffee, or meeting afterward. All parts must fit inside the invitation’s time window.</p><div id="segment-list">${draftSegments.map(segmentMarkup).join('')}</div>${btn(I('plus') + 'Add a meet-up part', 'add-segment', '', 'subtle')}<details class="form-detail"><summary>Cost, capacity, effort & booking</summary><div class="field-row">${field('capacity', 'Total places, including you', p.capacity || '', 'number', 'min="2" max="40" placeholder="No fixed limit"')}<div class="field"><label for="f-effort">Physical commitment</label><select id="f-effort" name="effort">${[
         ['easy', 'Easy pace'],
         ['active', 'Active outing'],
         ['demanding', 'Demanding outing'],
@@ -1686,7 +1772,7 @@
         )
         .join(
           '',
-        )}</select></div></div>${field('cost', 'Expected cost / who pays', p.cost, 'text', 'maxlength="160" placeholder="Not known yet is a valid answer"')}<div class="field"><label for="f-booking">Booking status</label><select id="f-booking" name="booking">${[
+        )}</select></div></div>${field('cost', 'Cost estimate / who pays', p.cost, 'text', 'maxlength="160" placeholder="Not known yet is a valid answer"')}<div class="field"><label for="f-booking">Booking status</label><select id="f-booking" name="booking">${[
         ['check', 'Needs checking / not arranged'],
         ['not-needed', 'No booking needed, according to host'],
         ['host-booked', 'I have booked for myself only'],
@@ -1697,7 +1783,7 @@
         )
         .join(
           '',
-        )}</select><small>A friend’s RSVP never buys a ticket. Confirm each person’s booking separately.</small></div>${field('mapLink', 'Optional exact map link', p.mapLink, 'url', 'maxlength="2000" placeholder="https://…"')}<p class="small muted">Capacity applies across the whole invitation, not separately to each part. Overnight trips need separate daily invitations.</p></details></details><div class="notice">${I('people')} Visible to members of this private trip. Nothing is sent to your contacts, calendars or booking sites automatically.</div><div class="form-error" role="alert"></div><div class="form-actions"><button type="button" class="btn subtle" data-action="close">${old ? 'Cancel edit' : 'Keep draft'}</button><button type="submit" class="btn primary">${old ? 'Save changes' : 'Publish invitation'} ${I('arrow')}</button></div></form>`,
+        )}</select><small>A friend’s RSVP never buys a ticket. Confirm each person’s booking separately.</small></div>${field('mapLink', 'Optional exact map link', p.mapLink, 'url', 'maxlength="2000" placeholder="https://…"')}<p class="small muted">Capacity applies across the whole invitation, not separately to each part. Overnight trips need separate daily invitations.</p></details></details><div class="notice">${I('people')} Visible to members of this private trip. Nothing is sent to your contacts, calendars or booking sites automatically.</div><div class="form-error" role="alert"></div><div class="form-actions"><button type="button" class="btn subtle" data-action="close">${old ? 'Cancel edit' : 'Keep draft'}</button><button type="submit" class="btn primary">${old ? 'Save changes' : 'Share plan'} ${I('arrow')}</button></div></form>`,
       'plan-form',
       id,
       true,
@@ -2537,7 +2623,7 @@
       url = location.origin + '/#join=' + inv.token + '&plan=' + id;
     openModal(
       'Send this invitation',
-      `<h2>Company welcome.</h2><p class="lede">${E(p.title)}</p><p>${dateText(p.date)} · ${formatTime(p)} JST</p><div class="field"><label for="invite-url">A link straight to this outing</label><input id="invite-url" value="${E(url)}" readonly></div><div class="row wrap">${btn('Copy invitation', 'copy-invite', '', 'primary')}${btn('Send to the chat', 'share-invite', '', 'subtle')}</div><p class="small muted" style="margin-top:16px">Friends new to the trip enter their name first. Opening the link does not RSVP for them.</p>`,
+      `<h2>${p.joinStyle === 'solo' ? 'A shared heads-up.' : 'Company welcome.'}</h2><p class="lede">${E(p.title)}</p><p>${dateText(p.date)} · ${formatTime(p)} JST</p><div class="field"><label for="invite-url">A link straight to this outing</label><input id="invite-url" value="${E(url)}" readonly></div><div class="row wrap">${btn('Copy invitation', 'copy-invite', '', 'primary')}${btn('Send to the chat', 'share-invite', '', 'subtle')}</div><p class="small muted" style="margin-top:16px">Friends new to the trip enter their name first. Opening the link does not RSVP for them.</p>`,
       'share-plan',
     );
   }
@@ -3420,7 +3506,9 @@
         toast(
           id
             ? 'Updated. Joined friends will be asked to reconfirm.'
-            : 'Your invitation is open. Friends can join any available part.',
+            : payload.joinStyle === 'solo'
+              ? 'Solo time shared. Joining is turned off.'
+              : 'Your invitation is open. Friends can join any available part.',
         );
       } else if (form.id === 'rsvp-form') {
         const status = e.submitter?.value || 'joined';
@@ -3447,10 +3535,12 @@
           status === 'joined'
             ? 'Your chosen part is confirmed in the trip. Tickets are separate.'
             : status === 'leave'
-              ? 'You left the plan. No explanation needed.'
-              : status === 'waitlist'
-                ? 'On the waitlist. You have not claimed a place.'
-                : 'Interested, without a commitment.',
+              ? 'Your reply was cleared.'
+              : status === 'declined'
+                ? 'Saved: you’re sitting this out. No explanation needed.'
+                : status === 'waitlist'
+                  ? 'On the waitlist. You have not claimed a place.'
+                  : 'Interested, without a commitment.',
         );
       } else if (form.id === 'comment-form') {
         await mutate(

@@ -1,3 +1,4 @@
+import '../public/plan-context.js';
 import {
   AskError,
   parseAsk,
@@ -46,6 +47,9 @@ export function memberContext(state: Row, excludedPlanId = ''): MemberContext {
     ...(reference
       ? {
           referencePlan: {
+            costLimit: reference.costLimit ?? null,
+            joinStyle: reference.joinStyle,
+            capacity: reference.capacity,
             title: reference.title,
             description: reference.description,
             date: reference.date,
@@ -58,23 +62,22 @@ export function memberContext(state: Row, excludedPlanId = ''): MemberContext {
     commitments: state.plans
       .filter((p: Row) => p.status === 'open' && p.id !== excludedPlanId)
       .flatMap((p: Row) => {
-        const r = p.rsvps.find(
-          (r: Row) => r.memberId === id && r.status === 'joined',
-        );
-        if (p.hostId !== id && !r) return [];
-        const part =
-          r && r.choice !== 'all'
-            ? p.segments.find((s: Row) => s.id === r.choice)
-            : p;
-        if (!part) return [];
+        const meaning = OmakasePlanContext.project(p, id);
+        if (!meaning.scheduleHold) return [];
+        const part = meaning.current;
         return [
           {
-            title: part.label || p.title,
+            title: p.title,
+            status: meaning.scheduleHold,
+            costLimit: part.costLimit,
+            participation: meaning.participation,
             date: p.date,
-            start: part.start,
-            end: part.end,
-            meeting: part.meeting,
-            reconfirm: !!r && r.acceptedRevision !== p.revision,
+            start: part.start || p.start,
+            end: part.end || p.end,
+            meeting: meaning.missingPart
+              ? 'Your selected part was removed. Review this plan.'
+              : part.meeting,
+            reconfirm: meaning.needsReconfirmation,
           },
         ];
       }),
@@ -290,6 +293,9 @@ export async function askRoutes(
             original.id,
             {
               ...draft,
+              costLimit: original.costLimit ?? null,
+              joinStyle: original.joinStyle,
+              capacity: original.capacity,
               revision: original.revision,
               booking: 'check',
               editRequestId: 'ask-edit-' + task.id,
@@ -633,6 +639,12 @@ export async function askRoutes(
           (p: Row) => p.id === input.referencePlanId,
         );
         for (const option of result.options) {
+          Object.assign(option.draft, {
+            costLimit: original.costLimit ?? null,
+            joinStyle: original.joinStyle,
+            capacity: original.capacity,
+            kind: original.kind,
+          });
           const labels = option.draft.segments.map((part) => part.label);
           if (
             labels.length !== original.segments.length ||

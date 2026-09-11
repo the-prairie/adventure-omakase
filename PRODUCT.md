@@ -45,7 +45,7 @@ claim its public social network, visited ratings or import automation.
 
 ## Source of Truth
 
-This is a compact design context, not a replacement product plan. Authority remains in `docs/product/adventure-omakase-v1.md`, the current friends amendment in `docs/exec-plans/active/cloudflare-friends-integration.md`, and ADRs 0006–0008. All facts above come from those accepted documents and the current user request.
+This is a compact design context, not a replacement product plan. Authority remains in `docs/product/adventure-omakase-v1.md`, the current friends amendment in `docs/exec-plans/active/cloudflare-friends-integration.md`, and ADRs 0006–0010. All facts above come from those accepted documents and the current user request.
 
 ## Coherent outing journey
 
@@ -61,3 +61,17 @@ Saved and Memories views explain the next action. The example hands off to the
 shared app through an ordinary link without exposing deployment instructions.
 
 Implementation does not establish deployment, live-provider behavior or completed visual acceptance. Preserve the existing acceptance gates and record their observed evidence separately.
+
+## Explicit plan intentions
+
+People may share solo time as a heads-up, with joining disabled. Declining is a
+saved reply, distinct from silence and from clearing a reply. A proposed per-person
+JPY ceiling stays separate from an estimate or actual spend. Manual invitations
+can keep a source-linked discovery attached. Joined friends can compare the
+meeting, time and recorded terms they accepted with the current plan before
+reconfirming. Participation and cost facts remain visible before the reply action.
+
+Human readers, the companion and agent observations use the same plan definitions.
+Private saves, shared heads-ups, tentative ideas, confirmed replies, bookings,
+attendance and memories remain distinct. The fictional pilot's prior limitations
+are historical evidence, not facts to rewrite after improving the app.

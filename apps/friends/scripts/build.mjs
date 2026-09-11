@@ -23,6 +23,7 @@ export async function buildAssets(release) {
   );
   const names = {};
   for (const name of [
+    'plan-context.js',
     'app.js',
     'outings.js',
     'area-data.js',

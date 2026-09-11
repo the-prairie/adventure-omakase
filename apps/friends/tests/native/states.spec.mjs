@@ -133,7 +133,9 @@ test('invitation boundaries and recovery have inspected screenshot states', asyn
     await capture(waiting, 'full-invitation');
     await capture(waiting, 'full-invitation-response', '#rsvp-form');
     await waiting.locator('#rsvp-form [value=waitlist]').click();
-    await expect(waiting.locator('#dialog')).toContainText('Waitlist');
+    await expect(
+      waiting.locator('.person-rsvp').filter({ hasText: 'Robin synthetic' }),
+    ).toContainText('Waiting for a place');
     await capture(waiting, 'waitlisted-response', true);
     await action(owner, 'plan-edit').click();
     await owner.locator('#f-meeting').fill('Changed synthetic south entrance');

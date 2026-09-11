@@ -119,6 +119,7 @@ test('health is real, setup is guarded and once-only', async () => {
   const f = await fixture();
   let r = await f.call('/health');
   assert.equal(r.data.setupRequired, true);
+  assert.equal(r.data.ok, true);
   assert.equal(r.data.platform, 'cloudflare');
   r = await f.call('/trips', { method: 'POST', data: { name: 'Other' } });
   assert.equal(r.status, 403);
@@ -1240,4 +1241,201 @@ test('public map config exposes only the dedicated browser key', async () => {
     JSON.stringify(response.data).includes('private-server-fixture'),
     false,
   );
+});
+
+test('declining is canonical, reversible, revision guarded and separate from silence', async () => {
+  const f = await fixture(),
+    o = await owner(f),
+    a = await friend(f, o),
+    b = await friend(f, o, 'Avery');
+  const p = await createPlan(f, o);
+  let reply = await f.call(`/plans/${p.id}/rsvp`, {
+    method: 'POST',
+    cookie: a.cookie,
+    data: { status: 'declined', revision: p.revision },
+  });
+  assert.equal(reply.status, 200, JSON.stringify(reply.data));
+  let state = (await f.call('/state', { cookie: a.cookie })).data;
+  assert.equal(state.plans[0].rsvps[0].status, 'declined');
+  assert.equal(state.plans[0].comments.length, 0);
+  assert.equal(
+    f.env.DB.db
+      .prepare('SELECT count(*) n FROM commitments WHERE member_id=?')
+      .get(a.data.me.id).n,
+    0,
+  );
+  const context = await f.call('/context?date=' + p.date, { cookie: a.cookie });
+  assert.equal(context.status, 200);
+  assert.equal(context.data.plans[0].response, 'declined');
+  assert.deepEqual(context.data.plans[0].unansweredMemberIds, [b.data.me.id]);
+  assert.equal(context.data.plans[0].scheduleHold, null);
+  assert.equal(
+    (
+      await f.call(context.data.read.next.replace('/api', ''), {
+        cookie: a.cookie,
+      })
+    ).status,
+    204,
+  );
+  reply = await f.call(`/plans/${p.id}/rsvp`, {
+    method: 'POST',
+    cookie: a.cookie,
+    data: { status: 'joined', choice: 'coffee', revision: p.revision },
+  });
+  assert.equal(reply.status, 200, JSON.stringify(reply.data));
+  await f.call(`/plans/${p.id}`, {
+    method: 'PUT',
+    cookie: o.cookie,
+    data: { ...p, title: 'Updated coffee', revision: p.revision },
+  });
+  assert.equal(
+    (
+      await f.call(`/plans/${p.id}/rsvp`, {
+        method: 'POST',
+        cookie: a.cookie,
+        data: { status: 'declined', revision: p.revision },
+      })
+    ).status,
+    409,
+  );
+  await f.call(`/plans/${p.id}/rsvp`, {
+    method: 'POST',
+    cookie: a.cookie,
+    data: { status: 'leave' },
+  });
+  state = (await f.call('/state', { cookie: a.cookie })).data;
+  assert.equal(state.plans[0].rsvps.length, 0);
+});
+
+test('solo heads-ups disable joining at the database boundary and preserve existing invitations', async () => {
+  const f = await fixture(),
+    o = await owner(f),
+    a = await friend(f, o);
+  const p = await createPlan(f, o, {
+    joinStyle: 'solo',
+    segments: [],
+    capacity: null,
+    costLimit: 0,
+  });
+  for (const status of ['joined', 'interested', 'waitlist', 'declined']) {
+    const result = await f.call(`/plans/${p.id}/rsvp`, {
+      method: 'POST',
+      cookie: a.cookie,
+      data: { status, choice: 'all', revision: 1 },
+    });
+    assert.equal(result.status, 409, JSON.stringify(result.data));
+    assert.match(result.data.detail, /solo time/);
+  }
+  const context = (
+    await f.call('/context?date=' + p.date, { cookie: a.cookie })
+  ).data.plans[0];
+  assert.equal(context.participation, 'solo');
+  assert.deepEqual(context.actions, []);
+  assert.equal(context.current.costLimit, 0);
+  assert.equal(context.options.length, 0);
+  const q = await createPlan(f, o, { date: '2026-10-05' });
+  await f.call(`/plans/${q.id}/rsvp`, {
+    method: 'POST',
+    cookie: a.cookie,
+    data: { status: 'interested', choice: 'coffee', revision: 1 },
+  });
+  const edit = await f.call(`/plans/${q.id}`, {
+    method: 'PUT',
+    cookie: o.cookie,
+    data: { ...q, joinStyle: 'solo', segments: [], capacity: null },
+  });
+  assert.equal(edit.status, 409, JSON.stringify(edit.data));
+  assert.equal(
+    (await f.call(`/plans/${q.id}`, { cookie: a.cookie })).data.joinStyle,
+    'reunion',
+  );
+});
+
+test('acceptance receipts preserve the actual prior meeting and limit across edits and reconfirmation', async () => {
+  const f = await fixture(),
+    o = await owner(f),
+    a = await friend(f, o);
+  const p = await createPlan(f, o, {
+    costLimit: 1500,
+    catalogueId: 'osaka-001',
+  });
+  await f.call(`/plans/${p.id}/rsvp`, {
+    method: 'POST',
+    cookie: a.cookie,
+    data: { status: 'joined', choice: 'coffee', revision: 1 },
+  });
+  const edit = await f.call(`/plans/${p.id}`, {
+    method: 'PUT',
+    cookie: o.cookie,
+    data: {
+      ...p,
+      costLimit: 2000,
+      segments: [{ ...p.segments[0], meeting: 'East exit', start: '09:15' }],
+    },
+  });
+  assert.equal(edit.status, 200, JSON.stringify(edit.data));
+  let context = (await f.call('/context?date=' + p.date, { cookie: a.cookie }))
+    .data.plans[0];
+  assert.equal(context.needsReconfirmation, true);
+  assert.equal(context.accepted.meeting, p.segments[0].meeting);
+  assert.equal(context.accepted.costLimit, 1500);
+  assert.equal(context.current.meeting, 'East exit');
+  assert.equal(context.current.costLimit, 2000);
+  assert.deepEqual(context.changes.map((c) => c.field).sort(), [
+    'costLimit',
+    'meeting',
+    'start',
+  ]);
+  assert.equal(context.source.catalogueId, 'osaka-001');
+  const answer = await f.call(`/plans/${p.id}/rsvp`, {
+    method: 'POST',
+    cookie: a.cookie,
+    data: { status: 'joined', choice: 'coffee', revision: 2 },
+  });
+  assert.equal(answer.status, 200, JSON.stringify(answer.data));
+  context = (await f.call('/context?date=' + p.date, { cookie: a.cookie })).data
+    .plans[0];
+  assert.equal(context.needsReconfirmation, false);
+  assert.equal(context.accepted.meeting, 'East exit');
+  assert.equal(context.acceptedRevision, 2);
+});
+
+test('compact context and bounded catalogue are authenticated, source-linked and member scoped', async () => {
+  const f = await fixture(),
+    o = await owner(f),
+    a = await friend(f, o);
+  assert.equal((await f.call('/context?date=2026-10-04')).status, 401);
+  assert.equal((await f.call('/catalogue')).status, 401);
+  assert.equal((await f.call('/context', { cookie: o.cookie })).status, 422);
+  const places = await f.call('/catalogue?region=osaka&limit=2', {
+    cookie: a.cookie,
+  });
+  assert.equal(places.status, 200, JSON.stringify(places.data));
+  assert.equal(places.data.total, 100);
+  assert.equal(places.data.places.length, 2);
+  assert.equal(places.data.nextOffset, 2);
+  const detail = await f.call('/catalogue?id=' + places.data.places[0].id, {
+    cookie: a.cookie,
+  });
+  assert.equal(detail.data.total, 1);
+  assert.ok(detail.data.places[0].source);
+  assert.equal(
+    (await f.call('/catalogue?limit=31', { cookie: a.cookie })).status,
+    422,
+  );
+  await f.call('/moments', {
+    method: 'POST',
+    cookie: o.cookie,
+    data: memory({ visibility: 'private', text: 'private-sentinel' }),
+  });
+  const context = await f.call('/context?date=2026-10-04', {
+    cookie: a.cookie,
+  });
+  assert.ok(!JSON.stringify(context.data).includes('private-sentinel'));
+  const invalid = await f.call('/plans', {
+    method: 'POST',
+    cookie: o.cookie,
+    data: proposal({ costLimit: -1 }),
+  });
+  assert.equal(invalid.status, 422);
 });

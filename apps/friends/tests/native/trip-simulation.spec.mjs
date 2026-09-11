@@ -448,9 +448,7 @@ test('four friends make independent days, join selected stops, reconfirm changes
   });
   await scene('Mei', 'Mei checks the changed invitation', async (page) => {
     await go(page, '#plan=' + plans.osaka);
-    await expect(page.locator('#dialog')).toContainText(
-      'This changed since you joined',
-    );
+    await expect(page.locator('#dialog')).toContainText('Review what changed');
     await capture(page, '05-reconfirmation');
     await note(
       page,

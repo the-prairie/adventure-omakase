@@ -149,8 +149,8 @@ test('a curated Naha evening becomes a shared plan, a friend joins dinner only, 
     await owner.locator('#plan-form button[type=submit]').click();
     await expect(owner.locator('.host-actions')).toBeVisible();
     await friend.reload();
-    await expect(friend.locator('#dialog')).toContainText(
-      'This changed since you joined',
+    await expect(friend.locator('.plan-reconfirmation')).toContainText(
+      'Review what changed',
     );
     await expect(friend.locator('#dialog')).toContainText(
       'Synthetic revised dinner entrance',
