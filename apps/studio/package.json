@@ -1,0 +1,32 @@
+{
+  "name": "@adventure-omakase/studio",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "start": "next start -p 3000",
+    "build": "next build",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:integration": "vitest run --passWithNoTests",
+    "clean": "rm -rf .next coverage"
+  },
+  "dependencies": {
+    "@adventure-omakase/api-client": "workspace:*",
+    "@adventure-omakase/design-tokens": "workspace:*",
+    "next": "16.3.2",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.2",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "jsdom": "30.0.1",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

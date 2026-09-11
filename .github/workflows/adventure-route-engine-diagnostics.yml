@@ -1,0 +1,108 @@
+name: Adventure Route Engine Diagnostics
+
+on:
+  push:
+    branches:
+      - feat/adventure-route-engine-osaka
+    paths:
+      - 'adventure-route-engine/**'
+      - '.github/workflows/adventure-route-engine-diagnostics.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  python-diagnostics:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: adventure-route-engine
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check uv==0.10.0
+      - run: uv sync --all-extras
+      - name: Run all Python checks
+        id: checks
+        continue-on-error: true
+        run: |
+          set +e
+          mkdir -p reports/diagnostics
+          uv run ruff format --check . > reports/diagnostics/ruff-format.txt 2>&1
+          echo $? > reports/diagnostics/ruff-format.exit
+          uv run ruff check . > reports/diagnostics/ruff-lint.txt 2>&1
+          echo $? > reports/diagnostics/ruff-lint.exit
+          uv run pyright > reports/diagnostics/pyright.txt 2>&1
+          echo $? > reports/diagnostics/pyright.exit
+          timeout 240s uv run pytest -q --maxfail=20 --durations=20 > reports/diagnostics/pytest.txt 2>&1
+          echo $? > reports/diagnostics/pytest.exit
+          if grep -qv '^0$' reports/diagnostics/*.exit; then exit 1; fi
+      - name: Comment Python diagnostics
+        if: steps.checks.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo '## Adventure Route Engine — Python diagnostics'
+            echo
+            echo "Commit: \`${GITHUB_SHA}\`"
+            for check in ruff-format ruff-lint pyright pytest; do
+              echo
+              echo "### ${check} — exit $(cat reports/diagnostics/${check}.exit)"
+              echo '```text'
+              tail -n 220 reports/diagnostics/${check}.txt
+              echo '```'
+            done
+          } > /tmp/python-diagnostics.md
+          gh pr comment 4 --repo "${GITHUB_REPOSITORY}" --body-file /tmp/python-diagnostics.md
+      - name: Enforce Python checks
+        if: steps.checks.outcome != 'success'
+        run: exit 1
+
+  web-diagnostics:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: adventure-route-engine/apps/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+      - name: Run web checks
+        id: checks
+        continue-on-error: true
+        run: |
+          set +e
+          mkdir -p ../../reports/diagnostics
+          npm run typecheck > ../../reports/diagnostics/web-typecheck.txt 2>&1
+          echo $? > ../../reports/diagnostics/web-typecheck.exit
+          npm run build > ../../reports/diagnostics/web-build.txt 2>&1
+          echo $? > ../../reports/diagnostics/web-build.exit
+          if grep -qv '^0$' ../../reports/diagnostics/web-*.exit; then exit 1; fi
+      - name: Comment web diagnostics
+        if: steps.checks.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo '## Adventure Route Engine — web diagnostics'
+            echo
+            echo "Commit: \`${GITHUB_SHA}\`"
+            for check in web-typecheck web-build; do
+              echo
+              echo "### ${check} — exit $(cat ../../reports/diagnostics/${check}.exit)"
+              echo '```text'
+              tail -n 220 ../../reports/diagnostics/${check}.txt
+              echo '```'
+            done
+          } > /tmp/web-diagnostics.md
+          gh pr comment 4 --repo "${GITHUB_REPOSITORY}" --body-file /tmp/web-diagnostics.md
+      - name: Enforce web checks
+        if: steps.checks.outcome != 'success'
+        run: exit 1

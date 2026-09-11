@@ -1,0 +1,155 @@
+name: Adventure Route Engine Completion Gate
+
+on:
+  push:
+    branches:
+      - feat/adventure-route-engine-osaka
+    paths:
+      - 'adventure-route-engine/**'
+      - '.github/workflows/adventure-route-engine-completion.yml'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  complete:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    defaults:
+      run:
+        working-directory: adventure-route-engine
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install uv and Python dependencies
+        run: |
+          python -m pip install --disable-pip-version-check uv==0.10.0
+          uv sync --all-extras
+      - name: Python quality gate
+        run: |
+          uv run ruff format --check .
+          uv run ruff check .
+          uv run pyright
+          timeout 240s uv run pytest -q --maxfail=20 --durations=20
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Web quality gate
+        working-directory: adventure-route-engine/apps/web
+        run: |
+          npm install
+          npm run typecheck
+          npm run build
+      - name: Install Osaka data tools
+        run: sudo apt-get update && sudo apt-get install -y osmium-tool jq
+      - name: Bootstrap pinned Osaka data
+        run: make bootstrap-osaka
+      - name: Start Valhalla and PostGIS
+        run: make start-valhalla
+      - name: Wait for Valhalla
+        run: make wait-valhalla
+      - name: Run authoritative Osaka gate
+        run: make verify-osaka
+      - name: Build completion summary
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import json
+          import os
+          from pathlib import Path
+
+          reports = Path('reports')
+          scorecard = json.loads((reports / 'osaka-scorecard.json').read_text())
+          validation = json.loads((reports / 'osaka-validation.json').read_text())
+          comparison = json.loads((reports / 'osaka-comparison.json').read_text())
+          manifest = json.loads((reports / 'osaka-run-manifest.json').read_text())
+          winner = scorecard.get('winner', scorecard)
+          metrics = winner.get('metrics', {})
+          score = winner.get('score', {})
+          components = score.get('components', winner.get('components', {}))
+          alternatives = comparison.get('final_alternatives', comparison.get('routes', []))
+
+          def pct(value):
+              return f"{float(value or 0) * 100:.1f}%"
+
+          lines = [
+              '## Adventure Route Engine — Osaka gate passed',
+              '',
+              f"Tested commit: `{os.environ['GITHUB_SHA']}`",
+              '',
+              '| Metric | Result |',
+              '|---|---:|',
+              f"| Winning route | `{winner.get('id', winner.get('route_id', 'unknown'))}` |",
+              f"| Distance | {float(metrics.get('distance_m', winner.get('distance_m', 0))) / 1000:.2f} km |",
+              f"| Total score | {float(score.get('total', winner.get('total_score', 0))):.2f} / 100 |",
+              f"| Repeated edge | {pct(metrics.get('repeated_edge_fraction'))} |",
+              f"| Park + waterfront | {pct(metrics.get('park_waterfront_fraction'))} |",
+              f"| Major road | {pct(metrics.get('major_road_fraction'))} |",
+              f"| PLATEAU coverage | {pct(metrics.get('plateau_coverage_fraction'))} |",
+              f"| Candidates generated | {manifest.get('candidate_count', scorecard.get('candidate_count', 'unknown'))} |",
+              f"| Validation | {'PASS' if validation.get('valid', validation.get('passed', False)) else 'FAIL'} |",
+              '',
+              '### Score components',
+              '',
+          ]
+          for key, value in components.items():
+              if isinstance(value, dict):
+                  awarded = value.get('awarded', value.get('score', 0))
+                  maximum = value.get('maximum', value.get('max', ''))
+                  lines.append(f"- **{key}**: {awarded}{f' / {maximum}' if maximum != '' else ''}")
+              else:
+                  lines.append(f"- **{key}**: {value}")
+          lines.extend(['', '### Final alternatives', ''])
+          for route in alternatives[:3]:
+              if isinstance(route, dict):
+                  lines.append(f"- `{route.get('id', route.get('route_id', 'unknown'))}` — {float(route.get('distance_m', route.get('metrics', {}).get('distance_m', 0))) / 1000:.2f} km")
+              else:
+                  lines.append(f"- `{route}`")
+          lines.extend([
+              '',
+              '### Artifacts',
+              '',
+              '- `adventure-route-engine/artifacts/osaka/winner.gpx`',
+              '- `adventure-route-engine/artifacts/osaka/balanced.gpx`',
+              '- `adventure-route-engine/artifacts/osaka/waterfront.gpx`',
+              '- `adventure-route-engine/artifacts/osaka/cultural.gpx`',
+              '- `adventure-route-engine/reports/osaka-scorecard.json`',
+              '- `adventure-route-engine/reports/osaka-validation.json`',
+              '- `adventure-route-engine/reports/osaka-run-manifest.json`',
+          ])
+          Path('/tmp/osaka-completion.md').write_text('\n'.join(lines) + '\n')
+          PY
+      - name: Record passing artifacts on branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f artifacts/osaka/*.gpx artifacts/osaka/routes.geojson \
+            reports/osaka-scorecard.json reports/osaka-scorecard.md \
+            reports/osaka-validation.json reports/osaka-evidence.json \
+            reports/osaka-comparison.json reports/osaka-run-manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "test: record passing Osaka verification [skip ci]"
+            git push origin HEAD:feat/adventure-route-engine-osaka
+          fi
+      - name: Publish completion to draft PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment 4 --repo "${GITHUB_REPOSITORY}" --body-file /tmp/osaka-completion.md
+          gh pr ready 4 --repo "${GITHUB_REPOSITORY}"
+          gh issue close 3 --repo "${GITHUB_REPOSITORY}" --reason "not planned" --comment "Closed after the real Osaka Adventure Route Engine completion gate passed."
+      - name: Upload complete Osaka artifact bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: adventure-route-engine-osaka-complete
+          path: |
+            adventure-route-engine/artifacts/osaka
+            adventure-route-engine/reports/osaka-*.json
+            adventure-route-engine/reports/osaka-scorecard.md
+          if-no-files-found: error

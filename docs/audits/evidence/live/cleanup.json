@@ -1,0 +1,10 @@
+{
+  "environment": "restore",
+  "checkedAt": "2026-09-06T09:35:26.934Z",
+  "mechanism": "Authenticated admin route invokes the deployed cleanup handler; not observation of a scheduled cron firing",
+  "before": 1,
+  "after": 0,
+  "result": {
+    "ok": true
+  }
+}

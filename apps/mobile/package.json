@@ -1,0 +1,57 @@
+{
+  "name": "@adventure-omakase/mobile",
+  "version": "0.0.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "dev": "expo start",
+    "build": "expo export --platform web --output-dir web-build",
+    "typecheck": "tsc --noEmit",
+    "test": "jest --runInBand",
+    "test:unit": "jest --runInBand",
+    "test:integration": "jest --runInBand --passWithNoTests",
+    "doctor": "expo-doctor",
+    "export": "expo export --platform web --output-dir web-build",
+    "clean": "rm -rf .expo web-build coverage"
+  },
+  "dependencies": {
+    "@adventure-omakase/api-client": "workspace:*",
+    "@adventure-omakase/design-tokens": "workspace:*",
+    "@expo/metro-runtime": "57.0.12",
+    "expo": "57.0.15",
+    "expo-constants": "57.0.13",
+    "expo-linking": "57.0.7",
+    "expo-router": "57.0.15",
+    "expo-status-bar": "57.0.1",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-native": "0.86.2",
+    "react-native-gesture-handler": "2.32.0",
+    "react-native-reanimated": "4.5.1",
+    "react-native-safe-area-context": "5.7.0",
+    "react-native-screens": "4.26.0",
+    "react-native-worklets": "0.10.1",
+    "react-native-web": "0.21.2",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@testing-library/react-native": "14.0.1",
+    "@react-native/metro-config": "0.86.2",
+    "@types/jest": "29.5.14",
+    "@types/react": "catalog:",
+    "expo-doctor": "1.20.2",
+    "jest": "29.7.0",
+    "jest-expo": "57.0.4",
+    "react-test-renderer": "19.2.3",
+    "typescript": "catalog:"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "testMatch": [
+      "<rootDir>/src/**/*.test.ts?(x)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/test/setup.ts"
+    ]
+  }
+}

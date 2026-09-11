@@ -1,0 +1,148 @@
+# Discovery photographs and source notes
+
+Photographs are assigned by explicit discovery ID after checking the source description and the image itself. The catalogue currently has 242 distinct primary photographs and 58 text-only discoveries. A photo must depict the named place or the actual dish, craft or activity; those illustrative subjects are visibly labelled. Proximity to a neighbourhood does not make an image relevant. Regional chapter illustrations remain decorative. These historical views do not establish current appearance, opening or availability.
+
+Images are resized and converted to WebP; the UI may crop their framing. Each image retains its listed license, including share-alike where applicable. Attribution and license links accompany every displayed image.
+
+| Discovery | Photograph / attribution                                                                                                                                                                                        | License                                                             | Original date                                                                                            |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| tokyo-001 | [Metropolitan Area Outer Underground Discharge Channel (10886145804).jpg](<https://commons.wikimedia.org/wiki/File:Metropolitan_Area_Outer_Underground_Discharge_Channel_(10886145804).jpg>) · Kunitaka NIIDATE | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)      | 2013-11-16 15:16                                                                                         |
+| tokyo-002 | [Exhibits at Meguro Parasitological Museum 12.jpg](https://commons.wikimedia.org/wiki/File:Exhibits_at_Meguro_Parasitological_Museum_12.jpg) · Syced                                                            | [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en)     | 10 March 2024 (according to Exif data)                                                                   |
+| tokyo-003 | [Tokyo Sewerage Museum "Rainbow".jpg](https://commons.wikimedia.org/wiki/File:Tokyo_Sewerage_Museum_%22Rainbow%22.jpg) · Syced                                                                                  | [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en)     | 20 December 2020 (according to Exif data)                                                                |
+| tokyo-004 | [Intermediatheque P7159895a.jpg](https://commons.wikimedia.org/wiki/File:Intermediatheque_P7159895a.jpg) · Kestrel                                                                                              | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2019-07-15                                                                                               |
+| tokyo-005 | [Fukagawa Edo Museum on the 30th of october 2010 - 43.jpg](https://commons.wikimedia.org/wiki/File:Fukagawa_Edo_Museum_on_the_30th_of_october_2010_-_43.jpg) · Lionel Allorge                                   | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)      | Taken on 30 October 2010, 03:10:48                                                                       |
+| tokyo-006 | [Edo-Tokyo Open Air Architectural Museum PB252276.jpg](https://commons.wikimedia.org/wiki/File:Edo-Tokyo_Open_Air_Architectural_Museum_PB252276.jpg) · Kestrel                                                  | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | Taken on 25 November 2017                                                                                |
+| tokyo-007 | [Reversible Destiny Lofts exterior.jpg](https://commons.wikimedia.org/wiki/File:Reversible_Destiny_Lofts_exterior.jpg) · Kotaro Iwaoka                                                                          | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)      | 2010-06-19 12:45:16                                                                                      |
+| tokyo-008 | [Tokyo Toilet Project 01.jpg](https://commons.wikimedia.org/wiki/File:Tokyo_Toilet_Project_01.jpg) · Mr.Asylum                                                                                                  | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2020-10-31 11:53:22                                                                                      |
+| tokyo-009 | [PIGEMNT outside.jpg](https://commons.wikimedia.org/wiki/File:PIGEMNT_outside.jpg) · Wiki-wiki-rookie                                                                                                           | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2016-01-14 14:26:45                                                                                      |
+| tokyo-010 | [Firefighting trucks and details at Tokyo Fire Museum 2.jpg](https://commons.wikimedia.org/wiki/File:Firefighting_trucks_and_details_at_Tokyo_Fire_Museum_2.jpg) · Syced                                        | [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en)     | 26 March 2023 (according to Exif data)                                                                   |
+| tokyo-011 | [NAOJ mitaka.jpg](https://commons.wikimedia.org/wiki/File:NAOJ_mitaka.jpg) · Osamu Iwasaki from Tokyo, Japan                                                                                                    | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)      | 2009-10-09 13:40                                                                                         |
+| tokyo-012 | [Nezu Museum Garden view 201805.jpg](https://commons.wikimedia.org/wiki/File:Nezu_Museum_Garden_view_201805.jpg) · Wpcpey                                                                                       | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2018-05-31                                                                                               |
+| tokyo-013 | [St. Mary's Cathedral Tokyo.jpg](https://commons.wikimedia.org/wiki/File:St._Mary%27s_Cathedral_Tokyo.jpg) · Kakidai                                                                                            | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2016-10-24                                                                                               |
+| tokyo-014 | [21 21 DESIGN SIGHT.jpg](https://commons.wikimedia.org/wiki/File:21_21_DESIGN_SIGHT.jpg) · Wiiii                                                                                                                | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)      | 2008-10-19                                                                                               |
+| tokyo-015 | [SMALL WORLDS Miniature Museum 01.jpg](https://commons.wikimedia.org/wiki/File:SMALL_WORLDS_Miniature_Museum_01.jpg) · Bea Phi                                                                                  | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2024-09-03                                                                                               |
+| tokyo-016 | [Tobacco & Salt Museum (Tokyo).JPG](<https://commons.wikimedia.org/wiki/File:Tobacco_%26_Salt_Museum_(Tokyo).JPG>) · Abasaa                                                                                     | [Public domain](https://creativecommons.org/publicdomain/mark/1.0/) | 2017-01-15                                                                                               |
+| tokyo-017 | [TRT-1001-Tokyo-Metro-Museum.jpg](https://commons.wikimedia.org/wiki/File:TRT-1001-Tokyo-Metro-Museum.jpg) · Rs1421                                                                                             | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)      | Taken on 17 July 2010                                                                                    |
+| tokyo-019 | [Entrance of Tokyo Toy Museum.jpg](https://commons.wikimedia.org/wiki/File:Entrance_of_Tokyo_Toy_Museum.jpg) · Tzu-hsun Hsu                                                                                     | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2016-07-24 12:57:31                                                                                      |
+| tokyo-020 | [Ghibli Museum, Mitaka, Tokyo, 20240823 1131 5545.jpg](https://commons.wikimedia.org/wiki/File:Ghibli_Museum,_Mitaka,_Tokyo,_20240823_1131_5545.jpg) · Jakub Hałun                                              | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)            | 2024-08-23 11:31:35                                                                                      |
+| tokyo-021 | [Yanaka Ginza 2.jpg](https://commons.wikimedia.org/wiki/File:Yanaka_Ginza_2.jpg) · Christophe95                                                                                                                 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | Taken on 8 September 2018, 11:12:46                                                                      |
+| tokyo-022 | [Ueno Sakuragi Atari.jpg](https://commons.wikimedia.org/wiki/File:Ueno_Sakuragi_Atari.jpg) · Suikotei                                                                                                           | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 14 December 2019, 15:20:23                                                                               |
+| tokyo-023 | [Nezu Shrine 2010.jpg](https://commons.wikimedia.org/wiki/File:Nezu_Shrine_2010.jpg) · Wiiii                                                                                                                    | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)      | 2010                                                                                                     |
+| tokyo-024 | [Shibamata Taishakuten.jpg](https://commons.wikimedia.org/wiki/File:Shibamata_Taishakuten.jpg) · Los688                                                                                                         | [Public domain](https://creativecommons.org/publicdomain/mark/1.0/) | Uploaded to Japanese Wikipedia on April 24, 2005 by Los688, upload to commons by Kzaral on July 4, 2008. |
+| tokyo-029 | [Shimokitazawa Street 2015.jpg](https://commons.wikimedia.org/wiki/File:Shimokitazawa_Street_2015.jpg) · Aw1805                                                                                                 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2015-02-14                                                                                               |
+
+## Experience summaries
+
+Nine expanded guides were read on September 7, 2026. The prose is a short paraphrase of the linked tourism source, not a claim of live availability. The other catalogue entries retain their earlier descriptions and research status.
+
+- tokyo-001: [Saitama Tourism · tour guide](https://saitama-supportdesk.com/experiences/post-24362/)
+- tokyo-002: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/spot/434/index.html)
+- tokyo-003: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/spot/633/index.html)
+- tokyo-004: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/spot/474/index.html)
+- tokyo-005: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/spot/631/index.html)
+- tokyo-006: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/spot/417/index.html)
+- tokyo-007: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/spot/157/index.html)
+- tokyo-009: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/new-and-now/new-and-trending/230227/topics.html)
+- tokyo-029: [GO TOKYO · official travel guide](https://www.gotokyo.org/en/destinations/western-tokyo/shimokitazawa/index.html)
+
+## Nakanoshima area photograph
+
+`photos/osaka-011.webp`: [Dojima River Nakanoshima Osaka Japan02-r.jpg](https://commons.wikimedia.org/wiki/File:Dojima_River_Nakanoshima_Osaka_Japan02-r.jpg), Oilstreet, 22 December 2014, [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/). Resized to 960px and converted to WebP; responsive display crops may apply. Depicts the Nakanoshima area, not an exact meeting point or current appearance.
+
+## September 8 context additions
+
+- `assets/discovery/photos/karahori-arcade.webp`: [File:Osaka Karahori 20110626.jpg](https://commons.wikimedia.org/wiki/File:Osaka_Karahori_20110626.jpg), Kyoww, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). Karahori shopping arcade · 2011. Resized to 960px and converted to WebP; display crops may apply.
+- `assets/discovery/photos/dozeu-meal.webp`: [File:Dozeu nabe.jpg](https://commons.wikimedia.org/wiki/File:Dozeu_nabe.jpg), Tadashi Okoshi, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0). Loach hot pot at Komagata Dozeu · 2008. Resized to 960px and converted to WebP; display crops may apply.
+- `assets/discovery/photos/dozeu-exterior.webp`: [File:Komagata Dozeu -01.jpg](https://commons.wikimedia.org/wiki/File:Komagata_Dozeu_-01.jpg), Aimaimyi, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). Komagata Dozeu exterior · 2011. Resized to 960px and converted to WebP; display crops may apply.
+
+Karahori and Kyu Yamutei expanded descriptions cite the linked Osaka tourism and Good Luck Trip pages in data.js. Two checked menu links distinguish official menu from historical diner photos. No current opening, menu, availability or booking claim is made.
+
+## September 8: Osaka and Okinawa experience expansion
+
+24 additional guides cover what visitors do, the setting, and practical arrangements. Each links its official venue or tourism source and records the reading date. Research is not live availability. The catalogue now has 36 expanded guides and 50 photographed entries (51 photographs), out of 300 discoveries.
+
+23 licensed photographs were added. The Tower of the Sun guide links the operator’s illustrated page; no photograph with unresolved reuse rights is bundled. Captions distinguish exteriors, historical seasons, a regional example dish and a daytime island view. Small original images are not evidence of present conditions.
+
+| Discovery   | Photograph / attribution                                                                                                                                                                                | License                                                             | Original date                           |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | --------------------------------------- |
+| osaka-001   | [Senkouji Temple, Osaka 2.jpg](https://commons.wikimedia.org/wiki/File:Senkouji_Temple,_Osaka_2.jpg) · Motokoka                                                                                         | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2009-05-30 15:16:21                     |
+| osaka-002   | [Namba-Yasaka-Shrine-lions head theater.jpg](https://commons.wikimedia.org/wiki/File:Namba-Yasaka-Shrine-lions_head_theater.jpg) · Immanuelle                                                           | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)            | 2024-08-05 14:55:16                     |
+| osaka-005   | [Osaka Prefectural Sayamaike Museum waterfall-01.JPG](https://commons.wikimedia.org/wiki/File:Osaka_Prefectural_Sayamaike_Museum_waterfall-01.JPG) · Ajax                                               | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2016-03-23 15:09:15                     |
+| osaka-006   | [Chikatsu asuka museum01s3592.jpg](https://commons.wikimedia.org/wiki/File:Chikatsu_asuka_museum01s3592.jpg) · 663highland                                                                              | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5)            | 2007-01-20                              |
+| osaka-007   | [Open-Air Museum of Old Japanese Farm Houses 3-26 (26259523120).jpg](<https://commons.wikimedia.org/wiki/File:Open-Air_Museum_of_Old_Japanese_Farm_Houses_3-26_(26259523120).jpg>) · KimonBerlin        | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)      | 2016-03-26 10:58:50                     |
+| osaka-022   | [Laboratory of Momofuku (3).jpg](<https://commons.wikimedia.org/wiki/File:Laboratory_of_Momofuku_(3).jpg>) · Mr.ちゅらさん                                                                              | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2016-11-14 12:47:05                     |
+| osaka-030   | [National museum of ethnology Japan.jpg](https://commons.wikimedia.org/wiki/File:National_museum_of_ethnology_Japan.jpg) · No machine-readable author provided. Fk assumed (based on copyright claims). | [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5)      | 4 April 2002 (according to Exif data)   |
+| osaka-031   | [Minoh Falls Minoh Osaka pref Japan08s3.jpg](https://commons.wikimedia.org/wiki/File:Minoh_Falls_Minoh_Osaka_pref_Japan08s3.jpg) · 663highland                                                          | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5)            | 2012-12-01                              |
+| osaka-032   | [Daruma Dolls Osaka.JPG](https://commons.wikimedia.org/wiki/File:Daruma_Dolls_Osaka.JPG) · EllieRH                                                                                                      | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2015-06-21 17:18:38                     |
+| osaka-093   | [Tatsuno Almond butter turst.JPG](https://commons.wikimedia.org/wiki/File:Tatsuno_Almond_butter_turst.JPG) · Mti                                                                                        | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)      | 2013-02-24 13:17:20                     |
+| osaka-098   | [Otagi nenbutsuji06s3200.jpg](https://commons.wikimedia.org/wiki/File:Otagi_nenbutsuji06s3200.jpg) · 663highland                                                                                        | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5)            | 2010-11-23                              |
+| okinawa-005 | [Naha Okinawa Japan Shikinaen-01.jpg](https://commons.wikimedia.org/wiki/File:Naha_Okinawa_Japan_Shikinaen-01.jpg) · CEphoto, Uwe Aranas                                                                | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)      | 2016-01-07                              |
+| okinawa-006 | [Tsuboya Yachimun Street.jpg](https://commons.wikimedia.org/wiki/File:Tsuboya_Yachimun_Street.jpg) · Hajime NAKANO                                                                                      | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)            | 2006-12-16 13:50:31                     |
+| okinawa-010 | [Naha Sakaemachi Ichiba 01.JPG](https://commons.wikimedia.org/wiki/File:Naha_Sakaemachi_Ichiba_01.JPG) · Abasaa                                                                                         | [Public domain](https://creativecommons.org/publicdomain/mark/1.0/) | 2023-07-09                              |
+| okinawa-011 | [Valley of Gangala 2.jpg](https://commons.wikimedia.org/wiki/File:Valley_of_Gangala_2.jpg) · Bernie Ongewe                                                                                              | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 16 June 2022 (according to Exif data)   |
+| okinawa-012 | [Gyokusendo 20221228-2.jpg](https://commons.wikimedia.org/wiki/File:Gyokusendo_20221228-2.jpg) · Suicasmo                                                                                               | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2022-12-28 13:26:22                     |
+| okinawa-019 | [Okinawa Prefectural Museum & Art Museum02bss3200.jpg](https://commons.wikimedia.org/wiki/File:Okinawa_Prefectural_Museum_%26_Art_Museum02bss3200.jpg) · 663highland                                    | [CC BY 2.5](https://creativecommons.org/licenses/by/2.5)            | 2009-03-20                              |
+| okinawa-024 | [Zakimi Burg, äußerer Ring.jpg](https://commons.wikimedia.org/wiki/File:Zakimi_Burg,_%C3%A4u%C3%9Ferer_Ring.jpg) · Renate Hano                                                                          | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2023-06-08 13:27:54                     |
+| okinawa-036 | [Bise Fukugi Tree Road 01.JPG](https://commons.wikimedia.org/wiki/File:Bise_Fukugi_Tree_Road_01.JPG) · Abasaa                                                                                           | [Public domain](https://creativecommons.org/publicdomain/mark/1.0/) | 2017-09-30                              |
+| okinawa-037 | [Nakijin Castle 20221229.jpg](https://commons.wikimedia.org/wiki/File:Nakijin_Castle_20221229.jpg) · Suicasmo                                                                                           | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)      | 2022-12-29 14:52:58                     |
+| okinawa-043 | [浜辺の茶屋 （Hamabe no Chaya) - panoramio.jpg](<https://commons.wikimedia.org/wiki/File:%E6%B5%9C%E8%BE%BA%E3%81%AE%E8%8C%B6%E5%B1%8B_%EF%BC%88Hamabe_no_Chaya)_-_panoramio.jpg>) · popsaurus          | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0)            | 25 February 2008 (original upload date) |
+| okinawa-091 | [Village in Taketomi Island - located at southwest Japan.jpg](https://commons.wikimedia.org/wiki/File:Village_in_Taketomi_Island_-_located_at_southwest_Japan.jpg) · ippei & janine naoi                | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)            | 2006-07-30                              |
+| okinawa-098 | [Aerial photo of the Hateruma Island village.jpg](https://commons.wikimedia.org/wiki/File:Aerial_photo_of_the_Hateruma_Island_village.jpg) · ブルーノ・プラス                                           | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)            | 2024-06                                 |
+
+### Guide sources
+
+- osaka-001: [Osaka official tourism guide](https://osaka-info.jp/en/spot/senkoji-1/)
+- osaka-002: [Osaka official tourism guide](https://osaka-info.jp/en/spot/nanbayasakajinja/)
+- osaka-004: [Tower of the Sun · official illustrated guide](https://taiyounotou-expo70.jp/en/about/)
+- osaka-005: [Osaka official tourism guide](https://osaka-info.jp/experience/en/osaka/spot/593)
+- osaka-006: [Osaka official tourism guide](https://osaka-info.jp/experience/en/osaka/spot/518)
+- osaka-007: [Osaka official tourism guide](https://osaka-info.jp/en/spot/open-air-museum-old-japanese-houses/)
+- osaka-022: [CUPNOODLES MUSEUM · official visitor guide](https://www.cupnoodles-museum.jp/en/osaka_ikeda/)
+- osaka-030: [National Museum of Ethnology · permanent exhibitions](https://www.minpaku.ac.jp/en/exhibition/permanent)
+- osaka-031: [Osaka official tourism guide](https://osaka-info.jp/en/modelcourse/course-family-minoh/)
+- osaka-032: [Katsuoji · official Kachi-Daruma guide (PDF)](https://katsuo-ji-temple.or.jp/download/pdf/kachidaruma_eng.pdf)
+- osaka-093: [Himeji official tourism guide · almond toast](https://himeji-kanko.jp/gourmet/6/)
+- osaka-098: [Otagi Nenbutsuji · official visitor guide](https://www.otagiji.com/visit-en)
+- okinawa-005: [Okinawa official tourism guide](https://visitokinawajapan.com/discover/world-heritage-top/shikinaen-royal-garden/)
+- okinawa-006: [Okinawa official tourism guide](https://visitokinawajapan.com/travel-inspiration/get-to-know-naha/)
+- okinawa-010: [Okinawa official tourism guide](https://visitokinawajapan.com/travel-inspiration/explore-sakaemachi/)
+- okinawa-011: [Valley of Gangala · official tour course](https://gangala.com/en/about-en/)
+- okinawa-012: [Okinawa World · official attraction guide](https://www.gyokusendo.co.jp/okinawaworld/)
+- okinawa-019: [Okinawa Prefectural Museum · permanent exhibition](https://okimu.jp/exhibition/1515730190/)
+- okinawa-024: [Okinawa official tourism guide](https://visitokinawajapan.com/discover/world-heritage-top/zakimi-castle-ruins/)
+- okinawa-036: [Okinawa official tourism guide](https://visitokinawajapan.com/destinations/okinawa-main-island/northern-okinawa-main-island/motobu-peninsula/)
+- okinawa-037: [Okinawa official cruise guide · Nakijin (PDF)](https://cruise.visitokinawa.jp/ad_sys/wp-content/themes/cruiseokinawa/assets/pdf/okinawacruiseguide_2025_en.pdf)
+- okinawa-043: [Hamabe no Chaya · official café guide](https://sachibaru.jp/en/hamacha/)
+- okinawa-091: [Japan National Tourism Organization · Taketomi](https://www.japan.travel/en/spot/566/)
+- okinawa-098: [Okinawa official tourism guide](https://visitokinawajapan.com/destinations/yaeyama-islands/hateruma-island/)
+
+## Namba dice photographs, September 11, 2026
+
+These three Commons thumbnails are served as JPEG at 960 pixels wide. The UI crops framing; pixels have not been retouched. Original licenses remain in effect. Sources and subjects were read and inspected before inclusion. Photo dates describe historical images, not current appearance or availability.
+
+- `osaka-053.jpg`: [Jiyuken's curry at the Namba main restaurant · 2005](https://commons.wikimedia.org/wiki/File:Jiyuken_curry_rice_by_nozawana_in_Osaka.jpg) · nozawana · [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
+- `osaka-027.jpg`: [Kizu Wholesale Market entrance · 2018](<https://commons.wikimedia.org/wiki/File:Osaka_Kizu_Wholesale_Market_2018-01-07_(41186542061).jpg>) · m-louis .® · [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
+- `osaka-047.jpg`: [Kitsune udon at Dotonbori Imai · 2009](https://commons.wikimedia.org/wiki/File:%E9%81%93%E9%A0%93%E5%A0%80%E4%BB%8A%E4%BA%95%E3%81%AE%E3%81%8D%E3%81%A4%E3%81%AD%E3%81%86%E3%81%A9%E3%82%93_%283739321692%29.jpg) · Kiyonobu Ito · [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
+
+## Subject relevance correction, September 11, 2026
+
+The earlier coverage pass incorrectly reused neighbourhood scenery across unrelated
+experiences. Its labels and file counts did not establish subject relevance.
+The [photograph register](photographs.json) now contains one reviewed row per
+catalogue ID: 164 retained photographs, 78 replacements, and 58 unresolved entries.
+Unresolved entries have no photograph. Each illustrated entry uses a distinct
+primary image, with source, author, license, date and derivative metadata.
+
+Examples: Rikuro and 551 Horai show their actual products. Aizuya uses a labelled
+plain-takoyaki dish reference, not a photograph established as Aizuya's own serving.
+Nippara Cave, Hiji Falls and the Currency Museum no longer borrow river, cape or
+street pictures. The National Bunraku Theatre represents the sujoruri venue;
+a puppet performance would misrepresent that programme.
+
+The individual source metadata and downloaded photographs were inspected. This
+manual review is distinct from automated checks of file existence, unique bindings,
+credits, snapshot agreement and the no-neighbour-fallback behavior. The old tables
+above retain the earlier source history; the register is the current assignment.
+
+Cards load lazily with responsive sources. Small agenda and dice thumbnails use
+the smaller variant. Derivatives retain the source license and visible links.

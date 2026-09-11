@@ -1,0 +1,859 @@
+import { test, after } from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtemp, rm, readFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import vm from 'node:vm';
+import worker from '../build/worker.js';
+import { makeEnv, ROOT } from './local-bindings.mjs';
+import { fixtureModel, QUOTE } from './ask-fixture.mjs';
+import { publicURL, pageText, readPage } from '../build/ask-research.js';
+import { memberContext } from '../build/ask-service.js';
+import { validateResult, parseAsk } from '../build/ask-contract.js';
+import catalogue from '../src/ask-catalogue.json' with { type: 'json' };
+const contexts = [];
+async function setup(options = {}) {
+  const dir = await mkdtemp(join(tmpdir(), 'omakase-ask-')),
+    env = makeEnv(dir);
+  contexts.push({ dir, env });
+  env.AI = fixtureModel(options);
+  async function call(path, method = 'GET', data, cookie = '') {
+    const r = await worker.fetch(
+      new Request('https://trip.example/api' + path, {
+        method,
+        headers: {
+          Cookie: cookie,
+          Origin: 'https://trip.example',
+          'X-Omakase': '1',
+          'Content-Type': 'application/json',
+        },
+        body: data === undefined ? undefined : JSON.stringify(data),
+      }),
+      env,
+      {
+        waitUntil: (p) =>
+          p.catch(() => {
+            /* Fixture cleanup is handled after each test. */
+          }),
+      },
+    );
+    return {
+      status: r.status,
+      data: await r.json(),
+      cookie: r.headers.get('set-cookie')?.split(';')[0] || cookie,
+    };
+  }
+  const owner = await call('/trips', 'POST', {
+    name: 'A',
+    title: 'Synthetic Ask acceptance',
+    hostKey: env.SETUP_KEY,
+  });
+  assert.equal(owner.status, 201);
+  const inv = await call('/invite', 'GET', undefined, owner.cookie),
+    b = await call('/join', 'POST', { name: 'B', token: inv.data.token }),
+    c = await call('/join', 'POST', { name: 'C', token: inv.data.token });
+  for (const region of ['osaka', 'tokyo'])
+    for (const suffix of ['001', '002', '003']) {
+      const id = region + '-' + suffix,
+        p = catalogue.find((p) => p.id === id),
+        source = {
+          id: 'src-' + id,
+          discoveryId: id,
+          url: p.source,
+          title: p.title,
+          checkedAt: new Date().toISOString(),
+          status: 'read',
+          text: QUOTE,
+          digest: 'fixture',
+          cached: false,
+        };
+      await env.DB.prepare('INSERT INTO place_research VALUES(?,?,?,?,?)')
+        .bind(
+          owner.data.trip.id,
+          id,
+          p.source,
+          JSON.stringify(source),
+          source.checkedAt,
+        )
+        .run();
+    }
+  return { env, call, owner, b, c };
+}
+const input = (extra = {}) => ({
+  requestId: crypto.randomUUID(),
+  mode: 'find',
+  prompt: 'Something unusual then a good lunch. I am going either way.',
+  date: '2026-09-28',
+  region: 'osaka',
+  area: 'Namba',
+  start: '10:00',
+  end: '14:00',
+  ...extra,
+});
+after(async () => {
+  for (const c of contexts) {
+    c.env.DB.close();
+    await rm(c.dir, { recursive: true, force: true });
+  }
+});
+
+test('companion catalogue is exactly the original 300 discovery records', async () => {
+  const sandbox = { window: {} };
+  vm.runInNewContext(
+    await readFile(join(ROOT, 'public/data.js'), 'utf8'),
+    sandbox,
+  );
+  assert.equal(catalogue.length, 300);
+  assert.deepEqual(
+    catalogue,
+    JSON.parse(JSON.stringify(sandbox.window.OMAKASE.catalogue)),
+  );
+  assert.deepEqual(
+    JSON.parse(await readFile(join(ROOT, 'public/catalogue.json'), 'utf8')),
+    catalogue,
+  );
+});
+test('member context contains only explicit own preferences, windows and selected commitments', () => {
+  const s = {
+    me: {
+      id: 'b',
+      profile: {
+        interests: 'quiet museums',
+        windows: [{ region: 'osaka', from: '2026-09-28', to: '2026-09-29' }],
+      },
+    },
+    members: [{ id: 'a', profile: { interests: 'marathon' } }],
+    plans: [
+      {
+        hostId: 'a',
+        status: 'open',
+        title: 'Whole day',
+        date: '2026-09-28',
+        start: '09:00',
+        end: '15:00',
+        revision: 2,
+        segments: [
+          {
+            id: 'lunch',
+            label: 'Lunch only',
+            start: '12:30',
+            end: '13:30',
+            meeting: 'Lunch door',
+          },
+        ],
+        rsvps: [
+          {
+            memberId: 'b',
+            status: 'joined',
+            choice: 'lunch',
+            acceptedRevision: 1,
+          },
+        ],
+      },
+    ],
+  };
+  const context = memberContext(s);
+  assert.equal(context.preferences, 'quiet museums');
+  assert.equal(context.commitments[0].start, '12:30');
+  assert.equal(context.commitments[0].meeting, 'Lunch door');
+  assert.equal(context.commitments[0].reconfirm, true);
+  assert.ok(!JSON.stringify(context).includes('marathon'));
+  s.plans[0].rsvps[0].status = 'interested';
+  assert.deepEqual(memberContext(s).commitments, []);
+});
+test('input dates are explicit Japan calendar dates and bounded by editable trip dates', () => {
+  assert.throws(() =>
+    parseAsk(input({ date: '2026-02-30' }), {
+      start: '2026-01-01',
+      end: '2026-12-31',
+    }),
+  );
+  assert.throws(() =>
+    parseAsk(input({ date: '2026-09-25' }), {
+      start: '2026-09-26',
+      end: '2026-10-14',
+    }),
+  );
+  assert.equal(
+    parseAsk(input(), { start: '2026-09-26', end: '2026-10-14' }).date,
+    '2026-09-28',
+  );
+});
+test('fixture-provider journey publishes once, joins lunch only and leaves Tokyo member unassigned', async () => {
+  const f = await setup();
+  await f.call(
+    '/profile',
+    'PUT',
+    {
+      name: 'C',
+      interests: 'gardens',
+      windows: [
+        { region: 'tokyo', area: 'Ueno', from: '2026-09-26', to: '2026-10-14' },
+      ],
+    },
+    f.c.cookie,
+  );
+  const research = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  assert.equal(research.status, 200, JSON.stringify(research.data));
+  assert.equal(research.data.status, 'complete');
+  assert.equal(research.data.result.options.length, 2);
+  const task = research.data,
+    payload = { option: 0, draft: task.result.options[0].draft };
+  const [a, b] = await Promise.all([
+    f.call(
+      '/ask/tasks/' + task.id + '/confirm',
+      'POST',
+      payload,
+      f.owner.cookie,
+    ),
+    f.call(
+      '/ask/tasks/' + task.id + '/confirm',
+      'POST',
+      payload,
+      f.owner.cookie,
+    ),
+  ]);
+  assert.ok([200, 201].includes(a.status), JSON.stringify(a.data));
+  assert.equal(a.data.plan.id, b.data.plan.id);
+  const p = a.data.plan;
+  const r = await f.call(
+    '/plans/' + p.id + '/rsvp',
+    'POST',
+    { choice: 'part-2', status: 'joined', revision: p.revision },
+    f.b.cookie,
+  );
+  assert.equal(r.status, 200, JSON.stringify(r.data));
+  let state = (await f.call('/state', 'GET', undefined, f.b.cookie)).data;
+  assert.equal(state.plans.length, 1);
+  assert.equal(memberContext(state).commitments[0].start, '12:30');
+  assert.equal(
+    memberContext(state).commitments[0].meeting,
+    'Synthetic lunch front door',
+  );
+  assert.deepEqual(
+    memberContext((await f.call('/state', 'GET', undefined, f.c.cookie)).data)
+      .commitments,
+    [],
+  );
+  const edit = await f.call(
+    '/plans/' + p.id,
+    'PUT',
+    {
+      ...p,
+      segments: p.segments.map((s) =>
+        s.id === 'part-2' ? { ...s, meeting: 'Changed lunch entrance' } : s,
+      ),
+    },
+    f.owner.cookie,
+  );
+  assert.equal(edit.status, 200);
+  state = (await f.call('/state', 'GET', undefined, f.b.cookie)).data;
+  assert.equal(memberContext(state).commitments[0].reconfirm, true);
+  assert.equal(f.env.AI.calls.length, 2);
+  assert.ok(research.data.result.usage.measured);
+});
+test('tasks and confirmations cannot be read or published by another member', async () => {
+  const f = await setup(),
+    r = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  assert.equal(
+    (await f.call('/ask/tasks/' + r.data.id, 'GET', undefined, f.b.cookie))
+      .status,
+    404,
+  );
+  assert.equal(
+    (
+      await f.call(
+        '/ask/tasks/' + r.data.id + '/confirm',
+        'POST',
+        { option: 0, draft: r.data.result.options[0].draft },
+        f.b.cookie,
+      )
+    ).status,
+    404,
+  );
+});
+test('changed referenced plans reject drafts and leave canonical plans untouched', async () => {
+  const f = await setup();
+  const r = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  await f.call(
+    '/profile',
+    'PUT',
+    { name: 'B', interests: 'new choice', windows: [] },
+    f.b.cookie,
+  );
+  const c = await f.call(
+    '/ask/tasks/' + r.data.id + '/confirm',
+    'POST',
+    { option: 0, draft: r.data.result.options[0].draft },
+    f.owner.cookie,
+  );
+  assert.equal(c.status, 409);
+  assert.equal(
+    (await f.call('/state', 'GET', undefined, f.owner.cookie)).data.plans
+      .length,
+    0,
+  );
+});
+test('fabricated citations and forbidden tools never become usable cards or actions', async () => {
+  for (const prompt of ['fabricated citation', 'forbidden tool']) {
+    const f = await setup(),
+      r = await f.call('/ask/tasks', 'POST', input({ prompt }), f.owner.cookie);
+    assert.equal(r.status, 502);
+    assert.equal(r.data.status, 'failed');
+    assert.equal(
+      (await f.call('/state', 'GET', undefined, f.owner.cookie)).data.plans
+        .length,
+      0,
+    );
+  }
+});
+test('mismatched place citation is rejected even when its quote is real', () => {
+  const source = {
+    id: 's',
+    discoveryId: 'tokyo-001',
+    status: 'read',
+    text: QUOTE,
+  };
+  assert.throws(
+    () =>
+      validateResult(
+        {
+          question: '',
+          options: [
+            {
+              discoveryId: 'osaka-001',
+              citations: [{ sourceId: 's', quote: QUOTE }],
+              draft: { segments: [] },
+            },
+          ],
+        },
+        input(),
+        [{ id: 'osaka-001', region: 'osaka' }],
+        [{ ...source, id: 'own', discoveryId: 'osaka-001' }, source],
+      ),
+    /citation/,
+  );
+});
+test('cancellation before request starts is durable and prevents all model calls', async () => {
+  const f = await setup(),
+    request = input();
+  assert.equal(
+    (
+      await f.call(
+        '/ask/tasks/' + request.requestId + '/cancel',
+        'POST',
+        {},
+        f.owner.cookie,
+      )
+    ).status,
+    200,
+  );
+  const r = await f.call('/ask/tasks', 'POST', request, f.owner.cookie);
+  assert.equal(r.data.status, 'cancelled');
+  assert.equal(f.env.AI.calls.length, 0);
+});
+test('provider failure and in-flight cancellation cannot confirm success', async () => {
+  const f = await setup({ fail: true }),
+    r = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  assert.equal(r.status, 502);
+  assert.equal(r.data.status, 'failed');
+  const g = await setup({ delay: 100 }),
+    request = input(),
+    pending = g.call('/ask/tasks', 'POST', request, g.owner.cookie);
+  await new Promise((r) => setTimeout(r, 30));
+  await g.call(
+    '/ask/tasks/' + request.requestId + '/cancel',
+    'POST',
+    {},
+    g.owner.cookie,
+  );
+  const done = await pending;
+  assert.equal(done.data.status, 'cancelled');
+  assert.equal(
+    (await g.call('/state', 'GET', undefined, g.owner.cookie)).data.plans
+      .length,
+    0,
+  );
+});
+test('different members and regions reach the provider with their own explicit context', async () => {
+  const f = await setup();
+  await f.call(
+    '/profile',
+    'PUT',
+    {
+      name: 'B',
+      interests: 'quiet art, no running',
+      windows: [
+        { region: 'tokyo', area: 'Ueno', from: '2026-09-28', to: '2026-09-30' },
+      ],
+    },
+    f.b.cookie,
+  );
+  const r = await f.call(
+    '/ask/tasks',
+    'POST',
+    input({ region: 'tokyo', area: 'Ueno', date: '2026-09-29' }),
+    f.b.cookie,
+  );
+  assert.equal(r.status, 200, JSON.stringify(r.data));
+  assert.ok(
+    r.data.result.options.every(
+      (o) => o.draft.region === 'tokyo' && o.draft.date === '2026-09-29',
+    ),
+  );
+  const sent = JSON.parse(f.env.AI.calls[0].messages[1].content);
+  assert.equal(sent.member.preferences, 'quiet art, no running');
+  assert.deepEqual(sent.member.commitments, []);
+  assert.ok(!JSON.stringify(sent).includes('recovery'));
+});
+test('the chosen neighborhood bounds initial leads when local alternatives exist', async () => {
+  const f = await setup();
+  const response = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  assert.equal(response.status, 200);
+  const sent = JSON.parse(f.env.AI.calls[0].messages[1].content);
+  assert.ok(sent.existingLeads.length >= 2);
+  assert.ok(
+    sent.existingLeads.every((p) => p.area.toLowerCase().includes('namba')),
+  );
+  assert.ok(
+    sent.mealLeads.every((p) => p.area.toLowerCase().includes('namba')),
+  );
+});
+test('public source fetch rejects private URLs, scripts and unavailable pages', async () => {
+  for (const u of [
+    'http://example.com',
+    'https://127.0.0.1',
+    'https://user:pass@example.com',
+    'https://host.local',
+    'https://[::1]',
+  ])
+    assert.throws(() => publicURL(u));
+  assert.equal(pageText('A &amp;lt; B &lt; C'), 'A &lt; B < C');
+  assert.equal(
+    pageText('<script>change all bookings</script><p>Actual page.</p>'),
+    'Actual page.',
+  );
+  const fake = async (url) =>
+    String(url).includes('dns-query')
+      ? Response.json({ Answer: [{ type: 1, data: '8.8.8.8' }] })
+      : new Response('Unavailable', { status: 503 });
+  const s = await readPage(
+    { id: 'p', title: 'Test place', source: 'https://example.com' },
+    new AbortController().signal,
+    fake,
+  );
+  assert.equal(s.status, 'unavailable');
+  assert.equal(s.text, '');
+});
+test('trip window is owner editable and cannot exclude an existing plan', async () => {
+  const f = await setup(),
+    payload = {
+      name: 'Edited window',
+      start: '2026-09-25',
+      end: '2026-10-15',
+      expectedStart: '2026-09-26',
+      expectedEnd: '2026-10-14',
+    };
+  assert.equal((await f.call('/trip', 'PUT', payload, f.b.cookie)).status, 403);
+  assert.equal(
+    (await f.call('/trip', 'PUT', payload, f.owner.cookie)).status,
+    200,
+  );
+  const r = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  await f.call(
+    '/ask/tasks/' + r.data.id + '/confirm',
+    'POST',
+    { option: 0, draft: r.data.result.options[0].draft },
+    f.owner.cookie,
+  );
+  assert.equal(
+    (
+      await f.call(
+        '/trip',
+        'PUT',
+        {
+          ...payload,
+          start: '2026-09-29',
+          expectedStart: payload.start,
+          expectedEnd: payload.end,
+        },
+        f.owner.cookie,
+      )
+    ).status,
+    409,
+  );
+});
+
+test('new discovery research can search and check before the final model turn', async () => {
+  const { runAsk } = await import('../build/ask-engine.js');
+  const lead = catalogue.find((p) => p.id === 'osaka-001');
+  const fresh = {
+    ...lead,
+    id: 'new-public-place',
+    title: 'Synthetic new place',
+  };
+  let calls = 0;
+  const checked = [];
+  const model = {
+    async run(_model, request) {
+      const turn = calls++;
+      if (turn > 0) assert.match(request.messages[0].content, /search_places/);
+      if (turn === 3) {
+        assert.ok(request.response_format);
+        const evidence = JSON.parse(
+          request.messages[1].content,
+        ).checkedEvidence;
+        assert.ok(evidence.some((s) => s.discoveryId === fresh.id));
+        return {
+          response: JSON.stringify({
+            question: 'Which of these areas would you prefer?',
+            options: [],
+          }),
+        };
+      }
+      assert.ok(request.tools, 'research turn must retain tools');
+      const name = turn === 1 ? 'search_places' : 'check_sources';
+      const args =
+        turn === 1
+          ? { query: 'new places in Namba' }
+          : { discoveryIds: [turn === 0 ? lead.id : fresh.id] };
+      return {
+        tool_calls: [
+          {
+            id: 'call-' + turn,
+            type: 'function',
+            function: { name, arguments: JSON.stringify(args) },
+          },
+        ],
+      };
+    },
+  };
+  await runAsk(
+    input({ prompt: 'Find new places beyond the book' }),
+    {},
+    [lead],
+    model,
+    {
+      progress: async () => {
+        /* No persistent task exists in this engine-only fixture. */
+      },
+      searchPlaces: async () => [fresh],
+      checkSource: async (p) => {
+        checked.push(p.id);
+        return {
+          id: 'src-' + p.id,
+          discoveryId: p.id,
+          url: p.source,
+          title: p.title,
+          checkedAt: new Date().toISOString(),
+          status: 'read',
+          text: QUOTE,
+          digest: 'fixture',
+          cached: false,
+        };
+      },
+    },
+    new AbortController().signal,
+  );
+  assert.equal(calls, 4);
+  assert.deepEqual(checked, [lead.id, fresh.id]);
+});
+
+test('an unsuitable initial source leaves room to check a catalogue alternative', async () => {
+  const { runAsk } = await import('../build/ask-engine.js');
+  const leads = catalogue.filter((p) => p.region === 'osaka').slice(0, 4);
+  assert.equal(leads.length, 4);
+  let calls = 0;
+  const checked = [];
+  await runAsk(
+    input(),
+    {},
+    leads,
+    {
+      async run(_model, request) {
+        const turn = calls++;
+        if (turn === 3) {
+          assert.ok(request.response_format);
+          const evidence = JSON.parse(
+            request.messages[1].content,
+          ).checkedEvidence;
+          assert.equal(evidence.length, 4);
+          assert.ok(evidence.some((s) => s.discoveryId === leads[3].id));
+          return {
+            response: JSON.stringify({
+              question: 'Would you prefer a longer walk?',
+              options: [],
+            }),
+          };
+        }
+        assert.ok(
+          request.tools,
+          'remaining source capacity must remain usable',
+        );
+        const name = turn === 1 ? 'search_discoveries' : 'check_sources';
+        const args =
+          turn === 1
+            ? { query: leads[3].title }
+            : {
+                discoveryIds: (turn === 0 ? leads.slice(0, 3) : [leads[3]]).map(
+                  (p) => p.id,
+                ),
+              };
+        return {
+          tool_calls: [
+            {
+              id: 'alternative-' + turn,
+              type: 'function',
+              function: { name, arguments: JSON.stringify(args) },
+            },
+          ],
+        };
+      },
+    },
+    {
+      progress: async () => {
+        // This engine-only fixture has no persisted progress display.
+      },
+      searchPlaces: async () => {
+        throw Error('No external lookup needed');
+      },
+      checkSource: async (p) => {
+        checked.push(p.id);
+        return {
+          id: 'src-' + p.id,
+          discoveryId: p.id,
+          url: p.source,
+          title: p.title,
+          checkedAt: new Date().toISOString(),
+          status: 'read',
+          text: p.id === leads[0].id ? 'This event is on another date.' : QUOTE,
+          digest: 'fixture',
+          cached: false,
+        };
+      },
+    },
+    new AbortController().signal,
+  );
+  assert.equal(calls, 4);
+  assert.deepEqual(
+    checked,
+    leads.map((p) => p.id),
+  );
+});
+
+test('host replanning edits once, preserves part responses and requests reconfirmation', async () => {
+  const f = await setup();
+  const first = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  const made = await f.call(
+    '/ask/tasks/' + first.data.id + '/confirm',
+    'POST',
+    { option: 0, draft: first.data.result.options[0].draft },
+    f.owner.cookie,
+  );
+  let plan = made.data.plan;
+  const configured = await f.call(
+    '/plans/' + plan.id,
+    'PUT',
+    { ...plan, joinStyle: 'reunion', capacity: 4, costLimit: 1500 },
+    f.owner.cookie,
+  );
+  assert.equal(configured.status, 200);
+  plan = configured.data;
+  await f.call(
+    '/plans/' + plan.id + '/rsvp',
+    'POST',
+    { choice: 'part-2', status: 'joined', revision: plan.revision },
+    f.b.cookie,
+  );
+  const denied = await f.call(
+    '/ask/tasks',
+    'POST',
+    input({ referencePlanId: plan.id, reviseExisting: true }),
+    f.b.cookie,
+  );
+  assert.equal(denied.status, 403);
+  const revised = await f.call(
+    '/ask/tasks',
+    'POST',
+    input({
+      referencePlanId: plan.id,
+      reviseExisting: true,
+      prompt: 'Rework my invitation; move the meeting entrance.',
+    }),
+    f.owner.cookie,
+  );
+  assert.equal(revised.status, 200, JSON.stringify(revised.data));
+  const draft = revised.data.result.options[0].draft;
+  assert.deepEqual(
+    draft.segments.map((s) => s.id),
+    plan.segments.map((s) => s.id),
+  );
+  draft.segments[1].meeting = 'Revised lunch entrance';
+  draft.kind = 'idea';
+  const payload = { option: 0, draft };
+  const changed = await f.call(
+    '/ask/tasks/' + revised.data.id + '/confirm',
+    'POST',
+    payload,
+    f.owner.cookie,
+  );
+  assert.ok([200, 201].includes(changed.status), JSON.stringify(changed.data));
+  assert.equal(changed.data.plan.id, plan.id);
+  assert.equal(changed.data.plan.costLimit, 1500);
+  assert.equal(changed.data.plan.capacity, 4);
+  assert.equal(changed.data.plan.joinStyle, 'reunion');
+  assert.equal(changed.data.plan.kind, 'idea');
+  assert.equal(changed.data.plan.revision, plan.revision + 1);
+  const again = await f.call(
+    '/ask/tasks/' + revised.data.id + '/confirm',
+    'POST',
+    payload,
+    f.owner.cookie,
+  );
+  assert.equal(again.data.plan.revision, changed.data.plan.revision);
+  const state = (await f.call('/state', 'GET', undefined, f.b.cookie)).data;
+  assert.equal(state.plans.length, 1);
+  assert.equal(memberContext(state).commitments[0].reconfirm, true);
+  assert.equal(
+    memberContext(state).commitments[0].meeting,
+    'Revised lunch entrance',
+  );
+});
+
+test('replanning unsupported manual part shapes rejects before provider usage', async () => {
+  const f = await setup();
+  const initial = await f.call('/ask/tasks', 'POST', input(), f.owner.cookie);
+  const made = await f.call(
+    '/ask/tasks/' + initial.data.id + '/confirm',
+    'POST',
+    { option: 0, draft: initial.data.result.options[0].draft },
+    f.owner.cookie,
+  );
+  const p = made.data.plan;
+  const edited = await f.call(
+    '/plans/' + p.id,
+    'PUT',
+    { ...p, segments: [] },
+    f.owner.cookie,
+  );
+  assert.equal(edited.status, 200);
+  const calls = f.env.AI.calls.length;
+  const rejected = await f.call(
+    '/ask/tasks',
+    'POST',
+    input({ reviseExisting: true, referencePlanId: p.id }),
+    f.owner.cookie,
+  );
+  assert.equal(rejected.status, 422);
+  assert.match(rejected.data.detail, /Edit invitation/);
+  assert.equal(f.env.AI.calls.length, calls);
+});
+
+for (const scenario of [
+  'first rejection',
+  'second rejection',
+  'transport failure',
+  'backoff cancellation',
+]) {
+  test(`Gemini daily budget settlement distinguishes ${scenario}`, async (t) => {
+    const { env, call, owner } = await setup();
+    env.GEMINI_API_KEY = 'synthetic-fixture-key';
+    if (scenario === 'backoff cancellation')
+      t.mock.timers.enable({ apis: ['setTimeout'] });
+    const originalFetch = globalThis.fetch;
+    let requests = 0;
+    globalThis.fetch = async (url) => {
+      assert.equal(
+        new URL(String(url)).hostname,
+        'generativelanguage.googleapis.com',
+      );
+      requests++;
+      if (scenario === 'backoff cancellation')
+        setImmediate(() => t.mock.timers.tick(75001));
+      if (scenario === 'transport failure')
+        throw new Error('Synthetic unknown transport outcome');
+      if (scenario === 'second rejection' && requests === 1) {
+        return Response.json({
+          candidates: [
+            {
+              finishReason: 'STOP',
+              content: {
+                role: 'model',
+                parts: [
+                  {
+                    functionCall: {
+                      id: 'synthetic-call',
+                      name: 'check_sources',
+                      args: { discoveryIds: ['osaka-001'] },
+                    },
+                    thoughtSignature: 'synthetic-signature',
+                  },
+                ],
+              },
+            },
+          ],
+          usageMetadata: {
+            promptTokenCount: 100,
+            candidatesTokenCount: 40,
+            thoughtsTokenCount: 10,
+          },
+        });
+      }
+      return Response.json(
+        { error: { status: 'UNAVAILABLE' } },
+        { status: 503 },
+      );
+    };
+    try {
+      const result = await call(
+        '/ask/tasks',
+        'POST',
+        input({ mode: 'check', discoveryId: 'osaka-001' }),
+        owner.cookie,
+      );
+      assert.equal(result.status, 502);
+      assert.equal(result.data.status, 'failed');
+      const expected = ['transport failure', 'backoff cancellation'].includes(
+        scenario,
+      )
+        ? 200000
+        : scenario === 'second rejection'
+          ? 263
+          : 0;
+      assert.deepEqual(
+        {
+          ...env.DB.db
+            .prepare(
+              "SELECT used,reserved FROM ask_budget WHERE day LIKE 'gemini:%'",
+            )
+            .get(),
+        },
+        { used: expected, reserved: 0 },
+      );
+      assert.equal(
+        env.DB.db.prepare('SELECT settled FROM ask_tasks').get().settled,
+        1,
+      );
+      assert.equal(
+        requests,
+        ['transport failure', 'backoff cancellation'].includes(scenario)
+          ? 1
+          : scenario === 'second rejection'
+            ? 4
+            : 3,
+      );
+      if (scenario === 'second rejection')
+        assert.equal(result.data.usage.estimatedUSD, 0.0002625);
+      assert.equal(
+        env.DB.db.prepare('SELECT used FROM service_budget').get().used,
+        scenario === 'transport failure'
+          ? 1050000
+          : scenario === 'backoff cancellation'
+            ? 0
+            : expected,
+      );
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+}

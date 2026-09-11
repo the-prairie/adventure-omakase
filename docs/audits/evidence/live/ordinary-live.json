@@ -1,0 +1,15 @@
+{
+  "kind": "ordinary live HTTPS acceptance; no AI evidence",
+  "release": "4870b9e72174b38a1a53602489f817e332a02ba5",
+  "workerVersion": "c1298ebf-1a4f-4ba6-908c-586ff51f57ab",
+  "started": "2026-09-06T09:45:37.618Z",
+  "date": "2026-09-28",
+  "timezone": "Asia/Tokyo",
+  "checks": [
+    "Three independent sessions; C shares Tokyo dates",
+    "Ordinary UI publishes separate parts; B joins lunch only; C remains unassigned (no model evidence)",
+    "B uploads real R2 photo; shared-by-default memory and A decodes authenticated photo"
+  ],
+  "passed": true,
+  "finished": "2026-09-06T09:45:55.046Z"
+}

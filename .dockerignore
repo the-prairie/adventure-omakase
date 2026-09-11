@@ -1,0 +1,15 @@
+.git
+.github
+**/.next
+**/.turbo
+**/node_modules
+**/coverage
+**/dist
+**/web-build
+**/.expo
+playwright-report
+test-results
+.env
+.env.*
+!.env.example
+*.log

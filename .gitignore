@@ -1,0 +1,33 @@
+node_modules/
+.turbo/
+.next/
+dist/
+coverage/
+playwright-report/
+test-results/
+.expo/
+apps/mobile/web-build/
+*.tsbuildinfo
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+*.log
+pnpm-debug.log*
+
+# Friends runtime and private operations
+**/.deploy/
+**/.dev.vars
+**/.dev.vars.*
+!**/.dev.vars.example
+**/.wrangler/
+**/.local/
+**/backups/
+apps/friends/build/
+apps/friends/evidence/
+
+# Local design review screenshots and packets
+.impeccable/
+apps/friends/.impeccable-menu-evidence/

@@ -1,0 +1,421 @@
+---
+name: Adventure Omakase Friends
+description: Searchable places and precise invitations, with clean mobile surfaces and a paper desktop journal.
+colors:
+  paper: '#f7f5ef'
+  white: '#fffefa'
+  ink: '#26352e'
+  muted: '#61685f'
+  line: '#d6d9ce'
+  green: '#244b3b'
+  lightgreen: '#e8eee5'
+  rust: '#93472f'
+  pale: '#f1e6d8'
+  blue: '#476a76'
+  gold: '#b59559'
+  action-text: 'white'
+  primary-hover: '#375c45'
+  control-hover: '#eff0e7'
+  mobile-paper: '#ffffff'
+  mobile-white: '#ffffff'
+  mobile-ink: '#18191b'
+  mobile-muted: '#62616a'
+  mobile-line: '#e5e4ea'
+  mobile-green: '#202024'
+  mobile-lightgreen: '#f1eff6'
+  mobile-pale: '#f6f4f8'
+  mobile-control-border: '#96939e'
+  chance-paper: '#f0edf5'
+  chance-ink: '#25222c'
+  chance-muted: '#61586b'
+  chance-surface: '#fffdf9'
+  chance-primary: '#29232f'
+  chance-action-text: '#fffdf7'
+  chance-emphasis: '#766084'
+  chance-pip: '#39313e'
+typography:
+  chance-display:
+    fontFamily: "'Source Serif Display', Georgia, serif"
+    fontSize: 'clamp(40px, 6.5vw, 76px)'
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: '-0.035em'
+  chance-result-title:
+    fontFamily: "'Source Serif Display', Georgia, serif"
+    fontSize: 'clamp(32px, 4.2vw, 54px)'
+    fontWeight: 400
+    lineHeight: 1.06
+    letterSpacing: '-0.025em'
+  mobile-chance-result-title:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: '34px'
+    fontWeight: 400
+    lineHeight: 1.06
+    letterSpacing: '-0.025em'
+  places-display:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: 'clamp(26px, 3vw, 38px)'
+    fontWeight: 700
+    lineHeight: 1.1
+    letterSpacing: '-0.035em'
+  place-title:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: '30px'
+    fontWeight: 750
+    lineHeight: 1.08
+    letterSpacing: '-0.035em'
+  mobile-place-title:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: '28px'
+    fontWeight: 750
+    lineHeight: 1.08
+    letterSpacing: '-0.035em'
+  place-card-title:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: '20px'
+    fontWeight: 700
+    lineHeight: 1.18
+    letterSpacing: '-0.025em'
+  mobile-place-card-title:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: '20px'
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: '-0.025em'
+  display:
+    fontFamily: "'Source Serif Display', Georgia, serif"
+    fontSize: '52px'
+    fontWeight: 400
+    lineHeight: 1.05
+    letterSpacing: '-0.025em'
+  page-title:
+    fontFamily: "'Source Serif Display', Georgia, serif"
+    fontSize: '40px'
+    fontWeight: 400
+    lineHeight: 1.12
+    letterSpacing: '-0.025em'
+  headline:
+    fontFamily: "'Source Serif Display', Georgia, serif"
+    fontSize: '34px'
+    fontWeight: 400
+    lineHeight: 1.15
+  body:
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: '15px'
+    lineHeight: 1.65
+  label:
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: '13px'
+    fontWeight: 600
+    lineHeight: 1.5
+  mobile-body:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: 15px
+    lineHeight: 1.65
+  mobile-common-copy:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: 14px
+    lineHeight: 1.5
+  mobile-navigation:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: 12px
+  mobile-trip-title:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: 15px
+    fontWeight: 500
+    lineHeight: 1.3
+    letterSpacing: -0.015em
+  mobile-section-title:
+    fontFamily: "'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: 26px
+    fontWeight: 650
+    lineHeight: 1.2
+    letterSpacing: -0.025em
+rounded:
+  die: '19px'
+  surface: '12px'
+  control: '6px'
+  menu: '8px'
+  option: '4px'
+  mobile-control: '12px'
+  photo: '14px'
+  floating-panel: '16px'
+  pill: '24px'
+  search: '28px'
+  sheet: '24px 24px 0 0'
+  circle: '50%'
+spacing:
+  action-gap: '12px'
+  field-gap: '18px'
+  field-stack: '20px'
+  panel: '24px'
+  editorial-gap: '30px'
+  mobile-gutter: '18px'
+  mobile-sheet-gutter: '20px'
+  place-list-gap: '26px'
+  quick-action-gap: '8px'
+components:
+  chance-primary:
+    backgroundColor: '{colors.chance-primary}'
+    textColor: '{colors.chance-action-text}'
+    rounded: '{rounded.photo}'
+  chance-save:
+    backgroundColor: '{colors.chance-paper}'
+    textColor: '{colors.chance-pip}'
+    rounded: '{rounded.control}'
+    padding: '10px 17px'
+  button-primary:
+    backgroundColor: '{colors.green}'
+    textColor: '{colors.action-text}'
+    rounded: '{rounded.control}'
+    padding: '10px 17px'
+  button-primary-hover:
+    backgroundColor: '{colors.primary-hover}'
+    textColor: '{colors.action-text}'
+  button-secondary:
+    backgroundColor: '{colors.white}'
+    textColor: '{colors.ink}'
+    rounded: '{rounded.control}'
+    padding: '10px 17px'
+  button-subtle:
+    backgroundColor: 'transparent'
+    textColor: '{colors.ink}'
+    rounded: '{rounded.control}'
+    padding: '10px 17px'
+  button-rust:
+    backgroundColor: '{colors.rust}'
+    textColor: '{colors.action-text}'
+    rounded: '{rounded.control}'
+    padding: '10px 17px'
+  button-danger:
+    backgroundColor: '{colors.white}'
+    textColor: '#9c392d'
+    rounded: '{rounded.control}'
+    padding: '10px 17px'
+  field:
+    backgroundColor: '{colors.white}'
+    textColor: '{colors.ink}'
+    rounded: '{rounded.control}'
+    padding: '10px 12px'
+  mobile-button-primary:
+    backgroundColor: '{colors.mobile-green}'
+    textColor: '{colors.action-text}'
+    rounded: '{rounded.mobile-control}'
+    padding: '10px 17px'
+  mobile-search:
+    backgroundColor: '{colors.mobile-lightgreen}'
+    textColor: '{colors.mobile-ink}'
+    rounded: '{rounded.search}'
+    padding: '0 15px'
+    height: '48px'
+  place-quick-action:
+    backgroundColor: '{colors.lightgreen}'
+    textColor: '{colors.ink}'
+    rounded: '{rounded.pill}'
+    padding: '8px 13px'
+  place-bookmark:
+    backgroundColor: '{colors.white}'
+    textColor: '{colors.ink}'
+    rounded: '{rounded.circle}'
+    width: '44px'
+    height: '44px'
+  mobile-place-sheet:
+    backgroundColor: '{colors.mobile-white}'
+    textColor: '{colors.mobile-ink}'
+    rounded: '{rounded.sheet}'
+    width: '100%'
+  mobile-place-action:
+    backgroundColor: '{colors.mobile-green}'
+    textColor: '{colors.action-text}'
+    rounded: '{rounded.search}'
+    padding: '9px 14px'
+  place-section:
+    textColor: '{colors.ink}'
+    padding: '18px 0'
+  selected-filter:
+    backgroundColor: '{colors.green}'
+    textColor: '{colors.white}'
+    rounded: '{rounded.control}'
+    padding: '8px 13px'
+---
+
+# Design System: Adventure Omakase Friends
+
+## Overview
+
+**Creative North Star: "Contemporary journey notebook"**
+
+The contemporary journey notebook now has a clean mobile expression: white surfaces, near-black actions, pale lavender controls and compact place photography. Desktop retains warm paper and forest ink. Clear titles, continuous reading surfaces and explicit actions keep the interface calm before a decision and let it recede during travel. The expandable outing choice opens a fullscreen dice moment: a tactile ivory die among real photographs, followed by a photo opening and a concrete place to consider.
+
+This records the implemented friends browser app in this directory, using the current cascade in `public/app.css` and components in `public/app.js`, `public/outings.js` and `public/dice-atlas.js`. The fullscreen dice treatment is a scoped extension of this incumbent fieldbook, not a replacement identity. The accepted Corner-led mobile adaptation and current discovery hierarchy are recorded in `docs/CORNER_MOBILE_RESEARCH.md` and `PRODUCT.md`. The future native application is a separate surface. This document records the current source, not a new product specification. Documentation of an implemented pattern is not evidence of production deployment or completed visual acceptance.
+
+**Key Characteristics:**
+
+- Continuous reading surfaces with separated entries.
+- Self-hosted Inter across ordinary mobile text and controls; Inter place headings and editorial serif titles on desktop, with a Source Serif opening for the fullscreen dice draw at every width.
+- White mobile surfaces, near-black actions and pale lavender secondary controls.
+- Restrained color with explicit interaction states.
+- Credited photographs, readable stories and a tactile draw whose visual theatre resolves to a source-qualified catalogue place.
+- Audience before memory composition; map recovery beside the map without covering it.
+
+## Colors
+
+The unprefixed palette is the desktop default. At 850px and below, mobile-prefixed tokens override the corresponding CSS properties globally: paper, white, ink, muted, line, green, lightgreen and pale. The names of the original CSS properties remain unchanged, so `green` becomes the near-black action role and `lightgreen` becomes lavender on phones. Token values in the frontmatter are normative.
+
+### Primary
+
+Forest green on desktop and near-black on mobile identify main actions, selected filters and focus. Desktop active navigation uses an underline; the mobile dock uses a lavender active fill and ink text. The deeper primary-hover tone distinguishes the main button's hover state. Primary actions use the pure-white action-text token, distinct from the near-white surface token.
+
+### Secondary
+
+Rust gives italic emphasis, timing and supporting cautions a warm accent. Blue and gold remain supporting metadata accents, without becoming competing primary actions.
+
+### Neutral
+
+Paper is the page canvas; near-white is the form and overlay surface. Ink carries primary text, muted carries secondary text, and line separates entries. Light green supports hover and selected options. Pale supplies warm supporting fields. Control-hover is the shared secondary-button hover fill. Mobile-control-border gives phone text fields and selection triggers a stronger boundary than the quiet divider; keep it distinct from the mobile-line role. Rust, blue, gold and the literal primary/control hover colors are not remapped by the mobile override; preserve that distinction when extracting the cascade.
+
+The fullscreen draw keeps its own palette at every viewport width: lavender paper for the ready and rolling field, plum ink and muted plum for text, and an off-white surface for the revealed place, preferences and image-reference notice. The primary draw action uses deep plum with warm white text; its italic opening uses the softer plum emphasis. Ivory die faces and dark plum pips make the die a physical object. These scoped colors do not remap the ordinary desktop or mobile palette.
+
+**The State Clarity Rule.** Pair color with text, selection markers or underlines so the action or state remains explicit.
+
+## Typography
+
+Inter 4.1 is self-hosted as the variable `Inter Display` face (weights 100–900, normal, `font-display: swap`) from `/assets/fonts/inter-variable.woff2`. At 850px and below it supplies the entire sans-serif stack, including body copy, controls, navigation and titles. Place headings on both desktop and mobile explicitly enable optical sizing. The mobile Explore heading remains available to assistive technology but is visually hidden; it has no separate visible display-size token. Card and sheet headings use their corresponding mobile roles. Inter uses the SIL Open Font License; provenance is recorded with the reference research and font assets.
+
+Source Serif Display remains self-hosted in regular and italic at weight 400, with Georgia as fallback. System sans-serif carries desktop body copy, controls and form labels. At 850px and below both `--sans` and the resolving `--serif` use Inter, so legacy serif roles also become Inter on mobile. Existing asset sources and licensing remain in `docs/PROVENANCE.md`.
+
+The older display role now belongs to the expanded outing introduction, not the initial places heading. Ordinary page titles use the page-title role and reduce to 32px on mobile. Dialog headings retain their headline role unless a task surface overrides it. Friends retains 42px on desktop; Friends and Memories share the mobile-section-title role at 850px and below. Outing menu titles are 29px on desktop and 24px on mobile; the older inline result styles remain legacy source, superseded in the current draw by the fullscreen result roles below. Invitation review uses 38px and 31px. The editable outing title uses 30px and 26px. These legacy roles use serif on desktop and Inter on mobile.
+
+Place summaries use 15px/1.55. Card summaries use 14px/1.45 and a two-line clamp; the sheet supplies fuller reading. Mobile body text retains the 15px base. Common explanatory copy uses the 14px role, including the Memories introduction; empty-state explanations use the same size with 1.6 line height. Mobile navigation uses its 12px role, and the trip name uses its 15px role with full wrapping. Search inputs use 16px on mobile. Supporting text is mostly 12–15px; photo credits use 10px in the place components and remain separate readable links. Do not generalize smaller inherited outing-photo credits into a new body-text scale.
+
+The fullscreen draw explicitly retains Source Serif Display for its ready and rolling heading on phones as well as desktop. It uses the chance-display role, a 52px override at 700px and below, and 38px when the viewport is at most 680px high. Its italic line retains the global emphasis-family inheritance: Source Serif italic on desktop and Inter on phones. The main line and italic line therefore use different families on mobile. The revealed title returns to the ordinary viewport family: Source Serif on desktop, Inter at 850px and below, with 34px at 700px and below and 30px on short phones (700px wide and 680px high or less). Result prose is 17px/1.55, reducing to 16px on phones; visible activity qualifications use 14px/1.5. The opening reference notice uses 13px text. Photo credits remain compact linked metadata, not a scale for general copy.
+
+**The Task Scale Rule.** Keep forms compact: use sans-serif labels and readable controls beneath a restrained task heading. Do not enlarge form labels into editorial headlines.
+
+## Layout
+
+The shared header caps its width at 1408px; the content container caps at 1360px. The compact trip-name header is used across the app, with a 76px desktop minimum height and a 52px minimum at 850px and below. On phones, its title wraps fully rather than truncating, with 4px vertical and 18px horizontal padding and 44px header actions. The same four destinations—Explore, Your day, Friends and Memories—appear in desktop navigation and the mobile dock.
+
+Explore opens on searchable places. Desktop shows the heading and regional chips; mobile visually hides the redundant heading, general context line and unfiltered result count. Phone search and compact map/list controls lead directly into All places/Saved scope and one Filters disclosure containing region, area, mood and time. The full fieldbook is the initial list. “Let Omakase choose” expands dice and curated outings when the list has no search, saved scope, area, mood or time restriction; a chosen region does not hide it. The disclosure is absent in map view. Searchable places remain the primary composition on desktop as well.
+
+The places list uses three columns above 1100px, two columns from 600px through 1100px, and one column below 600px. The mobile palette remains independent of this tablet grid. At 850px and below, entries have 26px gaps, 18px side gutters and 12px above the grid. The first photograph and complete place name must remain above the navigation dock in the accepted 393×620 short-phone composition.
+
+The mobile toolbar keeps a flexible search field beside two 44px icon buttons with accessible labels. Its search icon participates in the flex row; the input has zero inline padding and a zero minimum width, preserving the complete “Search places” prompt at 320px. Card photographs are 210px high on desktop and use a 2:1 crop on mobile. Their image wrapper alone clips the photograph; the credit remains outside that clipping boundary. Filter content floats below its summary, at up to 430px wide within the available parent width; on mobile it scrolls within `min(480px, calc(100dvh - 220px))`. At 360px and below, Filters keeps its accessible label while showing only its icon inside a 44px control.
+
+Mobile map view runs edge to edge within the places container, with height `clamp(300px, 49svh, 560px)` and a 300px minimum. A selected-place summary appears beneath the map on a tinted surface; its photograph is hidden there. Map failure feedback takes a dedicated normal-flow row above the map, wraps on phones and provides a 44px-minimum “Browse places” recovery action. It must not obscure map labels or controls. Map and list selection retain place and area context.
+
+A mobile place sheet fills the viewport below a 12px top gap, using the measured phone viewport height with `100dvh` fallback. Its top corners use the sheet radius, its body has 20px side gutters, and its invitation action stays sticky at the bottom with safe-area padding. Desktop sheets retain 24px body gutters. A multi-photo gallery uses horizontal scroll snapping, 10px gaps and 88%-width figures; single photos retain the same hierarchy.
+
+Inside the expanded outing choice, an introduction sits beside a photographic dice invitation: a 180px visual column on desktop and 130px at 700px and below, with actions wrapping beneath on phones. Activating the invitation opens the fullscreen draw. Three regional outings retain equal desktop columns with 30px gaps and 215px-high photos; on mobile they become 100px-image-and-text rows with 16px gaps. This remains an optional discovery path beneath the searchable places surface.
+
+The fullscreen draw uses the measured visual viewport height and top offset, with `100dvh` and zero fallback. A fixed-height header (70px desktop, 60px at 700px and below) and a persistent action form frame a separately scrollable middle. The ready-state middle is a flex column: the heading keeps its height and the gesture field fills the remaining space with a 240px minimum. This final flex rule supersedes the earlier fixed stage-height calculations. The field contains up to four photographs, a central die and a hint, with credits below the photographs. If height is constrained, the middle scrolls while close and primary controls remain reachable. The action area caps at 460px, uses 28px side padding on desktop and 20px on phones, and reserves the safe-area bottom inset. Its primary action has a 56px minimum height, reducing to 52px at 700px and below; secondary text controls retain a 44px minimum.
+
+The revealed place replaces the stage and opening heading. At 760px and above its photograph and text form equal columns inside a 1120px maximum; the footer becomes a three-column row with the closer-look action in the final 280px column. Below 760px the result stacks and scrolls. Phone photography uses 32dvh with a 140px minimum, reducing to 28dvh on short phones. At 320×620 the photo, credit, complete result name, context and beginning of its description are visible while the persistent closer-look action remains reachable. Long descriptions, qualifications and save/invite controls stay in the scrollable result. Preferences open as a bounded, scrolling surface above the footer; their heading and Done control remain sticky.
+
+The outing editor combines the visual stop list and live timeline; a separate invitation preview follows it. The review is constrained to 720px. On mobile its actions remain above the safe-area inset while the review reserves bottom space for them. Friends places the chosen day beside its heading on wide screens, then stacks them at 700px; invitations precede the expandable travel-window calendar. Memories use continuous entries with 36px gaps.
+
+Preserve both the 850px mobile-theme/navigation transition and the 700px compact-form/Friends transition. The places grid uses the 600–1100px tablet range; some other content grids retain their existing 900px transition. Do not replace the existing cascade with an assumed universal breakpoint. Fields use 20px vertical spacing and 18px row gaps, reducing to 12px gaps in compact forms. Long labels and menu options wrap without widening the page.
+
+## Elevation & Depth
+
+Content surfaces are predominantly flat. Tonal shifts and fine dividers establish grouping. Floating selection menus use the overlay shadow (`0 18px 48px #192b2324`); the places filter panel uses `0 12px 40px #14182026`, photo save controls use `0 3px 12px #15191b20`, and map feedback uses `0 4px 20px #18191b24`. Map feedback now occupies normal flow despite retaining its existing shadow; the shadow does not imply an overlay. These treatments distinguish controls and status rather than enclosing every place in an elevated card. Dialogs remain elevated over a backdrop. Within the fullscreen draw, diffuse photographic shadows and the die's perspective establish a physical scene. Photographs use `0 20px 40px #30213620`; the die combines inset edge lighting with a blurred cast shadow whose scale and opacity respond to height. Preferences and credits use diffuse plum overlay shadows. These treatments belong to the draw and its overlays; ordinary reading entries remain flat.
+
+**The Reading Surface Rule.** Keep repeated entries on one continuous surface; reserve enclosing treatments for a meaningful control, overlay or emphasized supporting panel.
+
+**The Same Result Rule.** Motion and sound decorate the selected place; presentation failure, reduced motion or backgrounding must not replace or lose it.
+
+## Shapes
+
+Shared controls use the desktop control radius and the larger mobile-control override. Place photos and the sheet's save button use the photo radius; floating filters and selected-map summaries use floating-panel rounding. Search and the sticky invitation action use the search radius, while quick actions and desktop region chips use the pill radius. Save controls over photos and sheet close buttons are circular. The mobile sheet rounds only its upper corners.
+
+Ordinary place cards, reading rows, itinerary stops and memories remain unboxed. Rounded photographs do not imply a rounded card container. Expanded outing-menu photos retain their existing square crops. Circular avatars remain appropriate for people. The fullscreen draw itself has square viewport edges. Its photo possibilities use white print-like borders and small rotations; these depict photographs within the gesture field, not a general card pattern. The die has six square faces with the die radius and circular recessed pips. The primary draw action uses the photo radius, while the desktop result photograph uses the surface radius and phone result imagery reaches the edges.
+
+## Components
+
+### Buttons and fields
+
+Buttons use compact sans-serif text, a minimum 44px height and a fine border. Primary actions use the viewport-specific action role with white text; secondary buttons use the viewport-specific white surface with ink, and subtle buttons use transparent backgrounds. Hover changes fill and border without shifting layout. Disabled buttons reduce opacity and suppress the pointer affordance. Preserve inherited exceptions as exceptions, rather than turning undersized legacy controls into the new standard.
+
+Fields use persistent labels, near-white fill, a restrained border and a minimum 46px height. At 850px and below, text fields and selection triggers use the mobile-control-border token; compact forms at 700px and below use 48px-minimum fields. Focusable controls receive a 2px outline in the viewport-specific action role offset by 3px. Textareas remain vertically resizable. File selectors follow the shared control treatment. Compact form inputs and the mobile review's meeting-point inputs use 16px text.
+
+Selection controls progressively enhance a native select. One top-layer menu supplies selected weight and a check mark while the native element remains the submitted value. Preserve keyboard navigation, typeahead, focus restoration, linked option updates and the native fallback. Control transitions use 180ms with the shared easing; menu entry uses 160ms. Reduced-motion preferences suppress these animations.
+
+### Navigation and filters
+
+Desktop navigation marks the active destination with a green underline and gives inactive items a tonal hover. The mobile dock carries the same four destinations on white, with lavender fill and ink text for the active item, 12px labels, 22px icons and 52px-minimum destinations. Desktop regional filter chips use the action fill for selection; phones group Region inside Filters. The expanded outing chooser retains its separate underlined region tabs. All places and Saved remain beside the Filters disclosure, with the saved count and explicit private-shortlist copy. Selected state must remain readable through labels and pressed/current semantics, including icon-only map/list buttons. Travel tools and settings remain secondary actions in the shared footer, including filtered and map views.
+
+### Place cards, saved state and detail sheets
+
+Photo-led cards combine a rounded image, independently linked credit, full Inter Display title, category/area, compact summary, time-on-site estimate and available social context. A 44px circular bookmark overlays the image. Entries without photography use a divider and a separate save control rather than fabricated imagery. Saving is private; the explicit recommendation action is a separate trip-visible choice. Neither state implies a visit, RSVP or booking.
+
+The sheet leads with title, category and a labelled Save/Saved control, followed by credited photography and a short summary. Compact Map, Maps search and Source actions sit in a wrapping row. No embedded map is inserted automatically into every sheet. Time on site excludes travel. Actual friend recommendations and open invitations appear when present; empty social proof is not invented.
+
+Three independent disclosures contain the experience guide, Before you go, and Research & sources. Their divided summaries use a plus that rotates when open. Water, separate-stay and event-window warnings remain outside those disclosures; advance arrangements remain in the visible estimate. Source scope, dates and uncertainty remain accessible, and later checked-source results append within Research & sources.
+
+A single sticky “Invite friends to this” action has a 48px minimum height and a short day/meeting-point prompt beside it. It starts an editable plan; it does not publish. Mobile action text is 13px with 9px 14px padding, and the bar reserves the safe-area inset. The sheet enters with an 18px vertical translation over 180ms only when motion is permitted.
+
+### Outing menu and dice invitation
+
+Three sourced outings belong to each selected region. Each entry combines a photograph, duration estimate, serif title, plain-language pitch and fit. Image and title open the story; credits remain separate readable links. For expandable curated outings, the photograph and its linked credit are siblings before the disclosure. The photograph opens the existing story; the summary contains only the outing title, context and disclosure action. Never nest photo buttons or credit links inside that summary. This considered menu lives in the expandable choice section; the searchable catalogue remains the primary discovery surface.
+
+The photographic dice invitation opens the same fullscreen chooser as the other-area action. It carries the chosen region, area, time and mood into that draw. It is an entry control; the current throw and reveal happen in the fullscreen surface.
+
+### Fullscreen dice draw
+
+The ready state puts a Source Serif opening and named-area possibility count above a tactile ivory die surrounded by up to four distinct catalogue photographs. These are examples drawn from the eligible pool; the four visible photographs and the die face do not enumerate or determine the winner. The die is a button with a 160×170px interaction area around a 110px cube. Pointer drag lifts it and adjusts rotation; release supplies throw momentum. A click, keyboard activation or the explicit Throw the dice button uses the same draw. A cancelled pointer gesture returns to ready without committing a throw.
+
+The visible sequence is ready, held, rolling, photo opening and revealed place. Under ordinary motion the throw has a 1250ms gravity-and-bounce phase, a 280ms eased settle and a 720ms photographic opening. Nearby photo prints shift as the die is held or thrown. The selected photograph opens from a small rounded central inset to the full gesture field while the die recedes. Motion copy reports progress through a polite live region; the completed result receives focus without scrolling the footer away. This sequence presents a catalogue selection; it does not establish walking distance, route feasibility or live conditions.
+
+With reduced motion, JavaScript skips animated frame waits and pointer lift/rotation; CSS removes the photo and die transitions. The chosen place still appears through the same result path. Backgrounding releases a waiting animation frame; closing disposes event handlers, animation and the audio context. Sound begins off. The explicit Sound on/off control updates its pressed state, and the choice persists only for the current page session. When enabled by user interaction, short synthesized, low-pass knocks accompany contact; no audio file, autoplay soundtrack or mandatory sound carries information. Reduced-motion draws do not produce animated collision knocks, and unsupported audio does not block the draw.
+
+Photo credits open from a disclosure in the ready field. The visual examples are decorative to assistive technology; their caption, author and licence links remain available in that disclosure. Where a photo is only a neighbourhood reference, its ready caption begins Around, and the photo-opening notice explicitly says neighbourhood reference, not this venue. The revealed photograph repeats that distinction beside its author and licence links. Missing photographs receive an honest no-photo treatment, and a failed result image keeps the place with Photo unavailable feedback.
+
+The result leads with photograph and credit, full place name, area/mood/time-on-site context, a short description and any highlight. Regional-excursion, separate-stay/island-transfer, advance-booking, water-activity and listed-event-window qualifications are plain readable text before Save for later and Invite friends; they are not hidden in the practical disclosure. Event dates are labelled listed windows and require organizer rechecking. Before you go & directions contains fuller planning context, map handoff and the research source. The footer makes Take a closer look primary and Throw again secondary; Change preferences remains available. Save stays private, and Invite friends starts the existing editable planning path. Previous roll returns to an earlier draw when present.
+
+Preferences reveal the existing labelled controls for region, area, mood and time on site, plus explicit opt-ins for advance arrangements/regional excursions and operator-led water activities. Empty shortlists replace the die with an explanation and recovery choices. A user action must select broader limits; visual delight never silently widens eligibility. Repeat draws exhaust the current unseen shortlist before explaining a fresh round.
+
+### Story, editor and invitation review
+
+Stories lead with the outing itself and ordinary reading sections for experience, practical context and sources. Story duration and the starting draft both derive from the same included stops and editable travel allowances; time on site and travel are distinct. These are planning estimates, not checked opening hours or a verified route.
+
+One visual editor provides title, Japan date and time, photo-supported stop selection, duration, order, travel allowances and a live timeline. Optional spending, notes and fallback fields remain editable. Review then presents the invitation as friends will read it, with start/end times, selected stops and exact meeting points. Missing meeting points can be supplied there; changing the outing returns to the same editor. The explicit publish action is the sharing boundary.
+
+Invitation detail leads with time, host, effort, cost, booking and joining. Friends may join all or one offered stop. Source context and host-authored notes stay distinct; booking, water and separate-stay cautions remain readable. Calendars and personal agendas retain selected-part times and changed/cancelled states.
+
+### Friends and Memories
+
+Friends opens on the selected day and the invitations it contains. Shared regional travel windows follow as supporting context, with the broader calendar expandable. Declared regional overlap never implies proximity, availability or attendance.
+
+Memories are voluntary photo-and-prose entries on a continuous surface. The first visible form field asks “Who is this page for?” before the title, memory text or photo fields. It distinguishes “Our trip · shared with friends” from “Only me · a private page.” New memories initially select the trip; editing preserves the saved audience. The primary action repeats the selection as “Share with trip” or “Save privately” and updates when the audience changes. In compact phone forms the action remains sticky with safe-area padding. Badges repeat that state beside saved entries. The shared book includes only author-shared memories. A personal edition may include the author's private entries and must remain visibly identified as personal. Completing an invitation never invents attendance or a memory.
+
+### Sources, maps and companion forms
+
+Use genuine, attributed location photographs where available. Keep historical dates, linked credit and licence visible; dish and neighbourhood references must not imply current venue evidence. Supplied illustrations remain labelled illustration with their origin metadata. Source-derived experience prose stays separate from host-authored notes.
+
+The geographic catalogue map connects regional Japan to neighbourhood areas with explicit broad anchors and unlocated entries, a keyboard area chooser and visible attribution. On the fallback map, colliding labels form screen-space clusters. At broad zoom those clusters may span regions; the label names each represented region and counts catalogue ideas rather than suggesting that they share a neighbourhood. Activating a cluster zooms into its members, or offers its area list at maximum zoom; a single marker selects its area. Enter and Space both activate markers, and keyboard cluster zoom restores focus to a visible marker after redraw. Tile and provider failure feedback remains above the map in normal flow with a “Browse places” action, so degraded maps keep both selection and recovery usable. Meeting maps describe search or area context rather than verified pins. Journey links request a starting point in Maps; travel duration is never fabricated.
+
+Booking import remains an optional profile disclosure, open for a new traveller and collapsed when dates already exist. Selected source, local dates and uncertainty stay readable. Applying a suggestion stages editable fields; Save commits them. Unknown dates remain visibly open and later bookings preserve unrelated dates and personal details.
+
+## Do's and Don'ts
+
+### Do:
+
+- **Do** keep labels visible and interaction states explicit, including names for icon-only map/list controls.
+- **Do** apply the mobile palette only at 850px and below and preserve desktop paper colors.
+- **Do** keep private saves, recommendations and invitations separate in both copy and controls.
+- **Do** preserve native form values and keyboard behavior when styling selection controls.
+- **Do** keep photo credits, reference-image labels and planning uncertainty beside the content they qualify.
+- **Do** preserve the distinction between reading, editing, reviewing and publishing an invitation.
+- **Do** ask for the memory audience before composition and repeat it in the save action.
+- **Do** keep the first complete place name above the dock at 393×620 and the search prompt readable at 320px.
+- **Do** cluster colliding overview labels honestly and keep map recovery in normal flow.
+- **Do** keep outing photographs and credit links outside disclosure summaries.
+- **Do** preserve the same selected place through motion, reduced motion, sound failure and the photo reveal.
+- **Do** show neighbourhood-reference labels during the photo opening and result, and material activity qualifications before saving or starting an invitation.
+
+### Don't:
+
+- **Don't** turn repeated content into a wall of rounded cards.
+- **Don't** introduce casino mechanics, neon gaming or a kawaii mascot direction.
+- **Don't** inherit legacy decorative eyebrows, text-glyph icons or tiny metadata as rules for new surfaces.
+- **Don't** turn declared regional overlap into a proximity or availability claim.

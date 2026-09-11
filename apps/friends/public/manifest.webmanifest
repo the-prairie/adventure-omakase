@@ -1,0 +1,10 @@
+{
+  "name": "Adventure Omakase — Together, apart",
+  "short_name": "Omakase",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8f5ee",
+  "theme_color": "#264838",
+  "description": "Private open invitations for friends traveling at their own pace."
+}

@@ -1,0 +1,26 @@
+name: adventure-omakase
+
+services:
+  db:
+    image: postgis/postgis:18-3.6
+    platform: linux/amd64
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-adventure_omakase}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local_development_only}
+      POSTGRES_USER: ${POSTGRES_USER:-adventure_omakase}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - psql -U $${POSTGRES_USER} -d $${POSTGRES_DB} -tAc 'SELECT postgis_full_version()' >/dev/null
+      interval: 2s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    ports:
+      - ${POSTGRES_PORT:-54320}:5432
+    restart: unless-stopped
+    volumes:
+      - postgis-data:/var/lib/postgresql
+
+volumes:
+  postgis-data:

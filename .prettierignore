@@ -1,0 +1,16 @@
+node_modules
+.next
+.turbo
+dist
+coverage
+playwright-report
+test-results
+pnpm-lock.yaml
+apps/studio/next-env.d.ts
+
+apps/friends/build
+apps/friends/.wrangler
+apps/friends/evidence
+apps/friends/reference/legacy-fieldbook.html
+
+apps/friends/public/vendor

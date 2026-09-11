@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Privacy · Adventure Omakase</title>
+  <body>
+    <main
+      style="
+        max-width: 720px;
+        margin: 40px auto;
+        padding: 24px;
+        font: 18px/1.6 system-ui;
+      "
+    >
+      <a href="/">Back to the fieldbook</a>
+      <h1>Privacy</h1>
+      <p>Updated 7 September 2026</p>
+      <p>
+        The shared trip stores participant names, optional preferences and
+        travel windows, plans, responses, discoveries, memories and photos in
+        Cloudflare D1 and R2. Other members of your trip can see shared content.
+        Device credentials use an HttpOnly cookie; do not share your private
+        recovery link.
+      </p>
+      <p>
+        When you ask for suggestions, relevant trip context and your request are
+        sent to the configured model provider: Gemini when configured, otherwise
+        Cloudflare Workers AI. When you explicitly submit a translation or
+        memory draft, the supplied text, resized photograph or audio is sent to
+        Gemini. This app does not retain that submitted media; private text
+        helper results expire after seven days. Saving a reviewed memory shares
+        it with your trip.
+      </p>
+      <p>
+        When you choose Read booking or Join and read my booking, selected
+        booking images and PDFs are sent to Gemini to propose profile details.
+        This app does not store those files. Extracted drafts are private to
+        your member session and follow the seven-day helper cleanup. Only the
+        name, preferences and coarse dates you explicitly save in your profile
+        are shared with your trip. Booking evidence and references are not
+        copied into the shared profile automatically.
+      </p>
+      <p>
+        Place searches and route origins and destinations are sent to Google
+        Maps. Public research questions are sent to Gemini and public venue
+        websites. These provider results are displayed transiently and are not
+        stored in the shared book. Google's
+        <a href="https://policies.google.com/privacy">Privacy Policy</a> is
+        incorporated here by reference and describes Google's processing.
+        Provider retention is governed by your operator's provider account and
+        the applicable service terms; this app does not promise zero provider
+        retention.
+      </p>
+      <p>
+        Discovery, dice-result and invitation maps load automatically as they
+        approach the visible area. The place or host meeting-point search is
+        sent to Google Maps. These maps do not request your device location.
+        Opening directions lets you choose your starting point in Google Maps.
+      </p>
+      <p>
+        The discovery area map loads public OpenStreetMap tiles as it becomes
+        visible. OpenStreetMap receives your IP address, browser referrer and
+        the map tiles requested for the area you view. No profile, hotel, host
+        meeting point or device location is sent to this tile service. See the
+        <a href="https://osmfoundation.org/wiki/Privacy_Policy"
+          >OpenStreetMap Foundation privacy policy</a
+        >.
+      </p>
+      <p>
+        Website watches store your chosen public URL and limited readable text
+        to detect changes. Watches and their updates are private to you. They do
+        not email friends, continuously track your location or run past the
+        selected deadline. Cancel them from My checks.
+      </p>
+      <p>
+        The trip owner can export a backup and administer access. Operational
+        backups may retain previously saved content. Ask your trip owner about
+        removal and backup retention before sharing sensitive information. Do
+        not submit medical, payment or identity documents.
+      </p>
+    </main>
+  </body>
+</html>

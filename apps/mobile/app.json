@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Adventure Omakase",
+    "slug": "adventure-omakase",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "scheme": "adventure-omakase",
+    "userInterfaceStyle": "automatic",
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    }
+  }
+}

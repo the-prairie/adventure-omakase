@@ -1,0 +1,772 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-11T08:28:54.949611+00:00",
+  "title": "Design System: Adventure Omakase Friends",
+  "extensions": {
+    "shadows": [
+      {
+        "name": "overlay",
+        "value": "0 18px 48px #192b2324",
+        "purpose": "Floating selection menus and elevated overlays."
+      },
+      {
+        "name": "places-filter",
+        "value": "0 12px 40px #14182026",
+        "purpose": "Floating region, area, mood and time filter panel."
+      },
+      {
+        "name": "photo-save",
+        "value": "0 3px 12px #15191b20",
+        "purpose": "Save control over place photography."
+      },
+      {
+        "name": "map-feedback",
+        "value": "0 4px 20px #18191b24",
+        "purpose": "Map failure status in a dedicated normal-flow row above the map."
+      },
+      {
+        "name": "chance-photo-print",
+        "value": "0 20px 40px #30213620",
+        "purpose": "Diffuse shadow beneath photographic possibilities inside the fullscreen draw."
+      },
+      {
+        "name": "chance-preferences",
+        "value": "0 20px 65px #2b1c4436",
+        "purpose": "Preferences overlay above the persistent action form."
+      },
+      {
+        "name": "chance-credits",
+        "value": "0 12px 40px #2b1c4436",
+        "purpose": "Ready-state photographic credit disclosure."
+      },
+      {
+        "name": "chance-die-edge",
+        "value": "inset 0 3px 4px #fff, inset 0 -3px 5px #b49f7530",
+        "purpose": "Ivory die edge lighting; cast-shadow scale and opacity vary with simulated height."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Shared control state transitions."
+      },
+      {
+        "name": "control-state",
+        "value": "180ms",
+        "purpose": "Button and selection-trigger changes."
+      },
+      {
+        "name": "menu-entry",
+        "value": "160ms",
+        "purpose": "Selection menu opening; reduced-motion users receive no animation."
+      },
+      {
+        "name": "place-arrive",
+        "value": "180ms cubic-bezier(.16,1,.3,1)",
+        "purpose": "Sheet enters from translateY(18px) to zero only with prefers-reduced-motion:no-preference."
+      },
+      {
+        "name": "chance-throw",
+        "value": "1250ms",
+        "purpose": "Gravity, bounce, decaying velocity and rotation; gesture impulse changes presentation only."
+      },
+      {
+        "name": "chance-settle",
+        "value": "280ms",
+        "purpose": "Quartic ease-out returns the die to the centre and a face orientation."
+      },
+      {
+        "name": "chance-photo-shift",
+        "value": "700ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Photographic possibilities shift during held and rolling states."
+      },
+      {
+        "name": "chance-photo-opening",
+        "value": "720ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Selected photograph opens from inset(48% 48% round 24px) to inset(0 round 0); explicit reference label overlays neighbourhood imagery."
+      },
+      {
+        "name": "chance-reduced-motion",
+        "value": "none",
+        "purpose": "Skip frame waits and pointer lift/rotation; remove photo and die transitions. Reveal the same selected place. Backgrounding releases pending frame waits."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-theme-navigation-and-places",
+        "value": "850px"
+      },
+      {
+        "name": "compact-forms-and-friends",
+        "value": "700px"
+      },
+      {
+        "name": "places-tablet-grid-start",
+        "value": "600px"
+      },
+      {
+        "name": "places-tablet-grid-end-and-header-density",
+        "value": "1100px"
+      },
+      {
+        "name": "legacy-content-grid",
+        "value": "900px"
+      },
+      {
+        "name": "compact-discovery-controls",
+        "value": "360px"
+      },
+      {
+        "name": "chance-result-two-columns",
+        "value": "760px"
+      },
+      {
+        "name": "chance-short-viewport-height",
+        "value": "680px"
+      }
+    ],
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm paper",
+        "tonalRamp": [
+          "oklch(0.150 0.0082 91.48)",
+          "oklch(0.264 0.0082 91.48)",
+          "oklch(0.379 0.0082 91.48)",
+          "oklch(0.493 0.0082 91.48)",
+          "oklch(0.607 0.0082 91.48)",
+          "oklch(0.721 0.0082 91.48)",
+          "oklch(0.836 0.0082 91.48)",
+          "oklch(0.950 0.0082 91.48)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Near-white surface",
+        "tonalRamp": [
+          "oklch(0.150 0.0054 95.10)",
+          "oklch(0.264 0.0054 95.10)",
+          "oklch(0.379 0.0054 95.10)",
+          "oklch(0.493 0.0054 95.10)",
+          "oklch(0.607 0.0054 95.10)",
+          "oklch(0.721 0.0054 95.10)",
+          "oklch(0.836 0.0054 95.10)",
+          "oklch(0.950 0.0054 95.10)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Forest ink",
+        "tonalRamp": [
+          "oklch(0.150 0.0235 164.67)",
+          "oklch(0.264 0.0235 164.67)",
+          "oklch(0.379 0.0235 164.67)",
+          "oklch(0.493 0.0235 164.67)",
+          "oklch(0.607 0.0235 164.67)",
+          "oklch(0.721 0.0235 164.67)",
+          "oklch(0.836 0.0235 164.67)",
+          "oklch(0.950 0.0235 164.67)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted olive",
+        "tonalRamp": [
+          "oklch(0.150 0.0164 138.72)",
+          "oklch(0.264 0.0164 138.72)",
+          "oklch(0.379 0.0164 138.72)",
+          "oklch(0.493 0.0164 138.72)",
+          "oklch(0.607 0.0164 138.72)",
+          "oklch(0.721 0.0164 138.72)",
+          "oklch(0.836 0.0164 138.72)",
+          "oklch(0.950 0.0164 138.72)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Quiet divider",
+        "tonalRamp": [
+          "oklch(0.150 0.0152 119.14)",
+          "oklch(0.264 0.0152 119.14)",
+          "oklch(0.379 0.0152 119.14)",
+          "oklch(0.493 0.0152 119.14)",
+          "oklch(0.607 0.0152 119.14)",
+          "oklch(0.721 0.0152 119.14)",
+          "oklch(0.836 0.0152 119.14)",
+          "oklch(0.950 0.0152 119.14)"
+        ]
+      },
+      "green": {
+        "role": "primary",
+        "displayName": "Forest green",
+        "tonalRamp": [
+          "oklch(0.150 0.0528 165.02)",
+          "oklch(0.264 0.0528 165.02)",
+          "oklch(0.379 0.0528 165.02)",
+          "oklch(0.493 0.0528 165.02)",
+          "oklch(0.607 0.0528 165.02)",
+          "oklch(0.721 0.0528 165.02)",
+          "oklch(0.836 0.0528 165.02)",
+          "oklch(0.950 0.0528 165.02)"
+        ]
+      },
+      "lightgreen": {
+        "role": "neutral",
+        "displayName": "Light green",
+        "tonalRamp": [
+          "oklch(0.150 0.0135 134.90)",
+          "oklch(0.264 0.0135 134.90)",
+          "oklch(0.379 0.0135 134.90)",
+          "oklch(0.493 0.0135 134.90)",
+          "oklch(0.607 0.0135 134.90)",
+          "oklch(0.721 0.0135 134.90)",
+          "oklch(0.836 0.0135 134.90)",
+          "oklch(0.950 0.0135 134.90)"
+        ]
+      },
+      "rust": {
+        "role": "secondary",
+        "displayName": "Warm rust",
+        "tonalRamp": [
+          "oklch(0.150 0.1091 38.14)",
+          "oklch(0.264 0.1091 38.14)",
+          "oklch(0.379 0.1091 38.14)",
+          "oklch(0.493 0.1091 38.14)",
+          "oklch(0.607 0.1091 38.14)",
+          "oklch(0.721 0.1091 38.14)",
+          "oklch(0.836 0.1091 38.14)",
+          "oklch(0.950 0.1091 38.14)"
+        ]
+      },
+      "pale": {
+        "role": "neutral",
+        "displayName": "Pale parchment",
+        "tonalRamp": [
+          "oklch(0.150 0.0222 74.09)",
+          "oklch(0.264 0.0222 74.09)",
+          "oklch(0.379 0.0222 74.09)",
+          "oklch(0.493 0.0222 74.09)",
+          "oklch(0.607 0.0222 74.09)",
+          "oklch(0.721 0.0222 74.09)",
+          "oklch(0.836 0.0222 74.09)",
+          "oklch(0.950 0.0222 74.09)"
+        ]
+      },
+      "blue": {
+        "role": "secondary",
+        "displayName": "Slate blue",
+        "tonalRamp": [
+          "oklch(0.150 0.0443 221.40)",
+          "oklch(0.264 0.0443 221.40)",
+          "oklch(0.379 0.0443 221.40)",
+          "oklch(0.493 0.0443 221.40)",
+          "oklch(0.607 0.0443 221.40)",
+          "oklch(0.721 0.0443 221.40)",
+          "oklch(0.836 0.0443 221.40)",
+          "oklch(0.950 0.0443 221.40)"
+        ]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Muted gold",
+        "tonalRamp": [
+          "oklch(0.150 0.0872 82.14)",
+          "oklch(0.264 0.0872 82.14)",
+          "oklch(0.379 0.0872 82.14)",
+          "oklch(0.493 0.0872 82.14)",
+          "oklch(0.607 0.0872 82.14)",
+          "oklch(0.721 0.0872 82.14)",
+          "oklch(0.836 0.0872 82.14)",
+          "oklch(0.950 0.0872 82.14)"
+        ]
+      },
+      "action-text": {
+        "role": "neutral",
+        "displayName": "Pure white action text",
+        "tonalRamp": [
+          "oklch(0.150 0.0000 89.88)",
+          "oklch(0.264 0.0000 89.88)",
+          "oklch(0.379 0.0000 89.88)",
+          "oklch(0.493 0.0000 89.88)",
+          "oklch(0.607 0.0000 89.88)",
+          "oklch(0.721 0.0000 89.88)",
+          "oklch(0.836 0.0000 89.88)",
+          "oklch(0.950 0.0000 89.88)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Primary hover",
+        "tonalRamp": [
+          "oklch(0.150 0.0573 155.90)",
+          "oklch(0.264 0.0573 155.90)",
+          "oklch(0.379 0.0573 155.90)",
+          "oklch(0.493 0.0573 155.90)",
+          "oklch(0.607 0.0573 155.90)",
+          "oklch(0.721 0.0573 155.90)",
+          "oklch(0.836 0.0573 155.90)",
+          "oklch(0.950 0.0573 155.90)"
+        ]
+      },
+      "control-hover": {
+        "role": "neutral",
+        "displayName": "Control hover",
+        "tonalRamp": [
+          "oklch(0.150 0.0120 111.76)",
+          "oklch(0.264 0.0120 111.76)",
+          "oklch(0.379 0.0120 111.76)",
+          "oklch(0.493 0.0120 111.76)",
+          "oklch(0.607 0.0120 111.76)",
+          "oklch(0.721 0.0120 111.76)",
+          "oklch(0.836 0.0120 111.76)",
+          "oklch(0.950 0.0120 111.76)"
+        ]
+      },
+      "mobile-paper": {
+        "role": "neutral",
+        "displayName": "White mobile canvas"
+      },
+      "mobile-white": {
+        "role": "neutral",
+        "displayName": "White mobile surface"
+      },
+      "mobile-ink": {
+        "role": "neutral",
+        "displayName": "Near-black text"
+      },
+      "mobile-muted": {
+        "role": "neutral",
+        "displayName": "Muted mobile text"
+      },
+      "mobile-line": {
+        "role": "neutral",
+        "displayName": "Cool divider"
+      },
+      "mobile-green": {
+        "role": "primary",
+        "displayName": "Near-black action"
+      },
+      "mobile-lightgreen": {
+        "role": "neutral",
+        "displayName": "Pale lavender control"
+      },
+      "mobile-pale": {
+        "role": "neutral",
+        "displayName": "Pale mobile support"
+      },
+      "mobile-control-border": {
+        "role": "neutral",
+        "displayName": "Mobile field boundary",
+        "tonalRamp": [
+          "oklch(0.150 0.0164 298.41)",
+          "oklch(0.264 0.0164 298.41)",
+          "oklch(0.379 0.0164 298.41)",
+          "oklch(0.493 0.0164 298.41)",
+          "oklch(0.607 0.0164 298.41)",
+          "oklch(0.721 0.0164 298.41)",
+          "oklch(0.836 0.0164 298.41)",
+          "oklch(0.950 0.0164 298.41)"
+        ]
+      },
+      "chance-paper": {
+        "role": "neutral",
+        "displayName": "Lavender chance paper",
+        "tonalRamp": [
+          "oklch(0.150 0.0111 303.11)",
+          "oklch(0.264 0.0111 303.11)",
+          "oklch(0.379 0.0111 303.11)",
+          "oklch(0.493 0.0111 303.11)",
+          "oklch(0.607 0.0111 303.11)",
+          "oklch(0.721 0.0111 303.11)",
+          "oklch(0.836 0.0111 303.11)",
+          "oklch(0.950 0.0111 303.11)"
+        ]
+      },
+      "chance-ink": {
+        "role": "neutral",
+        "displayName": "Plum chance ink",
+        "tonalRamp": [
+          "oklch(0.150 0.0190 298.80)",
+          "oklch(0.264 0.0190 298.80)",
+          "oklch(0.379 0.0190 298.80)",
+          "oklch(0.493 0.0190 298.80)",
+          "oklch(0.607 0.0190 298.80)",
+          "oklch(0.721 0.0190 298.80)",
+          "oklch(0.836 0.0190 298.80)",
+          "oklch(0.950 0.0190 298.80)"
+        ]
+      },
+      "chance-muted": {
+        "role": "neutral",
+        "displayName": "Muted plum",
+        "tonalRamp": [
+          "oklch(0.150 0.0320 306.59)",
+          "oklch(0.264 0.0320 306.59)",
+          "oklch(0.379 0.0320 306.59)",
+          "oklch(0.493 0.0320 306.59)",
+          "oklch(0.607 0.0320 306.59)",
+          "oklch(0.721 0.0320 306.59)",
+          "oklch(0.836 0.0320 306.59)",
+          "oklch(0.950 0.0320 306.59)"
+        ]
+      },
+      "chance-surface": {
+        "role": "neutral",
+        "displayName": "Photo and result paper",
+        "tonalRamp": [
+          "oklch(0.150 0.0057 84.57)",
+          "oklch(0.264 0.0057 84.57)",
+          "oklch(0.379 0.0057 84.57)",
+          "oklch(0.493 0.0057 84.57)",
+          "oklch(0.607 0.0057 84.57)",
+          "oklch(0.721 0.0057 84.57)",
+          "oklch(0.836 0.0057 84.57)",
+          "oklch(0.950 0.0057 84.57)"
+        ]
+      },
+      "chance-primary": {
+        "role": "primary",
+        "displayName": "Deep plum action",
+        "tonalRamp": [
+          "oklch(0.150 0.0235 307.49)",
+          "oklch(0.264 0.0235 307.49)",
+          "oklch(0.379 0.0235 307.49)",
+          "oklch(0.493 0.0235 307.49)",
+          "oklch(0.607 0.0235 307.49)",
+          "oklch(0.721 0.0235 307.49)",
+          "oklch(0.836 0.0235 307.49)",
+          "oklch(0.950 0.0235 307.49)"
+        ]
+      },
+      "chance-action-text": {
+        "role": "neutral",
+        "displayName": "Warm white action text",
+        "tonalRamp": [
+          "oklch(0.150 0.0082 91.48)",
+          "oklch(0.264 0.0082 91.48)",
+          "oklch(0.379 0.0082 91.48)",
+          "oklch(0.493 0.0082 91.48)",
+          "oklch(0.607 0.0082 91.48)",
+          "oklch(0.721 0.0082 91.48)",
+          "oklch(0.836 0.0082 91.48)",
+          "oklch(0.950 0.0082 91.48)"
+        ]
+      },
+      "chance-emphasis": {
+        "role": "secondary",
+        "displayName": "Plum italic emphasis",
+        "tonalRamp": [
+          "oklch(0.150 0.0612 311.95)",
+          "oklch(0.264 0.0612 311.95)",
+          "oklch(0.379 0.0612 311.95)",
+          "oklch(0.493 0.0612 311.95)",
+          "oklch(0.607 0.0612 311.95)",
+          "oklch(0.721 0.0612 311.95)",
+          "oklch(0.836 0.0612 311.95)",
+          "oklch(0.950 0.0612 311.95)"
+        ]
+      },
+      "chance-pip": {
+        "role": "neutral",
+        "displayName": "Recessed plum pip",
+        "tonalRamp": [
+          "oklch(0.150 0.0250 312.41)",
+          "oklch(0.264 0.0250 312.41)",
+          "oklch(0.379 0.0250 312.41)",
+          "oklch(0.493 0.0250 312.41)",
+          "oklch(0.607 0.0250 312.41)",
+          "oklch(0.721 0.0250 312.41)",
+          "oklch(0.836 0.0250 312.41)",
+          "oklch(0.950 0.0250 312.41)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Explore display",
+        "purpose": "Expanded outing introduction; 32px at <=850px. Its serif family resolves to Inter on mobile."
+      },
+      "page-title": {
+        "displayName": "Page title",
+        "purpose": "Ordinary desktop page headings. On mobile the serif stack resolves to Inter; Friends and Memories use mobile-section-title."
+      },
+      "headline": {
+        "displayName": "Dialog headline",
+        "purpose": "General dialog headings; individual task surfaces use documented overrides."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Readable system sans-serif prose on desktop; mobile-body supplies Inter on phones."
+      },
+      "label": {
+        "displayName": "Field label",
+        "purpose": "Persistent labels with compact task scale."
+      },
+      "places-display": {
+        "displayName": "Places Display",
+        "purpose": "Searchable places heading. Self-hosted Inter Display with optical sizing."
+      },
+      "place-title": {
+        "displayName": "Place Title",
+        "purpose": "Place sheet title. Self-hosted Inter Display with optical sizing."
+      },
+      "mobile-place-title": {
+        "displayName": "Mobile place title",
+        "purpose": "At <=850px. Place sheet title."
+      },
+      "place-card-title": {
+        "displayName": "Place Card Title",
+        "purpose": "Photo-led place list title. Self-hosted Inter Display with optical sizing."
+      },
+      "mobile-place-card-title": {
+        "displayName": "Mobile place card title",
+        "purpose": "At <=850px: complete photo-led place title at 20px/1.2, above the dock in the accepted short-phone composition."
+      },
+      "mobile-body": {
+        "displayName": "Mobile body",
+        "purpose": "Inter base body text across the mobile app at <=850px."
+      },
+      "mobile-common-copy": {
+        "displayName": "Mobile common copy",
+        "purpose": "Readable 14px explanations such as the Memories introduction; empty explanations retain 1.6 line height."
+      },
+      "mobile-navigation": {
+        "displayName": "Mobile navigation",
+        "purpose": "12px labels beneath 22px dock icons in 52px-minimum destinations."
+      },
+      "mobile-trip-title": {
+        "displayName": "Mobile trip title",
+        "purpose": "Fully wrapping trip name in the 52px-minimum phone header."
+      },
+      "mobile-section-title": {
+        "displayName": "Mobile section title",
+        "purpose": "Shared 26px heading role for Friends and Memories at <=850px."
+      },
+      "chance-display": {
+        "displayName": "Chance opening",
+        "purpose": "Main opening line explicitly uses Source Serif Display at all widths; 52px at <=700px and 38px at viewport heights <=680px. The italic line retains global emphasis-family inheritance, becoming Inter on phones."
+      },
+      "chance-result-title": {
+        "displayName": "Chance result title",
+        "purpose": "Revealed place title. The global <=850px serif stack becomes Inter; <=700px uses the mobile role."
+      },
+      "mobile-chance-result-title": {
+        "displayName": "Mobile chance result title",
+        "purpose": "34px at <=700px; 30px when the same phone viewport is <=680px high."
+      }
+    },
+    "responsiveOverrides": [
+      {
+        "query": "(max-width: 850px)",
+        "colorTokens": {
+          "paper": "mobile-paper",
+          "white": "mobile-white",
+          "ink": "mobile-ink",
+          "muted": "mobile-muted",
+          "line": "mobile-line",
+          "green": "mobile-green",
+          "lightgreen": "mobile-lightgreen",
+          "pale": "mobile-pale"
+        },
+        "radiusTokens": {
+          "control": "mobile-control"
+        },
+        "typography": {
+          "--serif": "var(--sans)",
+          "places-display": "mobile-places-display",
+          "place-title": "mobile-place-title",
+          "place-card-title": "mobile-place-card-title"
+        },
+        "notes": "Overrides apply globally. Inter Display is scoped to place titles at all widths; other mobile serif roles use system sans-serif. Rust, blue, gold and literal hover colors remain inherited."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "description": "Shared primary action treatment.",
+      "html": "<button class=\"ds-primary\">Open a plan</button>",
+      "css": ".ds-primary{padding:10px 17px;min-height:44px;border:1px solid var(--green);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--green);color:white;cursor:pointer}.ds-primary:hover{background:#375c45;border-color:var(--green)}.ds-primary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-primary:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}",
+      "refersTo": "button-primary"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "description": "Shared secondary action treatment.",
+      "html": "<button class=\"ds-secondary\">Open a plan</button>",
+      "css": ".ds-secondary{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--white);color:var(--ink);cursor:pointer}.ds-secondary:hover{background:#eff0e7;border-color:#95a58e}.ds-secondary:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-secondary:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}",
+      "refersTo": "button-secondary"
+    },
+    {
+      "name": "Subtle Button",
+      "kind": "button",
+      "description": "Shared subtle action treatment.",
+      "html": "<button class=\"ds-subtle\">Open a plan</button>",
+      "css": ".ds-subtle{padding:10px 17px;min-height:44px;border:1px solid var(--line);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:transparent;color:var(--ink);cursor:pointer}.ds-subtle:hover{background:transparent;border-color:#95a58e}.ds-subtle:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-subtle:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-subtle{transition:none}}",
+      "refersTo": "button-subtle"
+    },
+    {
+      "name": "Rust Button",
+      "kind": "button",
+      "description": "Shared rust action treatment.",
+      "html": "<button class=\"ds-rust\">Review the change</button>",
+      "css": ".ds-rust{padding:10px 17px;min-height:44px;border:1px solid var(--rust);border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--rust);color:white;cursor:pointer}.ds-rust:hover{background:var(--rust);border-color:var(--rust)}.ds-rust:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-rust:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-rust{transition:none}}",
+      "refersTo": "button-rust"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "description": "Shared danger action treatment.",
+      "html": "<button class=\"ds-danger\">Remove memory</button>",
+      "css": ".ds-danger{padding:10px 17px;min-height:44px;border:1px solid #dfb4a7;border-radius:var(--control-radius);font:600 14px/1.4 var(--sans);transition:background 180ms var(--ease),color 180ms var(--ease),border-color 180ms var(--ease);background:var(--white);color:#9c392d;cursor:pointer}.ds-danger:hover{background:#eff0e7;border-color:#dfb4a7}.ds-danger:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-danger:disabled{cursor:not-allowed;opacity:.5}@media(prefers-reduced-motion:reduce){.ds-danger{transition:none}}",
+      "refersTo": "button-danger"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Persistent label and native input; stronger mobile field boundary with Inter and compact-phone 16px text.",
+      "html": "<label class=\"ds-label\" for=\"ds-title\">Plan title</label><input class=\"ds-field\" id=\"ds-title\" placeholder=\"An afternoon together\">",
+      "css": ".ds-label{display:block;font:600 13px/1.5 var(--sans);margin-bottom:6px}.ds-field{padding:10px 12px;min-height:46px;background:var(--white);color:var(--ink);border:1px solid #b9c2b7;border-radius:var(--control-radius);font:15px var(--sans)}.ds-field:focus-visible{outline:2px solid var(--green);outline-offset:3px}@media(max-width:850px){.ds-field{border-color:#96939e;font-family:var(--sans,Inter,sans-serif)}}@media(max-width:700px){.ds-field{font-size:16px;min-height:48px}}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Four destinations; desktop underline, mobile lavender active fill with 12px labels and 52px-minimum targets.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><button aria-current=\"page\">Explore</button><button>Your day</button><button>Friends</button><button>Memories</button></nav>",
+      "css": ".ds-nav{display:flex;gap:4px}.ds-nav button{min-height:44px;padding:10px 14px;background:transparent;border:0;border-radius:24px;font:500 12px var(--sans);color:#676e61}.ds-nav button[aria-current]{color:var(--green);border-radius:0;box-shadow:inset 0 -2px var(--green)}.ds-nav button:not([aria-current]):hover{background:var(--lightgreen)}.ds-nav button:focus-visible{outline:2px solid var(--green);outline-offset:3px}@media(max-width:850px){.ds-nav{background:var(--white,#fff)}.ds-nav button[aria-current]{background:var(--lightgreen,#f1eff6);color:var(--ink,#18191b);border-radius:24px;box-shadow:none}}@media(max-width:850px){.ds-nav{padding:4px 8px;gap:4px}.ds-nav button{flex:1;min-height:52px;font-size:12px;color:var(--muted,#62616a)}.ds-nav button[aria-current]{color:var(--ink,#18191b)}}"
+    },
+    {
+      "name": "Selected Filter",
+      "kind": "chip",
+      "description": "Selected choices remain recognizably interactive.",
+      "html": "<button class=\"ds-filter\" aria-pressed=\"true\">Quiet</button>",
+      "css": ".ds-filter{min-height:44px;padding:8px 13px;border:1px solid var(--green);border-radius:var(--control-radius);background:var(--green);color:var(--white);font:13px var(--sans)}.ds-filter:focus-visible{outline:2px solid var(--green);outline-offset:3px}.ds-filter:hover{background:var(--green);color:var(--white)}",
+      "refersTo": "selected-filter"
+    },
+    {
+      "name": "Reading Entry",
+      "kind": "card",
+      "description": "Continuous editorial content for memories and supporting stories; places use the photo-led treatment below.",
+      "html": "<article class=\"ds-entry\"><h3>An afternoon idea</h3><p>A research lead to explore together.</p></article>",
+      "css": ".ds-entry{padding:24px 0;border-bottom:1px solid var(--line);color:var(--ink)}.ds-entry h3{margin:0;font:400 28px/1.12 var(--serif);letter-spacing:-.025em}.ds-entry p{font:15px/1.65 var(--sans)}"
+    },
+    {
+      "name": "Places Search and View",
+      "kind": "input",
+      "refersTo": "mobile-search",
+      "description": "One flex row places an 18px search icon and a shrinking input beside accessible 44px map/list controls; Search places remains readable at 320px.",
+      "html": "<div class=\"ds-places-tools\"><div class=\"ds-search\"><svg class=\"ds-search-icon\" aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 5 5\"/></svg><label class=\"ds-search-label\" for=\"ds-place-search\">Search discoveries</label><input id=\"ds-place-search\" type=\"search\" placeholder=\"Search places\"></div><div class=\"ds-views\" role=\"group\" aria-label=\"Discovery view\"><button aria-label=\"List view\" aria-pressed=\"true\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 6h16M4 12h16M4 18h16\"/></svg></button><button aria-label=\"Map view\" aria-pressed=\"false\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Z M9 3v16M15 5v16\"/></svg></button></div></div>",
+      "css": ".ds-places-tools{display:flex;align-items:center;gap:8px;font:13px var(--sans,sans-serif);color:var(--ink,#18191b)}.ds-search{display:flex;align-items:center;gap:8px;flex:1;min-width:0;min-height:48px;padding:0 15px;border-radius:28px;background:var(--lightgreen,#f1eff6)}.ds-search-icon{position:static;flex-shrink:0;width:18px;height:18px}.ds-search-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.ds-search input{flex:1;width:100%;min-width:0;height:48px;padding:0;border:0;background:transparent;color:inherit;font:16px var(--sans,sans-serif)}.ds-views{display:flex;flex-shrink:0;gap:4px;padding:3px;background:var(--lightgreen,#f1eff6);border-radius:28px}.ds-views button{display:grid;place-items:center;width:44px;min-height:44px;padding:10px;border:0;border-radius:24px;background:transparent;color:inherit;cursor:pointer}.ds-views button[aria-pressed=true]{background:var(--green,#202024);color:white}.ds-views button:hover{background:#eff0e7;color:var(--ink,#18191b)}.ds-views button:focus-visible,.ds-search input:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}"
+    },
+    {
+      "name": "Place Quick Action",
+      "kind": "button",
+      "refersTo": "place-quick-action",
+      "description": "Map, external Maps search and source links below the summary.",
+      "html": "<button class=\"ds-place-quick\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"2\"/></svg>Map</button>",
+      "css": ".ds-place-quick{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:8px 13px;border:1px solid var(--line,#e5e4ea);border-radius:24px;background:var(--lightgreen,#f1eff6);color:var(--ink,#18191b);font:600 12px/1.4 var(--sans,sans-serif);cursor:pointer;transition:border-color 180ms var(--ease,cubic-bezier(.16,1,.3,1))}.ds-place-quick:hover{border-color:#95a58e}.ds-place-quick:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-place-quick{transition:none}}"
+    },
+    {
+      "name": "Place Detail Disclosure",
+      "kind": "custom",
+      "refersTo": "place-section",
+      "description": "Independent experience, practical and research sections; operational warnings remain outside.",
+      "html": "<details class=\"ds-place-section\"><summary>Research &amp; sources<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><p>Research lead · not reverified for your visit</p></details>",
+      "css": ".ds-place-section{border-top:1px solid var(--line,#e5e4ea);color:var(--ink,#18191b);font:15px/1.65 var(--sans,sans-serif)}.ds-place-section summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:18px 0;cursor:pointer;font-weight:600;list-style:none}.ds-place-section[open] summary svg{transform:rotate(45deg)}.ds-place-section summary:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}.ds-place-section p{margin:0 0 20px}"
+    },
+    {
+      "name": "Sticky Place Invitation",
+      "kind": "custom",
+      "refersTo": "mobile-place-action",
+      "description": "One 48px invitation action with a day/meeting-point prompt and safe-area padding.",
+      "html": "<div class=\"ds-place-bar\"><button>Invite friends to this</button><span>Choose a day &amp; meeting point</span></div>",
+      "css": ".ds-place-bar{position:sticky;bottom:0;z-index:5;display:flex;align-items:center;gap:10px;padding:12px 20px max(12px,env(safe-area-inset-bottom));border-top:1px solid var(--line,#e5e4ea);background:var(--white,#fff);color:var(--ink,#18191b)}.ds-place-bar button{flex:1;min-height:48px;padding:9px 14px;border:1px solid var(--green,#202024);border-radius:28px;background:var(--green,#202024);color:white;font:600 13px/1.4 var(--sans,sans-serif);cursor:pointer}.ds-place-bar span{max-width:85px;color:var(--muted,#62616a);font:11px/1.4 var(--sans,sans-serif)}.ds-place-bar button:hover{background:#375c45}.ds-place-bar button:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}"
+    },
+    {
+      "name": "Place Card Without Photo",
+      "kind": "card",
+      "description": "Actual text-only fallback with an independent save control; no fabricated image.",
+      "html": "<article class=\"ds-place-card\"><button class=\"ds-place-save\" aria-label=\"Save for myself\" aria-pressed=\"false\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 3h12v18l-6-4-6 4Z\"/></svg></button><p class=\"ds-place-category\">Tokyo · Culture</p><h3><button>A local research lead</button></h3><p class=\"ds-place-copy\">Open the place to read its practical context and sources.</p><p class=\"ds-place-category\">About 60 minutes on site · travel extra</p></article>",
+      "css": ".ds-place-card{position:relative;border-top:1px solid var(--line,#e5e4ea);padding:14px 52px 0 0;color:var(--ink,#18191b);font:14px/1.45 var(--sans,sans-serif)}.ds-place-card .ds-place-save{position:absolute;right:0;top:0;width:44px;height:44px;border:0;border-radius:50%;background:var(--lightgreen,#f1eff6);color:inherit;cursor:pointer}.ds-place-category{font-size:12px;color:var(--muted,#62616a);margin:0 0 5px}.ds-place-card h3{margin:0 0 8px;font:700 20px/1.18 \"Inter Display\",var(--sans,sans-serif);letter-spacing:-.025em}.ds-place-card h3 button{min-height:44px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.ds-place-copy{margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ds-place-card button:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(max-width:850px){.ds-place-card h3{font-size:20px;line-height:1.2}}"
+    },
+    {
+      "name": "Memory Audience Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "First visible memory field, before title, words and photos. The app preserves the selected audience and matches the sticky phone submit action to Share with trip or Save privately.",
+      "html": "<div class=\"ds-memory-audience\"><label for=\"ds-memory-visibility\">Who is this page for?</label><select id=\"ds-memory-visibility\"><option selected>Our trip · shared with friends</option><option>Only me · a private page</option></select><small>Only shared pages appear in our trip book. You can change this later.</small></div>",
+      "css": ".ds-memory-audience{color:var(--ink,#18191b);font:15px/1.65 var(--sans,sans-serif);margin-bottom:20px}.ds-memory-audience label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}.ds-memory-audience select{display:block;width:100%;min-height:46px;padding:10px 12px;background:var(--white,#fff);color:inherit;border:1px solid #b9c2b7;border-radius:var(--control-radius,6px);font:inherit}.ds-memory-audience small{display:block;font-size:12px;color:var(--muted,#62616a)}.ds-memory-audience select:hover{background:var(--pale,#f6f4f8)}.ds-memory-audience select:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(max-width:850px){.ds-memory-audience select{border-color:#96939e;border-radius:12px}}@media(max-width:700px){.ds-memory-audience select{min-height:48px;font-size:16px}}"
+    },
+    {
+      "name": "Map Recovery Status",
+      "kind": "custom",
+      "description": "Dedicated normal-flow status above the map. Browse places remains available without covering region labels; marker keyboard zoom restores focus separately in the map.",
+      "html": "<div class=\"ds-map-feedback\" role=\"status\"><span>Map tiles could not load. Choose an area or browse places.</span><button class=\"ds-map-recovery\">Browse places<svg aria-hidden=\"true\" width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\"><path d=\"M4 12h16m-6-6 6 6-6 6\"/></svg></button></div>",
+      "css": ".ds-map-feedback{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;padding:10px 14px;background:var(--white,#fff);color:var(--ink,#18191b);border-radius:12px;box-shadow:0 4px 20px #18191b24;font:12px/1.4 var(--sans,sans-serif)}.ds-map-recovery{display:inline-flex;align-items:center;gap:8px;flex-shrink:0;min-height:44px;padding:4px 0;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer}.ds-map-recovery:hover{text-decoration:underline}.ds-map-recovery:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(max-width:850px){.ds-map-feedback{flex-wrap:wrap;gap:0}}"
+    },
+    {
+      "name": "Dice Throw Control",
+      "kind": "custom",
+      "description": "Ready-state die appearance with native button focus. Runtime pointer physics, the same-result reduced-motion path and opt-in synthesized sound belong to dice-atlas.js; this isolated style preview does not simulate a draw.",
+      "html": "<div class=\"ds-chance-field\"><button type=\"button\" class=\"ds-chance-die\" aria-label=\"Throw the dice\"><span class=\"ds-chance-body\"><span class=\"ds-chance-cube\" aria-hidden=\"true\"><span class=\"ds-chance-face ds-chance-face-1\"><i></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i></i></span><span class=\"ds-chance-face ds-chance-face-2\"><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i></span><span class=\"ds-chance-face ds-chance-face-3\"><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i></span><span class=\"ds-chance-face ds-chance-face-4\"><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i></span><span class=\"ds-chance-face ds-chance-face-5\"><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i></span><span class=\"ds-chance-face ds-chance-face-6\"><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i><i class=\"ds-chance-pip\"></i><i></i><i class=\"ds-chance-pip\"></i></span></span></span><span class=\"ds-chance-shadow\"></span></button></div>",
+      "css": ".ds-chance-field { padding: 40px; background: var(--chance-paper, #f0edf5); display: grid; place-items: center; } .ds-chance-die { position: relative; width: 160px; height: 170px; padding: 0; border: 0; background: transparent; cursor: grab; } .ds-chance-die:hover { cursor: grab; } .ds-chance-die:active { cursor: grabbing; } .ds-chance-die:focus-visible { outline: 2px solid var(--green, #244b3b); outline-offset: 3px; } .ds-chance-body { position: absolute; left: 25px; top: 15px; width: 110px; height: 110px; perspective: 900px; z-index: 1; } .ds-chance-cube { position: relative; display: block; width: 110px; height: 110px; transform-style: preserve-3d; transform: rotateX(-24deg) rotateY(32deg); } .ds-chance-face { box-sizing: border-box; position: absolute; inset: 0; width: 110px; height: 110px; display: grid; grid-template: repeat(3, 1fr) / repeat(3, 1fr); padding: 22px; gap: 8px; border-radius: 19px; border: 1px solid #d6cbb5; background: linear-gradient(145deg, #fffdf4, #efe2c8); box-shadow: inset 0 3px 4px #fff, inset 0 -3px 5px #b49f7530; backface-visibility: hidden; } .ds-chance-pip { width: 16px; height: 16px; border-radius: 50%; background: #39313e; box-shadow: inset 0 2px 2px #161019; } .ds-chance-face-1 { transform: translateZ(55px); } .ds-chance-face-2 { transform: rotateY(90deg) translateZ(55px); } .ds-chance-face-3 { transform: rotateX(90deg) translateZ(55px); } .ds-chance-face-4 { transform: rotateX(-90deg) translateZ(55px); } .ds-chance-face-5 { transform: rotateY(-90deg) translateZ(55px); } .ds-chance-face-6 { transform: rotateY(180deg) translateZ(55px); } .ds-chance-shadow { position: absolute; left: 17px; top: 140px; width: 130px; height: 28px; background: #393142; filter: blur(12px); opacity: .22; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Contemporary journey notebook",
+    "overview": "The contemporary journey notebook now has a clean mobile expression: white surfaces, near-black actions, pale lavender controls and compact place photography. Desktop retains warm paper and forest ink. Clear titles, continuous reading surfaces and explicit actions keep the interface calm before a decision and let it recede during travel. The expandable outing choice opens a fullscreen dice moment: a tactile ivory die among real photographs, followed by a photo opening and a concrete place to consider.\n\nThis records the implemented friends browser app in this directory, using the current cascade in `public/app.css` and components in `public/app.js`, `public/outings.js` and `public/dice-atlas.js`. The fullscreen dice treatment is a scoped extension of this incumbent fieldbook, not a replacement identity. The accepted Corner-led mobile adaptation and current discovery hierarchy are recorded in `docs/CORNER_MOBILE_RESEARCH.md` and `PRODUCT.md`. The future native application is a separate surface. This document records the current source, not a new product specification. Documentation of an implemented pattern is not evidence of production deployment or completed visual acceptance.",
+    "keyCharacteristics": [
+      "Continuous reading surfaces with separated entries.",
+      "Self-hosted Inter across ordinary mobile text and controls; Inter place headings and editorial serif titles on desktop, with a Source Serif opening for the fullscreen dice draw at every width.",
+      "White mobile surfaces, near-black actions and pale lavender secondary controls.",
+      "Restrained color with explicit interaction states.",
+      "Credited photographs, readable stories and a tactile draw whose visual theatre resolves to a source-qualified catalogue place.",
+      "Audience before memory composition; map recovery beside the map without covering it."
+    ],
+    "rules": [
+      {
+        "name": "The State Clarity Rule",
+        "body": "Pair color with text, selection markers or underlines so the action or state remains explicit.",
+        "section": "colors"
+      },
+      {
+        "name": "The Task Scale Rule",
+        "body": "Keep forms compact: use sans-serif labels and readable controls beneath a restrained task heading. Do not enlarge form labels into editorial headlines.",
+        "section": "typography"
+      },
+      {
+        "name": "The Reading Surface Rule",
+        "body": "Keep repeated entries on one continuous surface; reserve enclosing treatments for a meaningful control, overlay or emphasized supporting panel.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Same Result Rule",
+        "body": "Motion and sound decorate the selected place; presentation failure, reduced motion or backgrounding must not replace or lose it.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep labels visible and interaction states explicit, including names for icon-only map/list controls.",
+      "Do apply the mobile palette only at 850px and below and preserve desktop paper colors.",
+      "Do keep private saves, recommendations and invitations separate in both copy and controls.",
+      "Do preserve native form values and keyboard behavior when styling selection controls.",
+      "Do keep photo credits, reference-image labels and planning uncertainty beside the content they qualify.",
+      "Do preserve the distinction between reading, editing, reviewing and publishing an invitation.",
+      "Do ask for the memory audience before composition and repeat it in the save action.",
+      "Do keep the first complete place name above the dock at 393×620 and the search prompt readable at 320px.",
+      "Do cluster colliding overview labels honestly and keep map recovery in normal flow.",
+      "Do keep outing photographs and credit links outside disclosure summaries.",
+      "Do preserve the same selected place through motion, reduced motion, sound failure and the photo reveal.",
+      "Do show neighbourhood-reference labels during the photo opening and result, and material activity qualifications before saving or starting an invitation."
+    ],
+    "donts": [
+      "Don't turn repeated content into a wall of rounded cards.",
+      "Don't introduce casino mechanics, neon gaming or a kawaii mascot direction.",
+      "Don't inherit legacy decorative eyebrows, text-glyph icons or tiny metadata as rules for new surfaces.",
+      "Don't turn declared regional overlap into a proximity or availability claim."
+    ]
+  }
+}
