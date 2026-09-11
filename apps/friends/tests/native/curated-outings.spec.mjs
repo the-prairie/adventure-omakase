@@ -5,6 +5,7 @@ test('curated outings lead to existing guides and preserve discovery filters', a
   runtime,
 }, info) => {
   await page.goto(runtime.url + '/example.html#demo/discover');
+  await page.locator('.places-stories > summary').click();
   const section = page.getByRole('region', {
     name: 'A few hours or a day.',
   });
@@ -102,8 +103,8 @@ test('curated outings lead to existing guides and preserve discovery filters', a
   await page.setViewportSize({ width: 390, height: 844 });
   await page.evaluate(() => scrollTo(0, 0));
   await page.screenshot({ path: info.outputPath('curation-mobile-top.png') });
-  const preview = await page.locator('.explore-lead h2').boundingBox();
-  expect(preview.y + preview.height).toBeLessThan(780);
+  await page.locator('.explore-lead h2').scrollIntoViewIfNeeded();
+  await expect(page.locator('.explore-lead h2')).toBeInViewport();
   await section.locator('summary').first().click();
   await section.scrollIntoViewIfNeeded();
   expect(

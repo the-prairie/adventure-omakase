@@ -10,18 +10,8 @@ test('discoveries have distinct credited photos, prominent moods and a findable 
   page.on('pageerror', (e) => errors.push(e.message));
   await page.setViewportSize({ width: 973, height: 1100 });
   await page.goto(runtime.url + '/example.html#demo/discover');
-  const envelopes = page.locator('.envelopes'),
-    results = page.locator('#discovery-results');
-  expect(
-    await envelopes.evaluate(
-      (el) =>
-        !!(
-          el.compareDocumentPosition(
-            document.querySelector('#discovery-results'),
-          ) & Node.DOCUMENT_POSITION_FOLLOWING
-        ),
-    ),
-  ).toBe(true);
+  const results = page.locator('#discovery-results');
+  await expect(page.locator('#search')).toBeVisible();
   await expect(
     page.locator('[data-action=discovery-library][data-id=saved]'),
   ).toContainText('Saved');
@@ -59,12 +49,13 @@ test('discoveries have distinct credited photos, prominent moods and a findable 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: info.outputPath('saved-mobile.png') });
   await page.locator('[data-action=discovery-library][data-id=all]').click();
-  await action(page, 'envelope').click();
-  await expect(page.locator('#dice-mood')).toHaveValue('Strange');
+  await page.locator('.places-stories > summary').click();
+  await action(page, 'dice').click();
+  await expect(page.locator('#dice-form')).toBeVisible();
   expect(errors).toEqual([]);
 });
 
-test('experience guides carry into invitations with inline maps and quick exact timing', async ({
+test('experience guides carry into invitations with on-demand maps and quick exact timing', async ({
   page,
   runtime,
 }, info) => {
@@ -90,14 +81,12 @@ test('experience guides carry into invitations with inline maps and quick exact 
     'href',
     'https://saitama-supportdesk.com/experiences/post-24362/',
   );
-  await page.locator('#dialog .embedded-map').scrollIntoViewIfNeeded();
-  await expect(page.locator('#dialog iframe')).toHaveAttribute(
-    'src',
-    /maps.google.com\/maps\?q=Metropolitan/,
+  await expect(page.locator('#dialog iframe')).toHaveCount(0);
+  await expect(page.locator('.place-quick-actions a').first()).toHaveAttribute(
+    'href',
+    /maps\/search/,
   );
-  await expect.poll(() => queries.length).toBe(1);
-  expect(queries[0]).toContain('720 Kamikanazaki');
-  await expect(action(page, 'load-map')).toHaveCount(0);
+  expect(queries).toEqual([]);
   await action(page, 'close').click();
   await page.locator('#search').fill('Shimokitazawa thrift');
   await page.locator('.discovery-grid [data-action=discovery]').first().click();
@@ -137,7 +126,8 @@ test('experience guides carry into invitations with inline maps and quick exact 
   await expect(page.locator('.meeting-box')).toContainText('area only');
   await page.locator('.plan-map-details > summary').click();
   await page.locator('.meeting-box iframe').scrollIntoViewIfNeeded();
-  await expect.poll(() => queries.length).toBeGreaterThanOrEqual(2);
+  // WebKit may reload the same meeting iframe while layout settles.
+  await expect.poll(() => queries.length).toBeGreaterThanOrEqual(1);
   expect(queries.at(-1)).not.toContain('meet at location');
   expect(queries.at(-1)).toContain('Shimokitazawa');
   const manage = page.locator('.plan-management');

@@ -28,12 +28,18 @@ The canonical brief calls for a warm, editorial Japanese travel journal: calm an
 
 ## Discovery hierarchy
 
-The September 10 direction rejects a schedule or blank form as the front door.
-Lead with researched experiences and playable decision dice; let reading and
-choosing lead naturally to planning. The compact agenda supports a trip already
-in motion and remains one action away. Preserve the existing warm editorial
-identity and all research provenance. Do not treat mere feature retention as
-proof that the experience makes those features findable.
+The September 11 Corner reference supersedes the tall editorial opening on the
+mobile browser surface. Explore leads with search, a compact list/map switch,
+regions and private Saved places. Dice and curated outings open through one
+explicit disclosure. Place sheets put the title, save state, photography and
+short summary first, with compact map/source actions, independently expandable
+guides and one sticky invitation action. Preserve the research, private-save
+and participation contracts. The compact agenda remains one action away.
+
+Mobile uses white surfaces, near-black actions, a quiet lavender tint and
+self-hosted Inter display headings. Desktop retains the established paper
+palette. This adapts Corner's observed navigation and hierarchy; it does not
+claim its public social network, visited ratings or import automation.
 
 ## Source of Truth
 
@@ -41,7 +47,7 @@ This is a compact design context, not a replacement product plan. Authority rema
 
 ## Coherent outing journey
 
-The accepted ambitious direction retains the warm editorial identity. Explore presents three considered outings for each region—Osaka, Tokyo and Okinawa—beside an immediate local dice draw. Time and mood refinement, another roll, previous-result recovery and saving stay within that journey; the full fieldbook and other-area chooser remain available.
+Within “Let Omakase choose,” Explore presents three considered outings for each region—Osaka, Tokyo and Okinawa—beside an immediate local dice draw. Time and mood refinement, another roll, previous-result recovery and saving stay within that journey; the full fieldbook and other-area chooser remain available.
 
 An outing story and its starting draft share the same stop durations and travel allowances. Those are editable planning estimates, not verified opening hours or route feasibility. One visual editor leads to a distinct invitation review, then an explicit publish action. Friends may join all or one offered stop.
 

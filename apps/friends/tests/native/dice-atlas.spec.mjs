@@ -12,6 +12,8 @@ test('atlas dice fling, land, survive cancellation and work without map tiles', 
   await page.setViewportSize({ width: 1344, height: 960 });
   await page.goto(runtime.url + '/example.html#demo/discover');
   const open = async () => {
+    if (!(await page.locator('.places-stories').evaluate((el) => el.open)))
+      await page.locator('.places-stories > summary').click();
     await page.locator('[data-action=dice]:visible').first().click();
     await page.locator('#dice-region').selectOption('osaka');
     await page.locator('#dice-area').selectOption('Karahori & Tanimachi');
@@ -112,6 +114,7 @@ test('Himeji empty shortlist explains the disabled die and offers an explicit re
   runtime,
 }, info) => {
   await page.goto(runtime.url + '/example.html#demo/discover');
+  await page.locator('.places-stories > summary').click();
   await page.locator('[data-action=dice]:visible').first().click();
   await page.locator('#dice-region').selectOption('osaka');
   await page.locator('#dice-area').selectOption('Hyogo: Himeji');

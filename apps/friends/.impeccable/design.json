@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-11T01:51:00.964574+00:00",
+  "generatedAt": "2026-09-11T05:46:34.823330+00:00",
   "title": "Design System: Adventure Omakase Friends",
   "extensions": {
     "shadows": [
@@ -8,6 +8,21 @@
         "name": "overlay",
         "value": "0 18px 48px #192b2324",
         "purpose": "Floating selection menus and elevated overlays."
+      },
+      {
+        "name": "places-filter",
+        "value": "0 12px 40px #14182026",
+        "purpose": "Floating area, mood and time filter panel."
+      },
+      {
+        "name": "photo-save",
+        "value": "0 3px 12px #15191b20",
+        "purpose": "Save control over place photography."
+      },
+      {
+        "name": "map-feedback",
+        "value": "0 4px 20px #18191b24",
+        "purpose": "Map feedback overlay."
       }
     ],
     "motion": [
@@ -25,11 +40,16 @@
         "name": "menu-entry",
         "value": "160ms",
         "purpose": "Selection menu opening; reduced-motion users receive no animation."
+      },
+      {
+        "name": "place-arrive",
+        "value": "180ms cubic-bezier(.16,1,.3,1)",
+        "purpose": "Sheet enters from translateY(18px) to zero only with prefers-reduced-motion:no-preference."
       }
     ],
     "breakpoints": [
       {
-        "name": "navigation-and-explore",
+        "name": "mobile-theme-navigation-and-places",
         "value": "850px"
       },
       {
@@ -241,16 +261,48 @@
           "oklch(0.836 0.0120 111.76)",
           "oklch(0.950 0.0120 111.76)"
         ]
+      },
+      "mobile-paper": {
+        "role": "neutral",
+        "displayName": "White mobile canvas"
+      },
+      "mobile-white": {
+        "role": "neutral",
+        "displayName": "White mobile surface"
+      },
+      "mobile-ink": {
+        "role": "neutral",
+        "displayName": "Near-black text"
+      },
+      "mobile-muted": {
+        "role": "neutral",
+        "displayName": "Muted mobile text"
+      },
+      "mobile-line": {
+        "role": "neutral",
+        "displayName": "Cool divider"
+      },
+      "mobile-green": {
+        "role": "primary",
+        "displayName": "Near-black action"
+      },
+      "mobile-lightgreen": {
+        "role": "neutral",
+        "displayName": "Pale lavender control"
+      },
+      "mobile-pale": {
+        "role": "neutral",
+        "displayName": "Pale mobile support"
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Explore display",
-        "purpose": "Explore opening; 32px at 850px and below."
+        "purpose": "Expanded outing introduction; 32px at <=850px. Its serif family resolves to system sans-serif on mobile."
       },
       "page-title": {
         "displayName": "Page title",
-        "purpose": "Ordinary page headings; 32px on mobile. Friends has its own 42px/32px role."
+        "purpose": "Other page headings; 32px on mobile, where serif resolves to system sans-serif. Friends retains its 42px/32px role."
       },
       "headline": {
         "displayName": "Dialog headline",
@@ -263,8 +315,57 @@
       "label": {
         "displayName": "Field label",
         "purpose": "Persistent labels with compact task scale."
+      },
+      "places-display": {
+        "displayName": "Places Display",
+        "purpose": "Searchable places heading. Self-hosted Inter Display with optical sizing."
+      },
+      "mobile-places-display": {
+        "displayName": "Mobile places display",
+        "purpose": "At <=850px. Searchable places heading."
+      },
+      "place-title": {
+        "displayName": "Place Title",
+        "purpose": "Place sheet title. Self-hosted Inter Display with optical sizing."
+      },
+      "mobile-place-title": {
+        "displayName": "Mobile place title",
+        "purpose": "At <=850px. Place sheet title."
+      },
+      "place-card-title": {
+        "displayName": "Place Card Title",
+        "purpose": "Photo-led place list title. Self-hosted Inter Display with optical sizing."
+      },
+      "mobile-place-card-title": {
+        "displayName": "Mobile place card title",
+        "purpose": "At <=850px. Photo-led place list title."
       }
-    }
+    },
+    "responsiveOverrides": [
+      {
+        "query": "(max-width: 850px)",
+        "colorTokens": {
+          "paper": "mobile-paper",
+          "white": "mobile-white",
+          "ink": "mobile-ink",
+          "muted": "mobile-muted",
+          "line": "mobile-line",
+          "green": "mobile-green",
+          "lightgreen": "mobile-lightgreen",
+          "pale": "mobile-pale"
+        },
+        "radiusTokens": {
+          "control": "mobile-control"
+        },
+        "typography": {
+          "--serif": "var(--sans)",
+          "places-display": "mobile-places-display",
+          "place-title": "mobile-place-title",
+          "place-card-title": "mobile-place-card-title"
+        },
+        "notes": "Overrides apply globally. Inter Display is scoped to place titles at all widths; other mobile serif roles use system sans-serif. Rust, blue, gold and literal hover colors remain inherited."
+      }
+    ]
   },
   "components": [
     {
@@ -318,9 +419,9 @@
     {
       "name": "Navigation",
       "kind": "nav",
-      "description": "Active location uses an underline.",
+      "description": "Four destinations; desktop underline, mobile lavender active fill.",
       "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><button aria-current=\"page\">Explore</button><button>Your day</button><button>Friends</button><button>Memories</button></nav>",
-      "css": ".ds-nav{display:flex;gap:4px}.ds-nav button{min-height:44px;padding:10px 14px;background:transparent;border:0;border-radius:24px;font:500 12px var(--sans);color:#676e61}.ds-nav button[aria-current]{color:var(--green);border-radius:0;box-shadow:inset 0 -2px var(--green)}.ds-nav button:not([aria-current]):hover{background:var(--lightgreen)}.ds-nav button:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+      "css": ".ds-nav{display:flex;gap:4px}.ds-nav button{min-height:44px;padding:10px 14px;background:transparent;border:0;border-radius:24px;font:500 12px var(--sans);color:#676e61}.ds-nav button[aria-current]{color:var(--green);border-radius:0;box-shadow:inset 0 -2px var(--green)}.ds-nav button:not([aria-current]):hover{background:var(--lightgreen)}.ds-nav button:focus-visible{outline:2px solid var(--green);outline-offset:3px}@media(max-width:850px){.ds-nav{background:var(--white,#fff)}.ds-nav button[aria-current]{background:var(--lightgreen,#f1eff6);color:var(--ink,#18191b);border-radius:24px;box-shadow:none}}"
     },
     {
       "name": "Selected Filter",
@@ -333,23 +434,81 @@
     {
       "name": "Reading Entry",
       "kind": "card",
-      "description": "Continuous editorial content with a divider.",
+      "description": "Continuous editorial content for memories and supporting stories; places use the photo-led treatment below.",
       "html": "<article class=\"ds-entry\"><h3>An afternoon idea</h3><p>A research lead to explore together.</p></article>",
       "css": ".ds-entry{padding:24px 0;border-bottom:1px solid var(--line);color:var(--ink)}.ds-entry h3{margin:0;font:400 28px/1.12 var(--serif);letter-spacing:-.025em}.ds-entry p{font:15px/1.65 var(--sans)}"
+    },
+    {
+      "name": "Places Search and View",
+      "kind": "input",
+      "refersTo": "mobile-search",
+      "description": "Flexible mobile search beside accessible 44px map/list controls.",
+      "html": "<div class=\"ds-places-tools\"><label class=\"ds-search\">Search discoveries<input type=\"search\" placeholder=\"Places, neighbourhoods, cravings\u2026\"></label><div class=\"ds-views\" role=\"group\" aria-label=\"Discovery view\"><button aria-label=\"List view\" aria-pressed=\"true\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 6h16M4 12h16M4 18h16\"/></svg></button><button aria-label=\"Map view\" aria-pressed=\"false\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Z M9 3v16M15 5v16\"/></svg></button></div></div>",
+      "css": ".ds-places-tools{display:flex;align-items:center;gap:8px;font:13px var(--sans,sans-serif);color:var(--ink,#18191b)}.ds-search{flex:1;min-width:0}.ds-search input{display:block;width:100%;height:48px;padding:0 15px;border:0;border-radius:28px;background:var(--lightgreen,#f1eff6);color:inherit;font:16px var(--sans,sans-serif)}.ds-views{display:flex;flex-shrink:0;gap:4px;padding:3px;background:var(--lightgreen,#f1eff6);border-radius:28px}.ds-views button{display:grid;place-items:center;width:44px;min-height:44px;border:0;border-radius:24px;background:transparent;color:inherit;cursor:pointer}.ds-views button[aria-pressed=true]{background:var(--green,#202024);color:white}.ds-views button:hover{background:#eff0e7;color:var(--ink,#18191b)}.ds-views button:focus-visible,.ds-search input:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}"
+    },
+    {
+      "name": "Place Quick Action",
+      "kind": "button",
+      "refersTo": "place-quick-action",
+      "description": "Map, external Maps search and source links below the summary.",
+      "html": "<button class=\"ds-place-quick\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"2\"/></svg>Map</button>",
+      "css": ".ds-place-quick{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:8px 13px;border:1px solid var(--line,#e5e4ea);border-radius:24px;background:var(--lightgreen,#f1eff6);color:var(--ink,#18191b);font:600 12px/1.4 var(--sans,sans-serif);cursor:pointer;transition:border-color 180ms var(--ease,cubic-bezier(.16,1,.3,1))}.ds-place-quick:hover{border-color:#95a58e}.ds-place-quick:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-place-quick{transition:none}}"
+    },
+    {
+      "name": "Place Detail Disclosure",
+      "kind": "custom",
+      "refersTo": "place-section",
+      "description": "Independent experience, practical and research sections; operational warnings remain outside.",
+      "html": "<details class=\"ds-place-section\"><summary>Research &amp; sources<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><p>Research lead \u00b7 not reverified for your visit</p></details>",
+      "css": ".ds-place-section{border-top:1px solid var(--line,#e5e4ea);color:var(--ink,#18191b);font:15px/1.65 var(--sans,sans-serif)}.ds-place-section summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:18px 0;cursor:pointer;font-weight:600;list-style:none}.ds-place-section[open] summary svg{transform:rotate(45deg)}.ds-place-section summary:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}.ds-place-section p{margin:0 0 20px}"
+    },
+    {
+      "name": "Sticky Place Invitation",
+      "kind": "custom",
+      "refersTo": "mobile-place-action",
+      "description": "One 48px invitation action with a day/meeting-point prompt and safe-area padding.",
+      "html": "<div class=\"ds-place-bar\"><button>Invite friends to this</button><span>Choose a day &amp; meeting point</span></div>",
+      "css": ".ds-place-bar{position:sticky;bottom:0;z-index:5;display:flex;align-items:center;gap:10px;padding:12px 20px max(12px,env(safe-area-inset-bottom));border-top:1px solid var(--line,#e5e4ea);background:var(--white,#fff);color:var(--ink,#18191b)}.ds-place-bar button{flex:1;min-height:48px;padding:9px 14px;border:1px solid var(--green,#202024);border-radius:28px;background:var(--green,#202024);color:white;font:600 13px/1.4 var(--sans,sans-serif);cursor:pointer}.ds-place-bar span{max-width:85px;color:var(--muted,#62616a);font:11px/1.4 var(--sans,sans-serif)}.ds-place-bar button:hover{background:#375c45}.ds-place-bar button:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}"
+    },
+    {
+      "name": "Place Card Without Photo",
+      "kind": "card",
+      "description": "Actual text-only fallback with an independent save control; no fabricated image.",
+      "html": "<article class=\"ds-place-card\"><button class=\"ds-place-save\" aria-label=\"Save for myself\" aria-pressed=\"false\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 3h12v18l-6-4-6 4Z\"/></svg></button><p class=\"ds-place-category\">Tokyo \u00b7 Culture</p><h3><button>A local research lead</button></h3><p class=\"ds-place-copy\">Open the place to read its practical context and sources.</p><p class=\"ds-place-category\">About 60 minutes on site \u00b7 travel extra</p></article>",
+      "css": ".ds-place-card{position:relative;border-top:1px solid var(--line,#e5e4ea);padding:14px 52px 0 0;color:var(--ink,#18191b);font:14px/1.45 var(--sans,sans-serif)}.ds-place-card .ds-place-save{position:absolute;right:0;top:0;width:44px;height:44px;border:0;border-radius:50%;background:var(--lightgreen,#f1eff6);color:inherit;cursor:pointer}.ds-place-category{font-size:12px;color:var(--muted,#62616a);margin:0 0 5px}.ds-place-card h3{margin:0 0 8px;font:700 20px/1.18 \"Inter Display\",var(--sans,sans-serif);letter-spacing:-.025em}.ds-place-card h3 button{min-height:44px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.ds-place-copy{margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ds-place-card button:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(max-width:850px){.ds-place-card h3{font-size:22px}}"
     }
   ],
   "narrative": {
     "northStar": "Contemporary journey notebook",
-    "overview": "Warm paper, forest ink, editorial titles, flat reading surfaces and compact controls make travel information readable and actions immediate. The interface is calm and trustworthy before a decision and recedes during travel. A tactile die supplies a small moment of play within that same world.\n\nThis records the implemented friends browser app in this directory, using the current cascade in `public/app.css` and components in `public/app.js` and `public/outings.js`. The direction remains the accepted editorial brief and the contract in `public/index.html`; the future native application is a separate surface. Documentation of an implemented pattern is not evidence of production deployment or completed visual acceptance.",
+    "overview": "The contemporary journey notebook now has a clean mobile expression: white surfaces, near-black actions, pale lavender controls and compact place photography. Desktop retains warm paper and forest ink. Clear titles, continuous reading surfaces and explicit actions keep the interface calm before a decision and let it recede during travel; dice remain a contained moment of play inside an expandable outing choice.\n\nThis records the implemented friends browser app in this directory, using the current cascade in `public/app.css` and components in `public/app.js` and `public/outings.js`. The accepted Corner-led mobile adaptation and current discovery hierarchy are recorded in `docs/CORNER_MOBILE_RESEARCH.md` and `PRODUCT.md`. The future native application is a separate surface. This document records the current source, not a new product specification. Documentation of an implemented pattern is not evidence of production deployment or completed visual acceptance.",
     "keyCharacteristics": [
       "Continuous reading surfaces with separated entries.",
-      "Editorial serif titles and practical sans-serif controls.",
+      "Self-hosted Inter Display on place headings; editorial serif titles on other desktop surfaces.",
+      "White mobile surfaces, near-black actions and pale lavender secondary controls.",
       "Restrained color with explicit interaction states.",
       "Credited photographs, readable stories and a playable local draw."
     ],
-    "rules": [],
+    "rules": [
+      {
+        "name": "The State Clarity Rule",
+        "body": "Pair color with text, selection markers or underlines so the action or state remains explicit.",
+        "section": "colors"
+      },
+      {
+        "name": "The Task Scale Rule",
+        "body": "Keep forms compact: use sans-serif labels and readable controls beneath a restrained task heading.",
+        "section": "typography"
+      },
+      {
+        "name": "The Reading Surface Rule",
+        "body": "Keep repeated entries on one continuous surface; reserve enclosing treatments for a meaningful control, overlay or emphasized supporting panel.",
+        "section": "elevation"
+      }
+    ],
     "dos": [
-      "Do keep labels visible and interaction states explicit.",
+      "Do keep labels visible and interaction states explicit, including names for icon-only map/list controls.",
+      "Do apply the mobile palette only at 850px and below and preserve desktop paper colors.",
+      "Do keep private saves, recommendations and invitations separate in both copy and controls.",
       "Do preserve native form values and keyboard behavior when styling selection controls.",
       "Do keep photo credits, reference-image labels and planning uncertainty beside the content they qualify.",
       "Do preserve the distinction between reading, editing, reviewing and publishing an invitation.",

@@ -117,6 +117,7 @@ test('visual discoveries roll real dice, recover empty filters and reshuffle an 
   await page.locator('[data-nav=discover]:visible').first().click();
   await expect(page.locator('.discovery-image').first()).toBeVisible();
   await page.screenshot({ path: info.outputPath('discover-desktop.png') });
+  await page.locator('.places-stories > summary').click();
   await action(page, 'dice').click();
   await expect(page.locator('.dice-face')).toHaveCount(6);
   await page.locator('#dice-region').selectOption('tokyo');

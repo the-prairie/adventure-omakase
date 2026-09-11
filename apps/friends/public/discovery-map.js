@@ -1,4 +1,12 @@
 'use strict';
+// Keep degraded-map recovery in the visible map, including on a phone.
+function showMapFeedback(message) {
+  const feedback = document.querySelector('.map-feedback');
+  if (!feedback) return;
+  feedback.querySelector('span').textContent = message;
+  feedback.hidden = false;
+}
+
 window.OmakaseFallbackMap = (() => {
   let map, observer, camera, lastRegion, lastArea;
   const regions = {
@@ -52,6 +60,9 @@ window.OmakaseFallbackMap = (() => {
       ).addTo(map);
       tiles.on('tileerror', () => {
         if (map !== currentMap || !container.isConnected) return;
+        showMapFeedback(
+          'Map tiles could not load. Choose an area or browse places.',
+        );
         const note = document.getElementById('map-load-note');
         if (note)
           note.textContent =

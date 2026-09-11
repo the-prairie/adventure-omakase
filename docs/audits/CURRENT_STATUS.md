@@ -1,5 +1,34 @@
 # Current release status
 
+## September 11 — Corner-inspired mobile discovery
+
+The requested Corner reference informs a simpler phone journey: search and list/map
+controls first, compact photographed cards with private saving, and place sheets
+with a title-level save control, small map/source actions and one fixed invitation
+action. Research and practical details expand on demand; activity warnings remain
+visible. Dice and curated outings sit behind one disclosure. Failed map tiles show
+a recovery action inside the visible map. Inter is self-hosted with its license.
+Research scope and source-to-feature mapping: `apps/friends/docs/CORNER_MOBILE_RESEARCH.md`.
+Only four accessible Mobbin highlights were inspected; the 219-screen collection
+was paywalled. Visited ratings, public follows and social-link imports are not
+implemented. Existing saves, recommendations, planning and privacy retain their
+canonical backend behavior.
+
+Observed: root `pnpm check` passed all 12 tasks (115 friends tests); Sites checks
+and both compatibility tests passed. The full Chromium/WebKit regression passed
+69/72. Two failures used old disclosure or iframe-count expectations; updated
+focused checks passed, including the Chromium trip simulation and both map cases.
+The remaining WebKit shared-trip request error passed in isolation (1/1). The full
+WebKit trip simulation passed. All 72 cases therefore have passing evidence on
+the final application code, not a single zero-failure suite run. An additional
+16-case affected-flow run passed in both engines. Phone widths 320, 393 and 430,
+desktop, saving/reload, sources, invitation prefill and map failure were covered.
+Screenshots of list, place, loaded map and failed map were inspected; independent
+finish review cleared its font and map-recovery fixes. Actual iPhone keyboard,
+Home Screen and provider availability remain manual acceptance checks.
+
+Publication evidence will be recorded after exact release verification.
+
 ## September 11 — coherent outings and a fictional friends trip
 
 Explore now offers three considered outings in each region and an inline local dice result with refinement, reroll, undo and saving. Editorial stop durations seed the same editable plan shown by the outing story. A single visual editor leads to a read-only invitation review, including meeting points and the traveller's own spending context. Friends opens on the selected day, people and actual invitations; detailed travel dates remain available. Memories have an explicit private or shared choice. Two credited photos and three Tokyo outings retain the full 300-record catalogue and matching companion snapshots.

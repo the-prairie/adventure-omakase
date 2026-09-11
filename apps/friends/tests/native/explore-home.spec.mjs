@@ -1,6 +1,6 @@
 import { test, expect } from './runtime.mjs';
 
-test('discovery leads with playable dice and researched outings, and keeps the day available', async ({
+test('discovery offers playable dice and researched outings, and keeps the day available', async ({
   page,
   runtime,
 }, info) => {
@@ -10,12 +10,15 @@ test('discovery leads with playable dice and researched outings, and keeps the d
   );
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(runtime.url + '/example.html');
+  if (!(await page.locator('.places-stories').getAttribute('open')))
+    await page.locator('.places-stories > summary').click();
   await expect(page.locator('.explore-opening')).toBeVisible();
   await expect(page.locator('.explore-lead img')).toBeVisible();
   await expect(page.locator('#main form')).toHaveCount(0);
   await expect(page.locator('.home-dice')).toContainText('Namba');
   await page.screenshot({ path: info.outputPath('explore-desktop.png') });
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('.home-dice .dice-table').scrollIntoViewIfNeeded();
   await expect(page.locator('.home-dice .dice-table')).toBeInViewport();
   await page.screenshot({ path: info.outputPath('explore-mobile.png') });
   await page.locator('.home-dice .dice-table').focus();

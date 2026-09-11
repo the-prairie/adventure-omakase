@@ -141,15 +141,14 @@ test('traveler surfaces retain readable controls across desktop and mobile', asy
   await nav('discover');
   await capture('17-discover');
   await page.locator('#search').fill('nothing-matches-this-synthetic-string');
-  await expect(page.locator('#main')).toContainText(
-    'That is quite a specific adventure.',
-  );
+  await expect(page.locator('#main')).toContainText('No places found.');
   await capture('18-discover-empty');
   await action('clear-filters').click();
   await page.locator('[data-action=discovery]:visible').first().click();
   await capture('19-discovery-detail');
   await capture('20-discovery-source', true);
   await close();
+  await page.locator('.places-stories > summary').click();
   await action('dice').click();
   await capture('21-draw');
   await page.locator('#dice-form [type=submit]').click();

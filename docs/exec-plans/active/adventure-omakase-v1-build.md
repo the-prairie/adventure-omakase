@@ -1,5 +1,17 @@
 # Adventure Omakase V1 Build Ledger
 
+## Corner-inspired mobile discovery
+
+Status: **Implementation and local regression complete; publication pending.**
+The September 11 request selects Corner as the mobile reference. Acceptance:
+searchable places, private saved scope, persistent list/map selection, compact
+photo-led place sheets, inspectable sources and preserved invitation flows.
+Curated outings and dice use one disclosure; no public-follow or visited-rating
+backend is introduced. Source: `apps/friends/public/app.js`, `app.css`,
+`discovery-map.js`; research: `apps/friends/docs/CORNER_MOBILE_RESEARCH.md`.
+New browser coverage: `tests/native/corner-mobile.spec.mjs`. Exact observed
+checks, implementation commit and deployment evidence belong in current status.
+
 ## Current selected slice — ChatGPT Sites outing planning
 
 The September 9 user direction makes the existing ChatGPT Site the delivery

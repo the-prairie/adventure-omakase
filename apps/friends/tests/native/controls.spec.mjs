@@ -9,6 +9,7 @@ test('choice controls preserve forms, keyboard navigation and dialog boundaries'
   await page.locator('#f-name').fill('Synthetic control tester');
   await page.locator('#auth-form [type=submit]').click();
   await page.locator('[data-nav=discover]:visible').first().click();
+  await page.locator('.places-stories > summary').click();
   await page.locator('[data-action=dice]:visible').first().click();
   const trigger = (id) =>
     page.locator(`#${id}`).locator('..').getByRole('combobox');

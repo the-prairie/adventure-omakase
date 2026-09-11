@@ -156,7 +156,7 @@ test('four friends make independent days, join selected stops, reconfirm changes
     if (name === 'Ariel')
       await page.locator('#f-title').fill('Japan, our own pace · simulation');
     await page.locator('#auth-form button[type=submit]').click();
-    await expect(page.locator('.explore-opening')).toBeVisible();
+    await expect(page.locator('.places-heading')).toBeVisible();
     if (name === 'Ariel') {
       await page.locator('[data-action=settings]:visible').click();
       await page.locator('[data-action=trip-window]').click();
@@ -283,6 +283,8 @@ test('four friends make independent days, join selected stops, reconfirm changes
   }
   async function collection(page, region, id) {
     await go(page);
+    if (!(await page.locator('.places-stories').evaluate((el) => el.open)))
+      await click(page, '.places-stories > summary');
     await click(page, `[data-action=home-region][data-id=${region}]`);
     await click(
       page,
@@ -327,6 +329,8 @@ test('four friends make independent days, join selected stops, reconfirm changes
     );
     await expect(page.locator('.home-menu > article')).toHaveCount(3);
     await capture(page, '01-explore-osaka');
+    if (!(await page.locator('.places-stories').evaluate((el) => el.open)))
+      await click(page, '.places-stories > summary');
     await click(page, '.home-dice-actions [data-action=home-roll]');
     await expect(page.locator('#home-dice-result h3')).toBeVisible();
     const first = await page.locator('#home-dice-result h3').innerText();

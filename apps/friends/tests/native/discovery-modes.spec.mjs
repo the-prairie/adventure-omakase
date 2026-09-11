@@ -42,7 +42,9 @@ test('Map and Fieldbook preserve preferences, place context and one map instance
   await expect(page.locator('.discovery-atlas')).toBeHidden();
   expect(loads).toBe(0);
   await page.locator('[data-action=region][data-id=osaka]').click();
+  await page.locator('#discovery-filters summary').click();
   await page.locator('#area-filter').selectOption('Karahori & Tanimachi');
+  await page.locator('#discovery-filters summary').click();
   await page.getByRole('button', { name: 'Map', exact: true }).click();
   await expect(page.locator('.google-discovery-map')).toHaveAttribute(
     'data-map-instances',

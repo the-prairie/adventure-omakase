@@ -10,6 +10,8 @@ async function close(page) {
 async function openCollection(page, id) {
   await close(page);
   await page.locator('[data-nav=discover]:visible').first().click();
+  if (!(await page.locator('.places-stories').evaluate((el) => el.open)))
+    await page.locator('.places-stories > summary').click();
   const entry = page.locator(`[data-collection-id="${id}"]`);
   if (!(await entry.getAttribute('open')))
     await entry.locator('summary').click();

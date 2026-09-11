@@ -32,17 +32,18 @@ search, with no inferred route or location. Phone invitation details put meeting
 and participation first, with maps, descriptions and source context expandable.
 The four phone navigation items are Explore, Your day, Friends and Memories.
 
-New visits and successful joining open the discovery fieldbook. Its opening
-combines an immediate local catalogue draw with photographed curated outings.
-The compact die reuses the animated dice presentation without a map request;
-its visible regional defaults restrict suggestions to a named area, at most
-three hours on site, and no advance-arrangement, excursion, separate-stay or
-water flags. It is a research suggestion, not an availability or routing check.
-The complete configurable map/dice experience remains available. Draw completion
-is cancelled when its surface changes, and results retain canonical catalogue
-IDs through saving, guide inspection and invitation creation. Curated stories
-place source context before planning. Explicit agenda and invitation links keep
-their existing routes.
+New visits and successful joining open searchable discovery. A compact list/map
+switch retains region, area, query and selected place. Saved filtering reads
+canonical private picks; it never implies a recommendation or attendance. Dice
+and curated outings are accessible through “Let Omakase choose.” Its named-area
+draw and editorial plans preserve the existing feasibility and source limits.
+
+Place sheets use the existing dialog and invitation actions. Photos, private
+save state and summary lead; guide, practical details and research expand
+separately. Water, event-window and separate-stay warnings remain visible. The
+map is opened explicitly, and failed tiles reveal status and list recovery in
+the map viewport. Inter display fonts are self-hosted with their license. The
+mobile white/near-black palette changes presentation, not state or access.
 
 ## Current friends release
 

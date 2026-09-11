@@ -24,7 +24,9 @@ test('area map filters discoveries and experience context stays visible', async 
   await expect(page.locator('#area-map')).toContainText('Osaka');
   await expect(page.locator('#map-load-note')).toContainText('could not load');
   await page.locator('[data-action=region][data-id=osaka]').click();
+  await page.locator('#discovery-filters summary').click();
   await page.locator('#area-filter').selectOption('Karahori & Tanimachi');
+  await page.locator('#discovery-filters summary').click();
   await expect(page.locator('#map-selection')).toContainText('Karahori');
   await expect(page.locator('#discovery-results')).toContainText('Karahori');
   await page.locator('#area-map').scrollIntoViewIfNeeded();
@@ -37,11 +39,12 @@ test('area map filters discoveries and experience context stays visible', async 
     .locator('.discovery-grid [data-action=discovery][data-id=osaka-013]')
     .first()
     .click();
+  await page.locator('.place-section').first().locator('summary').click();
   await expect(page.locator('.experience-context .lede')).toBeVisible();
   await expect(page.locator('.experience-context')).toContainText(
     'covered shopping street',
   );
-  await expect(page.locator('#dialog details')).toHaveCount(0);
+  await expect(page.locator('.place-section')).toHaveCount(3);
   await expect(page.locator('#dialog img')).toHaveAttribute(
     'src',
     /karahori-arcade/,

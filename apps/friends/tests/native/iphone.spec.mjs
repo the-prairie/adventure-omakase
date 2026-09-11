@@ -20,6 +20,7 @@ test('phone task sheets keep review reachable, fit small screens and preserve dr
     expect(box.height).toBeGreaterThanOrEqual(44);
     expect(box.width).toBeGreaterThanOrEqual(44);
   }
+  await page.locator('.places-stories > summary').click();
   const collection = page.locator(
     '[data-collection-id=naha-sakaemachi-evening]',
   );
