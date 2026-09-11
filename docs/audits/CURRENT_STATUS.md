@@ -34,8 +34,17 @@ helpers were corrected after reproducing the hidden-image bounds, without
 changing application behavior. The six-case rerun passed in Chromium and WebKit,
 including both complete multi-person trip simulations. All 88 current browser
 scenarios have passing evidence across these runs, not one zero-failure full run.
-All 11 native workerd checks passed. The source is ready for publication;
-release identity and live verification follow below.
+All 11 native workerd checks passed. Root implementation is `185979c`.
+Sites version 12 was published from `c87c8a35dcd1f2a0afd1bbfbe2daf675cdd6caac`.
+At 2026-09-11 08:51:40 UTC, authenticated health, setup state and all 13 release
+assets matched. At 08:53:01 UTC, the live example passed the actual gesture,
+reveal, undo, private save and closer-look flow at phone widths. Both entrypoints
+reference the expected release assets, and all three new JPEGs match the build.
+The host canonicalizes `/example.html` to `/example`; verification follows only
+same-origin redirects. The hosting layer also injects a script, so raw HTML is
+not byte-identical. Anonymous health returns 401. The existing two-person audience
+remains policy revision 2. No separate Cloudflare production promotion or merge
+was performed.
 Physical iPhone feel, hardware sound, VoiceOver and in-field use remain manual
 acceptance; this change introduces no live provider or location claim.
 
