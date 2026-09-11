@@ -79,6 +79,8 @@ window.OmakaseDice = (() => {
       if (!visual?.photo?.path?.startsWith('/assets/discovery/photos/')) return;
       const img = document.createElement('img');
       img.src = visual.photo.path;
+      if (visual.photo.align === 'bottom')
+        img.style.objectPosition = 'center bottom';
       if (visual.photo.smallPath) {
         img.srcset = `${visual.photo.smallPath} 480w, ${visual.photo.path} ${visual.photo.width || 960}w`;
         img.sizes = '(max-width: 850px) 70vw, 480px';
@@ -118,9 +120,8 @@ window.OmakaseDice = (() => {
         card.className = 'chance-portal';
         photo(card, pick.visual);
         const label = document.createElement('figcaption');
-        label.textContent = pick.visual.reference
-          ? `Around ${pick.area}`
-          : pick.visual.photo.kind && pick.visual.photo.kind !== 'place'
+        label.textContent =
+          pick.visual.photo.kind && pick.visual.photo.kind !== 'place'
             ? pick.visual.photo.caption
             : pick.title;
         card.append(label);
@@ -267,9 +268,8 @@ window.OmakaseDice = (() => {
       stage.dataset.phase = 'rolling';
       copy.textContent = 'A small detour is taking shape.';
       photo(destination, pick.visual);
-      reference.textContent = pick.visual?.reference
-        ? `Around ${pick.area} · neighbourhood reference, not this venue`
-        : pick.visual?.photo.kind && pick.visual.photo.kind !== 'place'
+      reference.textContent =
+        pick.visual?.photo.kind && pick.visual.photo.kind !== 'place'
           ? pick.visual.photo.caption
           : '';
       let vx = impulse?.vx || 560,

@@ -204,7 +204,7 @@ test('sound requires explicit opt-in and its audio context closes with the chanc
   expect((await page.evaluate(() => window.__chanceAudio)).closed).toBe(1);
 });
 
-test('reference photographs stay labelled during the opening and presentation failure still reveals the draw', async ({
+test('missing photographs never borrow a neighbouring venue and presentation failure still reveals the draw', async ({
   page,
   runtime,
 }) => {
@@ -227,11 +227,12 @@ test('reference photographs stay labelled during the opening and presentation fa
     'data-phase',
     'travelling',
   );
-  await expect(page.locator('.chance-reference')).toBeVisible();
-  await expect(page.locator('.chance-reference')).toContainText(
-    'neighbourhood reference, not this venue',
-  );
+  await expect(page.locator('.chance-destination img')).toHaveCount(0);
   await expect(page.locator('#dice-result h3')).toHaveText(title);
+  await expect(page.locator('.chance-no-photo')).toContainText(
+    'No verified photo of this place yet.',
+  );
+  await expect(page.locator('.chance-photo img')).toHaveCount(0);
   await expect(page.locator('.chance-fit')).toBeInViewport();
   await expect(page.locator('.chance-go')).toBeInViewport();
   await page.locator('.chance-practical summary').click();
@@ -240,6 +241,7 @@ test('reference photographs stay labelled during the opening and presentation fa
   const scroll = await page.locator('.chance-scroll').boundingBox();
   expect(scroll.y).toBeGreaterThanOrEqual(header.y + header.height - 1);
   await page.keyboard.press('Escape');
+  await expect(page.locator('#home-dice-result img')).toHaveCount(0);
   await page.evaluate(() => {
     const mount = window.OmakaseDice.mount;
     window.OmakaseDice.mount = (...args) => ({

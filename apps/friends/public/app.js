@@ -926,7 +926,7 @@
     const figures = photos
       .filter((photo) => photo?.path?.startsWith('/assets/discovery/photos/'))
       .map((photo) => {
-        const img = `<img src="${E(photo.path)}" ${photo.smallPath ? `srcset="${E(photo.smallPath)} 480w, ${E(photo.path)} ${photo.width || 960}w" sizes="${interactive ? '(max-width: 850px) calc(100vw - 48px), (max-width: 1100px) 45vw, 360px' : '(max-width: 850px) calc(100vw - 48px), 700px'}"` : ''} alt="${E(photo.caption)}" width="${photo.width || 960}" height="${photo.height || 640}" loading="lazy" decoding="async">`;
+        const img = `<img src="${E(photo.path)}" ${photo.align === 'bottom' ? 'style="object-position:center bottom"' : ''} ${photo.smallPath ? `srcset="${E(photo.smallPath)} 480w, ${E(photo.path)} ${photo.width || 960}w" sizes="${interactive ? '(max-width: 850px) calc(100vw - 48px), (max-width: 1100px) 45vw, 360px' : '(max-width: 850px) calc(100vw - 48px), 700px'}"` : ''} alt="${E(photo.caption)}" width="${photo.width || 960}" height="${photo.height || 640}" loading="lazy" decoding="async">`;
         return `<figure class="experience-photo ${interactive ? 'card-photo' : ''}">${interactive ? `<button class="discovery-image" data-action="discovery" data-id="${E(a.id)}" aria-label="Explore ${E(a.title)}">${img}</button>` : img}<figcaption>${E(photo.caption)} · <a href="${E(safeURL(photo.source))}" target="_blank" rel="noopener noreferrer">${E(photo.author)}</a> · <a href="${E(safeURL(photo.licenseUrl))}" target="_blank" rel="noopener noreferrer">${E(photo.license)}</a></figcaption></figure>`;
       })
       .join('');
@@ -1191,14 +1191,7 @@
   function homeResult() {
     const a = BY.get(ui.homePickId);
     if (!a) return '';
-    const reference =
-      !a.photo &&
-      C.find((p) => p.region === a.region && p.area === a.area && p.photo);
-    const visual = a.photo
-      ? discoveryPhoto({ ...a, photos: [] })
-      : reference
-        ? `<div class="home-area-reference"><p class="small muted">Around ${E(a.area)} · neighbourhood reference, not this venue</p>${discoveryPhoto({ ...reference, photos: [] })}</div>`
-        : '';
+    const visual = a.photo ? discoveryPhoto({ ...a, photos: [] }) : '';
     return `<article class="home-pick"><div>${visual}</div><div><h3>${E(a.title)}</h3><p class="small muted">${E(a.area)}</p><p>${E(a.experience?.summary || a.why)}</p>${a.experience?.highlights?.length ? `<p class="home-highlight">${E(a.experience.highlights[0])}</p>` : ''}<p class="small">About ${a.minutes} minutes on site · travel extra</p><details><summary>Before you go</summary><p>${E(a.experience?.planning || a.practical)}</p><p>Check current prices and any purchase minimum at the venue.</p><a class="text-btn" href="${E(safeURL(a.experience?.source || a.source))}" target="_blank" rel="noopener noreferrer">Read the source ${I('external')}</a></details><div class="row wrap">${btn('Take a closer look ' + I('arrow'), 'discovery', a.id, 'primary')}${btn(saved(a.id) ? 'Saved' : 'Save for later', 'save', a.id, 'subtle')}</div>${ui.homeHistory.length > 1 ? btn('Back to the previous roll', 'home-undo', '', 'text-btn') : ''}</div></article>`;
   }
   function exploreOpening() {
@@ -1227,12 +1220,7 @@
   }
 
   function dicePhoto(a) {
-    const reference = a.photo
-      ? a
-      : C.find((p) => p.region === a.region && p.area === a.area && p.photo);
-    return reference
-      ? { photo: reference.photo, reference: reference.id !== a.id }
-      : null;
+    return a.photo ? { photo: a.photo } : null;
   }
   function diceInvitation() {
     const photos = homePool()
@@ -1993,7 +1981,7 @@
   function diceReveal(a, freshRound = false) {
     const visual = dicePhoto(a);
     const image = visual
-      ? `<figure class="chance-photo"><img src="${E(visual.photo.path)}" alt="${E(visual.photo.caption)}" width="960" height="640"><figcaption>${visual.reference ? `Around ${E(a.area)} · neighbourhood reference, not this venue` : E(visual.photo.caption)} <a href="${E(safeURL(visual.photo.source))}" target="_blank" rel="noopener noreferrer">${E(visual.photo.author)}</a> · <a href="${E(safeURL(visual.photo.licenseUrl))}" target="_blank" rel="noopener noreferrer">${E(visual.photo.license)}</a></figcaption></figure>`
+      ? `<figure class="chance-photo"><img src="${E(visual.photo.path)}" ${visual.photo.align === 'bottom' ? 'style="object-position:center bottom"' : ''} alt="${E(visual.photo.caption)}" width="960" height="640"><figcaption>${E(visual.photo.caption)} <a href="${E(safeURL(visual.photo.source))}" target="_blank" rel="noopener noreferrer">${E(visual.photo.author)}</a> · <a href="${E(safeURL(visual.photo.licenseUrl))}" target="_blank" rel="noopener noreferrer">${E(visual.photo.license)}</a></figcaption></figure>`
       : `<div class="chance-no-photo"><span>${I('pin')}</span><p>A little mystery in ${E(a.area)}.</p><p class="small">No verified photo of this place yet.</p></div>`;
     return `${image}<article class="discovery dice-pick"><h3>${E(a.title)}</h3><p class="chance-fit">${E(a.area)} · ${E(a.mood)} · about ${a.minutes} min on site</p><p>${E(a.experience?.summary || a.why)}</p>${a.experience?.highlights?.[0] ? `<p class="chance-detail">${E(a.experience.highlights[0])}</p>` : ''}${diceQualifications(a)}<div class="chance-result-actions">${btn(saved(a.id) ? 'Saved ' + I('check') : 'Save for later ' + I('save'), 'dice-save', a.id, 'subtle')}${btn('Invite friends ' + I('plus'), 'plan-from', a.id, 'text-btn')}</div><details class="chance-practical"><summary>Before you go & directions</summary><p>${E(a.experience?.planning || a.practical)}</p>${journeyContext(a)}<a class="text-btn" href="${E(safeURL(a.experience?.source || a.source))}" target="_blank" rel="noopener noreferrer">Read the source ${I('external')}</a></details><div class="chance-secondary">${diceHistory.length > 1 ? btn('Previous roll', 'dice-undo', '', 'text-btn') : ''}</div>${freshRound ? '<p class="small muted">Fresh round: you’ve explored this shortlist before.</p>' : ''}</article>`;
   }

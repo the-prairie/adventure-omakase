@@ -66,14 +66,16 @@ Ask Omakase uses the same Worker with bounded read-only research and an environm
 
 The in-app friends calendar and interactive shared-date views derive from canonical invitation, RSVP and profile state; they introduce no second event store or external calendar dependency. Personal agenda times use the chosen participation segment. Discovery dice are a local catalogue suggestion, not a canonical group Fate Contract or a booking. Their animated cube does not change the selection constraints.
 
-Discovery detail uses static, source-linked context and licensed local photographs. Opening a discovery or invitation includes a lazy Google Maps search iframe from its discovery or meeting query; it does not call the paid server Maps adapter or expose its key. Only the search is sent to Google, with no automatic geolocation. Dice use a disposable DOM/CSS 3D presentation with local pointer physics and source-credited photographs; the existing catalogue draw owns eligibility and unbiased randomness without replacement. A neighbourhood reference remains labelled during photo expansion and the result. Reduced motion and presentation failure still resolve the selected idea; dialog dismissal disposes animation and opt-in audio. This interaction makes no map or provider request. Derived date/time presets still submit ordinary canonical plans.
+Discovery detail uses static, source-linked context and licensed local photographs. Opening a discovery or invitation includes a lazy Google Maps search iframe from its discovery or meeting query; it does not call the paid server Maps adapter or expose its key. Only the search is sent to Google, with no automatic geolocation. Dice use a disposable DOM/CSS 3D presentation with local pointer physics and source-credited photographs; the existing catalogue draw owns eligibility and unbiased randomness without replacement. Only the selected discovery’s explicitly assigned photograph can appear in the draw; a missing image never borrows a neighbouring venue. Dish and craft references remain labelled during expansion and in the result. Reduced motion and presentation failure still resolve the selected idea; dialog dismissal disposes animation and opt-in audio. This interaction makes no map or provider request. Derived date/time presets still submit ordinary canonical plans.
 
-All 300 built-in catalogue entries have locally served, licensed photographs.
-Venue photographs, area views and activity references retain explicit captions;
-an area image is not evidence of a particular venue or operator. The source
-register is `apps/friends/public/assets/discovery/photographs.json`. Responsive
-480-pixel variants serve cards and thumbnails; larger images remain available
-for details. User-authored finds do not acquire invented photographs.
+The catalogue has 242 locally served, licensed primary photographs with distinct,
+explicit discovery-ID bindings. The remaining 58 entries are text-only until a
+suitable source is verified. Actual places and illustrative dish/craft subjects
+have different captions; geographic proximity alone never assigns an image.
+The 300-row source register is
+`apps/friends/public/assets/discovery/photographs.json`, including unresolved
+entries. Responsive 480-pixel variants serve cards and thumbnails; larger images
+remain available for details. User-authored finds do not acquire invented photos.
 
 Travel tools derive a suggested origin only from an unambiguous profile area
 and region covering the selected day. Missing or conflicting locations remain

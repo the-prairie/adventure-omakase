@@ -615,16 +615,16 @@
     "mapQuery": "Currency Museum Nihonbashi Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-8700450.webp",
-      "smallPath": "/assets/discovery/photos/reference-8700450-480.webp",
+      "path": "/assets/discovery/photos/subject-197738699.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Nihonbashi · 2010",
-      "author": "Aimaimyi",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Nihonbashi_12.jpg"
+      "kind": "place",
+      "caption": "Currency Museum of the Bank of Japan · 2026",
+      "author": "Syced",
+      "license": "CC0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Currency_Museum_of_the_Bank_of_Japan.jpg",
+      "smallPath": "/assets/discovery/photos/subject-197738699-480.webp"
     }
   },
   {
@@ -851,8 +851,8 @@
       "smallPath": "/assets/discovery/photos/reference-100449783-480.webp",
       "width": 960,
       "height": 365,
-      "kind": "area",
-      "caption": "Area view · Yamamoto-tei · 2021",
+      "kind": "place",
+      "caption": "Yamamoto-tei · 2021",
       "author": "いーばくん",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -881,8 +881,8 @@
       "smallPath": "/assets/discovery/photos/reference-42709045-480.webp",
       "width": 800,
       "height": 1200,
-      "kind": "area",
-      "caption": "Area view · Kagurazaka lanes · 2009",
+      "kind": "place",
+      "caption": "Kagurazaka lanes · 2009",
       "author": "Kabacchi",
       "license": "CC BY 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
@@ -911,8 +911,8 @@
       "smallPath": "/assets/discovery/photos/reference-3009092-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Jimbocho bookshops · 2006",
+      "kind": "place",
+      "caption": "Jimbocho bookshops · 2006",
       "author": "Lombroso",
       "license": "Public domain",
       "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
@@ -941,8 +941,8 @@
       "smallPath": "/assets/discovery/photos/reference-4306582-480.webp",
       "width": 960,
       "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Koenji shopping streets · 2008",
+      "kind": "place",
+      "caption": "Koenji shopping streets · 2008",
       "author": "Tyoron2",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -1008,16 +1008,16 @@
     "mapQuery": "Kiyosumi-Shirakawa coffee walk Kiyosumi-Shirakawa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-14485267.webp",
-      "smallPath": "/assets/discovery/photos/reference-14485267-480.webp",
+      "path": "/assets/discovery/photos/subject-104706543.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kiyosumi Garden",
-      "author": "Irina Gelbukh",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kiyosumi-1.JPG"
+      "height": 1280,
+      "kind": "place",
+      "caption": "Coffee at Blue Bottle, Kiyosumi-Shirakawa · 2015",
+      "author": "bryan...",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:%E6%B8%85%E6%BE%84%E7%99%BD%E6%B2%B3_Cafe,_%E6%9D%B1%E4%BA%AC_Blue_Bottle,_%E6%9D%B1%E4%BA%AC,_%E6%97%A5%E6%9C%AC,_%E3%81%A8%E3%81%86%E3%81%8D%E3%82%87%E3%81%86,_%E3%81%AB%E3%81%A3%E3%81%BD%E3%82%93,_%E3%81%AB%E3%81%BB%E3%82%93,_LATTE,_BLEND,_Kiyosumi_Cafe,_Tokyo_Blue_Bottle,_Tokyo,_Japan,_Nippon,_Nihon_(22694591526).jpg",
+      "smallPath": "/assets/discovery/photos/subject-104706543-480.webp"
     }
   },
   {
@@ -1042,8 +1042,8 @@
       "smallPath": "/assets/discovery/photos/reference-14485267-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kiyosumi Garden",
+      "kind": "place",
+      "caption": "Kiyosumi Garden",
       "author": "Irina Gelbukh",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -1072,8 +1072,8 @@
       "smallPath": "/assets/discovery/photos/reference-63425594-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Tennozu canal · 2017",
+      "kind": "place",
+      "caption": "Tennozu canal · 2017",
       "author": "Hasec",
       "license": "CC0",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -1098,16 +1098,16 @@
     "mapQuery": "Harmonica Yokocho dinner wander Kichijoji Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-150061183.webp",
-      "smallPath": "/assets/discovery/photos/reference-150061183-480.webp",
+      "path": "/assets/discovery/photos/subject-143775069.webp",
       "width": 960,
-      "height": 584,
-      "kind": "area",
-      "caption": "Area view · Inokashira Park · 2024",
-      "author": "ARandomName123",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Inokashira_park_pond_2024.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Harmonica Yokocho, Kichijoji · 2023",
+      "author": "Stephen Kelly from San Francisco, CA, USA",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:In_Harmonica_Yokocho,_Kichijoji_(53417121000).jpg",
+      "smallPath": "/assets/discovery/photos/subject-143775069-480.webp"
     }
   },
   {
@@ -1132,8 +1132,8 @@
       "smallPath": "/assets/discovery/photos/reference-3799237-480.webp",
       "width": 713,
       "height": 895,
-      "kind": "area",
-      "caption": "Area view · Togoshi Ginza · 2007",
+      "kind": "place",
+      "caption": "Togoshi Ginza · 2007",
       "author": "The original uploader was パリカール at Japanese Wikipedia .",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
@@ -1162,8 +1162,8 @@
       "smallPath": "/assets/discovery/photos/reference-156428699-480.webp",
       "width": 960,
       "height": 960,
-      "kind": "area",
-      "caption": "Area view · Jujo Ginza · 2024",
+      "kind": "place",
+      "caption": "Jujo Ginza · 2024",
       "author": "Asanagi",
       "license": "CC0",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -1190,16 +1190,16 @@
     "checked": "2026-09-05",
     "sourceScope": "Workshop format and group size",
     "photo": {
-      "path": "/assets/discovery/photos/reference-8700450.webp",
-      "smallPath": "/assets/discovery/photos/reference-8700450-480.webp",
+      "path": "/assets/discovery/photos/subject-66918286.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Nihonbashi · 2010",
-      "author": "Aimaimyi",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Nihonbashi_12.jpg"
+      "height": 638,
+      "kind": "place",
+      "caption": "Ozu Washi, Nihonbashi · 2018",
+      "author": "江戸村のとくぞう",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ozu_washi-2.jpg",
+      "smallPath": "/assets/discovery/photos/subject-66918286-480.webp"
     }
   },
   {
@@ -1220,16 +1220,16 @@
     "mapQuery": "Edo-kiriko glass-cutting workshop Sumida Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-155919145.webp",
-      "smallPath": "/assets/discovery/photos/reference-155919145-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Sumida River · 2024",
-      "author": "Alexkom000",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:2024-10-20_Sumida_River_in_Tokyo_2.jpg"
+      "path": "/assets/discovery/photos/subject-22546979.webp",
+      "width": 640,
+      "height": 480,
+      "kind": "activity",
+      "caption": "Activity reference · Edo kiriko cut glass · 2007",
+      "author": "User: (WT-shared) Shoestring at wts wikivoyage",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Edo-Kiriko.JPG",
+      "smallPath": "/assets/discovery/photos/subject-22546979-480.webp"
     }
   },
   {
@@ -1250,16 +1250,15 @@
     "mapQuery": "Ochiai traditional-dyeing workshop Ochiai Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-114666596.webp",
-      "smallPath": "/assets/discovery/photos/reference-114666596-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Sakura in Kami-Ochiai · 2016",
-      "author": "Yoshikazu TAKADA from Tokyo, Japan",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Sakura_(26245575406).jpg"
+      "path": "/assets/discovery/photos/subject-19218797.webp",
+      "width": 320,
+      "height": 240,
+      "kind": "activity",
+      "caption": "Activity reference · Edo komon stencil-dyed pattern · 2006",
+      "author": "Anna Stevenson, http://www.fraise.net",
+      "license": "CC BY-SA 1.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/1.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Edo-komon3.jpg"
     }
   },
   {
@@ -1310,16 +1309,16 @@
     "mapQuery": "Ameshin candy sculpting Asakusa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-94879612.webp",
-      "smallPath": "/assets/discovery/photos/reference-94879612-480.webp",
+      "path": "/assets/discovery/photos/subject-40697917.webp",
       "width": 960,
-      "height": 764,
-      "kind": "area",
-      "caption": "Area view · Kappabashi · 2019",
-      "author": "Basile Morin",
+      "height": 960,
+      "kind": "place",
+      "caption": "Candy sculpting at Ameshin · 2015",
+      "author": "海獺",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kappabashi-dori_streetcorner_(Kitchen_town_-_southern_end)_a_sunny_morning_in_Tokyo_Japan.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Amezaiku_cut04_ameshin.JPG",
+      "smallPath": "/assets/discovery/photos/subject-40697917-480.webp"
     }
   },
   {
@@ -1340,16 +1339,16 @@
     "mapQuery": "Food-sample making at Kappabashi Asakusa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-94879612.webp",
-      "smallPath": "/assets/discovery/photos/reference-94879612-480.webp",
-      "width": 960,
-      "height": 764,
-      "kind": "area",
-      "caption": "Area view · Kappabashi · 2019",
-      "author": "Basile Morin",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kappabashi-dori_streetcorner_(Kitchen_town_-_southern_end)_a_sunny_morning_in_Tokyo_Japan.jpg"
+      "path": "/assets/discovery/photos/subject-122228584.webp",
+      "width": 930,
+      "height": 523,
+      "kind": "activity",
+      "caption": "Activity reference · Making Japanese food models · 2012",
+      "author": "Danny Choo",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Japanese_Food_Sample_Factory.jpg",
+      "smallPath": "/assets/discovery/photos/subject-122228584-480.webp"
     }
   },
   {
@@ -1368,19 +1367,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Activity lead",
     "mapQuery": "Miniature umbrella workshop Tokyo: arrange location Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-1208483.webp",
-      "smallPath": "/assets/discovery/photos/reference-1208483-480.webp",
-      "width": 960,
-      "height": 364,
-      "kind": "activity",
-      "caption": "Activity reference · Japanese paper umbrellas · 2005",
-      "author": "Naomi Ibuki from Kyoto",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Karakasa_-_Japanese_parasol.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-043",
@@ -1428,19 +1415,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Place / area",
     "mapQuery": "Taiyaki making at Guraku Asakusa Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-94879612.webp",
-      "smallPath": "/assets/discovery/photos/reference-94879612-480.webp",
-      "width": 960,
-      "height": 764,
-      "kind": "area",
-      "caption": "Area view · Kappabashi · 2019",
-      "author": "Basile Morin",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kappabashi-dori_streetcorner_(Kitchen_town_-_southern_end)_a_sunny_morning_in_Tokyo_Japan.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-045",
@@ -1460,16 +1435,16 @@
     "mapQuery": "Fujiya tenugui dyeing Asakusa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-94879612.webp",
-      "smallPath": "/assets/discovery/photos/reference-94879612-480.webp",
-      "width": 960,
-      "height": 764,
-      "kind": "area",
-      "caption": "Area view · Kappabashi · 2019",
-      "author": "Basile Morin",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kappabashi-dori_streetcorner_(Kitchen_town_-_southern_end)_a_sunny_morning_in_Tokyo_Japan.jpg"
+      "path": "/assets/discovery/photos/subject-7039672.webp",
+      "width": 880,
+      "height": 323,
+      "kind": "activity",
+      "caption": "Activity reference · Tenugui cloth · 2009",
+      "author": "Rikaris",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tenugui.jpg",
+      "smallPath": "/assets/discovery/photos/subject-7039672-480.webp"
     }
   },
   {
@@ -1488,19 +1463,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Activity lead",
     "mapQuery": "Sawai Textile Factory weaving Tokyo: arrange location Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-58926207.webp",
-      "smallPath": "/assets/discovery/photos/reference-58926207-480.webp",
-      "width": 960,
-      "height": 540,
-      "kind": "area",
-      "caption": "Area view · Hachioji textile storefront · 2015",
-      "author": "運転太郎",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:%E5%85%AB%E7%8E%8B%E5%AD%90%E7%B9%94%E7%89%A9_-_panoramio.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-047",
@@ -1518,19 +1481,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Place / area",
     "mapQuery": "Togoshi Ginza Onsen Togoshi Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-3799237.webp",
-      "smallPath": "/assets/discovery/photos/reference-3799237-480.webp",
-      "width": 713,
-      "height": 895,
-      "kind": "area",
-      "caption": "Area view · Togoshi Ginza · 2007",
-      "author": "The original uploader was パリカール at Japanese Wikipedia .",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Togoshi-ginza_street.JPG"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-048",
@@ -1554,8 +1505,8 @@
       "smallPath": "/assets/discovery/photos/reference-29874317-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kabukiza · 2013",
+      "kind": "place",
+      "caption": "Kabukiza · 2013",
       "author": "Tak1701d",
       "license": "Public domain",
       "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
@@ -1580,16 +1531,16 @@
     "mapQuery": "Live jazz at Shinjuku PIT INN Shinjuku Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-83301291.webp",
-      "smallPath": "/assets/discovery/photos/reference-83301291-480.webp",
+      "path": "/assets/discovery/photos/subject-8501107.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Shinjuku Gyoen · 2019",
-      "author": "Basile Morin",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Shinjuku_Gyoen_National_Garden_and_NTT_DoCoMo_Yoyogi_Building,_Tokyo,_Japan.jpg"
+      "height": 701,
+      "kind": "place",
+      "caption": "Shinjuku PIT INN entrance · 2007",
+      "author": "Ville Hyvönen",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Jazz_club_PIT_INN_-_lobby.jpg",
+      "smallPath": "/assets/discovery/photos/subject-8501107-480.webp"
     }
   },
   {
@@ -1608,19 +1559,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Place / area",
     "mapQuery": "A gig at JIROKICHI Koenji Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-4306582.webp",
-      "smallPath": "/assets/discovery/photos/reference-4306582-480.webp",
-      "width": 960,
-      "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Koenji shopping streets · 2008",
-      "author": "Tyoron2",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Koenji_jyunjyo.JPG"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-051",
@@ -1705,8 +1644,8 @@
       "smallPath": "/assets/discovery/photos/reference-45640824-480.webp",
       "width": 960,
       "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Kanda Matsuya · 2009",
+      "kind": "place",
+      "caption": "Kanda Matsuya · 2009",
       "author": "江戸村のとくぞう (Edomura no Tokuzo)",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -1735,8 +1674,8 @@
       "smallPath": "/assets/discovery/photos/reference-8861461-480.webp",
       "width": 960,
       "height": 638,
-      "kind": "area",
-      "caption": "Area view · Monjayaki in Tsukishima · 2009",
+      "kind": "activity",
+      "caption": "Dish reference · Monjayaki in Tsukishima · 2009",
       "author": "Jpatokal",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -1761,16 +1700,16 @@
     "mapQuery": "Clam rice at Fukagawa Kamasho Kiyosumi-Shirakawa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-14485267.webp",
-      "smallPath": "/assets/discovery/photos/reference-14485267-480.webp",
+      "path": "/assets/discovery/photos/subject-4790698.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kiyosumi Garden",
-      "author": "Irina Gelbukh",
+      "kind": "activity",
+      "caption": "Dish reference · Fukagawa clam rice · 2008",
+      "author": "self",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kiyosumi-1.JPG"
+      "source": "https://commons.wikimedia.org/wiki/File:Fukagawameshi.jpg",
+      "smallPath": "/assets/discovery/photos/subject-4790698-480.webp"
     }
   },
   {
@@ -1789,19 +1728,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Place / area",
     "mapQuery": "Shiro-Hige cream puffs Shimokitazawa Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-38379940.webp",
-      "smallPath": "/assets/discovery/photos/reference-38379940-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Shimokitazawa streets · 2015",
-      "author": "Aw1805",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Shimokitazawa_Street_2015.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-056",
@@ -1821,16 +1748,16 @@
     "mapQuery": "Classical listening at Kissa Lion Shibuya Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-74257936.webp",
-      "smallPath": "/assets/discovery/photos/reference-74257936-480.webp",
+      "path": "/assets/discovery/photos/subject-93805730.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Shibuya streets · 2018",
-      "author": "Benh LIEU SONG ( Flickr )",
-      "license": "CC BY-SA 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg"
+      "height": 543,
+      "kind": "place",
+      "caption": "Kissa Lion, Shibuya · 2020",
+      "author": "遡雨祈胡",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Lion_front.jpg",
+      "smallPath": "/assets/discovery/photos/subject-93805730-480.webp"
     }
   },
   {
@@ -1851,16 +1778,16 @@
     "mapQuery": "Mushroom hot pot at Shangri-La's Secret Omotesando Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-196839219.webp",
-      "smallPath": "/assets/discovery/photos/reference-196839219-480.webp",
+      "path": "/assets/discovery/photos/subject-100258385.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Omotesando · 2026",
-      "author": "gog.creator",
+      "height": 720,
+      "kind": "activity",
+      "caption": "Dish reference · Mushroom hot pot · 2020",
+      "author": "Shisma",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Omotesando_Avenue_at_sunset_from_pedestrian_bridge,_Jingumae,_Shibuya,_Tokyo.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Mushroom_hot_pot.jpg",
+      "smallPath": "/assets/discovery/photos/subject-100258385-480.webp"
     }
   },
   {
@@ -1881,16 +1808,16 @@
     "mapQuery": "Chanko-nabe in Ryogoku Ryogoku Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-149282516.webp",
-      "smallPath": "/assets/discovery/photos/reference-149282516-480.webp",
+      "path": "/assets/discovery/photos/subject-118288368.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Ryogoku · 2013",
-      "author": "Guilhem Vellut from Annecy, France",
+      "height": 640,
+      "kind": "activity",
+      "caption": "Dish reference · Chanko-nabe · 2015",
+      "author": "George N",
       "license": "CC BY 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Ryogoku_@_Tokyo_(11625296545).jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Chankonabe.jpg",
+      "smallPath": "/assets/discovery/photos/subject-118288368-480.webp"
     }
   },
   {
@@ -1911,16 +1838,16 @@
     "mapQuery": "Salty daifuku at Mizuno Sugamo Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-128234344.webp",
-      "smallPath": "/assets/discovery/photos/reference-128234344-480.webp",
+      "path": "/assets/discovery/photos/subject-170236796.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Sugamo shopping street · 2008",
-      "author": "Go Ikeda",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Sugamo_Jizodori_Shopping_Street_2008-04-26.jpg"
+      "height": 640,
+      "kind": "place",
+      "caption": "Mizuno's shio daifuku · 2025",
+      "author": "Fred Cherrygarden",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Shio_Daifuku.jpg",
+      "smallPath": "/assets/discovery/photos/subject-170236796-480.webp"
     }
   },
   {
@@ -1945,8 +1872,8 @@
       "smallPath": "/assets/discovery/photos/reference-7277325-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Sunamachi Ginza · 2009",
+      "kind": "place",
+      "caption": "Sunamachi Ginza · 2009",
       "author": "User:Kentin",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -1971,16 +1898,16 @@
     "mapQuery": "Offal stew at Kitsuneya Tsukiji Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-19248382.webp",
-      "smallPath": "/assets/discovery/photos/reference-19248382-480.webp",
+      "path": "/assets/discovery/photos/subject-116028134.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Tsukiji outer market · 2011",
-      "author": "Aimaimyi",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Tsukiji_Outer_Market_-04.jpg"
+      "height": 540,
+      "kind": "place",
+      "caption": "Kitsuneya, Tsukiji · 2022",
+      "author": "経済特区",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:%E3%81%8D%E3%81%A4%E3%81%AD%E3%82%84IMG_20220312_03.jpg",
+      "smallPath": "/assets/discovery/photos/subject-116028134-480.webp"
     }
   },
   {
@@ -2001,16 +1928,16 @@
     "mapQuery": "Oden at Otafuku Asakusa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-94879612.webp",
-      "smallPath": "/assets/discovery/photos/reference-94879612-480.webp",
+      "path": "/assets/discovery/photos/subject-9140084.webp",
       "width": 960,
-      "height": 764,
-      "kind": "area",
-      "caption": "Area view · Kappabashi · 2019",
-      "author": "Basile Morin",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kappabashi-dori_streetcorner_(Kitchen_town_-_southern_end)_a_sunny_morning_in_Tokyo_Japan.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Otafuku, Asakusa · 2009",
+      "author": "Kamemaru2000",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Asakusa_oden_otafuku_2009.JPG",
+      "smallPath": "/assets/discovery/photos/subject-9140084-480.webp"
     }
   },
   {
@@ -2031,16 +1958,16 @@
     "mapQuery": "Pasta and records at City Country City Shimokitazawa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-38379940.webp",
-      "smallPath": "/assets/discovery/photos/reference-38379940-480.webp",
+      "path": "/assets/discovery/photos/subject-102758724.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Shimokitazawa streets · 2015",
-      "author": "Aw1805",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Shimokitazawa_Street_2015.jpg"
+      "kind": "activity",
+      "caption": "Dish reference · Japanese-style pasta · 2021",
+      "author": "Syced",
+      "license": "CC0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Japanese-style_spaghetti_in_Shirokane.jpg",
+      "smallPath": "/assets/discovery/photos/subject-102758724-480.webp"
     }
   },
   {
@@ -2059,19 +1986,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Place / area",
     "mapQuery": "Shinjuku food-hall picnic Shinjuku Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-83301291.webp",
-      "smallPath": "/assets/discovery/photos/reference-83301291-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Shinjuku Gyoen · 2019",
-      "author": "Basile Morin",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Shinjuku_Gyoen_National_Garden_and_NTT_DoCoMo_Yoyogi_Building,_Tokyo,_Japan.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-065",
@@ -2091,16 +2006,16 @@
     "mapQuery": "Canal-side meal at T.Y.HARBOR Tennozu Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-63425594.webp",
-      "smallPath": "/assets/discovery/photos/reference-63425594-480.webp",
+      "path": "/assets/discovery/photos/subject-77826998.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Tennozu canal · 2017",
-      "author": "Hasec",
-      "license": "CC0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "source": "https://commons.wikimedia.org/wiki/File:Tennozu-Canal-2017100101.jpg"
+      "kind": "place",
+      "caption": "Pumpkin pudding and ice cream at T.Y. HARBOR · 2010",
+      "author": "pelican from Tokyo, Japan",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pumpkin_pudding_and_vanilla_ice_cream_(4613740162).jpg",
+      "smallPath": "/assets/discovery/photos/subject-77826998-480.webp"
     }
   },
   {
@@ -2119,19 +2034,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Place / area",
     "mapQuery": "Tsumugi temple breakfast Tsukiji Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-19248382.webp",
-      "smallPath": "/assets/discovery/photos/reference-19248382-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Tsukiji outer market · 2011",
-      "author": "Aimaimyi",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Tsukiji_Outer_Market_-04.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-067",
@@ -2151,16 +2054,16 @@
     "mapQuery": "Curry at Bondy Jimbocho Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-3009092.webp",
-      "smallPath": "/assets/discovery/photos/reference-3009092-480.webp",
+      "path": "/assets/discovery/photos/subject-149191673.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Jimbocho bookshops · 2006",
-      "author": "Lombroso",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Secondhand_bookstores,_at_Kanda-Jinbocho_2.jpg"
+      "kind": "place",
+      "caption": "Chicken curry at Bondy, Jimbocho · 2014",
+      "author": "Guilhem Vellut from Annecy, France",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Chicken_Curry_@_Bondy_@_Jimbocho_(11821306935).jpg",
+      "smallPath": "/assets/discovery/photos/subject-149191673-480.webp"
     }
   },
   {
@@ -2181,16 +2084,16 @@
     "mapQuery": "Tea and sweets at HIGASHIYA GINZA Ginza Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-29874317.webp",
-      "smallPath": "/assets/discovery/photos/reference-29874317-480.webp",
+      "path": "/assets/discovery/photos/subject-165625781.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kabukiza · 2013",
-      "author": "Tak1701d",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Kabuki-za_Theatre_2013_1125.jpg"
+      "height": 723,
+      "kind": "activity",
+      "caption": "Dish reference · Wagashi and matcha · 2025",
+      "author": "Andy Li",
+      "license": "CC0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Wagashi_and_matcha_by_Noriko_Jazayeri_2025-05-18.jpg",
+      "smallPath": "/assets/discovery/photos/subject-165625781-480.webp"
     }
   },
   {
@@ -2211,16 +2114,16 @@
     "mapQuery": "Seasonal kakigori at Himitsudo Yanaka & Nezu Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-91258433.webp",
-      "smallPath": "/assets/discovery/photos/reference-91258433-480.webp",
+      "path": "/assets/discovery/photos/subject-143809379.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Yanaka Ginza · 2018",
-      "author": "Christophe95",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Yanaka_Ginza_2.jpg"
+      "height": 640,
+      "kind": "place",
+      "caption": "Strawberry kakigori at Himitsudo · 2022",
+      "author": "Dick Thomas Johnson from Tokyo, Japan",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Himitsudo_(52492088192).jpg",
+      "smallPath": "/assets/discovery/photos/subject-143809379-480.webp"
     }
   },
   {
@@ -2241,16 +2144,16 @@
     "mapQuery": "Griddle dinner at Sometaro Asakusa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-94879612.webp",
-      "smallPath": "/assets/discovery/photos/reference-94879612-480.webp",
+      "path": "/assets/discovery/photos/subject-117790028.webp",
       "width": 960,
-      "height": 764,
-      "kind": "area",
-      "caption": "Area view · Kappabashi · 2019",
-      "author": "Basile Morin",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kappabashi-dori_streetcorner_(Kitchen_town_-_southern_end)_a_sunny_morning_in_Tokyo_Japan.jpg"
+      "height": 640,
+      "kind": "activity",
+      "caption": "Dish reference · Okonomiyaki · 2012",
+      "author": "ume-y",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Okonomiyaki_001.jpg",
+      "smallPath": "/assets/discovery/photos/subject-117790028-480.webp"
     }
   },
   {
@@ -2275,8 +2178,8 @@
       "smallPath": "/assets/discovery/photos/reference-155919145-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Sumida River · 2024",
+      "kind": "place",
+      "caption": "Sumida River · 2024",
       "author": "Alexkom000",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
@@ -2305,8 +2208,8 @@
       "smallPath": "/assets/discovery/photos/reference-140260488-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Imperial Palace moat · 2023",
+      "kind": "place",
+      "caption": "Imperial Palace moat · 2023",
       "author": "Immanuelle",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -2335,8 +2238,8 @@
       "smallPath": "/assets/discovery/photos/reference-119764048-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Tama River · 2006",
+      "kind": "place",
+      "caption": "Tama River · 2006",
       "author": "T.Seiichi / S.Tanaka at Japanese Wikipedia",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
@@ -2365,8 +2268,8 @@
       "smallPath": "/assets/discovery/photos/reference-144191104-480.webp",
       "width": 960,
       "height": 1275,
-      "kind": "area",
-      "caption": "Area view · Mount Takao · 2024",
+      "kind": "place",
+      "caption": "Mount Takao · 2024",
       "author": "Syced",
       "license": "CC0",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -2391,16 +2294,16 @@
     "mapQuery": "Mount Mitake Rock Garden Okutama Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-151578087.webp",
-      "smallPath": "/assets/discovery/photos/reference-151578087-480.webp",
+      "path": "/assets/discovery/photos/subject-150556036.webp",
       "width": 960,
-      "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Hatonosu Gorge · 2024",
-      "author": "皓月旗",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Hatonosu_Gorge_20240518.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Mitake Rock Garden · 2014",
+      "author": "Guilhem Vellut from Annecy, France",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rock_Garden_@_Trail_from_Okutama_to_Mount_Mitake_(13893877204).jpg",
+      "smallPath": "/assets/discovery/photos/subject-150556036-480.webp"
     }
   },
   {
@@ -2425,8 +2328,8 @@
       "smallPath": "/assets/discovery/photos/reference-151578087-480.webp",
       "width": 960,
       "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Hatonosu Gorge · 2024",
+      "kind": "place",
+      "caption": "Hatonosu Gorge · 2024",
       "author": "皓月旗",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -2451,16 +2354,16 @@
     "mapQuery": "Guided paddling in Okutama Okutama Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-151578087.webp",
-      "smallPath": "/assets/discovery/photos/reference-151578087-480.webp",
+      "path": "/assets/discovery/photos/subject-149823537.webp",
       "width": 960,
-      "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Hatonosu Gorge · 2024",
-      "author": "皓月旗",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Hatonosu_Gorge_20240518.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Rafting on the Tama River · 2014",
+      "author": "Guilhem Vellut from Annecy, France",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rafting_@_Tama_River_Walk_@_Ome_City_(13165278055).jpg",
+      "smallPath": "/assets/discovery/photos/subject-149823537-480.webp"
     }
   },
   {
@@ -2485,8 +2388,8 @@
       "smallPath": "/assets/discovery/photos/reference-47244579-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Akigawa Valley · 2012",
+      "kind": "place",
+      "caption": "Akigawa Valley · 2012",
       "author": "Hiroaki Kaneko",
       "license": "CC BY-SA 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
@@ -2511,16 +2414,16 @@
     "mapQuery": "Nippara Limestone Cave Okutama Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-151578087.webp",
-      "smallPath": "/assets/discovery/photos/reference-151578087-480.webp",
+      "path": "/assets/discovery/photos/subject-80895138.webp",
       "width": 960,
-      "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Hatonosu Gorge · 2024",
-      "author": "皓月旗",
+      "height": 1440,
+      "kind": "place",
+      "caption": "Nippara Limestone Cave · 2019",
+      "author": "Osumi Akari",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Hatonosu_Gorge_20240518.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Nippara_Cave_Lighted_up.jpg",
+      "smallPath": "/assets/discovery/photos/subject-80895138-480.webp"
     }
   },
   {
@@ -2545,8 +2448,8 @@
       "smallPath": "/assets/discovery/photos/reference-22549288-480.webp",
       "width": 640,
       "height": 480,
-      "kind": "area",
-      "caption": "Area view · Ome streets · 2010",
+      "kind": "place",
+      "caption": "Ome streets · 2010",
       "author": "User: (WT-shared) Shoestring at wts wikivoyage",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -2575,8 +2478,8 @@
       "smallPath": "/assets/discovery/photos/reference-54566131-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Fussa streets · 2010",
+      "kind": "place",
+      "caption": "Fussa streets · 2010",
       "author": "yofukashi",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
@@ -2601,16 +2504,16 @@
     "mapQuery": "Row a boat in Inokashira Park Kichijoji Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-150061183.webp",
-      "smallPath": "/assets/discovery/photos/reference-150061183-480.webp",
+      "path": "/assets/discovery/photos/subject-114738469.webp",
       "width": 960,
-      "height": 584,
-      "kind": "area",
-      "caption": "Area view · Inokashira Park · 2024",
-      "author": "ARandomName123",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Inokashira_park_pond_2024.jpg"
+      "height": 1440,
+      "kind": "place",
+      "caption": "Boats on Inokashira Pond · 2013",
+      "author": "Yoshikazu TAKADA from Tokyo, Japan",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Swan_Boat_(10507765895).jpg",
+      "smallPath": "/assets/discovery/photos/subject-114738469-480.webp"
     }
   },
   {
@@ -2635,8 +2538,8 @@
       "smallPath": "/assets/discovery/photos/reference-149450733-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Cosmos at Showa Kinen Park · 2013",
+      "kind": "place",
+      "caption": "Cosmos at Showa Kinen Park · 2013",
       "author": "Guilhem Vellut from Annecy, France",
       "license": "CC BY 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
@@ -2665,8 +2568,8 @@
       "smallPath": "/assets/discovery/photos/reference-83301291-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Shinjuku Gyoen · 2019",
+      "kind": "place",
+      "caption": "Shinjuku Gyoen · 2019",
       "author": "Basile Morin",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -2695,8 +2598,8 @@
       "smallPath": "/assets/discovery/photos/reference-8313883-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Koishikawa Korakuen · 2008",
+      "kind": "place",
+      "caption": "Koishikawa Korakuen · 2008",
       "author": "Lombroso",
       "license": "Public domain",
       "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
@@ -2721,19 +2624,7 @@
     "mapQuery": "Fukuro Matsuri Ikebukuro Japan",
     "practical": "Festival date lead from the planning research. Reconfirm the official program and locations before going.",
     "start": "2026-09-26",
-    "end": "2026-09-27",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-1759096.webp",
-      "smallPath": "/assets/discovery/photos/reference-1759096-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Ikebukuro West Exit Park · 2007",
-      "author": "Jnlin",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Ikebukuro_West_Exit_Park.jpg"
-    }
+    "end": "2026-09-27"
   },
   {
     "id": "tokyo-087",
@@ -2753,19 +2644,7 @@
     "mapQuery": "Tokyo Yosakoi Ikebukuro Japan",
     "practical": "Date lead: check the official Yosakoi timetable before deciding which neighborhood stages to visit.",
     "start": "2026-10-11",
-    "end": "2026-10-11",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-1759096.webp",
-      "smallPath": "/assets/discovery/photos/reference-1759096-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Ikebukuro West Exit Park · 2007",
-      "author": "Jnlin",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Ikebukuro_West_Exit_Park.jpg"
-    }
+    "end": "2026-10-11"
   },
   {
     "id": "tokyo-088",
@@ -2787,19 +2666,7 @@
     "start": "2026-10-08",
     "end": "2026-10-25",
     "checked": "2026-09-05",
-    "sourceScope": "2026 festival dates",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-38379940.webp",
-      "smallPath": "/assets/discovery/photos/reference-38379940-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Shimokitazawa streets · 2015",
-      "author": "Aw1805",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Shimokitazawa_Street_2015.jpg"
-    }
+    "sourceScope": "2026 festival dates"
   },
   {
     "id": "tokyo-089",
@@ -2817,19 +2684,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Place / area",
     "mapQuery": "Oya underground-lake experience Tochigi Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-178478864.webp",
-      "smallPath": "/assets/discovery/photos/reference-178478864-480.webp",
-      "width": 960,
-      "height": 641,
-      "kind": "area",
-      "caption": "Area view · Oya History Museum · 2025",
-      "author": "掬茶",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Inside_of_the_Oya_History_Museum_20251012b.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-090",
@@ -2847,19 +2702,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Place / area",
     "mapQuery": "Kawagoe sweet-potato tasting day Kawagoe Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-10499632.webp",
-      "smallPath": "/assets/discovery/photos/reference-10499632-480.webp",
-      "width": 500,
-      "height": 331,
-      "kind": "area",
-      "caption": "Area view · Kawagoe streets",
-      "author": "dailytransit",
-      "license": "CC BY-SA 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kashiya_yokocho.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-091",
@@ -2883,8 +2726,8 @@
       "smallPath": "/assets/discovery/photos/reference-149636155-480.webp",
       "width": 960,
       "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Mount Nokogiri · 2023",
+      "kind": "place",
+      "caption": "Mount Nokogiri · 2023",
       "author": "Mauricio V. Genta",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -2907,19 +2750,7 @@
     "cluster": "Greater Tokyo",
     "locationKind": "Place / area",
     "mapQuery": "Kanaya Port seafood stop Chiba: Nokogiri Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-149636155.webp",
-      "smallPath": "/assets/discovery/photos/reference-149636155-480.webp",
-      "width": 960,
-      "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Mount Nokogiri · 2023",
-      "author": "Mauricio V. Genta",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Mount_Nokogiri_(Chiba)_-_Nihon-ji_2023-08-24_(08).jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "tokyo-093",
@@ -2943,8 +2774,8 @@
       "smallPath": "/assets/discovery/photos/reference-94912462-480.webp",
       "width": 960,
       "height": 540,
-      "kind": "area",
-      "caption": "Area view · Sarushima · 2017",
+      "kind": "place",
+      "caption": "Sarushima · 2017",
       "author": "Mobius One",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -2973,8 +2804,8 @@
       "smallPath": "/assets/discovery/photos/reference-69955202-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Enoshima caves · 2017",
+      "kind": "place",
+      "caption": "Enoshima caves · 2017",
       "author": "Daderot",
       "license": "CC0",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -3003,8 +2834,8 @@
       "smallPath": "/assets/discovery/photos/reference-178478864-480.webp",
       "width": 960,
       "height": 641,
-      "kind": "area",
-      "caption": "Area view · Oya History Museum · 2025",
+      "kind": "place",
+      "caption": "Oya History Museum · 2025",
       "author": "掬茶",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -3033,8 +2864,8 @@
       "smallPath": "/assets/discovery/photos/reference-84682773-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Nagatoro river boats · 2019",
+      "kind": "place",
+      "caption": "Nagatoro river boats · 2019",
       "author": "Suikotei",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -3063,8 +2894,8 @@
       "smallPath": "/assets/discovery/photos/reference-3802972-480.webp",
       "width": 960,
       "height": 712,
-      "kind": "area",
-      "caption": "Area view · Sawara canal town · 2008",
+      "kind": "place",
+      "caption": "Sawara canal town · 2008",
       "author": "Tamaki",
       "license": "Public domain",
       "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
@@ -3093,8 +2924,8 @@
       "smallPath": "/assets/discovery/photos/reference-7185384-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Mount Mihara on Izu Oshima · 2007",
+      "kind": "place",
+      "caption": "Mount Mihara on Izu Oshima · 2007",
       "author": "Donners",
       "license": "CC BY-SA 1.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/1.0",
@@ -3123,8 +2954,8 @@
       "smallPath": "/assets/discovery/photos/reference-150217244-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Omiya Bonsai Village · 2014",
+      "kind": "place",
+      "caption": "Omiya Bonsai Village · 2014",
       "author": "Guilhem Vellut from Annecy, France",
       "license": "CC BY 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
@@ -3153,8 +2984,8 @@
       "smallPath": "/assets/discovery/photos/reference-8323056-480.webp",
       "width": 960,
       "height": 639,
-      "kind": "area",
-      "caption": "Area view · Sankeien Garden · 2009",
+      "kind": "place",
+      "caption": "Sankeien Garden · 2009",
       "author": "Urashimataro",
       "license": "Public domain",
       "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
@@ -3269,8 +3100,8 @@
       "smallPath": "/assets/discovery/photos/reference-2597458-480.webp",
       "width": 960,
       "height": 956,
-      "kind": "area",
-      "caption": "Area view · Maishima waste-treatment plant · 2007",
+      "kind": "place",
+      "caption": "Maishima waste-treatment plant · 2007",
       "author": "ignis",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
@@ -3306,19 +3137,7 @@
       "readAt": "2026-09-08"
     },
     "checked": "2026-09-08",
-    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-64184922.webp",
-      "smallPath": "/assets/discovery/photos/reference-64184922-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Japanese garden at Expo Park · 2017",
-      "author": "Laitche",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Japanese_garden_scenery_at_Expo%E2%80%9970_Commemorative_Park_in_Osaka,_November_2017_-_146.jpg"
-    }
+    "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
   {
     "id": "osaka-005",
@@ -3471,8 +3290,8 @@
       "smallPath": "/assets/discovery/photos/reference-17002186-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Chikko red-brick warehouses · 2010",
+      "kind": "place",
+      "caption": "Chikko red-brick warehouses · 2010",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -3495,19 +3314,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "teamLab Botanical Garden Osaka Nagai Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-145285052.webp",
-      "smallPath": "/assets/discovery/photos/reference-145285052-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Nagai Botanical Garden · 2024",
-      "author": "Laitche",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Forest_of_metasequoia_glyptostroboides_at_Nagai_Botanical_Garden,_February_2024_-_8010.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-010",
@@ -3525,19 +3332,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "GRAVITATE OSAKA bridge adventure Ibaraki Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-133763760.webp",
-      "smallPath": "/assets/discovery/photos/reference-133763760-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Aigawa Dam under construction · 2023",
-      "author": "Takase1216",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Aigawadam2023.6.20.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-011",
@@ -3603,8 +3398,8 @@
       "smallPath": "/assets/discovery/photos/reference-97856915-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Semba · 2020",
+      "kind": "place",
+      "caption": "Semba · 2020",
       "author": "Ty19080914",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -3669,19 +3464,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Matsuyamachi specialist wholesalers Karahori & Tanimachi Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-15942468.webp",
-      "smallPath": "/assets/discovery/photos/reference-15942468-480.webp",
-      "width": 821,
-      "height": 1095,
-      "kind": "area",
-      "caption": "Area view · Karahori lanes · 2011",
-      "author": "Kyoww",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Karahori_20110626.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-015",
@@ -3705,8 +3488,8 @@
       "smallPath": "/assets/discovery/photos/reference-52883572-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Nakazakicho streets · 2010",
+      "kind": "place",
+      "caption": "Nakazakicho streets · 2010",
       "author": "DVMG",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
@@ -3729,19 +3512,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Horie design and vintage walk Horie Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-54876504.webp",
-      "smallPath": "/assets/discovery/photos/reference-54876504-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Horie streets · 2012",
-      "author": "Nankou Oronain (as36…",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:%E3%82%AD%E3%83%A3%E3%83%8A%E3%83%AB%E3%83%86%E3%83%A9%E3%82%B9%E5%A0%80%E6%B1%9F%E5%91%A8%E8%BE%BA_Canal_Terrace_Horie_2012.10.09_-_panoramio.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-017",
@@ -3765,8 +3536,8 @@
       "smallPath": "/assets/discovery/photos/reference-123179688-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Ikuno Korea Town · 2022",
+      "kind": "place",
+      "caption": "Ikuno Korea Town · 2022",
       "author": "Naokijp",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -3807,8 +3578,8 @@
       "smallPath": "/assets/discovery/photos/reference-52883180-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Tenjinbashisuji Shopping Street · 2010",
+      "kind": "place",
+      "caption": "Tenjinbashisuji Shopping Street · 2010",
       "author": "DVMG",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
@@ -3833,16 +3604,16 @@
     "mapQuery": "Taisho's Okinawan community Taisho Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-12728428.webp",
-      "smallPath": "/assets/discovery/photos/reference-12728428-480.webp",
+      "path": "/assets/discovery/photos/subject-37539891.webp",
       "width": 960,
-      "height": 666,
-      "kind": "area",
-      "caption": "Area view · Chitose Bridge in Taisho · 2008",
-      "author": "Janne Moren from Osaka, Japan",
+      "height": 1440,
+      "kind": "place",
+      "caption": "Okinawan drinks in Taisho, Osaka · 2012",
+      "author": "Masao Kamosawa",
       "license": "CC BY-SA 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Chitose_Bridge.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:%E6%B2%96%E7%B8%84%E9%A3%B2%E6%96%99%E8%87%AA%E8%B2%A9%E6%A9%9F_(8007739346).jpg",
+      "smallPath": "/assets/discovery/photos/subject-37539891-480.webp"
     }
   },
   {
@@ -3867,8 +3638,8 @@
       "smallPath": "/assets/discovery/photos/reference-49402259-480.webp",
       "width": 960,
       "height": 637,
-      "kind": "area",
-      "caption": "Area view · Sumiyoshi Taisha · 2016",
+      "kind": "place",
+      "caption": "Sumiyoshi Taisha · 2016",
       "author": "Saigen Jiro",
       "license": "CC0",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -4008,16 +3779,16 @@
     },
     "checked": "2026-09-09",
     "photo": {
-      "path": "/assets/discovery/photos/reference-52883180.webp",
-      "smallPath": "/assets/discovery/photos/reference-52883180-480.webp",
+      "path": "/assets/discovery/photos/subject-6445391.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Tenjinbashisuji Shopping Street · 2010",
-      "author": "DVMG",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Tenjinbashisuji_shopping_street_-_panoramio.jpg"
+      "height": 640,
+      "kind": "place",
+      "caption": "Tenma Tenjin Hanjotei · 2007",
+      "author": "takato marui",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Hanjotei,_Tenjinbashi.jpg",
+      "smallPath": "/assets/discovery/photos/subject-6445391-480.webp"
     }
   },
   {
@@ -4042,16 +3813,16 @@
     "checked": "2026-09-05",
     "sourceScope": "Date and performance format",
     "photo": {
-      "path": "/assets/discovery/photos/reference-90088748.webp",
-      "smallPath": "/assets/discovery/photos/reference-90088748-480.webp",
+      "path": "/assets/discovery/photos/subject-80401679.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Dotonbori · 2020",
-      "author": "32linesky",
+      "kind": "place",
+      "caption": "National Bunraku Theatre · 2019",
+      "author": "Tokumeigakarinoaoshima",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Dotonbori_Canal.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:National_Bunraku_Theatre.jpg",
+      "smallPath": "/assets/discovery/photos/subject-80401679-480.webp"
     }
   },
   {
@@ -4080,8 +3851,8 @@
       "smallPath": "/assets/discovery/photos/reference-8823808-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kishiwada Danjiri Festival · 2009",
+      "kind": "place",
+      "caption": "Kishiwada Danjiri Festival · 2009",
       "author": "Kounosu",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -4142,18 +3913,6 @@
       "source": "https://osaka-info.jp/en/modelcourse/course-shinsekai/",
       "sourceLabel": "Osaka tourism · Shinsekai",
       "readAt": "2026-09-09"
-    },
-    "photo": {
-      "path": "/assets/discovery/photos/reference-150119823.webp",
-      "smallPath": "/assets/discovery/photos/reference-150119823-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Shinsekai · 2014",
-      "author": "Guilhem Vellut from Annecy, France",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Shinsekai_@_Osaka_(13382795134).jpg"
     }
   },
   {
@@ -4174,16 +3933,16 @@
     "mapQuery": "Tempozan municipal ferry Osaka Bay Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-17002186.webp",
-      "smallPath": "/assets/discovery/photos/reference-17002186-480.webp",
+      "path": "/assets/discovery/photos/subject-77320060.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Chikko red-brick warehouses · 2010",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Former_Sumitomo_Warehouse_Osaka_Japan03n.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Tempozan ferry terminal · 2019",
+      "author": "そらみみ",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tempozan_Ferry_Terminal_20190201.jpg",
+      "smallPath": "/assets/discovery/photos/subject-77320060-480.webp"
     }
   },
   {
@@ -4337,8 +4096,8 @@
       "smallPath": "/assets/discovery/photos/reference-85193625-480.webp",
       "width": 960,
       "height": 716,
-      "kind": "area",
-      "caption": "Area view · Hoshi no Buranko · 2016",
+      "kind": "place",
+      "caption": "Hoshi no Buranko · 2016",
       "author": "秋森 晃希",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -4361,19 +4120,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Chikatsu Asuka ancient-tomb landscape Kanan Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-56320144.webp",
-      "smallPath": "/assets/discovery/photos/reference-56320144-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Chikatsu Asuka · 2013",
-      "author": "Nankou Oronain (as36…",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:%E8%BF%91%E3%81%A4%E9%A3%9B%E9%B3%A5%E9%A2%A8%E5%9C%9F%E8%A8%98%E3%81%AE%E4%B8%98_%E7%B7%91%E3%81%AE%E5%BA%83%E5%A0%B4_2013.3.30_-_panoramio.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-035",
@@ -4397,8 +4144,8 @@
       "smallPath": "/assets/discovery/photos/reference-5394446-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Inunakisan Shipporyuji · 2008",
+      "kind": "place",
+      "caption": "Inunakisan Shipporyuji · 2008",
       "author": "KENPEI",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
@@ -4427,8 +4174,8 @@
       "smallPath": "/assets/discovery/photos/reference-151464914-480.webp",
       "width": 960,
       "height": 540,
-      "kind": "area",
-      "caption": "Area view · Nanten-en · 2023",
+      "kind": "place",
+      "caption": "Nanten-en · 2023",
       "author": "Gary luscombe",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -4457,8 +4204,8 @@
       "smallPath": "/assets/discovery/photos/reference-2676522-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Ishikiri Shrine · 2007",
+      "kind": "place",
+      "caption": "Ishikiri Shrine · 2007",
       "author": "ignis",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
@@ -4481,19 +4228,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Café Tomarigi rural detour Ibakita Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-6059912.webp",
-      "smallPath": "/assets/discovery/photos/reference-6059912-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Ninchoji, northern Ibaraki · 2009",
-      "author": "Kansai explorer",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Ninchoji_Keiro03.JPG"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-039",
@@ -4517,8 +4252,8 @@
       "smallPath": "/assets/discovery/photos/reference-17868391-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Tsurumi Ryokuchi · 2010",
+      "kind": "place",
+      "caption": "Tsurumi Ryokuchi · 2010",
       "author": "Oilstreet ( talk )",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -4547,8 +4282,8 @@
       "smallPath": "/assets/discovery/photos/reference-3511726-480.webp",
       "width": 960,
       "height": 638,
-      "kind": "area",
-      "caption": "Area view · Tondabayashi Jinaimachi · 2008",
+      "kind": "place",
+      "caption": "Tondabayashi Jinaimachi · 2008",
       "author": "Otraff",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
@@ -4571,19 +4306,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Spice curry at Columbia8 Kitahama Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-174870911.webp",
-      "smallPath": "/assets/discovery/photos/reference-174870911-480.webp",
-      "width": 960,
-      "height": 641,
-      "kind": "area",
-      "caption": "Area view · Kitahama riverside · 2025",
-      "author": "掬茶",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Cityscapes_of_Nakanoshima,_Osaka_from_Naniwa_Bridge_20250901.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-042",
@@ -4618,18 +4341,6 @@
       "label": "See Karahori menu photos",
       "note": "Diner-uploaded photos on Tabelog, including older menus. Dishes and prices may have changed; confirm the day’s menu at the restaurant.",
       "checkedAt": "2026-09-08"
-    },
-    "photo": {
-      "path": "/assets/discovery/photos/reference-15942468.webp",
-      "smallPath": "/assets/discovery/photos/reference-15942468-480.webp",
-      "width": 821,
-      "height": 1095,
-      "kind": "area",
-      "caption": "Area view · Karahori lanes · 2011",
-      "author": "Kyoww",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Karahori_20110626.jpg"
     }
   },
   {
@@ -4648,19 +4359,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Curry at iloilo Osaka: confirm branch Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-60610316.webp",
-      "smallPath": "/assets/discovery/photos/reference-60610316-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "activity",
-      "caption": "Activity reference · Japanese curry · 2017",
-      "author": "Ocdp",
-      "license": "CC0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "source": "https://commons.wikimedia.org/wiki/File:Beef_curry_rice_003.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-044",
@@ -4680,16 +4379,16 @@
     "mapQuery": "Curry at Katsuya Osaka: confirm branch Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-60610316.webp",
-      "smallPath": "/assets/discovery/photos/reference-60610316-480.webp",
+      "path": "/assets/discovery/photos/subject-60610316.webp",
       "width": 960,
       "height": 720,
       "kind": "activity",
-      "caption": "Activity reference · Japanese curry · 2017",
+      "caption": "Dish reference · Japanese beef curry rice · 2017",
       "author": "Ocdp",
       "license": "CC0",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "source": "https://commons.wikimedia.org/wiki/File:Beef_curry_rice_003.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Beef_curry_rice_003.jpg",
+      "smallPath": "/assets/discovery/photos/subject-60610316-480.webp"
     }
   },
   {
@@ -4710,16 +4409,16 @@
     "mapQuery": "Nikusui at Chitose Namba Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-90088748.webp",
-      "smallPath": "/assets/discovery/photos/reference-90088748-480.webp",
+      "path": "/assets/discovery/photos/subject-17773838.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Dotonbori · 2020",
-      "author": "32linesky",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Dotonbori_Canal.jpg"
+      "kind": "place",
+      "caption": "Nikusui at Chitose · 2007",
+      "author": "Naocchi",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Nikusui_with_Syoutama.JPG",
+      "smallPath": "/assets/discovery/photos/subject-17773838-480.webp"
     }
   },
   {
@@ -4738,19 +4437,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Kitsune udon at Usamitei Matsubaya Semba Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-97856915.webp",
-      "smallPath": "/assets/discovery/photos/reference-97856915-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Semba · 2020",
-      "author": "Ty19080914",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Semba_Building01.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-047",
@@ -4798,19 +4485,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Pressed sushi at Yoshino Sushi Semba Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-97856915.webp",
-      "smallPath": "/assets/discovery/photos/reference-97856915-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Semba · 2020",
-      "author": "Ty19080914",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Semba_Building01.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-049",
@@ -4830,16 +4505,16 @@
     "mapQuery": "Mixed juice at Sennariya Shinsekai Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-150119823.webp",
-      "smallPath": "/assets/discovery/photos/reference-150119823-480.webp",
+      "path": "/assets/discovery/photos/subject-91003128.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Shinsekai · 2014",
-      "author": "Guilhem Vellut from Annecy, France",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Shinsekai_@_Osaka_(13382795134).jpg"
+      "height": 1443,
+      "kind": "activity",
+      "caption": "Dish reference · Osaka mixed juice · 2017",
+      "author": "沢庵師匠",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Juice.umeda.jpg",
+      "smallPath": "/assets/discovery/photos/subject-91003128-480.webp"
     }
   },
   {
@@ -4860,16 +4535,16 @@
     "mapQuery": "Oden at Takoume Namba Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-90088748.webp",
-      "smallPath": "/assets/discovery/photos/reference-90088748-480.webp",
+      "path": "/assets/discovery/photos/subject-77827335.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Dotonbori · 2020",
-      "author": "32linesky",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Dotonbori_Canal.jpg"
+      "height": 636,
+      "kind": "activity",
+      "caption": "Dish reference · Oden · 2017",
+      "author": "pelican from Tokyo, Japan",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Oden_(25570126098).jpg",
+      "smallPath": "/assets/discovery/photos/subject-77827335-480.webp"
     }
   },
   {
@@ -4890,16 +4565,16 @@
     "mapQuery": "Aizuya's takoyaki Namba Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-90088748.webp",
-      "smallPath": "/assets/discovery/photos/reference-90088748-480.webp",
+      "path": "/assets/discovery/photos/subject-1190984.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Dotonbori · 2020",
-      "author": "32linesky",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Dotonbori_Canal.jpg"
+      "kind": "activity",
+      "caption": "Dish reference · Plain takoyaki · 2005",
+      "author": "rhosoi",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Takoyaki_balls.jpg",
+      "smallPath": "/assets/discovery/photos/subject-1190984-480.webp"
     }
   },
   {
@@ -5060,19 +4735,7 @@
       "sourceLabel": "Osaka tourism · GOKAN and Nakanoshima",
       "readAt": "2026-09-09"
     },
-    "checked": "2026-09-09",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-174870911.webp",
-      "smallPath": "/assets/discovery/photos/reference-174870911-480.webp",
-      "width": 960,
-      "height": 641,
-      "kind": "area",
-      "caption": "Area view · Kitahama riverside · 2025",
-      "author": "掬茶",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Cityscapes_of_Nakanoshima,_Osaka_from_Naniwa_Bridge_20250901.jpg"
-    }
+    "checked": "2026-09-09"
   },
   {
     "id": "osaka-057",
@@ -5122,16 +4785,16 @@
     "mapQuery": "Share a Rikuro cheesecake Namba Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-90088748.webp",
-      "smallPath": "/assets/discovery/photos/reference-90088748-480.webp",
+      "path": "/assets/discovery/photos/subject-146539329.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Dotonbori · 2020",
-      "author": "32linesky",
+      "kind": "place",
+      "caption": "Rikuro's cheesecake · 2023",
+      "author": "ノボホショコロトソ",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Dotonbori_Canal.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:%E3%82%8A%E3%81%8F%E3%82%8D%E3%83%BC%E3%81%8A%E3%81%98%E3%81%95%E3%82%93%E3%81%AE%E3%83%81%E3%83%BC%E3%82%BA%E3%82%B1%E3%83%BC%E3%82%AD(%E3%82%AB%E3%83%83%E3%83%88)1.jpg",
+      "smallPath": "/assets/discovery/photos/subject-146539329-480.webp"
     }
   },
   {
@@ -5152,16 +4815,16 @@
     "mapQuery": "551 Horai pork buns Namba Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-90088748.webp",
-      "smallPath": "/assets/discovery/photos/reference-90088748-480.webp",
+      "path": "/assets/discovery/photos/subject-2817520.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Dotonbori · 2020",
-      "author": "32linesky",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Osaka_Dotonbori_Canal.jpg"
+      "kind": "place",
+      "caption": "551 Horai pork buns · 2007",
+      "author": "hirotomo from Osaka",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Butaman_by_hirotomo_in_Osaka.jpg",
+      "smallPath": "/assets/discovery/photos/subject-2817520-480.webp"
     }
   },
   {
@@ -5180,19 +4843,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Farm-inspired gelato in Ibakita Ibakita Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-6059912.webp",
-      "smallPath": "/assets/discovery/photos/reference-6059912-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Ninchoji, northern Ibaraki · 2009",
-      "author": "Kansai explorer",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Ninchoji_Keiro03.JPG"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-061",
@@ -5210,19 +4861,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Murou Art Forest Nara: Murou & Soni Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-198572722.webp",
-      "smallPath": "/assets/discovery/photos/reference-198572722-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Soni Highland",
-      "author": "Ivan P",
-      "license": "CC0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "source": "https://commons.wikimedia.org/wiki/File:Soni-highland_DSC00055_(55416780862).jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-062",
@@ -5242,16 +4881,16 @@
     "mapQuery": "Murouji temple Nara: Murou & Soni Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-198572722.webp",
-      "smallPath": "/assets/discovery/photos/reference-198572722-480.webp",
+      "path": "/assets/discovery/photos/subject-94375125.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Soni Highland",
-      "author": "Ivan P",
+      "height": 638,
+      "kind": "place",
+      "caption": "Murouji main hall · 2020",
+      "author": "Saigen Jiro",
       "license": "CC0",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "source": "https://commons.wikimedia.org/wiki/File:Soni-highland_DSC00055_(55416780862).jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Murouji,_hondou-3.jpg",
+      "smallPath": "/assets/discovery/photos/subject-94375125-480.webp"
     }
   },
   {
@@ -5276,8 +4915,8 @@
       "smallPath": "/assets/discovery/photos/reference-198572722-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Soni Highland",
+      "kind": "place",
+      "caption": "Soni Highland",
       "author": "Ivan P",
       "license": "CC0",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -5306,8 +4945,8 @@
       "smallPath": "/assets/discovery/photos/reference-54841553-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Dorogawa Onsen · 2016",
+      "kind": "place",
+      "caption": "Dorogawa Onsen · 2016",
       "author": "松岡明芳",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -5332,16 +4971,16 @@
     "mapQuery": "Goyomatsu cave and tiny monorail Nara: Dorogawa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-54841553.webp",
-      "smallPath": "/assets/discovery/photos/reference-54841553-480.webp",
+      "path": "/assets/discovery/photos/subject-139034291.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Dorogawa Onsen · 2016",
-      "author": "松岡明芳",
+      "height": 720,
+      "kind": "place",
+      "caption": "Goyomatsu cave monorail · 2023",
+      "author": "ブルーノ・プラス",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:2016-09-09_Dorogawa-Onsen,_Tenkawa,_Nara,%E6%B4%9E%E5%B7%9D%E6%B8%A9%E6%B3%89_DSCF0430.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Goyomatsu_monorail2.jpg",
+      "smallPath": "/assets/discovery/photos/subject-139034291-480.webp"
     }
   },
   {
@@ -5362,16 +5001,16 @@
     "mapQuery": "Mitarai Valley walk Nara: Dorogawa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-54841553.webp",
-      "smallPath": "/assets/discovery/photos/reference-54841553-480.webp",
+      "path": "/assets/discovery/photos/subject-58985367.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Dorogawa Onsen · 2016",
-      "author": "松岡明芳",
+      "kind": "place",
+      "caption": "Mitarai Valley · 2017",
+      "author": "伊勢雷堂",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:2016-09-09_Dorogawa-Onsen,_Tenkawa,_Nara,%E6%B4%9E%E5%B7%9D%E6%B8%A9%E6%B3%89_DSCF0430.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:%E3%81%BF%E3%81%9F%E3%82%89%E3%81%84%E6%B8%93%E8%B0%B7%E3%81%BF%E3%81%9F%E3%82%89%E3%81%84%E6%BB%9D%E4%BB%98%E8%BF%91.jpg",
+      "smallPath": "/assets/discovery/photos/subject-58985367-480.webp"
     }
   },
   {
@@ -5396,8 +5035,8 @@
       "smallPath": "/assets/discovery/photos/reference-61219792-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Asuka countryside · 2017",
+      "kind": "place",
+      "caption": "Asuka countryside · 2017",
       "author": "8-hachiro",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -5426,8 +5065,8 @@
       "smallPath": "/assets/discovery/photos/reference-114868860-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Hozanji · 2017",
+      "kind": "place",
+      "caption": "Hozanji · 2017",
       "author": "Naokijp",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -5456,8 +5095,8 @@
       "smallPath": "/assets/discovery/photos/reference-1342018-480.webp",
       "width": 960,
       "height": 639,
-      "kind": "area",
-      "caption": "Area view · Imaicho · 2006",
+      "kind": "place",
+      "caption": "Imaicho · 2006",
       "author": "ignis",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
@@ -5486,8 +5125,8 @@
       "smallPath": "/assets/discovery/photos/reference-6608497-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Hasedera · 2009",
+      "kind": "place",
+      "caption": "Hasedera · 2009",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -5518,8 +5157,8 @@
       "smallPath": "/assets/discovery/photos/reference-134005601-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Ine boat houses · 2023",
+      "kind": "place",
+      "caption": "Ine boat houses · 2023",
       "author": "Naokijp",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -5544,16 +5183,16 @@
     "mapQuery": "Honjohama guided sea kayak Kyoto: Ine & Tango Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-134005601.webp",
-      "smallPath": "/assets/discovery/photos/reference-134005601-480.webp",
+      "path": "/assets/discovery/photos/subject-103575791.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Ine boat houses · 2023",
-      "author": "Naokijp",
+      "height": 638,
+      "kind": "place",
+      "caption": "Honjohama Beach · 2021",
+      "author": "Asturio Cantabrio",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Funaya_in_Ine_Town,_Yosa_District,_Kyoto_Prefecture_004.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Ine_Honjohama_Beach_2021-04_ac_(1).jpg",
+      "smallPath": "/assets/discovery/photos/subject-103575791-480.webp"
     }
   },
   {
@@ -5578,8 +5217,8 @@
       "smallPath": "/assets/discovery/photos/reference-12637654-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Amanohashidate · 2011",
+      "kind": "place",
+      "caption": "Amanohashidate · 2011",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -5608,8 +5247,8 @@
       "smallPath": "/assets/discovery/photos/reference-2485353-480.webp",
       "width": 960,
       "height": 643,
-      "kind": "area",
-      "caption": "Area view · Maizuru Red Brick Park · 2007",
+      "kind": "place",
+      "caption": "Maizuru Red Brick Park · 2007",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -5634,16 +5273,16 @@
     "mapQuery": "Urashima Shrine Kyoto: Ine & Tango Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-134005601.webp",
-      "smallPath": "/assets/discovery/photos/reference-134005601-480.webp",
+      "path": "/assets/discovery/photos/subject-103574067.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Ine boat houses · 2023",
-      "author": "Naokijp",
+      "height": 638,
+      "kind": "place",
+      "caption": "Urashima Shrine · 2021",
+      "author": "Asturio Cantabrio",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Funaya_in_Ine_Town,_Yosa_District,_Kyoto_Prefecture_004.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Ine_Urashima-jinja_2021-04_ac_(1).jpg",
+      "smallPath": "/assets/discovery/photos/subject-103574067-480.webp"
     }
   },
   {
@@ -5668,8 +5307,8 @@
       "smallPath": "/assets/discovery/photos/reference-4108715-480.webp",
       "width": 960,
       "height": 639,
-      "kind": "area",
-      "caption": "Area view · Tamba traditional craft park · 2008",
+      "kind": "place",
+      "caption": "Tamba traditional craft park · 2008",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -5694,16 +5333,16 @@
     "mapQuery": "Tamba black-edamame harvest tasting Hyogo: Tamba Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-4108715.webp",
-      "smallPath": "/assets/discovery/photos/reference-4108715-480.webp",
+      "path": "/assets/discovery/photos/subject-16998069.webp",
       "width": 960,
-      "height": 639,
-      "kind": "area",
-      "caption": "Area view · Tamba traditional craft park · 2008",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Tamba_Pottery_Museum01st3200.jpg"
+      "height": 637,
+      "kind": "activity",
+      "caption": "Dish reference · Tamba black edamame · 2011",
+      "author": "松岡明芳",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tamba-guro_%E4%B8%B9%E6%B3%A2%E9%BB%92_%E6%9E%9D%E8%B1%86_DSCF9751.jpg",
+      "smallPath": "/assets/discovery/photos/subject-16998069-480.webp"
     }
   },
   {
@@ -5728,8 +5367,8 @@
       "smallPath": "/assets/discovery/photos/reference-57249322-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Takedao former railway · 2013",
+      "kind": "place",
+      "caption": "Takedao former railway · 2013",
       "author": "Kentaro Ohkouchi",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -5758,8 +5397,8 @@
       "smallPath": "/assets/discovery/photos/reference-12224518-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Rokko Shidare · 2010",
+      "kind": "place",
+      "caption": "Rokko Shidare · 2010",
       "author": "松岡明芳",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
@@ -5818,8 +5457,8 @@
       "smallPath": "/assets/discovery/photos/reference-147550341-480.webp",
       "width": 960,
       "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Tomogashima · 2004",
+      "kind": "place",
+      "caption": "Tomogashima · 2004",
       "author": "Sakumata",
       "license": "CC0",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -5844,16 +5483,16 @@
     "mapQuery": "Awashima Shrine Wakayama: Kada Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-147550341.webp",
-      "smallPath": "/assets/discovery/photos/reference-147550341-480.webp",
+      "path": "/assets/discovery/photos/subject-80343114.webp",
       "width": 960,
-      "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Tomogashima · 2004",
-      "author": "Sakumata",
-      "license": "CC0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "source": "https://commons.wikimedia.org/wiki/File:Tomogashima_tonikaku.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Awashima Shrine, Kada · 2009",
+      "author": "Motokoka",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Awashima_jinja_shrine_1.jpg",
+      "smallPath": "/assets/discovery/photos/subject-80343114-480.webp"
     }
   },
   {
@@ -5872,19 +5511,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Kada sea-view onsen stay Wakayama: Kada Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-147550341.webp",
-      "smallPath": "/assets/discovery/photos/reference-147550341-480.webp",
-      "width": 960,
-      "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Tomogashima · 2004",
-      "author": "Sakumata",
-      "license": "CC0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-      "source": "https://commons.wikimedia.org/wiki/File:Tomogashima_tonikaku.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-084",
@@ -5908,8 +5535,8 @@
       "smallPath": "/assets/discovery/photos/reference-99192770-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Shirasaki coast · 2006",
+      "kind": "place",
+      "caption": "Shirasaki coast · 2006",
       "author": "Takayamamoto",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
@@ -5938,8 +5565,8 @@
       "smallPath": "/assets/discovery/photos/reference-176371657-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Hashigui-iwa · 2018",
+      "kind": "place",
+      "caption": "Hashigui-iwa · 2018",
       "author": "photonakazy",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
@@ -5968,8 +5595,8 @@
       "smallPath": "/assets/discovery/photos/reference-6722959-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Ichimai-iwa · 2009",
+      "kind": "place",
+      "caption": "Ichimai-iwa · 2009",
       "author": "Kansai explorer",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
@@ -5998,8 +5625,8 @@
       "smallPath": "/assets/discovery/photos/reference-873874-480.webp",
       "width": 960,
       "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Daimonzaka · 2005",
+      "kind": "place",
+      "caption": "Daimonzaka · 2005",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -6024,16 +5651,16 @@
     "mapQuery": "Bokido cave onsen Wakayama: Nachikatsuura Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-873874.webp",
-      "smallPath": "/assets/discovery/photos/reference-873874-480.webp",
+      "path": "/assets/discovery/photos/subject-10965327.webp",
       "width": 960,
-      "height": 1280,
-      "kind": "area",
-      "caption": "Area view · Daimonzaka · 2005",
+      "height": 640,
+      "kind": "place",
+      "caption": "Bokido cave bath, Hotel Urashima · 2010",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Daimonzaka25_2048.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Bokido_of_Hotel_Urashima02s4s3960.jpg",
+      "smallPath": "/assets/discovery/photos/subject-10965327-480.webp"
     }
   },
   {
@@ -6058,8 +5685,8 @@
       "smallPath": "/assets/discovery/photos/reference-44465767-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kawayu Onsen · 2015",
+      "kind": "place",
+      "caption": "Kawayu Onsen · 2015",
       "author": "Nekosuki",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -6084,16 +5711,16 @@
     "mapQuery": "Hosshinmon-oji to Hongu walk Wakayama: Hongu Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-44465767.webp",
-      "smallPath": "/assets/discovery/photos/reference-44465767-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kawayu Onsen · 2015",
-      "author": "Nekosuki",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kawayu_onsen1.JPG"
+      "path": "/assets/discovery/photos/subject-1519858.webp",
+      "width": 768,
+      "height": 1024,
+      "kind": "place",
+      "caption": "Hosshinmon-oji · 2006",
+      "author": "user:KMR",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:HOSSHINMON-oji_shrine.jpg",
+      "smallPath": "/assets/discovery/photos/subject-1519858-480.webp"
     }
   },
   {
@@ -6118,8 +5745,8 @@
       "smallPath": "/assets/discovery/photos/reference-18761333-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Awaji Yumebutai · 2012",
+      "kind": "place",
+      "caption": "Awaji Yumebutai · 2012",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -6142,19 +5769,7 @@
     "cluster": "Kansai",
     "locationKind": "Place / area",
     "mapQuery": "Honpukuji Water Temple Awaji Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-18761333.webp",
-      "smallPath": "/assets/discovery/photos/reference-18761333-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Awaji Yumebutai · 2012",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Awaji_yumebutai19s3.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "osaka-093",
@@ -6217,16 +5832,16 @@
     "mapQuery": "Awaji onion-focused lunch Awaji Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-18761333.webp",
-      "smallPath": "/assets/discovery/photos/reference-18761333-480.webp",
+      "path": "/assets/discovery/photos/subject-145132160.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Awaji Yumebutai · 2012",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Awaji_yumebutai19s3.jpg"
+      "height": 720,
+      "kind": "activity",
+      "caption": "Dish reference · Awaji onion tempura · 2024",
+      "author": "Asturio Cantabrio",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Awaji_Onion_Tempura_ac.jpg",
+      "smallPath": "/assets/discovery/photos/subject-145132160-480.webp"
     }
   },
   {
@@ -6253,8 +5868,8 @@
       "smallPath": "/assets/discovery/photos/reference-157885269-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · MIHO Museum · 2024",
+      "kind": "place",
+      "caption": "MIHO Museum · 2024",
       "author": "663highland",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -6279,16 +5894,16 @@
     "mapQuery": "La Collina Omihachiman Shiga: Omihachiman Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-131653921.webp",
-      "smallPath": "/assets/discovery/photos/reference-131653921-480.webp",
+      "path": "/assets/discovery/photos/subject-96107751.webp",
       "width": 960,
-      "height": 638,
-      "kind": "area",
-      "caption": "Area view · Hachiman-bori canal · 2023",
-      "author": "Asturio Cantabrio",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Hachiman-bori_Canal_ac_(6).jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "La Collina Omihachiman · 2020",
+      "author": "先従隗始",
+      "license": "CC0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:La_Collina_Omihachiman_20200918.jpg",
+      "smallPath": "/assets/discovery/photos/subject-96107751-480.webp"
     }
   },
   {
@@ -6313,8 +5928,8 @@
       "smallPath": "/assets/discovery/photos/reference-56619558-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Wazuka tea fields · 2017",
+      "kind": "place",
+      "caption": "Wazuka tea fields · 2017",
       "author": "Ujigis",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -6386,8 +6001,8 @@
       "smallPath": "/assets/discovery/photos/reference-131653921-480.webp",
       "width": 960,
       "height": 638,
-      "kind": "area",
-      "caption": "Area view · Hachiman-bori canal · 2023",
+      "kind": "place",
+      "caption": "Hachiman-bori canal · 2023",
       "author": "Asturio Cantabrio",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -6412,16 +6027,16 @@
     "mapQuery": "Taki-no-Hai rock formations Wakayama: Kozagawa Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-6722959.webp",
-      "smallPath": "/assets/discovery/photos/reference-6722959-480.webp",
+      "path": "/assets/discovery/photos/subject-15230394.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Ichimai-iwa · 2009",
+      "height": 1280,
+      "kind": "place",
+      "caption": "Taki-no-Hai · 2011",
       "author": "Kansai explorer",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Ichimai-iwa,_Kozagawa01.JPG"
+      "source": "https://commons.wikimedia.org/wiki/File:Takinohai01.JPG",
+      "smallPath": "/assets/discovery/photos/subject-15230394-480.webp"
     }
   },
   {
@@ -6446,16 +6061,16 @@
     "checked": "2026-09-05",
     "sourceScope": "Main tug-of-war date",
     "photo": {
-      "path": "/assets/discovery/photos/reference-136188481.webp",
-      "smallPath": "/assets/discovery/photos/reference-136188481-480.webp",
+      "path": "/assets/discovery/photos/subject-40488997.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Makishi Public Market · 2023",
-      "author": "Abasaa",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Naha_City_First_Makishi_Public_Market_new_building.JPG"
+      "height": 637,
+      "kind": "place",
+      "caption": "Naha Great Tug-of-War · 2009",
+      "author": "那覇市観光協会",
+      "license": "CC BY-SA 2.1 jp",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.1/jp/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Naha_Tug_of_War.jpg",
+      "smallPath": "/assets/discovery/photos/subject-40488997-480.webp"
     }
   },
   {
@@ -6480,8 +6095,8 @@
       "smallPath": "/assets/discovery/photos/reference-15815766-480.webp",
       "width": 960,
       "height": 639,
-      "kind": "area",
-      "caption": "Area view · Shureimon gate at Shurijo · 2011",
+      "kind": "place",
+      "caption": "Shureimon gate at Shurijo · 2011",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -6548,16 +6163,16 @@
     "mapQuery": "Tamaudun royal mausoleum Naha: Shuri Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-15815766.webp",
-      "smallPath": "/assets/discovery/photos/reference-15815766-480.webp",
+      "path": "/assets/discovery/photos/subject-15814829.webp",
       "width": 960,
       "height": 639,
-      "kind": "area",
-      "caption": "Area view · Shureimon gate at Shurijo · 2011",
+      "kind": "place",
+      "caption": "Tamaudun royal mausoleum · 2011",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Naha_Shuri_Castle32bs5s4592.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Tamaudun01s3s4592.jpg",
+      "smallPath": "/assets/discovery/photos/subject-15814829-480.webp"
     }
   },
   {
@@ -6668,8 +6283,8 @@
       "smallPath": "/assets/discovery/photos/reference-62555661-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Okinawa Karate Kaikan · 2017",
+      "kind": "place",
+      "caption": "Okinawa Karate Kaikan · 2017",
       "author": "Kugel~commonswiki",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -6694,16 +6309,16 @@
     "mapQuery": "Bingata stencil-dyeing workshop Naha Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-136188481.webp",
-      "smallPath": "/assets/discovery/photos/reference-136188481-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Makishi Public Market · 2023",
-      "author": "Abasaa",
+      "path": "/assets/discovery/photos/subject-38049134.webp",
+      "width": 481,
+      "height": 294,
+      "kind": "activity",
+      "caption": "Activity reference · Bingata dyeing · 1946",
+      "author": "Pre-war photographer",
       "license": "Public domain",
       "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Naha_City_First_Makishi_Public_Market_new_building.JPG"
+      "source": "https://commons.wikimedia.org/wiki/File:Bingata_Dyeing.jpg",
+      "smallPath": "/assets/discovery/photos/subject-38049134-480.webp"
     }
   },
   {
@@ -6734,19 +6349,7 @@
       "sourceLabel": "Shuri Ryusen · coral-dyeing workshop",
       "readAt": "2026-09-09"
     },
-    "checked": "2026-09-09",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-15815766.webp",
-      "smallPath": "/assets/discovery/photos/reference-15815766-480.webp",
-      "width": 960,
-      "height": 639,
-      "kind": "area",
-      "caption": "Area view · Shureimon gate at Shurijo · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Naha_Shuri_Castle32bs5s4592.jpg"
-    }
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-010",
@@ -6895,16 +6498,16 @@
     "mapQuery": "Traditional sabani boating Itoman Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-46856525.webp",
-      "smallPath": "/assets/discovery/photos/reference-46856525-480.webp",
-      "width": 960,
-      "height": 540,
-      "kind": "area",
-      "caption": "Area view · Okinawa Peace Memorial Park · 2016",
-      "author": "CEphoto, Uwe Aranas",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Itoman_Okinawa_Okinawa-Cornerstone-of-Peace-Memorial-02.jpg"
+      "path": "/assets/discovery/photos/subject-5627841.webp",
+      "width": 540,
+      "height": 371,
+      "kind": "activity",
+      "caption": "Activity reference · Traditional sabani boat · 1945",
+      "author": "Unknown author Unknown author",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Sabani.JPG",
+      "smallPath": "/assets/discovery/photos/subject-5627841-480.webp"
     }
   },
   {
@@ -6925,16 +6528,16 @@
     "mapQuery": "Tamagusuku Castle ruins Nanjo Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-121615352.webp",
-      "smallPath": "/assets/discovery/photos/reference-121615352-480.webp",
+      "path": "/assets/discovery/photos/subject-128977640.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Ojima fishing village · 2022",
-      "author": "Kugel~commonswiki",
+      "height": 720,
+      "kind": "place",
+      "caption": "Tamagusuku Castle gate · 2023",
+      "author": "Dwcarlso",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Ou_Island_Nanjo_202208.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Tamagusuku_Castle_gate.jpg",
+      "smallPath": "/assets/discovery/photos/subject-128977640-480.webp"
     }
   },
   {
@@ -6959,8 +6562,8 @@
       "smallPath": "/assets/discovery/photos/reference-144395599-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Miga spring, Kudaka Island · 2024",
+      "kind": "place",
+      "caption": "Miga spring, Kudaka Island · 2024",
       "author": "Kugel~commonswiki",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -6989,8 +6592,8 @@
       "smallPath": "/assets/discovery/photos/reference-121615352-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Ojima fishing village · 2022",
+      "kind": "place",
+      "caption": "Ojima fishing village · 2022",
       "author": "Kugel~commonswiki",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -7019,8 +6622,8 @@
       "smallPath": "/assets/discovery/photos/reference-46856525-480.webp",
       "width": 960,
       "height": 540,
-      "kind": "area",
-      "caption": "Area view · Okinawa Peace Memorial Park · 2016",
+      "kind": "place",
+      "caption": "Okinawa Peace Memorial Park · 2016",
       "author": "CEphoto, Uwe Aranas",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -7043,19 +6646,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Aircraft spotting at Senaga Senaga Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-61238084.webp",
-      "smallPath": "/assets/discovery/photos/reference-61238084-480.webp",
-      "width": 960,
-      "height": 240,
-      "kind": "area",
-      "caption": "Area view · View from Senaga Island · 2017",
-      "author": "Kugel~commonswiki",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Panoramic_view_of_Okinawa_Island_from_Senaga_Island.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-019",
@@ -7116,18 +6707,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Shisa painting at Ryukyu Mura Onna Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-16916758.webp",
-      "width": 450,
-      "height": 338,
-      "kind": "area",
-      "caption": "Area view · Cape Maeda · 2011",
-      "author": "N",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Cape_Maeda.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-021",
@@ -7150,8 +6730,8 @@
       "path": "/assets/discovery/photos/reference-5206107.webp",
       "width": 450,
       "height": 338,
-      "kind": "area",
-      "caption": "Area view · Yomitan pottery village · 2008",
+      "kind": "place",
+      "caption": "Yomitan pottery village · 2008",
       "author": "N",
       "license": "Public domain",
       "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
@@ -7174,18 +6754,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Yuntanza weaving Yomitan Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-5206107.webp",
-      "width": 450,
-      "height": 338,
-      "kind": "area",
-      "caption": "Area view · Yomitan pottery village · 2008",
-      "author": "N",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Yomitan_Yachimun_no_Sato.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-023",
@@ -7209,8 +6778,8 @@
       "smallPath": "/assets/discovery/photos/reference-10635198-480.webp",
       "width": 960,
       "height": 638,
-      "kind": "area",
-      "caption": "Area view · Nakagusuku Castle · 2010",
+      "kind": "place",
+      "caption": "Nakagusuku Castle · 2010",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -7282,8 +6851,8 @@
       "smallPath": "/assets/discovery/photos/reference-72862867-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Eisa Museum in Koza Music Town · 2018",
+      "kind": "place",
+      "caption": "Eisa Museum in Koza Music Town · 2018",
       "author": "Lequios-star",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -7308,16 +6877,16 @@
     "mapQuery": "Try the sanshin at Ocean Expo Park Motobu Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-163593590.webp",
-      "smallPath": "/assets/discovery/photos/reference-163593590-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Ocean Expo Park · 2024",
-      "author": "Hyppolyte de Saint-Rambert",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Okinawa_Ocean_Expo_Park_view_hdsr_Vlux5_16.jpg"
+      "path": "/assets/discovery/photos/subject-1881886.webp",
+      "width": 400,
+      "height": 1156,
+      "kind": "activity",
+      "caption": "Activity reference · Okinawan sanshin · 2007",
+      "author": "TimDuncan",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Sanshin.jpg",
+      "align": "bottom"
     }
   },
   {
@@ -7338,16 +6907,16 @@
     "mapQuery": "Hamahiga village detour Uruma Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-25549379.webp",
-      "smallPath": "/assets/discovery/photos/reference-25549379-480.webp",
+      "path": "/assets/discovery/photos/subject-9740399.webp",
       "width": 960,
-      "height": 637,
-      "kind": "area",
-      "caption": "Area view · Katsuren Castle · 2010",
-      "author": "kanegen",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Katsuren_Castle_ruins.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Hamahiga Island · 2009",
+      "author": "Kugel",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Hamahiga_Island.JPG",
+      "smallPath": "/assets/discovery/photos/subject-9740399-480.webp"
     }
   },
   {
@@ -7372,8 +6941,8 @@
       "smallPath": "/assets/discovery/photos/reference-25549379-480.webp",
       "width": 960,
       "height": 637,
-      "kind": "area",
-      "caption": "Area view · Katsuren Castle · 2010",
+      "kind": "place",
+      "caption": "Katsuren Castle · 2010",
       "author": "kanegen",
       "license": "CC BY 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
@@ -7396,19 +6965,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Miyagi salt-making and Kafu Banta Uruma Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-25549379.webp",
-      "smallPath": "/assets/discovery/photos/reference-25549379-480.webp",
-      "width": 960,
-      "height": 637,
-      "kind": "area",
-      "caption": "Area view · Katsuren Castle · 2010",
-      "author": "kanegen",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Katsuren_Castle_ruins.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-030",
@@ -7426,18 +6983,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Blue Cave with a reputable operator Onna Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-16916758.webp",
-      "width": 450,
-      "height": 338,
-      "kind": "area",
-      "caption": "Area view · Cape Maeda · 2011",
-      "author": "N",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Cape_Maeda.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-031",
@@ -7457,16 +7003,16 @@
     "mapQuery": "ASMUI Spiritual Hikes Yanbaru Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-98307088.webp",
-      "smallPath": "/assets/discovery/photos/reference-98307088-480.webp",
+      "path": "/assets/discovery/photos/subject-68400877.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Cape Hedo · 2020",
-      "author": "Kugel~commonswiki",
+      "height": 720,
+      "kind": "place",
+      "caption": "Daisekirinzan, now ASMUI Spiritual Hikes · 2018",
+      "author": "Yanbaru917",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Cape_Hedo_202011.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Daisekirinzan.jpg",
+      "smallPath": "/assets/discovery/photos/subject-68400877-480.webp"
     }
   },
   {
@@ -7485,19 +7031,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Yanbaru guided night walk Yanbaru Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-98307088.webp",
-      "smallPath": "/assets/discovery/photos/reference-98307088-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Cape Hedo · 2020",
-      "author": "Kugel~commonswiki",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Cape_Hedo_202011.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-033",
@@ -7517,16 +7051,16 @@
     "mapQuery": "Gesashi mangrove paddle Yanbaru Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-98307088.webp",
-      "smallPath": "/assets/discovery/photos/reference-98307088-480.webp",
+      "path": "/assets/discovery/photos/subject-140082471.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Cape Hedo · 2020",
+      "kind": "place",
+      "caption": "Gesashi mangroves · 2023",
       "author": "Kugel~commonswiki",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Cape_Hedo_202011.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Mangroves_at_Gesashi_Bay_202310.jpg",
+      "smallPath": "/assets/discovery/photos/subject-140082471-480.webp"
     }
   },
   {
@@ -7547,16 +7081,16 @@
     "mapQuery": "Hiji Falls hike Yanbaru Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-98307088.webp",
-      "smallPath": "/assets/discovery/photos/reference-98307088-480.webp",
+      "path": "/assets/discovery/photos/subject-108025941.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Cape Hedo · 2020",
+      "height": 1440,
+      "kind": "place",
+      "caption": "Hiji Falls · 2021",
       "author": "Kugel~commonswiki",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Cape_Hedo_202011.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Hiji_Waterfall_202105.jpg",
+      "smallPath": "/assets/discovery/photos/subject-108025941-480.webp"
     }
   },
   {
@@ -7581,8 +7115,8 @@
       "smallPath": "/assets/discovery/photos/reference-148059596-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Bashofu Center in Ogimi · 2024",
+      "kind": "place",
+      "caption": "Bashofu Center in Ogimi · 2024",
       "author": "Kugel~commonswiki",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -7697,8 +7231,8 @@
       "smallPath": "/assets/discovery/photos/reference-98307088-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Cape Hedo · 2020",
+      "kind": "place",
+      "caption": "Cape Hedo · 2020",
       "author": "Kugel~commonswiki",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -7727,8 +7261,8 @@
       "smallPath": "/assets/discovery/photos/reference-85122441-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Mount Gusuku, Ie Island · 2019",
+      "kind": "place",
+      "caption": "Mount Gusuku, Ie Island · 2019",
       "author": "Kugel~commonswiki",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -7757,8 +7291,8 @@
       "smallPath": "/assets/discovery/photos/reference-137355351-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Minna Island · 2019",
+      "kind": "place",
+      "caption": "Minna Island · 2019",
       "author": "ブルーノ・プラス",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -7822,18 +7356,6 @@
       "source": "https://tabelog.com/en/okinawa/A4701/A470101/47000019/",
       "sourceLabel": "Urizun · restaurant-managed listing",
       "readAt": "2026-09-09"
-    },
-    "photo": {
-      "path": "/assets/discovery/photos/reference-136188481.webp",
-      "smallPath": "/assets/discovery/photos/reference-136188481-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Makishi Public Market · 2023",
-      "author": "Abasaa",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Naha_City_First_Makishi_Public_Market_new_building.JPG"
     }
   },
   {
@@ -7896,16 +7418,16 @@
     "mapQuery": "Soba at Kishimoto Shokudo Motobu Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-163593590.webp",
-      "smallPath": "/assets/discovery/photos/reference-163593590-480.webp",
+      "path": "/assets/discovery/photos/subject-4822533.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Ocean Expo Park · 2024",
-      "author": "Hyppolyte de Saint-Rambert",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Okinawa_Ocean_Expo_Park_view_hdsr_Vlux5_16.jpg"
+      "height": 643,
+      "kind": "place",
+      "caption": "Kishimoto Shokudo, Motobu · 2007",
+      "author": "kikmoyoo",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Okinawa_soba_restaurant_by_kikmoyoo_in_Okinawa.jpg",
+      "smallPath": "/assets/discovery/photos/subject-4822533-480.webp"
     }
   },
   {
@@ -7926,16 +7448,16 @@
     "mapQuery": "Tofu Shop Beans Naha: Shuri Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-15815766.webp",
-      "smallPath": "/assets/discovery/photos/reference-15815766-480.webp",
+      "path": "/assets/discovery/photos/subject-186857550.webp",
       "width": 960,
-      "height": 639,
-      "kind": "area",
-      "caption": "Area view · Shureimon gate at Shurijo · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Naha_Shuri_Castle32bs5s4592.jpg"
+      "height": 720,
+      "kind": "activity",
+      "caption": "Dish reference · Okinawan yushi tofu · 2020",
+      "author": "KQuhen",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Yushi_tofu_Ishigaki.jpg",
+      "smallPath": "/assets/discovery/photos/subject-186857550-480.webp"
     }
   },
   {
@@ -7954,19 +7476,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Tomari Iyumachi seafood lunch Naha Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-136188481.webp",
-      "smallPath": "/assets/discovery/photos/reference-136188481-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Makishi Public Market · 2023",
-      "author": "Abasaa",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Naha_City_First_Makishi_Public_Market_new_building.JPG"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-047",
@@ -7984,19 +7494,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Itoman fish-market tasting Itoman Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-46856525.webp",
-      "smallPath": "/assets/discovery/photos/reference-46856525-480.webp",
-      "width": 960,
-      "height": 540,
-      "kind": "area",
-      "caption": "Area view · Okinawa Peace Memorial Park · 2016",
-      "author": "CEphoto, Uwe Aranas",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Itoman_Okinawa_Okinawa-Cornerstone-of-Peace-Memorial-02.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-048",
@@ -8032,8 +7530,8 @@
       "smallPath": "/assets/discovery/photos/reference-136188481-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Makishi Public Market · 2023",
+      "kind": "place",
+      "caption": "Makishi Public Market · 2023",
       "author": "Abasaa",
       "license": "Public domain",
       "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
@@ -8056,19 +7554,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Awase Payao fish market Awase Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-8838718.webp",
-      "smallPath": "/assets/discovery/photos/reference-8838718-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Awase · 2009",
-      "author": "Ray_go",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Awase_Mudflat_Okinawa.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-050",
@@ -8086,19 +7572,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Nakamoto tempura on Ojima Nanjo Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-121615352.webp",
-      "smallPath": "/assets/discovery/photos/reference-121615352-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Ojima fishing village · 2022",
-      "author": "Kugel~commonswiki",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Ou_Island_Nanjo_202208.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-051",
@@ -8176,19 +7650,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Food mission",
     "mapQuery": "Try squid-ink soup Main island: food mission Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-136188481.webp",
-      "smallPath": "/assets/discovery/photos/reference-136188481-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Makishi Public Market in Naha · 2023",
-      "author": "Abasaa",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Naha_City_First_Makishi_Public_Market_new_building.JPG"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-054",
@@ -8356,18 +7818,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Beni-imo tart workshop Onna Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-16916758.webp",
-      "width": 450,
-      "height": 338,
-      "kind": "area",
-      "caption": "Area view · Cape Maeda · 2011",
-      "author": "N",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Cape_Maeda.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-060",
@@ -8385,19 +7836,7 @@
     "cluster": "Okinawa main island",
     "locationKind": "Place / area",
     "mapQuery": "Urumarche produce and lunch Uruma Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-25549379.webp",
-      "smallPath": "/assets/discovery/photos/reference-25549379-480.webp",
-      "width": 960,
-      "height": 637,
-      "kind": "area",
-      "caption": "Area view · Katsuren Castle · 2010",
-      "author": "kanegen",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Katsuren_Castle_ruins.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-061",
@@ -8423,8 +7862,8 @@
       "smallPath": "/assets/discovery/photos/reference-19644703-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Aka Island · 2010",
+      "kind": "place",
+      "caption": "Aka Island · 2010",
       "author": "Tomaž Vajngerl",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -8449,16 +7888,16 @@
     "mapQuery": "Guided Nishibama snorkel Kerama: Aka & Geruma Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-19644703.webp",
-      "smallPath": "/assets/discovery/photos/reference-19644703-480.webp",
+      "path": "/assets/discovery/photos/subject-9072117.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Aka Island · 2010",
-      "author": "Tomaž Vajngerl",
+      "height": 643,
+      "kind": "place",
+      "caption": "Nishibama Beach, Aka Island · 2009",
+      "author": "hashi photo",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Aka_Island_-_Bridge_Connecting_Geruma_and_Aka_Islands_(7769).jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Nishibama_beach_Okinawa_Aka_Island.jpg",
+      "smallPath": "/assets/discovery/photos/subject-9072117-480.webp"
     }
   },
   {
@@ -8479,16 +7918,16 @@
     "mapQuery": "Takara House on Geruma Kerama: Aka & Geruma Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-19644703.webp",
-      "smallPath": "/assets/discovery/photos/reference-19644703-480.webp",
+      "path": "/assets/discovery/photos/subject-9072171.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Aka Island · 2010",
-      "author": "Tomaž Vajngerl",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Aka_Island_-_Bridge_Connecting_Geruma_and_Aka_Islands_(7769).jpg"
+      "height": 643,
+      "kind": "place",
+      "caption": "Takara House, Geruma Island · 2009",
+      "author": "hashi photo",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Takara%27s_house_in_Okinawa_Geruma_Island.jpg",
+      "smallPath": "/assets/discovery/photos/subject-9072171-480.webp"
     }
   },
   {
@@ -8507,19 +7946,7 @@
     "cluster": "Kerama: Aka & Geruma",
     "locationKind": "Place / area",
     "mapQuery": "Sea kayaking from Aka Kerama: Aka & Geruma Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-19644703.webp",
-      "smallPath": "/assets/discovery/photos/reference-19644703-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Aka Island · 2010",
-      "author": "Tomaž Vajngerl",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Aka_Island_-_Bridge_Connecting_Geruma_and_Aka_Islands_(7769).jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-065",
@@ -8548,19 +7975,7 @@
       "sourceLabel": "Kerama Kayak Center · tour and conditions",
       "readAt": "2026-09-09"
     },
-    "checked": "2026-09-09",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-9072286.webp",
-      "smallPath": "/assets/discovery/photos/reference-9072286-480.webp",
-      "width": 960,
-      "height": 643,
-      "kind": "area",
-      "caption": "Area view · Zamami Island · 2009",
-      "author": "hashi photo",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Takatuki_View_in_Zamami_Island_Okinawa001.jpg"
-    }
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-066",
@@ -8578,19 +7993,7 @@
     "cluster": "Kerama: Zamami",
     "locationKind": "Place / area",
     "mapQuery": "Responsible turtle snorkel near Ama Kerama: Zamami Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-9072286.webp",
-      "smallPath": "/assets/discovery/photos/reference-9072286-480.webp",
-      "width": 960,
-      "height": 643,
-      "kind": "area",
-      "caption": "Area view · Zamami Island · 2009",
-      "author": "hashi photo",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Takatuki_View_in_Zamami_Island_Okinawa001.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-067",
@@ -8625,8 +8028,8 @@
       "smallPath": "/assets/discovery/photos/reference-9072286-480.webp",
       "width": 960,
       "height": 643,
-      "kind": "area",
-      "caption": "Area view · Zamami Island · 2009",
+      "kind": "place",
+      "caption": "Zamami Island · 2009",
       "author": "hashi photo",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
@@ -8666,8 +8069,8 @@
       "smallPath": "/assets/discovery/photos/reference-19643680-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Aharen Beach · 2009",
+      "kind": "place",
+      "caption": "Aharen Beach · 2009",
       "author": "Tomaž Vajngerl",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -8692,16 +8095,16 @@
     "mapQuery": "Guided Tokashiku SUP Kerama: Tokashiki Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-19643680.webp",
-      "smallPath": "/assets/discovery/photos/reference-19643680-480.webp",
+      "path": "/assets/discovery/photos/subject-126864897.webp",
       "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Aharen Beach · 2009",
-      "author": "Tomaž Vajngerl",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Aharen_Beach_On_Tokashiki_Island_2009_(7384).jpg"
+      "height": 540,
+      "kind": "place",
+      "caption": "Tokashiku Beach · 2013",
+      "author": "Snap55",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tokashiku_beach.JPG",
+      "smallPath": "/assets/discovery/photos/subject-126864897-480.webp"
     }
   },
   {
@@ -8720,19 +8123,7 @@
     "cluster": "Kerama: Zamami",
     "locationKind": "Place / area",
     "mapQuery": "Zamami overnight stargazing Kerama: Zamami Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-9072286.webp",
-      "smallPath": "/assets/discovery/photos/reference-9072286-480.webp",
-      "width": 960,
-      "height": 643,
-      "kind": "area",
-      "caption": "Area view · Zamami Island · 2009",
-      "author": "hashi photo",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Takatuki_View_in_Zamami_Island_Okinawa001.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-071",
@@ -8756,8 +8147,8 @@
       "smallPath": "/assets/discovery/photos/reference-175482448-480.webp",
       "width": 960,
       "height": 643,
-      "kind": "area",
-      "caption": "Area view · Hatenohama",
+      "kind": "place",
+      "caption": "Hatenohama",
       "author": "Kumejima93_OKINAWA",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
@@ -8782,16 +8173,16 @@
     "mapQuery": "Tatami-ishi rock formations Kume Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-175482448.webp",
-      "smallPath": "/assets/discovery/photos/reference-175482448-480.webp",
+      "path": "/assets/discovery/photos/subject-11979029.webp",
       "width": 960,
-      "height": 643,
-      "kind": "area",
-      "caption": "Area view · Hatenohama",
-      "author": "Kumejima93_OKINAWA",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Okinawa-kumejima_Hatenohama_Beach-xl.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Tatamiishi basalt rocks, Kumejima · 2005",
+      "author": "Snap55 at Japanese Wikipedia",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tatami_ishi.JPG",
+      "smallPath": "/assets/discovery/photos/subject-11979029-480.webp"
     }
   },
   {
@@ -8810,19 +8201,7 @@
     "cluster": "Kume Island",
     "locationKind": "Place / area",
     "mapQuery": "Kumejima-tsumugi weaving Kume Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-175482448.webp",
-      "smallPath": "/assets/discovery/photos/reference-175482448-480.webp",
-      "width": 960,
-      "height": 643,
-      "kind": "area",
-      "caption": "Area view · Hatenohama",
-      "author": "Kumejima93_OKINAWA",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Okinawa-kumejima_Hatenohama_Beach-xl.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-074",
@@ -8840,19 +8219,7 @@
     "cluster": "Kume Island",
     "locationKind": "Place / area",
     "mapQuery": "Prawn soba at Washima Kume Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-175482448.webp",
-      "smallPath": "/assets/discovery/photos/reference-175482448-480.webp",
-      "width": 960,
-      "height": 643,
-      "kind": "area",
-      "caption": "Area view · Hatenohama",
-      "author": "Kumejima93_OKINAWA",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Okinawa-kumejima_Hatenohama_Beach-xl.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-075",
@@ -8872,16 +8239,15 @@
     "mapQuery": "Eef Beach early run Kume Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-175482448.webp",
-      "smallPath": "/assets/discovery/photos/reference-175482448-480.webp",
-      "width": 960,
-      "height": 643,
-      "kind": "area",
-      "caption": "Area view · Hatenohama",
-      "author": "Kumejima93_OKINAWA",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Okinawa-kumejima_Hatenohama_Beach-xl.jpg"
+      "path": "/assets/discovery/photos/subject-22846847.webp",
+      "width": 427,
+      "height": 240,
+      "kind": "place",
+      "caption": "Eef Beach, Kumejima · 2011",
+      "author": "Kotaro - User: (WT-shared) 耕太郎 at wts wikivoyage",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Eef_Beach.jpg"
     }
   },
   {
@@ -8902,16 +8268,16 @@
     "mapQuery": "Yabiji guided reef excursion Miyako Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-97298836.webp",
-      "smallPath": "/assets/discovery/photos/reference-97298836-480.webp",
+      "path": "/assets/discovery/photos/subject-35319738.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Yonaha Maehama Beach · 2016",
+      "kind": "place",
+      "caption": "Yabiji reef · 2013",
       "author": "Paipateroma",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Miyako_maipama_1.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Miyako_yabiji.jpg",
+      "smallPath": "/assets/discovery/photos/subject-35319738-480.webp"
     }
   },
   {
@@ -8947,8 +8313,8 @@
       "smallPath": "/assets/discovery/photos/reference-10566181-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · 17END, Shimoji Island · 2003",
+      "kind": "place",
+      "caption": "17END, Shimoji Island · 2003",
       "author": "Cassiopeia sweet",
       "license": "Public domain",
       "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
@@ -8982,16 +8348,16 @@
     },
     "checked": "2026-09-09",
     "photo": {
-      "path": "/assets/discovery/photos/reference-10566181.webp",
-      "smallPath": "/assets/discovery/photos/reference-10566181-480.webp",
+      "path": "/assets/discovery/photos/subject-3388742.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · 17END, Shimoji Island · 2003",
-      "author": "Cassiopeia sweet",
-      "license": "Public domain",
-      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Shimojishima_Runway17.jpg"
+      "kind": "place",
+      "caption": "Tooriike, Shimoji Island · 2007",
+      "author": "Paipateroma",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Toriike.jpg",
+      "smallPath": "/assets/discovery/photos/subject-3388742-480.webp"
     }
   },
   {
@@ -9012,16 +8378,16 @@
     "mapQuery": "Cape Higashi-Hennazaki walk Miyako Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-97298836.webp",
-      "smallPath": "/assets/discovery/photos/reference-97298836-480.webp",
+      "path": "/assets/discovery/photos/subject-1627159.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Yonaha Maehama Beach · 2016",
-      "author": "Paipateroma",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Miyako_maipama_1.jpg"
+      "kind": "place",
+      "caption": "Cape Higashi-Hennazaki · 2004",
+      "author": "Metatron",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Miyako_higashi_hennazaki.JPG",
+      "smallPath": "/assets/discovery/photos/subject-1627159-480.webp"
     }
   },
   {
@@ -9051,19 +8417,7 @@
       "sourceLabel": "Okinawa tourism · Irabu",
       "readAt": "2026-09-09"
     },
-    "checked": "2026-09-09",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-97298832.webp",
-      "smallPath": "/assets/discovery/photos/reference-97298832-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Sarahama port · 2010",
-      "author": "Paipateroma",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Irabu_sarahama_port.jpg"
-    }
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-081",
@@ -9081,19 +8435,7 @@
     "cluster": "Miyako islands",
     "locationKind": "Place / area",
     "mapQuery": "Kurima craft and café afternoon Miyako: Kurima Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-63204017.webp",
-      "smallPath": "/assets/discovery/photos/reference-63204017-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kurima Island · 2017",
-      "author": "Graeme Bartlett",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Kurima_aerial.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-082",
@@ -9117,8 +8459,8 @@
       "smallPath": "/assets/discovery/photos/reference-128517293-480.webp",
       "width": 960,
       "height": 645,
-      "kind": "area",
-      "caption": "Area view · Ogami Island · 2020",
+      "kind": "place",
+      "caption": "Ogami Island · 2020",
       "author": "Nesnad",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -9143,16 +8485,16 @@
     "mapQuery": "Miyako soba comparison Miyako Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-97298836.webp",
-      "smallPath": "/assets/discovery/photos/reference-97298836-480.webp",
+      "path": "/assets/discovery/photos/subject-1346964.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Yonaha Maehama Beach · 2016",
-      "author": "Paipateroma",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Miyako_maipama_1.jpg"
+      "kind": "place",
+      "caption": "Miyako soba on Miyako Island · 2005",
+      "author": "ayustety from Naha, Okinawa",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Miyako_soba_in_Miyako_island,_Okinawa.jpg",
+      "smallPath": "/assets/discovery/photos/subject-1346964-480.webp"
     }
   },
   {
@@ -9177,8 +8519,8 @@
       "smallPath": "/assets/discovery/photos/reference-97298836-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Yonaha Maehama Beach · 2016",
+      "kind": "place",
+      "caption": "Yonaha Maehama Beach · 2016",
       "author": "Paipateroma",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -9203,16 +8545,16 @@
     "mapQuery": "Ikema wetland birdwatching Miyako: Ikema Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-15117315.webp",
-      "smallPath": "/assets/discovery/photos/reference-15117315-480.webp",
+      "path": "/assets/discovery/photos/subject-25055928.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Ikema Island · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Ikemajima_Okinawa_Japan01s3s2010.jpg"
+      "height": 375,
+      "kind": "place",
+      "caption": "Ikema wetlands · 2012",
+      "author": "アラツク",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ikema_shitsugen.JPG",
+      "smallPath": "/assets/discovery/photos/subject-25055928-480.webp"
     }
   },
   {
@@ -9246,8 +8588,8 @@
       "smallPath": "/assets/discovery/photos/reference-14767634-480.webp",
       "width": 960,
       "height": 640,
-      "kind": "area",
-      "caption": "Area view · Kabira Bay · 2011",
+      "kind": "place",
+      "caption": "Kabira Bay · 2011",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -9270,19 +8612,7 @@
     "cluster": "Yaeyama: Ishigaki",
     "locationKind": "Place / area",
     "mapQuery": "Ishigaki no Shio salt visit Yaeyama: Ishigaki Japan",
-    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-14767634.webp",
-      "smallPath": "/assets/discovery/photos/reference-14767634-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Kabira Bay · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Kabira_Bay_Ishigaki_Island21bs5s4410.jpg"
-    }
+    "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel."
   },
   {
     "id": "okinawa-088",
@@ -9302,16 +8632,16 @@
     "mapQuery": "Banna Park forest and viewpoints Yaeyama: Ishigaki Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-14767634.webp",
-      "smallPath": "/assets/discovery/photos/reference-14767634-480.webp",
+      "path": "/assets/discovery/photos/subject-159544926.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Kabira Bay · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Kabira_Bay_Ishigaki_Island21bs5s4410.jpg"
+      "height": 480,
+      "kind": "place",
+      "caption": "Banna Park observation deck, Ishigaki · 2025",
+      "author": "AsPJT",
+      "license": "CC0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Ishigaki_Island,_Banna_Park_Observation_Deck.jpg",
+      "smallPath": "/assets/discovery/photos/subject-159544926-480.webp"
     }
   },
   {
@@ -9332,16 +8662,16 @@
     "mapQuery": "Ishigaki beef at Yakiniku Ryuka Yaeyama: Ishigaki Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-14767634.webp",
-      "smallPath": "/assets/discovery/photos/reference-14767634-480.webp",
-      "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Kabira Bay · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Kabira_Bay_Ishigaki_Island21bs5s4410.jpg"
+      "path": "/assets/discovery/photos/subject-22934939.webp",
+      "width": 800,
+      "height": 532,
+      "kind": "activity",
+      "caption": "Dish reference · Ishigaki beef · 2005",
+      "author": "(WT-en) Jpatokal at English Wikivoyage",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ishigaki_BeefAndBeer.JPG",
+      "smallPath": "/assets/discovery/photos/subject-22934939-480.webp"
     }
   },
   {
@@ -9362,16 +8692,16 @@
     "mapQuery": "Ishigaki Yaima Village houses Yaeyama: Ishigaki Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-14767634.webp",
-      "smallPath": "/assets/discovery/photos/reference-14767634-480.webp",
+      "path": "/assets/discovery/photos/subject-72840931.webp",
       "width": 960,
-      "height": 640,
-      "kind": "area",
-      "caption": "Area view · Kabira Bay · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Kabira_Bay_Ishigaki_Island21bs5s4410.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Morita House, Ishigaki Yaima Village · 2008",
+      "author": "Paipateroma",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ishigaki_yaimamura_morita_house_1.jpg",
+      "smallPath": "/assets/discovery/photos/subject-72840931-480.webp"
     }
   },
   {
@@ -9444,19 +8774,7 @@
       "sourceLabel": "Okinawa tourism · Taketomi",
       "readAt": "2026-09-09"
     },
-    "checked": "2026-09-09",
-    "photo": {
-      "path": "/assets/discovery/photos/reference-1450440.webp",
-      "smallPath": "/assets/discovery/photos/reference-1450440-480.webp",
-      "width": 960,
-      "height": 638,
-      "kind": "area",
-      "caption": "Area view · Taketomi village · 2006",
-      "author": "ippei & janine naoi",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Village_in_Taketomi_Island_-_located_at_southwest_Japan.jpg"
-    }
+    "checked": "2026-09-09"
   },
   {
     "id": "okinawa-093",
@@ -9480,8 +8798,8 @@
       "smallPath": "/assets/discovery/photos/reference-56455181-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Kuroshima · 2016",
+      "kind": "place",
+      "caption": "Kuroshima · 2016",
       "author": "VKaeru",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -9506,16 +8824,16 @@
     "mapQuery": "Authorized Pinaisara canoe and hike Yaeyama: Iriomote Japan",
     "practical": "Arrange an authorized operator and confirm current permit / visitor-limit rules. Do not arrive expecting independent access or an automatic permit.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-20038245.webp",
-      "smallPath": "/assets/discovery/photos/reference-20038245-480.webp",
+      "path": "/assets/discovery/photos/subject-73185395.webp",
       "width": 960,
-      "height": 639,
-      "kind": "area",
-      "caption": "Area view · Nakama River, Iriomote · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Nakama_River_Iriomote_Okinawa_Japan06s3.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Pinaisara Falls, Iriomote · 2012",
+      "author": "Paipateroma",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Iriomote_pinaisara_fall.jpg",
+      "smallPath": "/assets/discovery/photos/subject-73185395-480.webp"
     }
   },
   {
@@ -9540,8 +8858,8 @@
       "smallPath": "/assets/discovery/photos/reference-20038245-480.webp",
       "width": 960,
       "height": 639,
-      "kind": "area",
-      "caption": "Area view · Nakama River, Iriomote · 2011",
+      "kind": "place",
+      "caption": "Nakama River, Iriomote · 2011",
       "author": "663highland",
       "license": "CC BY 2.5",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
@@ -9566,16 +8884,16 @@
     "mapQuery": "Guided reefs north of Iriomote Yaeyama: Iriomote Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-20038245.webp",
-      "smallPath": "/assets/discovery/photos/reference-20038245-480.webp",
+      "path": "/assets/discovery/photos/subject-73185398.webp",
       "width": 960,
-      "height": 639,
-      "kind": "area",
-      "caption": "Area view · Nakama River, Iriomote · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Nakama_River_Iriomote_Okinawa_Japan06s3.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Barasu Island reef, north of Iriomote · 2010",
+      "author": "Paipateroma",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Yaeyama_barasujima_2010_1.jpg",
+      "smallPath": "/assets/discovery/photos/subject-73185398-480.webp"
     }
   },
   {
@@ -9596,16 +8914,16 @@
     "mapQuery": "Iriomote night-nature walk Yaeyama: Iriomote Japan",
     "practical": "Opening hours, access and availability have not been checked for your selected day. Use the source and confirm with the venue. Suggested durations are time on site, excluding travel.",
     "photo": {
-      "path": "/assets/discovery/photos/reference-20038245.webp",
-      "smallPath": "/assets/discovery/photos/reference-20038245-480.webp",
+      "path": "/assets/discovery/photos/subject-1870801.webp",
       "width": 960,
-      "height": 639,
-      "kind": "area",
-      "caption": "Area view · Nakama River, Iriomote · 2011",
-      "author": "663highland",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:Nakama_River_Iriomote_Okinawa_Japan06s3.jpg"
+      "height": 720,
+      "kind": "place",
+      "caption": "Ghost crab at night on Iriomote · 2006",
+      "author": "by Was a bee",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:O.cordimana_Latreille.jpg",
+      "smallPath": "/assets/discovery/photos/subject-1870801-480.webp"
     }
   },
   {
@@ -9636,18 +8954,6 @@
       "sourceLabel": "Okinawa official tourism guide",
       "readAt": "2026-09-08"
     },
-    "photo": {
-      "path": "/assets/discovery/photos/okinawa-098.webp",
-      "caption": "Hateruma village and fields · daytime aerial view · 2024",
-      "author": "ブルーノ・プラス",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Aerial_photo_of_the_Hateruma_Island_village.jpg",
-      "smallPath": "/assets/discovery/photos/okinawa-098-480.webp",
-      "width": 960,
-      "height": 720,
-      "kind": "place"
-    },
     "checked": "2026-09-08",
     "sourceScope": "Experience and planning context read from the linked official venue or tourism source. Opening, tickets and availability have not been checked for your visit. Photographs are dated historical views; see their captions for the subject shown."
   },
@@ -9673,8 +8979,8 @@
       "smallPath": "/assets/discovery/photos/reference-1450298-480.webp",
       "width": 960,
       "height": 638,
-      "kind": "area",
-      "caption": "Area view · Hatoma Island · 2006",
+      "kind": "place",
+      "caption": "Hatoma Island · 2006",
       "author": "ippei-janine",
       "license": "CC BY 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
@@ -9703,8 +9009,8 @@
       "smallPath": "/assets/discovery/photos/reference-1627139-480.webp",
       "width": 960,
       "height": 720,
-      "kind": "area",
-      "caption": "Area view · Yonaguni Island · 2006",
+      "kind": "place",
+      "caption": "Yonaguni Island · 2006",
       "author": "Metatron",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",

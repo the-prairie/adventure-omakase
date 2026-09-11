@@ -1,6 +1,25 @@
 # Current release status
 
-## September 11 — complete catalogue visuals and shared spacing
+## September 11 — photograph subject correction
+
+The previous “complete catalogue visuals” claim was misleading: repeated area
+photos did not depict many of the assigned experiences. All 300 assignments were
+reviewed against their actual subject. The corrected catalogue retains 164 images,
+replaces 78, and leaves 58 entries text-only pending a suitable licensed source.
+The 242 illustrated entries have distinct primary images; 204 show their named
+place or product, and 38 are explicitly labelled dish/craft/activity references.
+Rikuro and 551 Horai show their products; Aizuya uses a labelled plain-takoyaki
+reference whose source does not establish the restaurant. No geography fallback
+remains in cards, home results or dice. Source metadata and unresolved entries
+are recorded per discovery in `photographs.json`.
+
+Observed: root `pnpm check` passed all 12 tasks, including 121 friends tests.
+All 10 affected dice scenarios passed in Chromium and WebKit, including a
+missing-image draw that never borrows a neighbouring venue. The flagged cards
+and detail caption were inspected at desktop and phone sizes; synthetic captures
+are in `docs/assets/photo-relevance/`. Publication is in progress.
+
+## September 11 — earlier visual coverage and shared spacing (photo claims superseded)
 
 The shared button helpers combined full-button and text-link styling, removing
 horizontal padding from outlined actions. They now choose one variant. Friends

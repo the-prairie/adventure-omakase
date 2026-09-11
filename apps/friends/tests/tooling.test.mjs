@@ -248,7 +248,7 @@ test('booking migration preserves populated helper rows and version-six backups 
   }
 });
 
-test('every catalogue entry has a local credited photograph with explicit reference scope', async () => {
+test('catalogue photos have explicit subject bindings, distinct images and source credits', async () => {
   const { runInNewContext } = await import('node:vm');
   const sandbox = { window: {} };
   runInNewContext(
@@ -258,7 +258,6 @@ test('every catalogue entry has a local credited photograph with explicit refere
   const catalogue = sandbox.window.OMAKASE.catalogue;
   assert.equal(catalogue.length, 300);
   const illustrated = catalogue.filter((entry) => entry.photo);
-  assert.equal(illustrated.length, 300);
   const references = JSON.parse(
     await readFile(
       join(ROOT, 'public/assets/discovery/photographs.json'),
@@ -267,9 +266,24 @@ test('every catalogue entry has a local credited photograph with explicit refere
   );
   assert.equal(
     new Set(references.flatMap((photo) => photo.catalogueIds)).size,
-    245,
+    300,
+  );
+  assert.equal(references.length, 300);
+  assert.equal(
+    new Set(illustrated.map((entry) => entry.photo.path)).size,
+    illustrated.length,
+    'Each card needs its own reviewed image, not a repeated area fallback',
   );
   for (const reference of references) {
+    assert.deepEqual(reference.catalogueIds, [reference.key]);
+    const entry = catalogue.find((entry) => entry.id === reference.key);
+    assert.ok(entry);
+    assert.equal(reference.reviewedAt, '2026-09-11');
+    if (reference.status === 'not-sourced') {
+      assert.ok(reference.reason);
+      assert.equal(entry.photo, undefined);
+      continue;
+    }
     assert.ok(
       reference.originalDate && reference.originalURL && reference.subject,
     );
@@ -297,7 +311,7 @@ test('every catalogue entry has a local credited photograph with explicit refere
     assert.ok(['place', 'area', 'activity'].includes(photo.kind));
     if (photo.kind === 'area') assert.match(photo.caption, /^Area view · /);
     if (photo.kind === 'activity')
-      assert.match(photo.caption, /^Activity reference · /);
+      assert.match(photo.caption, /^(Activity|Dish|Craft) reference · /);
     assert.ok(photo.width > 0 && photo.width <= 960 && photo.height > 0);
     if (photo.smallPath) {
       const thumbnail = await readFile(join(ROOT, 'public', photo.smallPath));
@@ -308,6 +322,17 @@ test('every catalogue entry has a local credited photograph with explicit refere
           (await readFile(join(ROOT, 'public', photo.path))).length,
       );
     }
+  }
+  for (const [id, subject] of [
+    ['osaka-051', /takoyaki/i],
+    ['osaka-058', /Rikuro/],
+    ['osaka-059', /551 Horai/],
+    ['tokyo-079', /Nippara/],
+    ['okinawa-034', /Hiji/],
+  ]) {
+    const entry = catalogue.find((entry) => entry.id === id);
+    assert.match(entry.photo.caption, subject);
+    assert.match(references.find((photo) => photo.key === id).subject, subject);
   }
   assert.equal(catalogue.filter((entry) => entry.experience).length, 56);
   for (const region of ['osaka', 'okinawa']) {

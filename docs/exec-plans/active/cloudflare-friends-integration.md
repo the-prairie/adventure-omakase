@@ -265,3 +265,16 @@ achieved; separate foundation products and physical-device/provider acceptance
 remain as described in CURRENT_STATUS.
 
 Root implementation: `1c1a88c0c3cf52b2482da0f6cfe996133c0e8030`.
+
+## September 11: photograph subject correction
+
+The user identified repeated street imagery on unrelated food cards. Audit all 300
+assignments, replace subject mismatches, remove geographic fallback assignment,
+and leave unverified images absent. The corrected register has 164 retained, 78
+replaced and 58 unresolved entries; 242 distinct primary photographs are assigned
+by discovery ID. Illustrated dish/craft references are explicit.
+
+Acceptance: inspect the flagged food cards and image-free recovery on desktop and
+phone, pass the source-binding and affected dice checks plus repository gates,
+publish to the existing Site audience, and verify asset identity and preserved
+trip state. Validation and release evidence are recorded in CURRENT_STATUS.

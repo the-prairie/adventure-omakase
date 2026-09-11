@@ -1,6 +1,6 @@
 # Discovery photographs and source notes
 
-These photographs replace the repeated mood atlas. Each subject was checked against its Commons description and visually inspected. They are historical views, not evidence of current opening, access or appearance. All 300 built-in catalogue entries now have a real photograph. When the venue itself is not pictured, the visible caption explicitly says Area view or Activity reference. Regional chapter illustrations remain decorative.
+Photographs are assigned by explicit discovery ID after checking the source description and the image itself. The catalogue currently has 242 distinct primary photographs and 58 text-only discoveries. A photo must depict the named place or the actual dish, craft or activity; those illustrative subjects are visibly labelled. Proximity to a neighbourhood does not make an image relevant. Regional chapter illustrations remain decorative. These historical views do not establish current appearance, opening or availability.
 
 Images are resized and converted to WebP; the UI may crop their framing. Each image retains its listed license, including share-alike where applicable. Attribution and license links accompany every displayed image.
 
@@ -124,25 +124,25 @@ These three Commons thumbnails are served as JPEG at 960 pixels wide. The UI cro
 - `osaka-027.jpg`: [Kizu Wholesale Market entrance · 2018](<https://commons.wikimedia.org/wiki/File:Osaka_Kizu_Wholesale_Market_2018-01-07_(41186542061).jpg>) · m-louis .® · [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
 - `osaka-047.jpg`: [Kitsune udon at Dotonbori Imai · 2009](https://commons.wikimedia.org/wiki/File:%E9%81%93%E9%A0%93%E5%A0%80%E4%BB%8A%E4%BA%95%E3%81%AE%E3%81%8D%E3%81%A4%E3%81%AD%E3%81%86%E3%81%A9%E3%82%93_%283739321692%29.jpg) · Kiyonobu Ito · [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
 
-## Complete catalogue coverage, September 11, 2026
+## Subject relevance correction, September 11, 2026
 
-The [new photograph register](photographs.json) lists 148 reviewed subjects, their
-original files, dates, authors, licenses, derivatives and the 245 catalogue IDs
-they illustrate. The original 55 illustrated entries retain their primary photos.
-The completed catalogue uses 200 distinct primary photographs. Shared area images
-are deliberate context, not claims that two venues are the same place. The one
-squid-ink soup research lead uses a clearly labelled Naha market view because a
-verified photograph of the dish was not available in this sourcing pass.
+The earlier coverage pass incorrectly reused neighbourhood scenery across unrelated
+experiences. Its labels and file counts did not establish subject relevance.
+The [photograph register](photographs.json) now contains one reviewed row per
+catalogue ID: 164 retained photographs, 78 replacements, and 58 unresolved entries.
+Unresolved entries have no photograph. Each illustrated entry uses a distinct
+primary image, with source, author, license, date and derivative metadata.
 
-Every source subject and downloaded photograph was inspected. Similarly named
-places in other cities, unrelated search results and inappropriate images were
-rejected. Missing or unreliable source dates remain explicit. The two historical
-450-pixel views of Cape Maeda and Yomitan pottery village retain their original
-resolution; the other new subjects are served at up to 960 pixels wide, with
-480-pixel derivatives when the source supports them. Images are converted to
-WebP without retouching and may be cropped by the UI. Every derivative retains
-the source license. Visible credits link to the source and its license.
+Examples: Rikuro and 551 Horai show their actual products. Aizuya uses a labelled
+plain-takoyaki dish reference, not a photograph established as Aizuya's own serving.
+Nippara Cave, Hiji Falls and the Currency Museum no longer borrow river, cape or
+street pictures. The National Bunraku Theatre represents the sujoruri venue;
+a puppet performance would misrepresent that programme.
+
+The individual source metadata and downloaded photographs were inspected. This
+manual review is distinct from automated checks of file existence, unique bindings,
+credits, snapshot agreement and the no-neighbour-fallback behavior. The old tables
+above retain the earlier source history; the register is the current assignment.
 
 Cards load lazily with responsive sources. Small agenda and dice thumbnails use
-the smaller variant. Catalogue images do not establish current opening hours,
-weather, access, operator availability or a booking.
+the smaller variant. Derivatives retain the source license and visible links.
