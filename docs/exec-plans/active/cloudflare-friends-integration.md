@@ -213,7 +213,7 @@ Added the opt-in `tests/native/pilot-completed.spec.mjs` operator-mediated scena
 
 ## September 11: explicit intention and coherent agent control
 
-Status: implementation and local acceptance complete; publication pending. The user requested a thorough reading of the pilot feedback
+Status: implemented, locally verified and published as Sites version 13. The user requested a thorough reading of the pilot feedback
 and the changes needed to make the system accurately observable and controllable
 with less repeated interpretation. ADR 0010 defines one shared plan projection
 across human UI, local example, companion and authenticated agent observation.
@@ -229,4 +229,8 @@ Observed checks: root `pnpm check` (12 tasks, 120 friends tests), populated
 migration/backup round trip, both Sites adapter tests and the two-person phone
 flow in Chromium and WebKit. All 11 native workerd checks passed. All 90 enabled browser scenarios have passing
 evidence across the full regression and six corrected-copy reruns; two opt-in
-historical pilot cases remain skipped. Exact release evidence belongs in CURRENT_STATUS.
+historical pilot cases remain skipped. Implementation `9a4f48e`; Sites source
+`08549767e8a11696c7345ae844c5c32dc661bc90`. The 18:50:47 UTC verification matched
+all 14 release assets, prior canonical records and the existing photo; context,
+catalogue, unchanged reads and session authorization passed. The existing
+two-person audience is unchanged. Full release evidence is in CURRENT_STATUS.

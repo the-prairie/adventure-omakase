@@ -34,7 +34,22 @@ scenarios in each engine); after updating those assertions, all six passed,
 including both full multi-person trip simulations. All 90 enabled scenarios have
 passing evidence across these runs, not one zero-failure full suite.
 
-All 11 native workerd checks passed. Publication evidence is pending. The historical pilot
+All 11 native workerd checks passed. Root implementation is `9a4f48e`.
+Sites version 13 was published from `08549767e8a11696c7345ae844c5c32dc661bc90`.
+At 2026-09-11 18:50:47 UTC, authenticated health and all 14 release assets matched.
+The schema-seven backup compared equal to all prior canonical records, with the
+new historical receipt column normalized to null, and the retained photo matched
+its backup hash. Authenticated context/catalogue reads passed, unchanged context
+returned 204, and a Site-authorized request without a trip session returned 401.
+The existing two-person audience remains policy revision 2. No separate Cloudflare
+production promotion or merge occurred.
+
+GitHub validation and browser jobs were still running when checked. Its aggregate
+CodeQL gate reports 15 unresolved alerts (13 high, two medium); their paths,
+rule titles and messages match baseline `a28f314`. This change does not resolve
+those inherited alerts, and local acceptance is not merge approval.
+
+The historical pilot
 and journal remain unchanged; no autonomous week-long run or in-field travel is
 claimed. Physical-device and live-provider acceptance remain separate.
 
