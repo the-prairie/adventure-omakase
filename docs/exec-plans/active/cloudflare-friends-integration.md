@@ -278,3 +278,11 @@ Acceptance: inspect the flagged food cards and image-free recovery on desktop an
 phone, pass the source-binding and affected dice checks plus repository gates,
 publish to the existing Site audience, and verify asset identity and preserved
 trip state. Validation and release evidence are recorded in CURRENT_STATUS.
+
+Observed: root implementation `33683ae0ce8d93c31372fa68e826c1c083d2d3c7` passed
+12 repository tasks / 121 friends tests and all 10 affected browser scenarios.
+Sites version 16 from `b8ca2029c9195240f77acc2eb99be6531fedc8e9` is live; 14
+release assets and 481 photograph files match, canonical records/photo are
+preserved, and corrected food cards were inspected on desktop and phone. Both
+Sites adapter tests pass. Subject mismatch repair is complete; the register keeps
+the remaining 58 photo gaps explicit.

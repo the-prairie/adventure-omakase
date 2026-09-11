@@ -17,7 +17,18 @@ Observed: root `pnpm check` passed all 12 tasks, including 121 friends tests.
 All 10 affected dice scenarios passed in Chromium and WebKit, including a
 missing-image draw that never borrows a neighbouring venue. The flagged cards
 and detail caption were inspected at desktop and phone sizes; synthetic captures
-are in `docs/assets/photo-relevance/`. Publication is in progress.
+are in `docs/assets/photo-relevance/`. Sites types/syntax and both adapter tests
+also passed. All 242 primary image hashes are distinct.
+
+Root implementation: `33683ae0ce8d93c31372fa68e826c1c083d2d3c7`.
+Sites version 16 is live from `b8ca2029c9195240f77acc2eb99be6531fedc8e9`.
+At 2026-09-11 21:11:28 UTC, all 14 release assets and 481 assigned photograph
+files matched without retries. Canonical trip records and the saved photo match
+the pre-update backup. Health, context/catalogue, unchanged 204 and missing-session
+401 checks passed. Live phone and desktop food cards loaded the corrected photos;
+a text-only discovery remained readable and usable. The existing two-person
+access policy remains revision 2. This corrects image relevance; it does not
+complete the outstanding 58 photographs or establish current venue appearance.
 
 ## September 11 — earlier visual coverage and shared spacing (photo claims superseded)
 
