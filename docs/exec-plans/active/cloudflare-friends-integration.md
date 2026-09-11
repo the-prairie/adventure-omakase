@@ -206,3 +206,7 @@ Three new source-credited venue photographs bring the catalogue to 55 illustrate
 entries; companion and public catalogue snapshots remain equal. Acceptance and
 release evidence are recorded in CURRENT_STATUS. Physical-device feel remains
 separate from browser evidence. The existing shared Sites audience is preserved.
+
+## Fictional pilot evidence — September 11, 2026
+
+Added the opt-in `tests/native/pilot-completed.spec.mjs` operator-mediated scenario and replay instructions in `tests/native/PILOT.md`. Four independent fictional actors supplied decisions to isolated browser accounts. A fresh retained-harness replay passed (1 Chromium case, 47 seconds); root `pnpm check` passed. The scenario demonstrated separate afternoon ideas and explicit dinner RSVPs, with comments carrying sitting-out intent. This is scenario evidence, not real customer research or reconfirmation coverage. Application baseline was `0073c2134a5b8c227722ca3de770cbbaaff5df9c`; no app runtime change or deployment is implied. Journal publication is separate.
