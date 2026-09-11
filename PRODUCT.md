@@ -30,14 +30,16 @@ The canonical brief calls for a warm, editorial Japanese travel journal: calm an
 
 The September 11 Corner reference supersedes the tall editorial opening on the
 mobile browser surface. Explore leads with search, a compact list/map switch,
-regions and private Saved places. Dice and curated outings open through one
+private Saved places and a single Filters control containing regions. In a short
+phone viewport, the first photograph and complete place name must appear above
+the navigation dock; decorative headings must not displace them. Dice and curated outings open through one
 explicit disclosure. Place sheets put the title, save state, photography and
 short summary first, with compact map/source actions, independently expandable
 guides and one sticky invitation action. Preserve the research, private-save
 and participation contracts. The compact agenda remains one action away.
 
 Mobile uses white surfaces, near-black actions, a quiet lavender tint and
-self-hosted Inter display headings. Desktop retains the established paper
+self-hosted Inter for mobile body text, controls and place headings. Desktop retains the established paper
 palette. This adapts Corner's observed navigation and hierarchy; it does not
 claim its public social network, visited ratings or import automation.
 
@@ -51,6 +53,11 @@ Within “Let Omakase choose,” Explore presents three considered outings for e
 
 An outing story and its starting draft share the same stop durations and travel allowances. Those are editable planning estimates, not verified opening hours or route feasibility. One visual editor leads to a distinct invitation review, then an explicit publish action. Friends may join all or one offered stop.
 
-Friends opens on a chosen day and actual invitations. Travel-window overlap is supporting context and never implies availability or proximity. Primary navigation remains Explore, Your day, Friends and Memories. Memory creation is voluntary, with an explicit private or trip-shared choice; a completed plan creates neither attendance nor a memory automatically.
+Friends opens on a chosen day and actual invitations. Travel-window overlap is supporting context and never implies availability or proximity. Primary navigation remains Explore, Your day, Friends and Memories. Memory creation is voluntary, with an explicit private or trip-shared choice before writing and an audience-specific submit action; a completed plan creates neither attendance nor a memory automatically.
+
+Keyboard focus must survive filtering, saving and dialog dismissal. Japanese
+input composition must finish before discovery results replace the input. Empty
+Saved and Memories views explain the next action. The example hands off to the
+shared app through an ordinary link without exposing deployment instructions.
 
 Implementation does not establish deployment, live-provider behavior or completed visual acceptance. Preserve the existing acceptance gates and record their observed evidence separately.

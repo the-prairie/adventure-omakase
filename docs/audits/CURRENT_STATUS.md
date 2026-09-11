@@ -1,5 +1,33 @@
 # Current release status
 
+## September 11 — interface quality repair
+
+The rejected version 10 phone opening has been repaired. Compact controls put
+an actual discovery and its complete name above the dock at 393×620. Trip and
+search text fit narrow phones; tablets use two discovery columns. Keyboard
+focus survives saving and filtering, composed search is retained, and empty
+views have useful recovery. Memory audience appears before writing with an
+explicit shared/private submit action. Map groups avoid collisions, failure
+recovery has its own space, and markers work with Enter/Space. Expanded outing
+photo credits remain outside disclosure controls. The local example opens the
+shared app without deployment instructions.
+
+Root `pnpm check` passed all 12 tasks, including 115 friends tests. Both Sites
+compatibility tests, syntax/type checks and all 11 local workerd checks passed.
+Axe found zero violations
+in 21 sampled route/dialog states after corrections; this is not WCAG
+certification. A fresh reviewer scored its memory-audience, map-overlap and
+320px-search findings resolved. The audit maps changes to evidence in
+`apps/friends/docs/UX_QUALITY_AUDIT.md`.
+
+The 76-case browser regression passed 74; two old toast-copy assertions were
+updated and the full saving paths then passed in both engines. The final 26-case affected-flow run passed 25; the remaining WebKit state-fetch
+transport failure passed in isolation (1/1). Both multi-person trip simulations
+and all five new quality cases passed. All current browser scenarios have
+passing evidence through these runs, not one zero-failure full suite.
+Implementation SHA and publication identity follow in the release evidence update. Physical iPhone keyboard, Home Screen,
+VoiceOver, live providers and in-field use remain manual acceptance.
+
 ## September 11 — Corner-inspired mobile discovery
 
 The requested Corner reference informs a simpler phone journey: search and list/map

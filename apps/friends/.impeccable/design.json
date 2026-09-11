@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-11T05:46:34.823330+00:00",
+  "generatedAt": "2026-09-11T07:35:40.786295+00:00",
   "title": "Design System: Adventure Omakase Friends",
   "extensions": {
     "shadows": [
@@ -12,7 +12,7 @@
       {
         "name": "places-filter",
         "value": "0 12px 40px #14182026",
-        "purpose": "Floating area, mood and time filter panel."
+        "purpose": "Floating region, area, mood and time filter panel."
       },
       {
         "name": "photo-save",
@@ -22,7 +22,7 @@
       {
         "name": "map-feedback",
         "value": "0 4px 20px #18191b24",
-        "purpose": "Map feedback overlay."
+        "purpose": "Map failure status in a dedicated normal-flow row above the map."
       }
     ],
     "motion": [
@@ -57,12 +57,20 @@
         "value": "700px"
       },
       {
-        "name": "discovery-grid",
+        "name": "places-tablet-grid-start",
+        "value": "600px"
+      },
+      {
+        "name": "places-tablet-grid-end-and-header-density",
+        "value": "1100px"
+      },
+      {
+        "name": "legacy-content-grid",
         "value": "900px"
       },
       {
-        "name": "header-density",
-        "value": "1100px"
+        "name": "compact-discovery-controls",
+        "value": "360px"
       }
     ],
     "colorMeta": {
@@ -293,16 +301,30 @@
       "mobile-pale": {
         "role": "neutral",
         "displayName": "Pale mobile support"
+      },
+      "mobile-control-border": {
+        "role": "neutral",
+        "displayName": "Mobile field boundary",
+        "tonalRamp": [
+          "oklch(0.150 0.0164 298.41)",
+          "oklch(0.264 0.0164 298.41)",
+          "oklch(0.379 0.0164 298.41)",
+          "oklch(0.493 0.0164 298.41)",
+          "oklch(0.607 0.0164 298.41)",
+          "oklch(0.721 0.0164 298.41)",
+          "oklch(0.836 0.0164 298.41)",
+          "oklch(0.950 0.0164 298.41)"
+        ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Explore display",
-        "purpose": "Expanded outing introduction; 32px at <=850px. Its serif family resolves to system sans-serif on mobile."
+        "purpose": "Expanded outing introduction; 32px at <=850px. Its serif family resolves to Inter on mobile."
       },
       "page-title": {
         "displayName": "Page title",
-        "purpose": "Other page headings; 32px on mobile, where serif resolves to system sans-serif. Friends retains its 42px/32px role."
+        "purpose": "Ordinary desktop page headings. On mobile the serif stack resolves to Inter; Friends and Memories use mobile-section-title."
       },
       "headline": {
         "displayName": "Dialog headline",
@@ -310,7 +332,7 @@
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Readable system sans-serif prose."
+        "purpose": "Readable system sans-serif prose on desktop; mobile-body supplies Inter on phones."
       },
       "label": {
         "displayName": "Field label",
@@ -319,10 +341,6 @@
       "places-display": {
         "displayName": "Places Display",
         "purpose": "Searchable places heading. Self-hosted Inter Display with optical sizing."
-      },
-      "mobile-places-display": {
-        "displayName": "Mobile places display",
-        "purpose": "At <=850px. Searchable places heading."
       },
       "place-title": {
         "displayName": "Place Title",
@@ -338,7 +356,27 @@
       },
       "mobile-place-card-title": {
         "displayName": "Mobile place card title",
-        "purpose": "At <=850px. Photo-led place list title."
+        "purpose": "At <=850px: complete photo-led place title at 20px/1.2, above the dock in the accepted short-phone composition."
+      },
+      "mobile-body": {
+        "displayName": "Mobile body",
+        "purpose": "Inter base body text across the mobile app at <=850px."
+      },
+      "mobile-common-copy": {
+        "displayName": "Mobile common copy",
+        "purpose": "Readable 14px explanations such as the Memories introduction; empty explanations retain 1.6 line height."
+      },
+      "mobile-navigation": {
+        "displayName": "Mobile navigation",
+        "purpose": "12px labels beneath 22px dock icons in 52px-minimum destinations."
+      },
+      "mobile-trip-title": {
+        "displayName": "Mobile trip title",
+        "purpose": "Fully wrapping trip name in the 52px-minimum phone header."
+      },
+      "mobile-section-title": {
+        "displayName": "Mobile section title",
+        "purpose": "Shared 26px heading role for Friends and Memories at <=850px."
       }
     },
     "responsiveOverrides": [
@@ -412,16 +450,16 @@
       "name": "Text Field",
       "kind": "input",
       "refersTo": "field",
-      "description": "Persistent label and readable native input.",
+      "description": "Persistent label and native input; stronger mobile field boundary with Inter and compact-phone 16px text.",
       "html": "<label class=\"ds-label\" for=\"ds-title\">Plan title</label><input class=\"ds-field\" id=\"ds-title\" placeholder=\"An afternoon together\">",
-      "css": ".ds-label{display:block;font:600 13px/1.5 var(--sans);margin-bottom:6px}.ds-field{padding:10px 12px;min-height:46px;background:var(--white);color:var(--ink);border:1px solid #b9c2b7;border-radius:var(--control-radius);font:15px var(--sans)}.ds-field:focus-visible{outline:2px solid var(--green);outline-offset:3px}"
+      "css": ".ds-label{display:block;font:600 13px/1.5 var(--sans);margin-bottom:6px}.ds-field{padding:10px 12px;min-height:46px;background:var(--white);color:var(--ink);border:1px solid #b9c2b7;border-radius:var(--control-radius);font:15px var(--sans)}.ds-field:focus-visible{outline:2px solid var(--green);outline-offset:3px}@media(max-width:850px){.ds-field{border-color:#96939e;font-family:var(--sans,Inter,sans-serif)}}@media(max-width:700px){.ds-field{font-size:16px;min-height:48px}}"
     },
     {
       "name": "Navigation",
       "kind": "nav",
-      "description": "Four destinations; desktop underline, mobile lavender active fill.",
+      "description": "Four destinations; desktop underline, mobile lavender active fill with 12px labels and 52px-minimum targets.",
       "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><button aria-current=\"page\">Explore</button><button>Your day</button><button>Friends</button><button>Memories</button></nav>",
-      "css": ".ds-nav{display:flex;gap:4px}.ds-nav button{min-height:44px;padding:10px 14px;background:transparent;border:0;border-radius:24px;font:500 12px var(--sans);color:#676e61}.ds-nav button[aria-current]{color:var(--green);border-radius:0;box-shadow:inset 0 -2px var(--green)}.ds-nav button:not([aria-current]):hover{background:var(--lightgreen)}.ds-nav button:focus-visible{outline:2px solid var(--green);outline-offset:3px}@media(max-width:850px){.ds-nav{background:var(--white,#fff)}.ds-nav button[aria-current]{background:var(--lightgreen,#f1eff6);color:var(--ink,#18191b);border-radius:24px;box-shadow:none}}"
+      "css": ".ds-nav{display:flex;gap:4px}.ds-nav button{min-height:44px;padding:10px 14px;background:transparent;border:0;border-radius:24px;font:500 12px var(--sans);color:#676e61}.ds-nav button[aria-current]{color:var(--green);border-radius:0;box-shadow:inset 0 -2px var(--green)}.ds-nav button:not([aria-current]):hover{background:var(--lightgreen)}.ds-nav button:focus-visible{outline:2px solid var(--green);outline-offset:3px}@media(max-width:850px){.ds-nav{background:var(--white,#fff)}.ds-nav button[aria-current]{background:var(--lightgreen,#f1eff6);color:var(--ink,#18191b);border-radius:24px;box-shadow:none}}@media(max-width:850px){.ds-nav{padding:4px 8px;gap:4px}.ds-nav button{flex:1;min-height:52px;font-size:12px;color:var(--muted,#62616a)}.ds-nav button[aria-current]{color:var(--ink,#18191b)}}"
     },
     {
       "name": "Selected Filter",
@@ -442,9 +480,9 @@
       "name": "Places Search and View",
       "kind": "input",
       "refersTo": "mobile-search",
-      "description": "Flexible mobile search beside accessible 44px map/list controls.",
-      "html": "<div class=\"ds-places-tools\"><label class=\"ds-search\">Search discoveries<input type=\"search\" placeholder=\"Places, neighbourhoods, cravings\u2026\"></label><div class=\"ds-views\" role=\"group\" aria-label=\"Discovery view\"><button aria-label=\"List view\" aria-pressed=\"true\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 6h16M4 12h16M4 18h16\"/></svg></button><button aria-label=\"Map view\" aria-pressed=\"false\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Z M9 3v16M15 5v16\"/></svg></button></div></div>",
-      "css": ".ds-places-tools{display:flex;align-items:center;gap:8px;font:13px var(--sans,sans-serif);color:var(--ink,#18191b)}.ds-search{flex:1;min-width:0}.ds-search input{display:block;width:100%;height:48px;padding:0 15px;border:0;border-radius:28px;background:var(--lightgreen,#f1eff6);color:inherit;font:16px var(--sans,sans-serif)}.ds-views{display:flex;flex-shrink:0;gap:4px;padding:3px;background:var(--lightgreen,#f1eff6);border-radius:28px}.ds-views button{display:grid;place-items:center;width:44px;min-height:44px;border:0;border-radius:24px;background:transparent;color:inherit;cursor:pointer}.ds-views button[aria-pressed=true]{background:var(--green,#202024);color:white}.ds-views button:hover{background:#eff0e7;color:var(--ink,#18191b)}.ds-views button:focus-visible,.ds-search input:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}"
+      "description": "One flex row places an 18px search icon and a shrinking input beside accessible 44px map/list controls; Search places remains readable at 320px.",
+      "html": "<div class=\"ds-places-tools\"><div class=\"ds-search\"><svg class=\"ds-search-icon\" aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 5 5\"/></svg><label class=\"ds-search-label\" for=\"ds-place-search\">Search discoveries</label><input id=\"ds-place-search\" type=\"search\" placeholder=\"Search places\"></div><div class=\"ds-views\" role=\"group\" aria-label=\"Discovery view\"><button aria-label=\"List view\" aria-pressed=\"true\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 6h16M4 12h16M4 18h16\"/></svg></button><button aria-label=\"Map view\" aria-pressed=\"false\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Z M9 3v16M15 5v16\"/></svg></button></div></div>",
+      "css": ".ds-places-tools{display:flex;align-items:center;gap:8px;font:13px var(--sans,sans-serif);color:var(--ink,#18191b)}.ds-search{display:flex;align-items:center;gap:8px;flex:1;min-width:0;min-height:48px;padding:0 15px;border-radius:28px;background:var(--lightgreen,#f1eff6)}.ds-search-icon{position:static;flex-shrink:0;width:18px;height:18px}.ds-search-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.ds-search input{flex:1;width:100%;min-width:0;height:48px;padding:0;border:0;background:transparent;color:inherit;font:16px var(--sans,sans-serif)}.ds-views{display:flex;flex-shrink:0;gap:4px;padding:3px;background:var(--lightgreen,#f1eff6);border-radius:28px}.ds-views button{display:grid;place-items:center;width:44px;min-height:44px;padding:10px;border:0;border-radius:24px;background:transparent;color:inherit;cursor:pointer}.ds-views button[aria-pressed=true]{background:var(--green,#202024);color:white}.ds-views button:hover{background:#eff0e7;color:var(--ink,#18191b)}.ds-views button:focus-visible,.ds-search input:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}"
     },
     {
       "name": "Place Quick Action",
@@ -459,7 +497,7 @@
       "kind": "custom",
       "refersTo": "place-section",
       "description": "Independent experience, practical and research sections; operational warnings remain outside.",
-      "html": "<details class=\"ds-place-section\"><summary>Research &amp; sources<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><p>Research lead \u00b7 not reverified for your visit</p></details>",
+      "html": "<details class=\"ds-place-section\"><summary>Research &amp; sources<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><p>Research lead · not reverified for your visit</p></details>",
       "css": ".ds-place-section{border-top:1px solid var(--line,#e5e4ea);color:var(--ink,#18191b);font:15px/1.65 var(--sans,sans-serif)}.ds-place-section summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:18px 0;cursor:pointer;font-weight:600;list-style:none}.ds-place-section[open] summary svg{transform:rotate(45deg)}.ds-place-section summary:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}.ds-place-section p{margin:0 0 20px}"
     },
     {
@@ -474,8 +512,23 @@
       "name": "Place Card Without Photo",
       "kind": "card",
       "description": "Actual text-only fallback with an independent save control; no fabricated image.",
-      "html": "<article class=\"ds-place-card\"><button class=\"ds-place-save\" aria-label=\"Save for myself\" aria-pressed=\"false\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 3h12v18l-6-4-6 4Z\"/></svg></button><p class=\"ds-place-category\">Tokyo \u00b7 Culture</p><h3><button>A local research lead</button></h3><p class=\"ds-place-copy\">Open the place to read its practical context and sources.</p><p class=\"ds-place-category\">About 60 minutes on site \u00b7 travel extra</p></article>",
-      "css": ".ds-place-card{position:relative;border-top:1px solid var(--line,#e5e4ea);padding:14px 52px 0 0;color:var(--ink,#18191b);font:14px/1.45 var(--sans,sans-serif)}.ds-place-card .ds-place-save{position:absolute;right:0;top:0;width:44px;height:44px;border:0;border-radius:50%;background:var(--lightgreen,#f1eff6);color:inherit;cursor:pointer}.ds-place-category{font-size:12px;color:var(--muted,#62616a);margin:0 0 5px}.ds-place-card h3{margin:0 0 8px;font:700 20px/1.18 \"Inter Display\",var(--sans,sans-serif);letter-spacing:-.025em}.ds-place-card h3 button{min-height:44px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.ds-place-copy{margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ds-place-card button:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(max-width:850px){.ds-place-card h3{font-size:22px}}"
+      "html": "<article class=\"ds-place-card\"><button class=\"ds-place-save\" aria-label=\"Save for myself\" aria-pressed=\"false\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M6 3h12v18l-6-4-6 4Z\"/></svg></button><p class=\"ds-place-category\">Tokyo · Culture</p><h3><button>A local research lead</button></h3><p class=\"ds-place-copy\">Open the place to read its practical context and sources.</p><p class=\"ds-place-category\">About 60 minutes on site · travel extra</p></article>",
+      "css": ".ds-place-card{position:relative;border-top:1px solid var(--line,#e5e4ea);padding:14px 52px 0 0;color:var(--ink,#18191b);font:14px/1.45 var(--sans,sans-serif)}.ds-place-card .ds-place-save{position:absolute;right:0;top:0;width:44px;height:44px;border:0;border-radius:50%;background:var(--lightgreen,#f1eff6);color:inherit;cursor:pointer}.ds-place-category{font-size:12px;color:var(--muted,#62616a);margin:0 0 5px}.ds-place-card h3{margin:0 0 8px;font:700 20px/1.18 \"Inter Display\",var(--sans,sans-serif);letter-spacing:-.025em}.ds-place-card h3 button{min-height:44px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.ds-place-copy{margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ds-place-card button:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(max-width:850px){.ds-place-card h3{font-size:20px;line-height:1.2}}"
+    },
+    {
+      "name": "Memory Audience Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "First visible memory field, before title, words and photos. The app preserves the selected audience and matches the sticky phone submit action to Share with trip or Save privately.",
+      "html": "<div class=\"ds-memory-audience\"><label for=\"ds-memory-visibility\">Who is this page for?</label><select id=\"ds-memory-visibility\"><option selected>Our trip · shared with friends</option><option>Only me · a private page</option></select><small>Only shared pages appear in our trip book. You can change this later.</small></div>",
+      "css": ".ds-memory-audience{color:var(--ink,#18191b);font:15px/1.65 var(--sans,sans-serif);margin-bottom:20px}.ds-memory-audience label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}.ds-memory-audience select{display:block;width:100%;min-height:46px;padding:10px 12px;background:var(--white,#fff);color:inherit;border:1px solid #b9c2b7;border-radius:var(--control-radius,6px);font:inherit}.ds-memory-audience small{display:block;font-size:12px;color:var(--muted,#62616a)}.ds-memory-audience select:hover{background:var(--pale,#f6f4f8)}.ds-memory-audience select:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(max-width:850px){.ds-memory-audience select{border-color:#96939e;border-radius:12px}}@media(max-width:700px){.ds-memory-audience select{min-height:48px;font-size:16px}}"
+    },
+    {
+      "name": "Map Recovery Status",
+      "kind": "custom",
+      "description": "Dedicated normal-flow status above the map. Browse places remains available without covering region labels; marker keyboard zoom restores focus separately in the map.",
+      "html": "<div class=\"ds-map-feedback\" role=\"status\"><span>Map tiles could not load. Choose an area or browse places.</span><button class=\"ds-map-recovery\">Browse places<svg aria-hidden=\"true\" width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\"><path d=\"M4 12h16m-6-6 6 6-6 6\"/></svg></button></div>",
+      "css": ".ds-map-feedback{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;padding:10px 14px;background:var(--white,#fff);color:var(--ink,#18191b);border-radius:12px;box-shadow:0 4px 20px #18191b24;font:12px/1.4 var(--sans,sans-serif)}.ds-map-recovery{display:inline-flex;align-items:center;gap:8px;flex-shrink:0;min-height:44px;padding:4px 0;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer}.ds-map-recovery:hover{text-decoration:underline}.ds-map-recovery:focus-visible{outline:2px solid var(--green,#202024);outline-offset:3px}@media(max-width:850px){.ds-map-feedback{flex-wrap:wrap;gap:0}}"
     }
   ],
   "narrative": {
@@ -483,10 +536,11 @@
     "overview": "The contemporary journey notebook now has a clean mobile expression: white surfaces, near-black actions, pale lavender controls and compact place photography. Desktop retains warm paper and forest ink. Clear titles, continuous reading surfaces and explicit actions keep the interface calm before a decision and let it recede during travel; dice remain a contained moment of play inside an expandable outing choice.\n\nThis records the implemented friends browser app in this directory, using the current cascade in `public/app.css` and components in `public/app.js` and `public/outings.js`. The accepted Corner-led mobile adaptation and current discovery hierarchy are recorded in `docs/CORNER_MOBILE_RESEARCH.md` and `PRODUCT.md`. The future native application is a separate surface. This document records the current source, not a new product specification. Documentation of an implemented pattern is not evidence of production deployment or completed visual acceptance.",
     "keyCharacteristics": [
       "Continuous reading surfaces with separated entries.",
-      "Self-hosted Inter Display on place headings; editorial serif titles on other desktop surfaces.",
+      "Self-hosted Inter across mobile text and controls; Inter place headings and editorial serif titles on desktop.",
       "White mobile surfaces, near-black actions and pale lavender secondary controls.",
       "Restrained color with explicit interaction states.",
-      "Credited photographs, readable stories and a playable local draw."
+      "Credited photographs, readable stories and a playable local draw.",
+      "Audience before memory composition; map recovery beside the map without covering it."
     ],
     "rules": [
       {
@@ -496,7 +550,7 @@
       },
       {
         "name": "The Task Scale Rule",
-        "body": "Keep forms compact: use sans-serif labels and readable controls beneath a restrained task heading.",
+        "body": "Keep forms compact: use sans-serif labels and readable controls beneath a restrained task heading. Do not enlarge form labels into editorial headlines.",
         "section": "typography"
       },
       {
@@ -512,7 +566,10 @@
       "Do preserve native form values and keyboard behavior when styling selection controls.",
       "Do keep photo credits, reference-image labels and planning uncertainty beside the content they qualify.",
       "Do preserve the distinction between reading, editing, reviewing and publishing an invitation.",
-      "Do make private and trip-shared memory choices explicit."
+      "Do ask for the memory audience before composition and repeat it in the save action.",
+      "Do keep the first complete place name above the dock at 393×620 and the search prompt readable at 320px.",
+      "Do cluster colliding overview labels honestly and keep map recovery in normal flow.",
+      "Do keep outing photographs and credit links outside disclosure summaries."
     ],
     "donts": [
       "Don't turn repeated content into a wall of rounded cards.",

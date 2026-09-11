@@ -70,6 +70,7 @@ window.OmakaseFallbackMap = (() => {
       });
       const layer = L.layerGroup().addTo(map);
       const choose = (p) => select(p.region, p.area);
+      let keyboardZoom = false;
       function draw() {
         if (map !== currentMap || !container.isConnected) return;
         layer.clearLayers();
@@ -80,7 +81,7 @@ window.OmakaseFallbackMap = (() => {
             (c) =>
               point.area !== area &&
               c.points[0].area !== area &&
-              c.region === point.region &&
+              (c.region === point.region || map.getZoom() < 8) &&
               Math.abs(c.pixel.x - pixel.x) < 145 &&
               Math.abs(c.pixel.y - pixel.y) < 55,
           );
@@ -91,14 +92,24 @@ window.OmakaseFallbackMap = (() => {
           const group = cluster.points,
             first = group[0],
             count = group.reduce((n, p) => n + p.count, 0);
+          const regionNames = [...new Set(group.map((p) => p.region))];
           const label =
-            group.length > 1
-              ? map.getZoom() < 8
-                ? region === 'all'
-                  ? regions[first.region]
-                  : `${first.area.includes(':') ? first.area.split(':')[0] : { tokyo: 'Tokyo', osaka: 'Osaka', okinawa: 'Okinawa main island' }[first.region]} & nearby`
-                : `${first.area} + ${group.length - 1} areas`
-              : first.area;
+            regionNames.length > 1
+              ? regionNames
+                  .map(
+                    (r) =>
+                      ({ tokyo: 'Tokyo', osaka: 'Osaka', okinawa: 'Okinawa' })[
+                        r
+                      ],
+                  )
+                  .join(' + ')
+              : group.length > 1
+                ? map.getZoom() < 8
+                  ? region === 'all'
+                    ? regions[first.region]
+                    : `${first.area.includes(':') ? first.area.split(':')[0] : { tokyo: 'Tokyo', osaka: 'Osaka', okinawa: 'Okinawa main island' }[first.region]} & nearby`
+                  : `${first.area} + ${group.length - 1} areas`
+                : first.area;
           const marker = L.marker([first.lat, first.lng], {
             icon: L.divIcon({
               className: 'area-map-marker',
@@ -120,12 +131,24 @@ window.OmakaseFallbackMap = (() => {
             'selected',
             group.some((p) => p.area === area),
           );
+          el.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            event.stopPropagation();
+            keyboardZoom = group.length > 1;
+            marker.fire('click');
+          });
           marker.on('click', () => {
             if (group.length === 1) return choose(first);
             if (map.getZoom() < 16) {
-              map.fitBounds(
-                group.map((p) => [p.lat, p.lng]),
-                { padding: [70, 70], maxZoom: Math.min(16, map.getZoom() + 3) },
+              const bounds = L.latLngBounds(group.map((p) => [p.lat, p.lng]));
+              const target = Math.max(
+                map.getZoom() + 1,
+                map.getBoundsZoom(bounds, false, [140, 140]),
+              );
+              map.setView(
+                bounds.getCenter(),
+                Math.min(16, map.getZoom() + 3, target),
               );
             } else {
               const list = document.createElement('div');
@@ -139,6 +162,12 @@ window.OmakaseFallbackMap = (() => {
               marker.bindPopup(list).openPopup();
             }
           });
+        }
+        if (keyboardZoom) {
+          container
+            .querySelector('.area-map-marker')
+            ?.focus({ preventScroll: true });
+          keyboardZoom = false;
         }
       }
       if (selected) map.setView([selected.lat, selected.lng], 13);

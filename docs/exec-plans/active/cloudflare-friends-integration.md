@@ -166,3 +166,20 @@ The user requested the complete assessed UI improvement slice, a recorded simula
 Acceptance evidence: root `pnpm check` passed 12 tasks and 115 friends tests; Sites compatibility 2/2, local workerd 11/11; the affected browser rerun passed 12/12 after the full regression exposed and corrected travel-tool access and outdated collapsed-calendar selectors. The 13-scene isolated trip passed and was recorded. The final design disposition is ship. Source identities, deployed acceptance and the separate publication are recorded in CURRENT_STATUS; physical-device and live-provider gates remain separate.
 
 Implementation checkpoint `07543d5` is deployed as Sites version 9, source `07dc3a18ea46c6154664a74f6cec4458c62bca7c`; authenticated health and 13 release assets matched. The current two-person audience is unchanged.
+
+## September 11: interface quality repair
+
+Status: implemented; final release verification in progress. The user's rejected
+phone screenshot supersedes prior visual acceptance. Acceptance requires a
+complete first discovery name above the 393×620 dock, unclipped 320px search,
+consistent primary destinations, preserved keyboard/input context, explicit
+memory audience before writing, distinct map controls and usable empty/error
+states. Implementation is in `apps/friends/public/app.js`, `app.css` and
+`discovery-map.js`; five new browser cases in `quality.spec.mjs` supplement the
+existing multi-user, map, curation and trip regression.
+
+Observed repository checks passed 12 tasks / 115 friends tests; both Sites tests
+passed. Independent visual review scored three findings resolved and 21 sampled
+Axe states reported zero violations. The quality audit and CURRENT_STATUS
+record the full regression history and remaining physical/provider limits.
+Commit and exact publication evidence are added after release verification.

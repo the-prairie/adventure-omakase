@@ -45,6 +45,13 @@ map is opened explicitly, and failed tiles reveal status and list recovery in
 the map viewport. Inter display fonts are self-hosted with their license. The
 mobile white/near-black palette changes presentation, not state or access.
 
+Discovery filters preserve the active query and restore control focus after a
+render. Input composition commits only when it ends. Dialog dismissal restores
+the opening action using a stable action/id key when saving replaces its DOM
+node. The local example hands off to the same-origin shared entry without
+transferring example records. These are presentation and navigation changes;
+canonical storage, access and participant rules are unchanged.
+
 ## Current friends release
 
 The September 6 assignment and [ADR 0006](docs/decisions/0006-cloudflare-friends-edition.md) supersede the native-first deployment scope for this release. One browser app in `apps/friends` calls its same-origin Worker; D1 is canonical metadata and private R2 holds selected, resized photos. SQL triggers and D1 batches enforce revisions and capacity. Polling only refreshes committed state; it is never a second state authority.

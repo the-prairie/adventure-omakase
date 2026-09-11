@@ -87,6 +87,9 @@
     calendar:
       '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v5M16 3v5M7 14h2m3 0h2M7 17h2m3 0h2"/>',
     sun: '<circle cx="12" cy="12" r="4"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3M4 4l2 2M18 18l2 2M4 20l2-2M18 6l2-2"/>',
+    filters:
+      '<path d="M3 6h5m4 0h9M3 12h11m4 0h3M3 18h2m4 0h12"/><circle cx="10" cy="6" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="7" cy="18" r="2"/>',
+    map: '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3ZM9 3v15M15 6v15"/>',
     route:
       '<circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 5h9c7 0 7 7 0 7H8c-7 0-7 7 0 7h9"/>',
     camera:
@@ -501,7 +504,7 @@
   });
   function header() {
     const unread = countUpdates();
-    return `<div class="tagbar ${mode === 'shared' ? 'shared-tagbar' : ''}"><span>${mode === 'demo' ? 'EXAMPLE TRIP <span class="tag-demo-description">· FICTIONAL PEOPLE · LOCAL ONLY</span>' : 'DIFFERENT PLANS. SAME FRIENDS.'}</span>${mode === 'demo' ? `<div class="demo-controls"><label class="screenreader" for="demo-person">Example traveler</label><span>Try as</span><select id="demo-person">${S.members.map((m) => `<option value="${E(m.id)}" ${m.id === S.me.id ? 'selected' : ''}>${E(m.name)}</option>`).join('')}</select><button data-action="live-info">Go live</button></div>` : '<span class="tag-second">JAPAN · OUR OWN DAYS</span>'}</div><header class="header"><div class="header-inner"><button class="brand" data-nav="discover" ${ui.view === 'discover' ? 'aria-current="page"' : ''} aria-label="Adventure Omakase home"><span class="phone-trip-title">${E(S.trip.name)}</span><span class="brand-art"><img src="/assets/brand/omakase-together-apart.png" alt="Omakase — the together, apart edition" width="1774" height="887" fetchpriority="high"></span></button><nav class="nav" aria-label="Main navigation">${navButtons(false)}</nav><div class="header-actions">${btn(I('plus') + '<span class="invite-label">Open a plan</span>', 'plan-new', '', 'primary')}<button class="icon-btn" data-action="updates" aria-label="Trip updates${unread ? `, ${unread} unread` : ''}">${I('bell')}${unread ? `<span class="dot-count">${Math.min(unread, 9)}</span>` : ''}</button><button data-action="profile" aria-label="Your profile and travel dates" style="padding:0">${avatar(S.me.id)}</button></div></div></header>${!online && mode === 'shared' ? '<div class="offline">Offline · last loaded view only. Joining and plan changes are disabled. <button class="text-btn" data-action="reconnect">Reconnect</button></div>' : ''}${mode === 'demo' && !S.storageOkay ? '<div class="offline">This browser cannot keep the example between visits. Export anything you wish to retain.</div>' : ''}`;
+    return `<div class="tagbar ${mode === 'shared' ? 'shared-tagbar' : ''}" role="region" aria-label="${mode === 'demo' ? 'Example trip controls' : 'Trip context'}"><span>${mode === 'demo' ? 'EXAMPLE TRIP <span class="tag-demo-description">· FICTIONAL PEOPLE · LOCAL ONLY</span>' : 'DIFFERENT PLANS. SAME FRIENDS.'}</span>${mode === 'demo' ? `<div class="demo-controls"><label class="screenreader" for="demo-person">Example traveler</label><span>Try as</span><select id="demo-person">${S.members.map((m) => `<option value="${E(m.id)}" ${m.id === S.me.id ? 'selected' : ''}>${E(m.name)}</option>`).join('')}</select><button data-action="live-info">Go live</button></div>` : '<span class="tag-second">JAPAN · OUR OWN DAYS</span>'}</div><header class="header"><div class="header-inner"><button class="brand" data-nav="discover" ${ui.view === 'discover' ? 'aria-current="page"' : ''} aria-label="Adventure Omakase home"><span class="phone-trip-title">${E(S.trip.name)}</span><span class="brand-art"><img src="/assets/brand/omakase-together-apart.png" alt="Omakase — the together, apart edition" width="1774" height="887" fetchpriority="high"></span></button><nav class="nav" aria-label="Main navigation">${navButtons(false)}</nav><div class="header-actions"><button class="btn primary" data-action="plan-new" aria-label="Open a plan">${I('plus')}<span class="invite-label">Open a plan</span></button><button class="icon-btn" data-action="updates" aria-label="Trip updates${unread ? `, ${unread} unread` : ''}">${I('bell')}${unread ? `<span class="dot-count">${Math.min(unread, 9)}</span>` : ''}</button><button data-action="profile" aria-label="Your profile and travel dates" style="padding:0">${avatar(S.me.id)}</button></div></div></header>${!online && mode === 'shared' ? '<div class="offline">Offline · last loaded view only. Joining and plan changes are disabled. <button class="text-btn" data-action="reconnect">Reconnect</button></div>' : ''}${mode === 'demo' && !S.storageOkay ? '<div class="offline">This browser cannot keep the example between visits. Export anything you wish to retain.</div>' : ''}`;
   }
   function navButtons(mobile) {
     const entries = mobile
@@ -525,7 +528,7 @@
       .join('');
   }
   function footer() {
-    return `<footer class="footer"><div><strong>Adventure Omakase</strong> · Together, apart.<br>300 research leads. No compulsory itinerary. No location tracking.</div><div class="row wrap"><button data-nav="plans">Friends’ invitations</button><button data-action="plan-new">Write an invitation</button><button data-action="invite">Invite friends</button><button data-action="companion">Travel tools</button><button data-action="legacy">Original fieldbook</button><button data-action="settings">Trip settings</button></div></footer>`;
+    return `<aside class="footer" aria-label="Trip tools"><div><strong>Adventure Omakase</strong> · Together, apart.<br>300 research leads. No compulsory itinerary. No location tracking.</div><div class="row wrap"><button data-nav="plans">Friends’ invitations</button><button data-action="plan-new">Write an invitation</button><button data-action="invite">Invite friends</button><button data-action="companion">Travel tools</button><button data-action="legacy">Original fieldbook</button><button data-action="settings">Trip settings</button></div></aside>`;
   }
   function render() {
     window.OmakaseMap?.detach();
@@ -550,7 +553,7 @@
     );
     app.innerHTML =
       header() +
-      `<div class="container"><div class="meta-line"><span class="trip-context"><span>${E(S.trip.name)}</span><span class="connection-label">${mode === 'demo' ? 'Local example' : `<i class="live-dot"></i>${online ? 'Shared trip' : 'Offline copy'}`} · JST</span></span><span class="row"><span class="meta-date">${dateText(S.trip.start)} — ${dateText(S.trip.end)}</span>${mode === 'shared' ? `<button class="text-btn companion-entry" data-action="companion">${I('star')} Travel companion</button>` : ''}</span></div><main id="main" tabindex="-1">${phoneLayout.matches && ['plans', 'day'].includes(ui.view) ? compactDay() : ({ plans: board, day: myDay, discover: discover, people: peoplePage, story: storyPage }[ui.view] || board)()}</main>${footer()}</div><nav class="nav-dock" aria-label="Quick navigation">${navButtons(true)}</nav>`;
+      `<div class="container"><div class="meta-line" role="region" aria-label="Trip information"><span class="trip-context"><span>${E(S.trip.name)}</span><span class="connection-label">${mode === 'demo' ? 'Local example' : `<i class="live-dot"></i>${online ? 'Shared trip' : 'Offline copy'}`} · JST</span></span><span class="row"><span class="meta-date">${dateText(S.trip.start)} — ${dateText(S.trip.end)}</span>${mode === 'shared' ? `<button class="text-btn companion-entry" data-action="companion">${I('star')} Travel companion</button>` : ''}</span></div><main id="main" tabindex="-1">${phoneLayout.matches && ['plans', 'day'].includes(ui.view) ? compactDay() : ({ plans: board, day: myDay, discover: discover, people: peoplePage, story: storyPage }[ui.view] || board)()}</main>${footer()}</div><nav class="nav-dock" aria-label="Quick navigation">${navButtons(true)}</nav>`;
     if (ui.view === 'discover')
       window.OmakaseMap?.mount({
         catalogue: discoverMatches(),
@@ -681,7 +684,7 @@
       )}</span><span class="small">${members.length ? `${1 + members.length} going${members.some((r) => r.choice !== 'all') ? ' · some just for part' : ''}` : 'Company welcome'}</span></div>${p.joinStyle === 'reunion' ? `<div class="reunion-ribbon">${I('coffee')} Solo first. Meet afterward.</div>` : p.segments.length ? `<div class="reunion-ribbon">${I('route')} Join all of it, or choose a part.</div>` : ''}</div>${btn(p.status !== 'open' ? 'View plan' : mine ? 'Your plan ' + I('arrow') : needs ? 'Reconfirm ' + I('arrow') : 'View invitation ' + I('arrow'), 'plan-detail', p.id, mine ? 'subtle' : '')}</div></div></article>`;
   }
   function empty(title, message, label = '', action = '') {
-    return `<div class="empty">${I('sun')}<h3>${E(title)}</h3><p>${E(message)}</p>${label ? btn(E(label) + ' ' + I('arrow'), action, '', 'primary') : ''}</div>`;
+    return `<div class="empty">${I('sun')}<h2>${E(title)}</h2><p>${E(message)}</p>${label ? btn(E(label) + ' ' + I('arrow'), action, '', 'primary') : ''}</div>`;
   }
   function agendaItem(p) {
     const r = myR(p);
@@ -1070,7 +1073,7 @@
       friends = S.picks.filter(
         (p) => p.catalogueId === a.id && p.shared && p.memberId !== S.me.id,
       );
-    return `<article data-discovery-id="${E(a.id)}" class="discovery ${a.photo ? 'has-photo' : 'text-place'}"><div class="place-card-media">${discoveryPhoto(a, true)}<button class="icon-btn place-bookmark ${pick ? 'saved-star' : ''}" data-action="save" data-id="${E(a.id)}" aria-label="${pick ? 'Unsave' : 'Save'} ${E(a.title)}" aria-pressed="${!!pick}">${I(pick ? 'check' : 'save')}</button></div><div class="place-card-copy"><p class="place-category">${E(a.mood)} · ${E(a.area)}</p><h3><button data-action="discovery" data-id="${E(a.id)}">${E(a.title)}</button></h3><p class="place-description">${E(a.why)}</p><div class="bottom"><span>${E(a.minutes < 60 ? a.minutes + ' min' : (a.minutes / 60).toFixed(a.minutes % 60 ? 1 : 0) + ' hr')} on site · ${outingScale(a)}</span><button class="icon-btn" data-action="show-on-map" data-id="${E(a.id)}" aria-label="Show ${E(a.title)} on map">${I('pin')}</button></div>${friends.length ? `<p class="place-social">${friends.map((f) => avatar(f.memberId)).join('')}<span>${friends.map((f) => E(person(f.memberId).name)).join(', ')} recommended this</span></p>` : ''}${a.custom ? `<p class="find-author">Found by ${E(person(a.memberId).name)}</p>` : ''}</div></article>`;
+    return `<article data-discovery-id="${E(a.id)}" class="discovery ${a.photo ? 'has-photo' : 'text-place'}"><div class="place-card-media">${discoveryPhoto(a, true)}<button class="icon-btn place-bookmark ${pick ? 'saved-star' : ''}" data-action="save" data-id="${E(a.id)}" aria-label="${pick ? 'Unsave' : 'Save'} ${E(a.title)}" aria-pressed="${!!pick}">${I(pick ? 'check' : 'save')}</button></div><div class="place-card-copy"><h3><button data-action="discovery" data-id="${E(a.id)}">${E(a.title)}</button></h3><p class="place-category">${E(a.mood)} · ${E(a.area)}</p><p class="place-description">${E(a.why)}</p><div class="bottom"><span>${E(a.minutes < 60 ? a.minutes + ' min' : (a.minutes / 60).toFixed(a.minutes % 60 ? 1 : 0) + ' hr')} on site · ${outingScale(a)}</span><button class="icon-btn" data-action="show-on-map" data-id="${E(a.id)}" aria-label="Show ${E(a.title)} on map">${I('pin')}</button></div>${friends.length ? `<p class="place-social">${friends.map((f) => avatar(f.memberId)).join('')}<span>${friends.map((f) => E(person(f.memberId).name)).join(', ')} recommended this</span></p>` : ''}${a.custom ? `<p class="find-author">Found by ${E(person(a.memberId).name)}</p>` : ''}</div></article>`;
   }
 
   function curatedSources(sources) {
@@ -1095,7 +1098,7 @@
         : c.travelScale === 'day-trip'
           ? 'Day trip'
           : 'Local outing';
-    return `<details class="curated-outing" data-collection-id="${E(c.id)}" data-travel-scale="${E(c.travelScale || 'local')}"><summary>${collectionPhoto(c)}<h3>${E(c.title)}</h3><span class="curated-place">${E(R[c.region])} · ${E(scale)} · ${E(collectionDuration(c))}</span><span class="curated-pitch">${E(c.pitch)}</span><span class="curated-open">Explore this outing ${I('arrow')}</span></summary><div class="curated-body"><div class="curated-plan-action">${btn(I('plus') + (c.travelScale === 'separate-stay' ? 'Plan one day of this' : 'Make this a plan'), 'plan-collection', c.id, 'primary')}<span class="small muted">Choose your stops and timing before inviting anyone.</span></div><p class="curated-fit">${E(c.bestFor)}</p><p>${E(c.transport)}</p><div class="curated-rhythm"><p><strong>Make time for</strong> ${E(c.anchor)}</p><p><strong>Leave room</strong> ${E(c.leaveRoom)}</p></div><ol class="curated-stops">${c.stops
+    return `<article class="curated-entry">${collectionPhoto(c, true)}<details class="curated-outing" data-collection-id="${E(c.id)}" data-travel-scale="${E(c.travelScale || 'local')}"><summary><h3>${E(c.title)}</h3><span class="curated-place">${E(R[c.region])} · ${E(scale)} · ${E(collectionDuration(c))}</span><span class="curated-pitch">${E(c.pitch)}</span><span class="curated-open">Explore this outing ${I('arrow')}</span></summary><div class="curated-body"><div class="curated-plan-action">${btn(I('plus') + (c.travelScale === 'separate-stay' ? 'Plan one day of this' : 'Make this a plan'), 'plan-collection', c.id, 'primary')}<span class="small muted">Choose your stops and timing before inviting anyone.</span></div><p class="curated-fit">${E(c.bestFor)}</p><p>${E(c.transport)}</p><div class="curated-rhythm"><p><strong>Make time for</strong> ${E(c.anchor)}</p><p><strong>Leave room</strong> ${E(c.leaveRoom)}</p></div><ol class="curated-stops">${c.stops
       .map((stop) => {
         const a = BY.get(stop.catalogueId);
         if (!a) return '';
@@ -1103,7 +1106,7 @@
       })
       .join(
         '',
-      )}</ol><p class="curated-planning">${E(c.planning)}</p><p class="small muted">Suggested sequence and timing are editorial estimates. Check journeys, opening and reservations for your day.</p>${curatedSources(c.sources)}<p class="small muted">Sources read ${E(dateText(c.readAt))}</p></div></details>`;
+      )}</ol><p class="curated-planning">${E(c.planning)}</p><p class="small muted">Suggested sequence and timing are editorial estimates. Check journeys, opening and reservations for your day.</p>${curatedSources(c.sources)}<p class="small muted">Sources read ${E(dateText(c.readAt))}</p></div></details></article>`;
   }
   function curatedOutings() {
     if (
@@ -1317,10 +1320,20 @@
       ui.area === 'all' &&
       ui.mood === 'all' &&
       ui.max === 'all';
-    return `<section class="places-heading"><h1>${ui.saved ? 'Your saved places' : 'Find your corner of Japan.'}</h1><div class="row">${mode === 'shared' ? `<button class="icon-btn" data-action="ask-find" aria-label="Find something for me">${I('star')}</button>` : ''}<button class="icon-btn" data-action="find-new" aria-label="Add a friend’s find">${I('plus')}</button></div></section>
-      <div class="places-toolbar"><div class="searchbar discovery-search">${I('search')}<label class="screenreader" for="search">Search discoveries</label><input id="search" type="search" placeholder="Places, neighbourhoods, cravings…" value="${E(ui.q)}" autocomplete="off"></div>${discoveryViewSwitch()}</div>
-      ${regionFilters()}
-      <div class="places-refinements"><div class="discovery-library"><div class="subnav"><button class="${!ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="all">All discoveries</button><button class="${ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="saved">${I('save')} Saved <span>${C.filter((a) => saved(a.id)).length}</span></button></div></div><details id="discovery-filters" class="discovery-filters" ${ui.moreFilters ? 'open' : ''}><summary>${I('search')} Filters <span>${[ui.mood !== 'all', ui.area !== 'all', ui.max !== 'all'].filter(Boolean).length || ''}</span></summary><div class="places-filter-panel"><div class="discovery-start"><label for="area-filter">Explore around</label><select id="area-filter"><option value="all">Any neighbourhood or island</option>${areas.map((a) => `<option ${a === ui.area ? 'selected' : ''}>${E(a)}</option>`).join('')}</select></div><div class="filters mood-filters">${['all', ...Object.keys(MOODS)].map((m) => `<button class="filter ${ui.mood === m ? 'active' : ''}" data-action="mood" data-id="${m}">${m === 'all' ? 'Any mood' : m}</button>`).join('')}</div><div class="filters discovery-refine"><label class="screenreader" for="time-filter">Estimated time on site</label><select id="time-filter">${[
+    return `<section class="places-heading"><h1>${ui.saved ? 'Your saved places' : 'Explore Japan'}</h1>${mode === 'shared' ? btn('Find something for me', 'ask-find', '', 'subtle') : ''}</section>
+      <div class="places-toolbar"><div class="searchbar discovery-search">${I('search')}<label class="screenreader" for="search">Search discoveries</label><input id="search" type="search" placeholder="Search places" value="${E(ui.q)}" autocomplete="off"></div>${discoveryViewSwitch()}</div>
+      <div class="places-regions">${regionFilters()}</div>
+      <div class="places-refinements"><div class="discovery-library"><div class="subnav"><button class="${!ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="all">All places</button><button class="${ui.saved ? 'active' : ''}" data-action="discovery-library" data-id="saved">${I('save')} Saved <span>${C.filter((a) => saved(a.id)).length}</span></button></div></div><div class="places-refinement-actions"><details id="discovery-filters" class="discovery-filters" ${ui.moreFilters ? 'open' : ''}><summary aria-label="Filter places">${I('filters')}<span class="filter-label">Filters</span><span>${[ui.mood !== 'all', ui.area !== 'all', ui.max !== 'all'].filter(Boolean).length || ''}</span></summary><div class="places-filter-panel"><div class="discovery-start"><label for="region-filter">Region</label><select id="region-filter"><option value="all">All regions</option>${Object.entries(
+        R,
+      )
+        .filter(([key]) => key !== 'elsewhere')
+        .map(
+          ([key, label]) =>
+            `<option value="${key}" ${ui.region === key ? 'selected' : ''}>${E(label)}</option>`,
+        )
+        .join(
+          '',
+        )}</select></div><div class="discovery-start"><label for="area-filter">Explore around</label><select id="area-filter"><option value="all">Any neighbourhood or island</option>${areas.map((a) => `<option ${a === ui.area ? 'selected' : ''}>${E(a)}</option>`).join('')}</select></div><div class="filters mood-filters">${['all', ...Object.keys(MOODS)].map((m) => `<button class="filter ${ui.mood === m ? 'active' : ''}" data-action="mood" data-id="${m}">${m === 'all' ? 'Any mood' : m}</button>`).join('')}</div><div class="filters discovery-refine"><label class="screenreader" for="time-filter">Estimated time on site</label><select id="time-filter">${[
         ['all', 'Any time on site'],
         ['60', 'Up to 1 hr on site'],
         ['120', 'Up to 2 hr on site'],
@@ -1332,11 +1345,11 @@
         )
         .join(
           '',
-        )}</select><button class="text-btn" data-action="clear-filters">Reset filters</button></div><p class="small muted">Area matches are not walking-distance estimates. Travel time is extra.</p></div></details></div>
+        )}</select><button class="text-btn" data-action="clear-filters">Reset filters</button></div><p class="small muted">Area matches are not walking-distance estimates. Travel time is extra.</p></div></details><button class="icon-btn" data-action="find-new" aria-label="Add a friend’s find" title="Add a place">${I('plus')}</button></div></div>
       ${ui.saved ? '<p class="places-privacy small muted">Your private shortlist. Saving doesn’t recommend a place or add a plan.</p>' : ''}
       ${discoveryMap()}${ui.discoveryView === 'map' && ui.selectedDiscovery && BY.has(ui.selectedDiscovery) ? `<section class="map-current" tabindex="-1" aria-label="Selected discovery">${discoveryCard(BY.get(ui.selectedDiscovery))}</section>` : ''}
-      ${ui.discoveryView === 'fieldbook' && unfiltered ? `<details class="places-stories" ${ui.browseStories ? 'open' : ''}><summary><span>${I('dice')} Let Omakase choose</span><span>Dice & curated outings ${I('arrow')}</span></summary>${exploreOpening()}<div id="explore-fieldbook" tabindex="-1">${curatedOutings()}</div></details>` : ''}
-      <p class="discovery-count small muted" id="result-count">${matches.length} discoveries · travel time excluded</p><div class="discovery-grid" id="discovery-results">${matches.slice(0, ui.limit).map(discoveryCard).join('')}</div>${!matches.length ? empty('No places found.', 'Try another area or relax a filter.', 'Reset filters', 'clear-filters') : ''}${matches.length > ui.limit ? `<div class="places-more">${btn('Show 24 more ' + I('plus'), 'more')}</div>` : ''}`;
+      ${ui.discoveryView === 'fieldbook' && unfiltered ? `<details class="places-stories" ${ui.browseStories ? 'open' : ''}><summary><span>${I('dice')} Let Omakase choose</span><span><span class="places-stories-description">Dice & curated outings</span>${I('arrow')}</span></summary>${mode === 'shared' ? `<div class="places-concierge">${btn('Find something for my dates', 'ask-find', '', 'subtle')}${btn('Travel tools', 'companion', '', 'text-btn')}</div>` : ''}${exploreOpening()}<div id="explore-fieldbook" tabindex="-1">${curatedOutings()}</div></details>` : ''}
+      <h2 class="screenreader">Places to explore</h2><p class="discovery-count small muted ${unfiltered ? 'unfiltered-count' : ''}" id="result-count" role="status">${ui.region !== 'all' ? E(R[ui.region]) + ' · ' : ''}${matches.length} discoveries · travel time excluded</p><div class="discovery-grid" id="discovery-results">${matches.slice(0, ui.limit).map(discoveryCard).join('')}</div>${!matches.length ? (ui.saved && !C.some((place) => saved(place.id)) ? empty('A few places worth keeping.', 'Tap the bookmark on a place to build your private shortlist.', 'Explore places', 'clear-filters') : empty('No places found.', 'Try another search or relax a filter.', 'Reset filters', 'clear-filters')) : ''}${matches.length > ui.limit ? `<div class="places-more">${btn('Show 24 more ' + I('plus'), 'more')}</div>` : ''}`;
   }
 
   function overlapWith(member) {
@@ -1424,7 +1437,7 @@
             (p) =>
               p.date === ui.day && p.region === region && p.status === 'open',
           );
-          return `<div class="overlap-region"><div><h4>${E(R[region])}</h4><p>${members.map(({ member, window }) => `<strong>${E(member.name)}</strong>${window.area ? ' · ' + E(window.area) : ' · area not shared'}`).join('<br>') || 'Travel dates not shared for this region.'}</p></div><div>${plans.length ? plans.map((p) => `<button class="text-btn" data-action="plan-detail" data-id="${E(p.id)}">${E(p.title)} · ${formatTime(p)} ${I('arrow')}</button>`).join('') : '<p class="small muted">No open invitations in this region today.</p>'}<button class="btn subtle" data-action="overlap-plan" data-id="${E(region)}">Invite for this day ${I('plus')}</button></div></div>`;
+          return `<div class="overlap-region"><div><h2>${E(R[region])}</h2><p>${members.map(({ member, window }) => `<strong>${E(member.name)}</strong>${window.area ? ' · ' + E(window.area) : ' · area not shared'}`).join('<br>') || 'Travel dates not shared for this region.'}</p></div><div>${plans.length ? plans.map((p) => `<button class="text-btn" data-action="plan-detail" data-id="${E(p.id)}">${E(p.title)} · ${formatTime(p)} ${I('arrow')}</button>`).join('') : '<p class="small muted">No open invitations in this region today.</p>'}<button class="btn subtle" data-action="overlap-plan" data-id="${E(region)}">Invite for this day ${I('plus')}</button></div></div>`;
         })
         .join('') ||
       '<p class="small muted">Nobody has shared complete travel dates for this day. That does not mean they are absent.</p>'
@@ -1432,7 +1445,7 @@
   }
   function peoplePage() {
     const members = S.members.filter((m) => m.active);
-    return `<section class="friends-heading"><h1>Cross paths.</h1><div class="friends-day-picker"><label for="friends-day">Day</label><select id="friends-day">${DAYS.map((day) => `<option value="${day}" ${day === ui.day ? 'selected' : ''}>${E(dateText(day, { weekday: 'short', day: 'numeric', month: 'short' }))}</option>`).join('')}</select>${btn('View calendar ' + I('calendar'), 'calendar-open', ui.day, 'text-btn')}</div></section>${overlapDay()}<p class="friends-proximity small muted">Shared dates do not show live location or availability. Check neighborhood, island and travel before meeting.</p><div class="row wrap friends-secondary"><button class="text-btn" data-action="profile">Edit my dates ${I('edit')}</button>${btn(I('plus') + 'Invite a friend', 'invite', '', 'text-btn')}</div><details class="friends-calendar"><summary>See everyone’s travel dates</summary><h3 class="overlap-heading">Days to cross paths</h3><p class="small muted">Select a shared stretch, then choose a day below.</p>${overlapOpportunities()}<div class="scroll-hint">Select a day to see shared areas and invitations. Scroll the date strip on smaller screens.</div><div class="timeline-wrap"><div class="window-timeline"><div></div>${DAYS.map((d) => `<button class="head" data-action="overlap-day" data-id="${d}" aria-label="${dateText(d, { month: 'long', day: 'numeric' })}" aria-pressed="${ui.day === d}">${E(d.slice(-2))}<br>${dateText(d, { month: 'short' })}</button>`).join('')}${members
+    return `<section class="friends-heading"><h1>Friends</h1><div class="friends-day-picker"><label for="friends-day">Day</label><select id="friends-day">${DAYS.map((day) => `<option value="${day}" ${day === ui.day ? 'selected' : ''}>${E(dateText(day, { weekday: 'short', day: 'numeric', month: 'short' }))}</option>`).join('')}</select>${btn('View calendar ' + I('calendar'), 'calendar-open', ui.day, 'text-btn')}</div></section>${overlapDay()}<p class="friends-proximity small muted">Shared dates do not show live location or availability. Check neighborhood, island and travel before meeting.</p><div class="row wrap friends-secondary"><button class="text-btn" data-action="profile">Edit my dates ${I('edit')}</button>${btn(I('plus') + 'Invite a friend', 'invite', '', 'text-btn')}</div><details class="friends-calendar"><summary>See everyone’s travel dates</summary><h3 class="overlap-heading">Days to cross paths</h3><p class="small muted">Select a shared stretch, then choose a day below.</p>${overlapOpportunities()}<div class="scroll-hint">Select a day to see shared areas and invitations. Scroll the date strip on smaller screens.</div><div class="timeline-wrap"><div class="window-timeline"><div></div>${DAYS.map((d) => `<button class="head" data-action="overlap-day" data-id="${d}" aria-label="${dateText(d, { month: 'long', day: 'numeric' })}" aria-pressed="${ui.day === d}">${E(d.slice(-2))}<br>${dateText(d, { month: 'short' })}</button>`).join('')}${members
       .map(
         (m) =>
           `<div class="name">${avatar(m.id)} ${E(m.name)}</div>${DAYS.map(
@@ -1446,7 +1459,7 @@
       )
       .join(
         '',
-      )}</div></div><div class="row wrap" style="margin-bottom:25px"><span class="key"><i></i>Tokyo</span><span class="key"><i class="osaka"></i>Osaka & beyond</span><span class="key"><i class="okinawa"></i>Okinawa</span><span class="small muted">Blank = dates not shared, not absence.</span></div></details><div class="portrait-grid">${members
+      )}</div></div><div class="row wrap" style="margin-bottom:25px"><span class="key"><i></i>Tokyo</span><span class="key"><i class="osaka"></i>Osaka & beyond</span><span class="key"><i class="okinawa"></i>Okinawa</span><span class="small muted">Blank = dates not shared, not absence.</span></div></details><h2 class="screenreader">Everyone on the trip</h2><div class="portrait-grid">${members
       .map((m) => {
         const overlap = m.id !== S.me.id ? overlapWith(m) : [];
         return `<article class="portrait-card">${avatar(m.id)}<h3>${E(m.name)}${m.id === S.me.id ? ' <small class="muted">you</small>' : ''}</h3><span class="pill">${m.role === 'owner' ? 'Trip owner' : 'Free to roam'}</span><p>${E(m.profile?.bio || 'A little room for getting to know each other along the way.')}</p>${m.profile?.interests ? `<p><strong>Drawn to</strong><br>${E(m.profile.interests)}</p>` : ''}${(m.profile?.windows || []).map((w) => `<div class="window-chip"><span><i class="region-chip ${E(w.region)}"></i> ${E(w.area || R[w.region])}</span><span>${w.from ? dateText(w.from) : 'Arrival open'}–${w.to ? dateText(w.to) : 'Departure open'}</span></div>`).join('') || '<p class="small muted">Travel dates not shared yet.</p>'}${overlap.length ? `<div class="overlap"><strong>You overlap in the same region</strong><br>${overlap.map(E).join('<br>')}</div>` : ''}<div class="card-actions">${m.id === S.me.id ? btn('Edit my profile ' + I('edit'), 'profile', '', 'subtle') : btn('See their invitations ' + I('arrow'), 'person-plans', m.id, 'subtle')}</div></article>`;
@@ -1464,7 +1477,7 @@
         (a, b) =>
           b.date.localeCompare(a.date) || b.created.localeCompare(a.created),
       );
-    return `<section class="page-head"><div class="row between wrap"><h1>Different days.<br><em>More stories.</em></h1>${btn(I('plus') + 'Add a memory', 'moment-new', '', 'primary')}</div><p>A photo, a sentence, something you want to keep. Shared memories make our trip book; choose Only me for a private page.</p></section><div class="subnav"><button class="${ui.story === 'group' ? 'active' : ''}" data-action="story-filter" data-id="group">Our shared story</button><button class="${ui.story === 'mine' ? 'active' : ''}" data-action="story-filter" data-id="mine">My contributions</button></div><div class="section-heading"><div><span class="small muted">${moments.length} ${moments.length === 1 ? 'memory' : 'memories'} · ${ui.story === 'group' ? 'shared by their authors' : 'visible to you'}</span></div><button class="text-btn" data-action="print-story">Make the return edition ${I('book')}</button></div>${
+    return `<section class="page-head memories-heading"><div class="row between wrap"><h1>Memories</h1>${moments.length ? btn(I('plus') + 'Add a memory', 'moment-new', '', 'primary') : ''}</div><p>Keep a note for yourself, or share a moment with your trip.</p></section><div class="subnav"><button class="${ui.story === 'group' ? 'active' : ''}" data-action="story-filter" data-id="group">Our shared story</button><button class="${ui.story === 'mine' ? 'active' : ''}" data-action="story-filter" data-id="mine">My contributions</button></div><h2 class="screenreader">${ui.story === 'group' ? 'Shared memories' : 'Your contributions'}</h2><div class="section-heading memory-edition" ${moments.length ? '' : 'hidden'}><div><span class="small muted">${moments.length} ${moments.length === 1 ? 'memory' : 'memories'} · ${ui.story === 'group' ? 'shared by their authors' : 'visible to you'}</span></div><button class="text-btn" data-action="print-story">Make the return edition ${I('book')}</button></div>${
       moments.length
         ? `<div class="memory-grid">${moments
             .map(
@@ -1483,8 +1496,8 @@
             )
             .join('')}</div>`
         : empty(
-            'Leave the first little trace.',
-            'There are no prewritten memories here. This book should contain what actually happened—not what the app imagined.',
+            'The little things belong here.',
+            'A photo, a good meal, a sentence you want to remember. You choose who sees it.',
             'Add a memory',
             'moment-new',
           )
@@ -1516,13 +1529,39 @@
   document.addEventListener('focusout', updatePhoneViewport);
   updatePhoneViewport();
   let diceAtlas;
+  let lastFocusKey, modalTrigger;
+  function focusKey(element) {
+    if (!element) return null;
+    const key = element.id
+      ? `#${CSS.escape(element.id)}`
+      : element.dataset.action
+        ? `[data-action="${CSS.escape(element.dataset.action)}"]${element.dataset.id ? `[data-id="${CSS.escape(element.dataset.id)}"]` : ''}`
+        : element.dataset.nav
+          ? `[data-nav="${CSS.escape(element.dataset.nav)}"]`
+          : null;
+    return key
+      ? {
+          selector: key,
+          index: [...document.querySelectorAll(key)].indexOf(element),
+        }
+      : null;
+  }
+  function findFocus(key) {
+    return key ? document.querySelectorAll(key.selector)[key.index] : null;
+  }
   function openModal(title, html, type = 'generic', id = '', wide = false) {
     window.OmakaseDice?.destroy();
     diceAtlas = null;
     homeRollTicket++;
     app.querySelector('.home-dice .dice-atlas')?.remove();
     app.querySelector('.home-dice .dice-map-note')?.remove();
-    lastFocus = document.activeElement;
+    if (!dialog.open) {
+      lastFocus = modalTrigger?.isConnected
+        ? modalTrigger
+        : document.activeElement;
+      modalTrigger = null;
+      lastFocusKey = focusKey(lastFocus);
+    }
     modal = { type, id, revision: S?.plans.find((p) => p.id === id)?.revision };
     dialog.className = wide ? 'wide' : '';
     dialog.innerHTML = `<div class="dialog-top"><span class="eyebrow" id="dialog-title">${E(title)}</span><button class="icon-btn" data-action="close" aria-label="Close dialog">${I('close')}</button></div><div class="dialog-body">${html}</div>`;
@@ -1552,7 +1591,12 @@
     draftPhotos = [];
     photoBusy = false;
     document.body.classList.remove('no-scroll');
-    if (lastFocus?.isConnected) lastFocus.focus();
+    const restore = lastFocus?.isConnected
+      ? lastFocus
+      : findFocus(lastFocusKey);
+    (restore || document.getElementById('main'))?.focus({
+      preventScroll: true,
+    });
     mountHomeDice();
   }
   function showPlan(id) {
@@ -1713,7 +1757,7 @@
       (p) => p.catalogueId === id && p.status === 'open',
     );
     openModal(
-      `${R[a.region]} / discovery ${E(String(a.n).padStart(3, '0'))}`,
+      R[a.region],
       `<header class="place-title"><div><h2>${E(a.title)}</h2><p class="small muted">${E(a.area)} · ${E(a.mood)}</p></div><button class="place-save icon-btn ${pick ? 'saved-star' : ''}" data-action="save-detail" data-id="${E(a.id)}" aria-label="${pick ? 'Remove from saved places' : 'Save for myself'}" aria-pressed="${!!pick}">${I(pick ? 'check' : 'save')}<span>${pick ? 'Saved' : 'Save'}</span></button></header>
       ${discoveryPhoto(a)}<p class="place-summary">${E(a.experience?.summary || a.why)}</p>
       <div class="place-quick-actions"><button class="btn subtle" data-action="show-on-map" data-id="${E(a.id)}">${I('pin')} Map</button><a class="btn subtle" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.mapQuery)}" target="_blank" rel="noopener noreferrer">${I('external')} Maps search</a>${safeURL(a.source) ? `<a class="btn subtle" href="${E(safeURL(a.source))}" target="_blank" rel="noopener noreferrer">${I('book')} Source</a>` : ''}</div>
@@ -1782,7 +1826,7 @@
     draftPhotos = [...(m?.photos || [])];
     openModal(
       m ? 'Edit your memory' : 'A little proof you were here',
-      `<h2>${m ? 'Keep it in your words.' : 'What did you find?'}</h2><p class="lede">One photo, a sentence, a small disagreement about a snack. It doesn’t have to be impressive to be worth keeping.</p><form id="moment-form" data-request="${uid()}" data-id="${E(m?.id || '')}" data-revision="${E(m?.revision || '')}"><input name="planId" type="hidden" value="${E(m?.planId || p?.id || '')}">${field('title', 'A title, if it needs one', m?.title || '', 'text', 'maxlength="150"')}<div class="field"><label for="memory-text">The memory · your actual words</label><textarea id="memory-text" name="text" maxlength="5000" rows="5" required placeholder="The thing I would never have found on my own…">${E(m?.text || '')}</textarea></div><div class="field-row">${field('date', 'When · Japan', m?.date || p?.date || ui.day, 'date', `min="${E(S.trip.start)}" max="${E(S.trip.end)}" required`)}<div class="field"><label for="memory-region">Region</label><select id="memory-region" name="region">${regionOptions(m?.region || p?.region || (ui.region === 'all' ? 'tokyo' : ui.region))}</select></div></div><div class="field"><label for="memory-photo">Up to three photographs</label><input id="memory-photo" type="file" accept="image/*" multiple><small>Phone photos up to 12 MB. HEIC works only when your browser can decode it; otherwise export as JPEG. ${mode === 'shared' ? 'Images are re-encoded without original metadata and stored on this trip’s server.' : 'The local example stores resized copies only in this browser.'} Keep your original photos elsewhere.</small></div><div id="photo-preview" class="preview-photos">${photoPreviews()}</div><div class="field memory-sharing-choice"><label for="memory-visibility">Who is this page for?</label><select id="memory-visibility" name="visibility"><option value="group" ${m?.visibility !== 'private' ? 'selected' : ''}>Our trip · shared with friends</option><option value="private" ${m?.visibility === 'private' ? 'selected' : ''}>Only me · a private page</option></select><small>Only shared pages appear in our trip book. You can change this later.</small></div><div class="form-error" role="alert"></div><div class="form-actions"><button type="button" class="btn subtle" data-action="close">Cancel</button><button type="submit" class="btn primary">Save this memory ${I('arrow')}</button></div></form>`,
+      `<h2>${m ? 'Keep it in your words.' : 'What did you find?'}</h2><p class="lede">One photo, a sentence, a small disagreement about a snack. It doesn’t have to be impressive to be worth keeping.</p><form id="moment-form" data-request="${uid()}" data-id="${E(m?.id || '')}" data-revision="${E(m?.revision || '')}"><input name="planId" type="hidden" value="${E(m?.planId || p?.id || '')}"><div class="field memory-sharing-choice"><label for="memory-visibility">Who is this page for?</label><select id="memory-visibility" name="visibility"><option value="group" ${m?.visibility !== 'private' ? 'selected' : ''}>Our trip · shared with friends</option><option value="private" ${m?.visibility === 'private' ? 'selected' : ''}>Only me · a private page</option></select><small>Only shared pages appear in our trip book. You can change this later.</small></div>${field('title', 'A title, if it needs one', m?.title || '', 'text', 'maxlength="150"')}<div class="field"><label for="memory-text">The memory · your actual words</label><textarea id="memory-text" name="text" maxlength="5000" rows="5" required placeholder="The thing I would never have found on my own…">${E(m?.text || '')}</textarea></div><div class="field-row">${field('date', 'When · Japan', m?.date || p?.date || ui.day, 'date', `min="${E(S.trip.start)}" max="${E(S.trip.end)}" required`)}<div class="field"><label for="memory-region">Region</label><select id="memory-region" name="region">${regionOptions(m?.region || p?.region || (ui.region === 'all' ? 'tokyo' : ui.region))}</select></div></div><div class="field"><label for="memory-photo">Up to three photographs</label><input id="memory-photo" type="file" accept="image/*" multiple><small>Phone photos up to 12 MB. HEIC works only when your browser can decode it; otherwise export as JPEG. ${mode === 'shared' ? 'Images are re-encoded without original metadata and stored on this trip’s server.' : 'The local example stores resized copies only in this browser.'} Keep your original photos elsewhere.</small></div><div id="photo-preview" class="preview-photos">${photoPreviews()}</div><div class="form-error" role="alert"></div><div class="form-actions"><button type="button" class="btn subtle" data-action="close">Cancel</button><button type="submit" class="btn primary">${m?.visibility === 'private' ? 'Save privately' : 'Share with trip'} ${I('arrow')}</button></div></form>`,
       'moment-form',
       id,
     );
@@ -1881,7 +1925,7 @@
     );
   }
   function diceMarkup() {
-    return `<div class="dice-atlas" data-phase="ready"><div id="dice-map" aria-label="Map of the discovery draw"></div><p class="dice-map-caption"></p><button type="button" class="dice-table" data-action="roll-table" aria-label="Roll the dice"><span class="dice-body"><span class="dice-cube" aria-hidden="true">${[1, 2, 3, 4, 5, 6].map((n) => `<div class="dice-face face-${n}">${Array.from({ length: 9 }, (_, i) => `<i class="${{ 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] }[n].includes(i) ? 'pip' : ''}"></i>`).join('')}</div>`).join('')}</span></span><span class="dice-shadow"></span><span class="dice-hint">Drag and fling · or tap to roll</span></button><div class="dice-empty" hidden role="status"></div></div><p class="dice-map-note small muted"></p>`;
+    return `<div class="dice-atlas" data-phase="ready"><div id="dice-map" role="region" aria-label="Map of the discovery draw"></div><p class="dice-map-caption"></p><button type="button" class="dice-table" data-action="roll-table" aria-label="Roll the dice"><span class="dice-body"><span class="dice-cube" aria-hidden="true">${[1, 2, 3, 4, 5, 6].map((n) => `<div class="dice-face face-${n}">${Array.from({ length: 9 }, (_, i) => `<i class="${{ 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] }[n].includes(i) ? 'pip' : ''}"></i>`).join('')}</div>`).join('')}</span></span><span class="dice-shadow"></span><span class="dice-hint">Drag and fling · or tap to roll</span></button><div class="dice-empty" hidden role="status"></div></div><p class="dice-map-note small muted"></p>`;
   }
   function drawModal(mood = 'all') {
     openModal(
@@ -2164,9 +2208,10 @@
   }
 
   function liveInfo() {
+    const hosted = ['https:', 'http:'].includes(location.protocol);
     openModal(
-      'From this example to our trip',
-      `<h2>One real link.<br><em>All our different days.</em></h2><p class="lede">This downloaded example stays on this device. The Cloudflare version includes the actual shared service: Workers, D1 and R2.</p><div class="notice">The example is not connected to a hosted trip. Fictional people are never added to production.</div><form id="open-server-form">${field('url', 'Already have your trip link?', '', 'url', 'placeholder="https://your-trip.workers.dev/#join=…" required')}<div class="form-error" role="alert"></div><button type="submit" class="btn primary">Open our trip ${I('arrow')}</button></form><div class="source-box"><p>The source package includes the database migration, deployment script, backups and tests. Run <code>npm run cloudflare:setup</code> in your authenticated Cloudflare environment to publish.</p></div>`,
+      'From the example to your trip',
+      `<h2>Ready to make it yours?</h2><p class="lede">Your example changes stay on this device. Use your shared trip to make plans with friends.</p>${hosted ? '<a class="btn primary full" href="/">Open the shared app ' + I('arrow') + '</a><p class="small muted" style="margin-top:12px">Your example remains here to explore.</p>' : ''}<details class="form-detail" ${hosted ? '' : 'open'}><summary>Have an invitation link?</summary><form id="open-server-form">${field('url', 'The link from your group', '', 'url', 'placeholder="Paste your invitation link" required')}<div class="form-error" role="alert"></div><button type="submit" class="btn primary">Open this trip ${I('arrow')}</button></form></details>`,
       'live-info',
     );
   }
@@ -2474,6 +2519,7 @@
     const el = e.target.closest('[data-action],[data-nav]');
     if (!el) return;
     if (el.disabled) return;
+    if (!dialog.open) modalTrigger = el;
     if (el.dataset.nav) {
       e.preventDefault();
       route(el.dataset.nav);
@@ -2719,7 +2765,7 @@
               toast(
                 was
                   ? 'Removed from your saved discoveries.'
-                  : 'Saved to your private shortlist in Discover → Saved.',
+                  : 'Saved to your private places.',
               );
               if (!was && action === 'save') {
                 const link = document.createElement('button');
@@ -2840,9 +2886,12 @@
           ui.limit = 24;
           render();
           document.getElementById('toast').className = '';
+          window.scrollTo({ top: 0, behavior: 'instant' });
           document
-            .querySelector('.discovery-library')
-            .scrollIntoView({ block: 'start' });
+            .querySelector(
+              `[data-action=discovery-library][data-id=${ui.saved ? 'saved' : 'all'}]`,
+            )
+            ?.focus({ preventScroll: true });
           break;
         case 'saved-only':
           ui.saved = !ui.saved;
@@ -3176,7 +3225,7 @@
           );
           break;
         case 'try-demo':
-          location.assign('/example.html#demo/plans');
+          location.assign('/example.html#demo/discover');
           break;
         case 'auth-recover':
           joinToken = '';
@@ -3403,8 +3452,29 @@
       });
     }
   });
+  document.addEventListener('compositionend', (event) => {
+    if (event.target.id === 'search')
+      event.target.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  document.addEventListener('pointerdown', (event) => {
+    const filters = document.getElementById('discovery-filters');
+    if (
+      filters?.open &&
+      !filters.contains(event.target) &&
+      !event.target.closest('.choice-list')
+    )
+      filters.open = false;
+  });
+  document.addEventListener('keydown', (event) => {
+    const filters = document.getElementById('discovery-filters');
+    if (event.key === 'Escape' && filters?.open && !dialog.open) {
+      filters.open = false;
+      filters.querySelector('summary').focus();
+    }
+  });
   document.addEventListener('input', (e) => {
     if (e.target.id === 'search') {
+      if (e.isComposing) return;
       ui.selectedDiscovery = null;
       ui.q = e.target.value;
       ui.limit = 24;
@@ -3424,12 +3494,33 @@
       else storePlanDraft();
     }
   });
+  function renderPreservingChoice(element) {
+    const hadFocus =
+      element === document.activeElement ||
+      element.closest('.choice')?.contains(document.activeElement);
+    const id = element.id;
+    render();
+    if (hadFocus)
+      requestAnimationFrame(() => {
+        const field = document.getElementById(id);
+        (
+          field?.closest('.choice')?.querySelector('.choice-trigger') || field
+        )?.focus({ preventScroll: true });
+      });
+  }
   document.addEventListener('change', async (e) => {
     const el = e.target;
     switch (el.id) {
+      case 'region-filter':
+        ui.region = el.value;
+        ui.area = 'all';
+        ui.selectedDiscovery = null;
+        ui.limit = 24;
+        renderPreservingChoice(el);
+        break;
       case 'agenda-map-plan':
         ui.agendaMapPlan = el.value;
-        render();
+        renderPreservingChoice(el);
         break;
       case 'demo-person':
         acceptState(OmakaseDemo.switchTo(el.value), false);
@@ -3439,19 +3530,19 @@
         break;
       case 'board-day':
         ui.boardDay = el.value;
-        render();
+        renderPreservingChoice(el);
         break;
       case 'area-filter':
         ui.selectedDiscovery = null;
         ui.area = el.value;
         ui.limit = 24;
-        render();
+        renderPreservingChoice(el);
         break;
       case 'time-filter':
         ui.selectedDiscovery = null;
         ui.max = el.value;
         ui.limit = 24;
-        render();
+        renderPreservingChoice(el);
         break;
       case 'dice-region':
         updateDiceAreas();
@@ -3462,6 +3553,12 @@
       case 'dice-arranged':
       case 'dice-water':
         updateDiceCount(true);
+        break;
+      case 'memory-visibility':
+        dialog.querySelector('#moment-form [type=submit]').innerHTML =
+          (el.value === 'private' ? 'Save privately' : 'Share with trip') +
+          ' ' +
+          I('arrow');
         break;
       case 'memory-photo':
         await processPhotos([...el.files]);

@@ -46,6 +46,9 @@ a {
 * {
   box-sizing: border-box;
 }
+[hidden] {
+  display: none !important;
+}
 body {
   margin: 0;
   background: var(--paper);
@@ -1130,7 +1133,7 @@ svg.icon {
   color: var(--rust);
   margin-bottom: 16px;
 }
-.empty h3 {
+.empty h2 {
   font-size: 29px;
   margin-bottom: 12px;
 }
@@ -2648,7 +2651,7 @@ dialog.reader {
   .empty {
     padding: 35px 19px;
   }
-  .empty h3 {
+  .empty h2 {
     font-size: 29px;
   }
   .empty p {
@@ -3308,6 +3311,7 @@ select {
   letter-spacing: -0.02em;
 }
 .invite-description {
+  color: var(--muted);
   font-size: 14px;
   line-height: 1.65;
   max-width: 62ch;
@@ -4310,7 +4314,7 @@ input[type='file']::file-selector-button {
   padding: 20px 0;
   border-bottom: 1px solid var(--line);
 }
-.overlap-region h4 {
+.overlap-region h2 {
   font-family: var(--serif);
   font-size: 26px;
   margin-bottom: 8px;
@@ -7242,6 +7246,11 @@ input[type='file']::file-selector-button {
   position: relative;
   margin: 10px 0 16px;
 }
+.places-refinement-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .places-refinements .discovery-library {
   margin: 0;
 }
@@ -7622,6 +7631,8 @@ input[type='file']::file-selector-button {
     --pale: #f6f4f8;
     --serif: var(--sans);
     --control-radius: 12px;
+    --sans:
+      'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
   .header {
     background: #fff;
@@ -7633,20 +7644,24 @@ input[type='file']::file-selector-button {
   .places-open .container {
     padding-inline: 18px;
   }
-  .places-open .meta-line {
-    margin-bottom: 10px;
+  .meta-line {
+    display: none;
   }
   .places-heading {
-    margin: 12px 0 18px;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    margin: 0;
   }
-  .places-heading h1 {
-    font-size: 28px;
-    max-width: 260px;
+  .places-regions {
+    display: none;
   }
   .places-toolbar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
   }
   .places-toolbar .discovery-search {
     width: 100%;
@@ -7655,7 +7670,20 @@ input[type='file']::file-selector-button {
     background: var(--lightgreen);
     border: 0;
   }
+  .places-toolbar .discovery-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .places-toolbar .discovery-search > .icon {
+    position: static;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
   .places-toolbar .discovery-search input {
+    flex: 1;
+    padding-inline: 0;
     min-width: 0;
     height: 48px;
     font-size: 16px;
@@ -7683,23 +7711,37 @@ input[type='file']::file-selector-button {
     min-height: 44px;
   }
   .places-refinements {
-    margin: 4px 0 14px;
+    align-items: center;
+    margin: 6px 0 0;
     gap: 6px;
+  }
+  .places-refinement-actions {
+    gap: 2px;
+    flex-shrink: 0;
   }
   .places-refinements .subnav {
     gap: 4px;
   }
   .places-refinements .subnav button {
-    padding: 7px 10px;
-    font-size: 12px;
+    padding: 8px;
+    font-size: 13px;
+    white-space: nowrap;
   }
   .places-refinements .discovery-filters > summary {
     font-size: 12px;
     padding: 8px 10px;
   }
+  .places-stories {
+    margin: 4px 0 0;
+    border-top: 0;
+  }
   .places-stories > summary {
     align-items: center;
-    padding: 14px 0;
+    padding: 8px 0;
+    min-height: 44px;
+  }
+  .places-stories-description {
+    display: none;
   }
   .places-stories > summary > span:first-child {
     font-size: 13px;
@@ -7717,10 +7759,11 @@ input[type='file']::file-selector-button {
     height: 220px;
   }
   .places-open .discovery h3 {
-    font-size: 22px;
+    font-size: 20px;
+    line-height: 1.2;
   }
   .places-open .discovery-count {
-    margin: 12px 0 16px;
+    margin: 8px 0;
     font-size: 12px;
   }
   .places-map-open .discovery-atlas {
@@ -7819,14 +7862,6 @@ input[type='file']::file-selector-button {
   background: transparent;
 }
 @media (max-width: 850px) {
-  .places-heading h1 {
-    font-size: 27px;
-    max-width: none;
-  }
-  .places-toolbar {
-    display: flex;
-    gap: 8px;
-  }
   .places-toolbar .discovery-search {
     flex: 1;
     width: auto;
@@ -7867,7 +7902,9 @@ input[type='file']::file-selector-button {
     display: none;
   }
   .place-card-media .discovery-image {
-    height: 220px;
+    height: auto;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
   }
 }
 @font-face {
@@ -7887,10 +7924,8 @@ input[type='file']::file-selector-button {
   position: relative;
 }
 .map-feedback {
-  position: absolute;
-  top: 12px;
-  left: 52px;
-  right: 12px;
+  position: relative;
+  margin-bottom: 12px;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -7919,4 +7954,229 @@ input[type='file']::file-selector-button {
   .map-feedback .text-btn {
     padding: 4px 0;
   }
+}
+
+/* Shared quality floor: one phone shell, readable controls, useful short viewports. */
+@media (max-width: 850px) {
+  .header:has(.phone-trip-title) .header-inner {
+    min-height: 52px;
+    padding: 4px 18px;
+    gap: 8px;
+  }
+  .header .brand {
+    min-width: 0;
+    flex: 1;
+  }
+  .header .phone-trip-title {
+    max-width: none;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: anywhere;
+    font: 500 15px/1.3 var(--sans);
+    letter-spacing: -0.015em;
+  }
+  .header-actions {
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  .header-actions > button,
+  .header-actions > .btn {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 10px;
+  }
+  .header-actions .invite-label {
+    display: none;
+  }
+  .header-actions .avatar {
+    width: 28px;
+    height: 28px;
+  }
+  .tagbar {
+    min-height: 44px;
+  }
+  .tagbar .choice-trigger,
+  .tagbar button {
+    min-height: 44px;
+  }
+  .tagbar .choice-trigger {
+    padding-inline: 6px;
+    font-size: 12px;
+  }
+  .tagbar .demo-controls > span:not(.choice) {
+    display: none;
+  }
+  .container {
+    padding-inline: 18px;
+  }
+  .nav-dock {
+    padding: 4px max(8px, env(safe-area-inset-left))
+      max(4px, env(safe-area-inset-bottom));
+    gap: 4px;
+  }
+  .nav-dock button {
+    min-height: 52px;
+    flex: 1;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .nav-dock .icon {
+    width: 22px;
+    height: 22px;
+  }
+  .agenda-day-step .icon-btn {
+    min-width: 44px;
+    width: 44px;
+  }
+  .agenda-day-heading {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .agenda-day-step {
+    margin-left: auto;
+  }
+  .friends-heading {
+    margin: 18px 0;
+  }
+  .friends-heading h1,
+  .memories-heading h1 {
+    font: 650 26px/1.2 var(--sans);
+    letter-spacing: -0.025em;
+  }
+  .memories-heading {
+    padding-block: 18px 16px;
+  }
+  .memories-heading > p {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .memories-heading .btn {
+    font-size: 13px;
+  }
+  .memories-heading + .subnav {
+    margin-bottom: 0;
+  }
+  .memories-heading ~ .empty {
+    padding: 32px 16px;
+  }
+  .empty h2 {
+    font: 600 24px/1.25 var(--sans);
+  }
+  .empty p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .empty > .btn .icon {
+    color: inherit;
+  }
+  .places-filter-panel {
+    max-height: min(480px, calc(100dvh - 220px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .choice-trigger,
+  .field input:not([type='checkbox']):not([type='radio']),
+  .field textarea,
+  .field select {
+    border-color: #96939e;
+  }
+}
+@media (min-width: 600px) and (max-width: 1100px) {
+  .places-open .discovery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 360px) {
+  .places-refinements .subnav button {
+    padding-inline: 5px;
+    font-size: 12px;
+  }
+  .places-refinements .discovery-filters > summary {
+    padding-inline: 8px;
+  }
+}
+
+.place-card-media .card-photo {
+  overflow: visible;
+  border-radius: 0;
+}
+.place-card-media .discovery-image {
+  overflow: hidden;
+  border-radius: 14px;
+}
+.place-card-media .card-photo img {
+  height: 100%;
+  display: block;
+}
+@media (max-width: 850px) {
+  .places-open .unfiltered-count {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .places-open .discovery-grid {
+    margin-top: 12px;
+  }
+  .place-card-copy {
+    padding-top: 6px;
+  }
+  .choice-trigger:hover,
+  .choice-trigger[aria-expanded='true'] {
+    background: var(--pale);
+  }
+}
+
+.places-concierge {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block: 16px;
+}
+@media (max-width: 850px) {
+  .places-heading > .btn {
+    display: none;
+  }
+}
+
+.places-refinements .discovery-filters > summary::after {
+  display: none;
+}
+.places-refinements .discovery-filters > summary > span:empty {
+  display: none;
+}
+@media (max-width: 360px) {
+  .places-refinements .discovery-filters > summary {
+    width: 44px;
+    min-width: 44px;
+    padding: 10px;
+  }
+  .filter-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+/* Credit links sit beside the outing disclosure, never inside its button. */
+.curated-entry {
+  border-top: 1px solid var(--line);
+  padding: 20px 0;
+  min-width: 0;
+}
+.curated-entry > .curated-outing {
+  border-top: 0;
+  padding: 0;
+}
+.curated-entry > .experience-photo {
+  margin: 0 0 12px;
 }

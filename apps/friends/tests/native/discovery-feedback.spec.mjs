@@ -31,7 +31,9 @@ test('discoveries have distinct credited photos, prominent moods and a findable 
   });
   await page.locator('#search').fill('Reversible Destiny');
   await page.locator('[data-action=save][data-id="tokyo-007"]').click();
-  await expect(page.locator('#toast')).toContainText('private shortlist');
+  await expect(page.locator('#toast')).toContainText(
+    'Saved to your private places',
+  );
   await page.locator('#toast [data-action=view-saved]').click();
   await expect(
     page.locator('[data-action=discovery-library][data-id=saved]'),
